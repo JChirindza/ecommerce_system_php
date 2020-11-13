@@ -109,12 +109,12 @@ if($_POST) {
 							<fieldset>
 								<div class="form-group">
 									<div class="col-sm-12">
-										<input type="text" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off" />
-									</div>
+										<input type="text" class="form-control" id="email" name="email" placeholder="Email" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required />
+									</div> 
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12">
-										<input type="password" class="form-control" id="password" name="password" placeholder="Senha" autocomplete="off" />
+										<input type="password" class="form-control" id="password" name="password" placeholder="Senha" autocomplete="off" required/>
 									</div>
 								</div>								
 								<div class="form-group">
