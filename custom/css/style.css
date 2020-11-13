@@ -33,14 +33,11 @@ div.kv-avatar div.file-input div.file-preview {
 
 /*login form*/
 .vertical {
-	padding-top: 150px;
+	padding-top: 50px;
 	padding-bottom: 150px;
 }
 
 /* Sidebar */
-#wrapper {
-	overflow-x: hidden;
-}
 
 #sidebar-wrapper {
 	min-height: 100vh;

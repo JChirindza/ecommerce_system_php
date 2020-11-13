@@ -40,10 +40,9 @@ $(document).ready(function() {
 		$("#submitUserForm").unbind('submit').bind('submit', function() {
 			// form validation
 			var userName = $("#userName").val();
-			var useremail = $("#userEmail").val();
+			var useremail = $("#uemail").val();
 			var upassword = $("#upassword").val();
-			var userImage = $("#userImage").val();
-			var userStatus = $("#userStatus").val();
+			var userPermittion = $("#permittion").val();
 
 			if(userName == "") {
 				$("#userName").after('<p class="text-danger">User name field is required</p>');
@@ -56,13 +55,13 @@ $(document).ready(function() {
 			}	// /else
 
 			if(useremail == "") {
-				$("#useremail").after('<p class="text-danger">Email field is required</p>');
-				$('#useremail').closest('.form-group').addClass('has-error');
+				$("#uemail").after('<p class="text-danger">Email field is required</p>');
+				$('#uemail').closest('.form-group').addClass('has-error');
 			}	else {
 				// remov error text field
-				$("#useremail").find('.text-danger').remove();
+				$("#uemail").find('.text-danger').remove();
 				// success out for form 
-				$("#useremail").closest('.form-group').addClass('has-success');	  	
+				$("#uemail").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
 			if(upassword == "") {
@@ -75,27 +74,17 @@ $(document).ready(function() {
 				$("#upassword").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
-			if(userImage == "") {
-				$("#userImage").closest('.center-block').after('<p class="text-danger">User Image field is required</p>');
-				$('#userImage').closest('.form-group').addClass('has-error');
+			if(userPermittion == "") {
+				$("#permittion").after('<p class="text-danger">User access type field is required</p>');
+				$('#permittion').closest('.form-group').addClass('has-error');
 			}	else {
 				// remov error text field
-				$("#userImage").find('.text-danger').remove();
+				$("#permittion").find('.text-danger').remove();
 				// success out for form 
-				$("#userImage").closest('.form-group').addClass('has-success');	  	
+				$("#permittion").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
-			if(userStatus == "") {
-				$("#userStatus").after('<p class="text-danger">User Status field is required</p>');
-				$('#userStatus').closest('.form-group').addClass('has-error');
-			}	else {
-				// remov error text field
-				$("#userStatus").find('.text-danger').remove();
-				// success out for form 
-				$("#userStatus").closest('.form-group').addClass('has-success');	  	
-			}	// /else
-
-			if(upassword && userName && useremail) {
+			if(userName && useremail && upassword && userPermittion) {
 				// submit loading button
 				$("#createUserBtn").button('loading');
 

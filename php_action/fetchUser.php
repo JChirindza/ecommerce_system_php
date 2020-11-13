@@ -4,7 +4,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT * FROM users";
+$sql = "SELECT * FROM users WHERE permittion != 0";
 
 $result = $connect->query($sql);
 
@@ -12,6 +12,8 @@ $output = array('data' => array());
 if($result->num_rows > 0) { 
 
  	// $row = $result->fetch_array();
+	$type = ""; 
+	$permittion = ""; 
 	$active = ""; 
 
 	while($row = $result->fetch_array()) {
@@ -24,12 +26,26 @@ if($result->num_rows > 0) {
 		$imageUrl = substr($row[4], 3);
 		$productImage = "<img class='img-round' src='".$imageUrl."' style='height:30px; width:30px;'  />";
 
-		// active 
+		// type 
 		if($row[5] == 1) {
- 			// activate member
+			$type = "<label class='badge badge-success'>Funcionario</label>";
+		} else {
+			$type = "<label class='badge badge-primary'>Cliente</label>";
+		}
+
+		// permittion 
+		if($row[6] == 1) {
+			$permittion = "<label class='badge badge-info'>Administrador</label>";
+		} elseif ($row[6] == 2) {
+			$permittion = "<label class='badge badge-warning'>Gestor</label>";
+		} else {
+			$permittion = "<label class='badge badge-secondary'>Vendedor</label>";
+		}
+
+		// active 
+		if($row[7] == 1) {
 			$active = "<label class='badge badge-success'>Activo</label>";
 		} else {
- 			// deactivate member
 			$active = "<label class='badge badge-danger'>Inactivo</label>";
 		}
 
@@ -45,6 +61,10 @@ if($result->num_rows > 0) {
 			$username,
  			// email
 			$email,
+			// active
+			$type,
+			// active
+			$permittion,
  			// active
 			$active,
  			// button

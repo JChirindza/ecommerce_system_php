@@ -60,8 +60,10 @@ $connect->close();
 						<thead>
 							<tr>
 								<th style="width:10%;">Foto</th>
-								<th style="width:25%;">Nome do usuario</th>
-								<th style="width:35%;">Email</th>
+								<th style="width:20%;">Nome do usuario</th>
+								<th style="width:30%;">Email</th>
+								<th style="width:10%;">Tipo</th>
+								<th style="width:10%;">Permissao</th>
 								<th style="width:10%;">Status</th>
 								<th style="width:10%;">Options</th>
 							</tr>
@@ -85,24 +87,24 @@ $connect->close();
 					<h4 class="modal-title"><i class="fa fa-plus"></i> Add User</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
-
+				
+				<div id="add-user-messages"></div>
+				
 				<div class="modal-body" style="max-height:450px; overflow:auto;">
 
-					<div id="add-user-messages"></div>
-
 					<div class="form-group">
-						<label for="userName" class="col-sm-3 control-label">Nome do usuario: </label>
+						<label for="userName" class="col-sm-4 control-label">Nome do usuario: </label>
 						
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" autocomplete="off">
+							<input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" autocomplete="off" >
 						</div>
 					</div> <!-- /form-group-->
 
 					<div class="form-group">
-						<label for="email" class="col-sm-3 control-label"> Email: </label>
+						<label for="uemail" class="col-sm-3 control-label"> Email: </label>
 						
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="email" placeholder="Email" name="email" autocomplete="off">
+							<input type="text" class="form-control" id="uemail" placeholder="Email" name="uemail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
 						</div>
 					</div> <!-- /form-group-->	    
 
@@ -110,10 +112,24 @@ $connect->close();
 						<label for="upassword" class="col-sm-3 control-label">Password: </label>
 						
 						<div class="col-sm-8">
-							<input type="password" class="form-control" id="upassword" placeholder="Password" name="upassword" autocomplete="off">
+							<input type="password" class="form-control" id="upassword" placeholder="Password" name="upassword" autocomplete="off" required>
 						</div>
-					</div> <!-- /form-group-->	        	 
+					</div> <!-- /form-group-->	
 
+					<div class="form-group">
+						<label for="upassword" class="col-sm-4 control-label">Tipo de acesso: </label>
+						
+						<div class="col-sm-8">
+							<select class="form-control" id="permittion" name="permittion" required>
+								<option value="">~~SELECT~~</option>
+								<option value="1">Administrador</option>
+								<option value="2">Gestor</option>
+								<option value="3">Vendedor</option>
+							</select>
+						</div>
+					</div> <!-- /form-group-->
+		        	<!-- user type >>> 1 - Funcionario -->
+					<input type="text" name="" hidden="true" id="type" value="1">
 				</div> <!-- /modal-body -->
 				
 				<div class="modal-footer">
@@ -205,7 +221,7 @@ $connect->close();
 									<label for="editEmail" class="col-sm-3 control-label">Email: </label>
 									
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="editEmail" placeholder="Email" name="editEmail" autocomplete="off">
+										<input type="text" class="form-control" id="editEmail" placeholder="Email" name="editEmail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
 									</div>
 								</div> <!-- /form-group-->	 	    
 
@@ -213,7 +229,7 @@ $connect->close();
 									<label for="editPassword" class="col-sm-3 control-label">Password: </label>
 									
 									<div class="col-sm-8">
-										<input type="password" class="form-control" id="editPassword" placeholder="Password" name="editPassword" autocomplete="off">
+										<input type="password" class="form-control" id="editPassword" placeholder="Password" name="editPassword" autocomplete="off" required>
 									</div>
 								</div> <!-- /form-group-->	
 
