@@ -1,64 +1,53 @@
 <?php
 
-//fetch_data.php
+require_once 'php_action/db_connect.php';
 
-// include('database_connection.php');
-$connect = new PDO("mysql:host=localhost;dbname=testing", "root", "");
+if(isset($_POST["action"])) {
 
-if(isset($_POST["action"]))
-{
-	$query = " SELECT * FROM product WHERE product_status = '1' limit 4";
-	if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"]))
-	{
-		$query .= " AND product_price BETWEEN '".$_POST["minimum_price"]."' AND '".$_POST["maximum_price"]."' ";
+	$sql = " SELECT * FROM product WHERE active = '1' limit 8";
+
+	if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"])) {
+		$sql .= " AND rate BETWEEN '".$_POST["minimum_price"]."' AND '".$_POST["maximum_price"]."' ";
 	}
-	if(isset($_POST["brand"]))
-	{
+	
+	if(isset($_POST["brand"])) {
 		$brand_filter = implode("','", $_POST["brand"]);
-		$query .= " AND product_brand IN('".$brand_filter."') ";
-	}
-	if(isset($_POST["ram"]))
-	{
-		$ram_filter = implode("','", $_POST["ram"]);
-		$query .= " AND product_ram IN('".$ram_filter."') ";
-	}
-	if(isset($_POST["storage"]))
-	{
-		$storage_filter = implode("','", $_POST["storage"]);
-		$query .= " AND product_storage IN('".$storage_filter."') ";
+		$sql .= " AND brand_id IN('".$brand_filter."') ";
 	}
 
-	$statement = $connect->prepare($query);
-	$statement->execute();
-	$result = $statement->fetchAll();
-	$total_row = $statement->rowCount();
+	$result = $connect->query($sql);
+
 	$output = '';
-	if($total_row > 0)
-	{
-		foreach($result as $row)
-		{
+	if($result->num_rows > 0) { 
+		foreach($result as $row) {
 			$output .= '
 			<div class="col-sm-4 col-lg-3 col-md-3">
-				<div class="mb-4" style="border:1px solid #ccc; border-radius:1px; height:450px;">
-					<div>
-						<img src="image/'. $row['product_image'] .'" alt="" class="img-fluid" >
+				<div class="product-entry">
+					<div class="product-img">
+						<img src="src/'. $row['product_image'] .'" class="img-fluid" style="height: 200px; " >
 					</div>
-					<div class=\"card-body\">
-						<p align="center"><strong><a href="#">'. $row['product_name'] .'</a></strong></p>
-						<h5 style="text-align:center;" class="text-danger" >'. $row['product_price'] .' Mt</h5>
-						
+					
+					<div class="product-name card-body">
+						<p align="center"><strong><a href="#" class="text-dark">'. $row['product_name'] .'</a></strong></p>
+					</div>
+					<div class="product-price">
+						<h5 style="text-align:center;" class="text-danger" >'. $row['rate'] .' Mt</h5>
+					</div>
+					<div class="cart">
+						<a href="#" class="add-to-cart">
+							<i class="fas fa-cart-arrow-down"></i>
+						</a>
 					</div>
 				</div>
-
 			</div>
 			';
 		}
-	}
-	else
-	{
+	} else {
 		$output = '<h3>No Data Found</h3>';
 	}
+	
 	echo $output;
 }
 
 ?>
+
