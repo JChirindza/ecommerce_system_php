@@ -7,7 +7,7 @@ require_once 'db_connect.php';
 // echo $_SESSION['userId'];
 
 if(!$_SESSION['userId']) {
-	header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php');	
+	header('location: ../SistemaDeVendas_ControleDeStock/index.php');	
 } 
 
 
