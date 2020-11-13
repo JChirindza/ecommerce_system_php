@@ -36,7 +36,7 @@ $(document).ready(function() {
 					if(response.success == true)  {												
 
 						// shows a successful message after operation
-						$('.changeUsenrameMessages').html('<div class="alert alert-success">'+
+						$('.changeUsernameMessages').html('<div class="alert alert-success">'+
 							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 							'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 							'</div>');
@@ -50,7 +50,72 @@ $(document).ready(function() {
 						
 					} else {
 						// shows a successful message after operation
-						$('.changeUsenrameMessages').html('<div class="alert alert-warning">'+
+						$('.changeUsernameMessages').html('<div class="alert alert-warning">'+
+							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+							'<strong><i class="fas fa-exclamation-sign"></i></strong> '+ response.messages +
+							'</div>');
+
+						// remove the mesages
+						$(".alert-warning").delay(500).show(10, function() {
+							$(this).delay(3000).hide(10, function() {
+								$(this).remove();
+							});
+						}); // /.alert	          					
+					}
+				} // /success 
+			}); // /ajax
+		}
+
+		return false;
+	});
+
+	// change email
+	$("#changeEmailForm").unbind('submit').bind('submit', function() {
+		var form = $(this);
+
+		var email = $("#email").val();
+
+		if(username == "") {
+			$("#email").after('<p class="text-danger">Email field is required</p>');
+			$("#email").closest('.form-group').addClass('has-error');
+		} else {
+
+			$(".text-danger").remove();
+			$('.form-group').removeClass('has-error');
+
+			$("#changeEmailBtn").button('loading');
+
+			$.ajax({
+				url: form.attr('action'),
+				type: form.attr('method'),
+				data: form.serialize(),
+				dataType: 'json',
+				success:function(response) {
+
+					$("#changeEmailBtn").button('reset');
+					// remove text-error 
+					$(".text-danger").remove();
+					// remove from-group error
+					$(".form-group").removeClass('has-error').removeClass('has-success');
+
+					if(response.success == true)  {												
+
+						// shows a successful message after operation
+						$('.changeEmailMessages').html('<div class="alert alert-success">'+
+							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+							'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+							'</div>');
+
+						// remove the mesages
+						$(".alert-success").delay(500).show(10, function() {
+							$(this).delay(3000).hide(10, function() {
+								$(this).remove();
+							});
+						}); // /.alert	          					
+						
+					} else {
+						// shows a successful message after operation
+						$('.changeEmailMessages').html('<div class="alert alert-warning">'+
 							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 							'<strong><i class="fas fa-exclamation-sign"></i></strong> '+ response.messages +
 							'</div>');

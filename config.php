@@ -34,10 +34,13 @@ $connect->close();
 							<a class="nav-link active" data-toggle="tab" href="#menu1">Alterar Foto</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#menu2">Alterar Dados</a>
+							<a class="nav-link" data-toggle="tab" href="#menu2">Alterar Nome do usuario</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#menu3">Alterar Senha</a>
+							<a class="nav-link" data-toggle="tab" href="#menu3">Alterar email</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#menu4">Alterar Senha</a>
 						</li>
 					</ul>
 				</div>
@@ -72,19 +75,12 @@ $connect->close();
 						<form action="php_action/changeUsername.php" method="post" class="form-horizontal col-sm-8" id="changeUsernameForm">
 							<fieldset >
 
-								<div class="changeUsenrameMessages"></div>			
+								<div class="changeUsernameMessages"></div>			
 
 								<div class="form-group">
 									<label for="username" class="col-sm control-label">Username:</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="username" name="username" placeholder="Usename" value="<?php echo $result['username']; ?>"/>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="email" class="col-sm control-label">Email:</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $result['email']; ?>"/>
+										<input type="text" class="form-control" id="username" name="username" placeholder="Usename" value="<?php echo $result['username']; ?>" required/>
 									</div>
 								</div>
 
@@ -98,7 +94,30 @@ $connect->close();
 						</form>
 					</div>
 
-					<div id="menu3" class="tab-pane fade">
+					<div id="menu3" class="tab-pane fade" >
+						<form action="php_action/changeEmail.php" method="post" class="form-horizontal col-sm-8" id="changeEmailForm">
+							<fieldset >
+
+								<div class="changeEmailMessages"></div>			
+
+								<div class="form-group">
+									<label for="email" class="col-sm control-label">Email:</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $result['email']; ?>" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<input type="hidden" name="user_id" id="user_id" value="<?php echo $result['user_id'] ?>" /> 
+										<button type="submit" class="btn btn-success" data-loading-text="Loading..." id="changeEmailBtn"> <i class="fas fa-save"></i> Save Changes </button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+
+					<div id="menu4" class="tab-pane fade">
 						<form action="php_action/changePassword.php" method="post" class="form-horizontal col-sm-8" id="changePasswordForm">
 							<fieldset>
 								<div class="changePasswordMessages"></div>
@@ -106,21 +125,21 @@ $connect->close();
 								<div class="form-group">
 									<label for="password" class="col-sm control-label">Current Password:</label>
 									<div class="col-sm-10">
-										<input type="password" class="form-control" id="password" name="password" placeholder="Current Password">
+										<input type="password" class="form-control" id="password" name="password" placeholder="Current Password" required>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="npassword" class="col-sm control-label">New password:</label>
 									<div class="col-sm-10">
-										<input type="password" class="form-control" id="npassword" name="npassword" placeholder="New Password">
+										<input type="password" class="form-control" id="npassword" name="npassword" placeholder="New Password" required>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="cpassword" class="col-sm control-label">Confirm Password:</label>
 									<div class="col-sm-10">
-										<input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password">
+										<input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" required>
 									</div>
 								</div>
 
