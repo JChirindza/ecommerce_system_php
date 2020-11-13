@@ -11,18 +11,17 @@ if($result->num_rows > 0) {
 ?>
 <nav class="navbar navbar-expand-lg border-bottom shadow-sm" >
 	<!-- Brand -->
-	<a class="col-md-6" href="dashboard.php">
-		<div class="col-md-5  brand navbar-brand border logo p-0">
-			<label class="text-dark m-0">ComputersOnly</label>
-		</div>
-	</a>
-	<div class="col-md-6">
+	<div class="col-md">
+		<a class="col-md  brand navbar-brand logo p-0 text-primary border" href="dashboard.php">ComputersOnly</a>
+	</div>
+	
+	<div class="col-md-10">
 		<div class="dropdown navbar-nav float-right">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img class="img-profile rounded-circle border" src="assests/images/users/john.jpg" style="width: 35px; height: 35px;">
+							<img class="img-profile rounded-circle border border-info" src="assests/images/users/john.jpg" style="width: 35px; height: 35px;">
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="config.php"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil</a>
