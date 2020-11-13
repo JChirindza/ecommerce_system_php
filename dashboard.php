@@ -2,6 +2,12 @@
 
 <?php 
 
+$user_id = $_SESSION['userId'];
+$sql = "SELECT * FROM users WHERE user_id = {$user_id}";
+$query = $connect->query($sql);
+$result = $query->fetch_assoc();
+
+
 $sql = "SELECT * FROM product WHERE status = 1";
 $query = $connect->query($sql);
 $countProduct = $query->num_rows;
@@ -49,6 +55,7 @@ $connect->close();
 	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
 </div>
 
+<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
 <div class="row">
 
 	<!-- Earnings (Monthly) Card Example -->
@@ -128,10 +135,11 @@ $connect->close();
 		</div>
 	</div>
 </div>
+<?php } ?> 
 
 <div class="row">
 
-	<?php  if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
 		<div class="col-md-4 pt-2 mb-4">
 			<div class="card card-success shadow-sm ">
 				<div class="card-body">
@@ -159,25 +167,27 @@ $connect->close();
 		</div> <!--/col-md-4-->
 	<?php } ?>  
 
-	<div class="col-md-4 pt-2 mb-4">
-		<div class="card shadow-sm ">
-			<div class="card-body">
-				<a href="pedidos.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
-					<div class="d-sm-flex align-items-center justify-content-between">
-						<label>Total de pedidos</label>
-						<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
-					</div>
-				</a>
-			</div> 
-		</div>
-	</div> <!--/col-md-4-->
+	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
+		<div class="col-md-4 pt-2 mb-4">
+			<div class="card shadow-sm ">
+				<div class="card-body">
+					<a href="pedidos.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
+						<div class="d-sm-flex align-items-center justify-content-between">
+							<label>Total de pedidos</label>
+							<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
+						</div>
+					</a>
+				</div> 
+			</div>
+		</div> <!--/col-md-4-->
+	<?php } ?>  
 </div>
 
 <div class="row">
-	<?php  if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
 		<div class="col-md-12 pt-2 mb-4">
 			<div class="card shadow-sm ">
-				<div class="card-header"> <i class="glyphicon glyphicon-calendar"></i> Pedidos de Usuarios</div>
+				<div class="card-header"> <i class="fas fa-calendar"></i> Pedidos de Usuarios</div>
 				<div class="card-body">
 					<table class="table" id="productTable">
 						<thead>
@@ -191,18 +201,38 @@ $connect->close();
 								<tr>
 									<td><?php echo $orderResult['username']?></td>
 									<td><?php echo $orderResult['totalorder']?></td>
-
 								</tr>
-
 							<?php } ?>
 						</tbody>
 					</table>
-					<!--<div id="calendar"></div>-->
 				</div>	
 			</div>
-
 		</div> 
-	<?php  } ?>
+	<?php  }elseif (isset($_SESSION['userId']) && $result['permittion'] != 3) { ?> 
+		<div class="col-md-12 pt-2 mb-4">
+			<div class="card shadow-sm ">
+				<div class="card-header"> <i class="fas fa-calendar"></i> Compras de Usuarios</div>
+				<div class="card-body">
+					<table class="table" id="productTable">
+						<thead>
+							<tr>			  			
+								<th style="width:40%;">Name</th>
+								<th style="width:20%;">Compras em (MZN)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
+								<tr>
+									<td><?php echo $orderResult['username']?></td>
+									<td><?php echo $orderResult['totalorder']?></td>
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>	
+			</div>
+		</div> 
+	<?php } ?>
 	
 	<div class="col-md-4  pt-2 mb-4">
 		<div class="card shadow-sm ">
