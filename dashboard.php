@@ -1,6 +1,6 @@
 <?php require_once 'includes/header.php'; ?>
 
-<?php 
+<?php
 
 $user_id = $_SESSION['userId'];
 $sql = "SELECT * FROM users WHERE user_id = {$user_id}";
@@ -25,7 +25,7 @@ $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
 
-$userwisesql = "SELECT users.username , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
+$userwisesql = "SELECT users.name, users.surname , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
 $userwiseQuery = $connect->query($userwisesql);
 $userwieseOrder = $userwiseQuery->num_rows;
 
@@ -52,7 +52,7 @@ $connect->close();
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="text-muted">Dashboard</h1>
-	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
+	<a href="pedidos.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
 </div>
 
 <?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
@@ -189,17 +189,19 @@ $connect->close();
 			<div class="card shadow-sm ">
 				<div class="card-header"> <i class="fas fa-calendar"></i> Pedidos de Usuarios</div>
 				<div class="card-body">
-					<table class="table" id="productTable">
+					<table class="table table-responsive" id="productTable">
 						<thead>
 							<tr>			  			
-								<th style="width:40%;">Name</th>
+								<th style="width:30%;">Name</th>
+								<th style="width:30%;">Apelido</th>
 								<th style="width:20%;">Pedidos em (MZN)</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
 								<tr>
-									<td><?php echo $orderResult['username']?></td>
+									<td><?php echo $orderResult['name']?></td>
+									<td><?php echo $orderResult['surname']?></td>
 									<td><?php echo $orderResult['totalorder']?></td>
 								</tr>
 							<?php } ?>
@@ -216,14 +218,16 @@ $connect->close();
 					<table class="table" id="productTable">
 						<thead>
 							<tr>			  			
-								<th style="width:40%;">Name</th>
-								<th style="width:20%;">Compras em (MZN)</th>
+								<th style="width:35%;">Nome</th>
+								<th style="width:35%;">Apelido</th>
+								<th style="width:30%;">Compras em (MZN)</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
 								<tr>
-									<td><?php echo $orderResult['username']?></td>
+									<td><?php echo $orderResult['name']?></td>
+									<td><?php echo $orderResult['surname']?></td>
 									<td><?php echo $orderResult['totalorder']?></td>
 								</tr>
 							<?php } ?>

@@ -1,36 +1,42 @@
 <?php 
 require_once 'php_action/db_connect.php';
 
-
 $valid['success'] = array('success' => false, 'messages' => array());
 
 if($_POST) {    
 
-    $name       = $_POST['userName'];
+    $name       = $_POST['name'];
     $surname    = $_POST['surname'];
-    $nomeCompleto = $name." ".$surname;
-    
     $uemail     = $_POST['uemail'];
     $upassword  = md5($_POST['upassword']);
-    $permittion = $_POST['permittion'];
     $url        = '../assests/images/photo_default.png';
     
-    $sql = "INSERT INTO users (username, email, password, user_image, type, permittion, active, status) 
-    VALUES ('$nomeCompleto', '$uemail', '$upassword', '$url', 2, 0, 1, 1)";
-
-    $cpassword = $_POST['cpassword'];
+    $cpassword =  md5($_POST['cpassword']);
     
-    if($upassword == $conformPassword) {
-        if($connect->query($sql) === TRUE) {
-            $valid['success'] = true;
-            $valid['messages'] = "Successfully Added";  
+    $sql1 = "SELECT * FROM users WHERE email = '$uemail' ";
+    $query1 = $connect->query($sql1);
+    $count = $query1->num_rows;
+    
+    if ($count == 0) {
+        if($upassword == $cpassword) {
+
+            $sql = "INSERT INTO users (name, surname, email, password, user_image, type, permittion, active, status) 
+            VALUES ('$name', '$surname', '$uemail', '$upassword', '$url', 2, 0, 1, 1)";
+
+            if($connect->query($sql) === TRUE) {
+                $valid['success'] = true;
+                $valid['messages'] = "Successfully Added";  
+            } else {
+                $valid['success'] = false;
+                $valid['messages'] = "Error while adding the members";
+            }
         } else {
             $valid['success'] = false;
-            $valid['messages'] = "Error while adding the members";
+            $valid['messages'] = "New password does not match with Conform password";
         }
     } else {
         $valid['success'] = false;
-        $valid['messages'] = "New password does not match with Conform password";
+        $valid['messages'] = "Existing email, please type another one!";
     }
 } // if in_array        
 
@@ -68,7 +74,7 @@ echo json_encode($valid);
 <body>
     <div class="container">
         <div class="row vertical ">
-            <div class="col-md-8 col-md-offset-4 m-auto">
+            <div class="col-md-6 col-md-offset-4 m-auto">
                 <div class="col-md pb-2">
                     <a class="col-md navbar-brand logo p-0 text-primary" href="index.php">ComputersOnly</a>
                 </div>
@@ -84,7 +90,7 @@ echo json_encode($valid);
                                 <form class="user">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control" id="name" placeholder="Nome" name="userName" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="name" placeholder="Nome" name="name" autocomplete="off" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <input type="text" class="form-control" id="surname" placeholder="Apelido" name="surname" autocomplete="off" required>
@@ -128,9 +134,6 @@ echo json_encode($valid);
         <!-- /row -->
     </div>
     <!-- container -->  
-    <!-- <script src="custom/js/user.js"></script> -->
-    <script type="text/javascript">
-
-    </script>
+    <script src="custom/js/user.js"></script>
 </body>
 </html>
