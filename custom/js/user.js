@@ -39,19 +39,30 @@ $(document).ready(function() {
 		// submit product form
 		$("#submitUserForm").unbind('submit').bind('submit', function() {
 			// form validation
-			var userName = $("#userName").val();
+			var name = $("#name").val();
+			var surname = $("#surname").val();
 			var useremail = $("#uemail").val();
 			var upassword = $("#upassword").val();
 			var userPermittion = $("#permittion").val();
 
-			if(userName == "") {
-				$("#userName").after('<p class="text-danger">User name field is required</p>');
-				$('#userName').closest('.form-group').addClass('has-error');
+			if(name == "") {
+				$("#name").after('<p class="text-danger">Name field is required</p>');
+				$('#name').closest('.form-group').addClass('has-error');
 			}	else {
 				// remov error text field
-				$("#userName").find('.text-danger').remove();
+				$("#name").find('.text-danger').remove();
 				// success out for form 
-				$("#userName").closest('.form-group').addClass('has-success');	  	
+				$("#name").closest('.form-group').addClass('has-success');	  	
+			}	// /else
+
+			if(surname == "") {
+				$("#surname").after('<p class="text-danger"> Surname field is required</p>');
+				$('#surname').closest('.form-group').addClass('has-error');
+			}	else {
+				// remov error text field
+				$("#surname").find('.text-danger').remove();
+				// success out for form 
+				$("#surname").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
 			if(useremail == "") {
@@ -84,7 +95,7 @@ $(document).ready(function() {
 				$("#permittion").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
-			if(userName && useremail && upassword && userPermittion) {
+			if(name && surname && useremail && upassword && userPermittion) {
 				// submit loading button
 				$("#createUserBtn").button('loading');
 
@@ -180,12 +191,16 @@ function editUser(userid = null) {
 				$(".editUserFooter").append('<input type="hidden" name="userid" id="userid" value="'+response.user_id+'" />');				
 				$(".editUserPhotoFooter").append('<input type="hidden" name="userid" id="userid" value="'+response.user_id+'" />');				
 				
-				// user name
-				$("#edituserName").val(response.username);
+				// name
+				$("#editName").val(response.name);
+				//  Surname
+				$("#editSurname").val(response.surname);
 				// user email
 				$("#editEmail").val(response.email);
 				// password
 				$("#editPassword").val(response.password);
+				// status
+				$("#editPermittion").val(response.permittion);
 				// status
 				$("#editUserStatus").val(response.active);
 				
@@ -194,21 +209,32 @@ function editUser(userid = null) {
 
 					// form validation
 					var userImage = $("#editUserImage").val();
-					var username = $("#edituserName").val();
+					var name = $("#editName").val();
+					var surname = $("#editSurname").val();
 					var useremail = $("#editEmail").val();
 					var userpassword = $("#editPassword").val();
 					var userImage = $("#editUserImage").val();
 					var userStatus = $("#editUserStatus").val();
 
 
-					if(username == "") {
-						$("#edituserName").after('<p class="text-danger">User Name field is required</p>');
-						$('#edituserName').closest('.form-group').addClass('has-error');
+					if(name == "") {
+						$("#editName").after('<p class="text-danger">Name field is required</p>');
+						$('#editName').closest('.form-group').addClass('has-error');
 					}	else {
 						// remov error text field
-						$("#edituserName").find('.text-danger').remove();
+						$("#editName").find('.text-danger').remove();
 						// success out for form 
-						$("#edituserName").closest('.form-group').addClass('has-success');	  	
+						$("#editName").closest('.form-group').addClass('has-success');	  	
+					}	// /else
+
+					if(surname == "") {
+						$("#editSurname").after('<p class="text-danger">Surname field is required</p>');
+						$('#editSurname').closest('.form-group').addClass('has-error');
+					}	else {
+						// remov error text field
+						$("#editSurname").find('.text-danger').remove();
+						// success out for form 
+						$("#editSurname").closest('.form-group').addClass('has-success');	  	
 					}	// /else
 
 					if(useremail == "") {
@@ -252,7 +278,7 @@ function editUser(userid = null) {
 					}	// /else
 
 
-					if(userpassword && username && useremail && userStatus) {
+					if(userpassword && name && surname && useremail && userStatus) {
 						// submit loading button
 						$("#editUserBtn").button('loading');
 

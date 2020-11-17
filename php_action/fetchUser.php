@@ -19,31 +19,33 @@ if($result->num_rows > 0) {
 	while($row = $result->fetch_array()) {
 		$userid = $row[0];
  		// active 
-		$username = $row[1];
+		$name = $row[1];
+		// surname
+		$surname = $row[2];
  		// email
-		$email = $row[2];
+		$email = $row[3];
 		// Image
-		$imageUrl = substr($row[4], 3);
+		$imageUrl = substr($row[5], 3);
 		$productImage = "<img class='img-round' src='".$imageUrl."' style='height:30px; width:30px;'  />";
 
 		// type 
-		if($row[5] == 1) {
-			$type = "<label class='badge badge-success'>Funcionario</label>";
-		} else {
-			$type = "<label class='badge badge-primary'>Cliente</label>";
-		}
+		// if($row[6] == 1) {
+		// 	$type = "<label class='badge badge-success'>Funcionario</label>";
+		// } else {
+		// 	$type = "<label class='badge badge-primary'>Cliente</label>";
+		// }
 
 		// permittion 
-		if($row[6] == 1) {
-			$permittion = "<label class='badge badge-info'>Administrador</label>";
-		} elseif ($row[6] == 2) {
-			$permittion = "<label class='badge badge-warning'>Gestor</label>";
-		} else {
-			$permittion = "<label class='badge badge-secondary'>Vendedor</label>";
-		}
+		// if($row[7] == 1) {
+		// 	$permittion = "<label class='badge badge-info'>Administrador</label>";
+		// } elseif ($row[7] == 2) {
+		// 	$permittion = "<label class='badge badge-warning'>Gestor</label>";
+		// } else {
+		// 	$permittion = "<label class='badge badge-secondary'>Vendedor</label>";
+		// }
 
 		// active 
-		if($row[7] == 1) {
+		if($row[8] == 1) {
 			$active = "<label class='badge badge-success'>Activo</label>";
 		} else {
 			$active = "<label class='badge badge-danger'>Inactivo</label>";
@@ -58,13 +60,11 @@ if($result->num_rows > 0) {
 			// image
 			$productImage, 		
  			// name
-			$username,
+			$name,
+			// surname
+			$surname,
  			// email
 			$email,
-			// active
-			$type,
-			// active
-			$permittion,
  			// active
 			$active,
  			// button

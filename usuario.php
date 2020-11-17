@@ -16,7 +16,7 @@ while ($orderResult = $orderQuery->fetch_assoc()) {
 	$totalRevenue += $orderResult['paid'];
 }
 
-$userwisesql = "SELECT users.username , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
+$userwisesql = "SELECT users.name, users.surname , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
 $userwiseQuery = $connect->query($userwisesql);
 $userwieseOrder = $userwiseQuery->num_rows;
 
@@ -60,10 +60,9 @@ $connect->close();
 						<thead>
 							<tr>
 								<th style="width:10%;">Foto</th>
-								<th style="width:20%;">Nome do usuario</th>
+								<th style="width:20%;">Nome</th>
+								<th style="width:20%;">Apelidp</th>
 								<th style="width:30%;">Email</th>
-								<th style="width:10%;">Tipo</th>
-								<th style="width:10%;">Permissao</th>
 								<th style="width:10%;">Status</th>
 								<th style="width:10%;">Options</th>
 							</tr>
@@ -128,7 +127,7 @@ $connect->close();
 							</select>
 						</div>
 					</div> <!-- /form-group-->
-		        	<!-- user type >>> 1 - Funcionario -->
+					<!-- user type >>> 1 - Funcionario -->
 					<input type="text" name="" hidden="true" id="type" value="1">
 				</div> <!-- /modal-body -->
 				
@@ -210,10 +209,18 @@ $connect->close();
 								<div id="edit-user-messages"></div>
 
 								<div class="form-group">
-									<label for="edituserName" class="col-sm-3 control-label">User Name: </label>
+									<label for="editName" class="col-sm-3 control-label"> Nome: </label>
 									
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="edituserName" placeholder="User Name" name="edituserName" autocomplete="off">
+										<input type="text" class="form-control" id="editName" placeholder="Nome" name="editName" autocomplete="off" required>
+									</div>
+								</div> <!-- /form-group-->
+
+								<div class="form-group">
+									<label for="editSurname" class="col-sm-3 control-label"> Apelido: </label>
+									
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="editSurname" placeholder="Apelido" name="editSurname" autocomplete="off" required>
 									</div>
 								</div> <!-- /form-group-->
 
@@ -234,9 +241,21 @@ $connect->close();
 								</div> <!-- /form-group-->	
 
 								<div class="form-group">
+									<label for="upassword" class="col-sm-4 control-label">Tipo de acesso: </label>
+									<div class="col-sm-8">
+										<select class="form-control" id="editPermittion" name="editPermittion" required>
+											<option value="">~~SELECT~~</option>
+											<option value="1">Administrador</option>
+											<option value="2">Gestor</option>
+											<option value="3">Vendedor</option>
+										</select>
+									</div>
+								</div> <!-- /form-group-->
+
+								<div class="form-group">
 									<label for="editUserStatus" class="col-sm-3 control-label">Status: </label>
 									<div class="col-sm-8">
-										<select class="form-control" id="editUserStatus" name="editUserStatus">
+										<select class="form-control" id="editUserStatus" name="editUserStatus" required>
 											<option value="">~~SELECT~~</option>
 											<option value="1">Activo</option>
 											<option value="2">Inactivo</option>

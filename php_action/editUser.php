@@ -5,13 +5,16 @@ require_once 'core.php';
 $valid['success'] = array('success' => false, 'messages' => array());
 
 if($_POST) {
-	$editusername 	= $_POST['edituserName'];
+
+	$userid 		= $_POST['userid'];
+	$editName 		= $_POST['editName'];
+	$editSurname 	= $_POST['editSurname'];
 	$editemail 		= $_POST['editEmail'];
 	$editpassword 	= md5($_POST['editPassword']);
-	$userid 		= $_POST['userid'];
+	$editPermittion = $_POST['editPermittion'];
 	$userStatus		= $_POST['eidtUserStatus'];
 				
-	$sql = "UPDATE users SET username = '$editusername', email = '$editemail', password = '$editpassword', active = '$userStatus', status = 1 WHERE user_id = $userid ";
+	$sql = "UPDATE users SET name = '$editName', surname = '$editSurname', email = '$editemail', password = '$editpassword', permittion = '$editPermittion', active = '$userStatus', status = 1 WHERE user_id = $userid ";
 
 	if($connect->query($sql) === TRUE) {
 		$valid['success'] = true;
