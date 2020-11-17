@@ -21,10 +21,11 @@ if($result->num_rows > 0) {
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img class="img-profile rounded-circle border border-info" src="assests/images/users/john.jpg" style="width: 35px; height: 35px;">
+							<img class="img-profile rounded-circle border border-info" id="getUserImageNav"  style="width: 35px; height: 35px;">
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="config.php"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil</a>
+							<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Ola, <?php echo $username; ?></div>
+							<div class="dropdown-divider mt-0 pt-0"></div>
 							<a id="topNavSetting" class="dropdown-item" href="config.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configurações</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Sair</a>
@@ -54,3 +55,41 @@ if($result->num_rows > 0) {
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	var userid = <?php echo $userID; ?>;
+	// userid = 2;
+	if(userid) {
+		$("#userid").remove();		
+		// remove text-error 
+		$(".text-danger").remove();
+		// remove from-group error
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+		// modal spinner
+		$('.div-loading').removeClass('div-hide');
+		// modal div
+		$('.div-result').addClass('div-hide');
+
+		$.ajax({
+			url: 'php_action/fetchSelectedUser.php',
+			type: 'post',
+			data: {"userid": userid},
+			dataType: 'json',
+			success:function(response) {		
+			// alert(response.product_image);
+				// modal spinner
+				$('.div-loading').addClass('div-hide');
+				// modal div
+				$('.div-result').removeClass('div-hide');		
+
+				$("#getUserImageNav").attr('src', 'users/'+response.user_image);
+
+				$("#editUserImage").fileinput({		      
+				});		
+
+				
+
+			} // /success function
+		}); // /ajax to fetch product image
+	}
+</script>

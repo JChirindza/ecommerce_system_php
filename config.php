@@ -54,7 +54,7 @@ $connect->close();
 							<div class="form-group">
 								<label for="editUserImage" class="col-sm control-label">User Image: </label>
 								<div class="col-sm-8">							    				   
-									<img src="" id="getUserImage" class="thumbnail" style="width:200px; height:200px;" />
+									<img src="" id="getUserImage" class="thumbnail border border-info" style="width:200px; height:200px;" />
 								</div>
 							</div> <!-- /form-group-->	     	           	       
 
@@ -67,9 +67,9 @@ $connect->close();
 										<input type="file" class="form-control" id="editUserImage" placeholder="User Name" name="editUserImage" class="file-loading" style="width:auto;"/>
 									</div>
 								</div>
+								<input type="hidden" name="user_id" id="user_id" value="<?php echo $result['user_id'] ?>" />
 							</div> <!-- /form-group-->	     	           	       
 						</form>
-						<!-- /form -->
 					</div>
 					<div id="menu2" class="tab-pane fade" >
 						<form action="php_action/changeUsername.php" method="post" class="form-horizontal col-sm-8" id="changeUsernameForm">
@@ -78,9 +78,14 @@ $connect->close();
 								<div class="changeUsernameMessages"></div>			
 
 								<div class="form-group">
-									<label for="username" class="col-sm control-label">Username:</label>
+									<label for="name" class="col-sm control-label">Nome:</label>
+									<div class="col-sm-10 mb-3">
+										<input type="text" class="form-control" id="name" name="name" placeholder="Nome" value="<?php echo $result['name']; ?>" required/>
+									</div>
+
+									<label for="surname" class="col-sm control-label">Apelido:</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="username" name="username" placeholder="Usename" value="<?php echo $result['username']; ?>" required/>
+										<input type="text" class="form-control" id="surname" name="surname" placeholder="Apelido" value="<?php echo $result['surname']; ?>" required/>
 									</div>
 								</div>
 
@@ -161,4 +166,123 @@ $connect->close();
 
 
 <script src="custom/js/setting.js"></script>
+<script type="text/javascript">
+
+	var userid = $("#user_id").val();
+
+	// userid = 2;
+	if(userid) {
+		$("#userid").remove();		
+		// remove text-error 
+		$(".text-danger").remove();
+		// remove from-group error
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+		// modal spinner
+		$('.div-loading').removeClass('div-hide');
+		// modal div
+		$('.div-result').addClass('div-hide');
+
+		$.ajax({
+			url: 'php_action/fetchSelectedUser.php',
+			type: 'post',
+			data: {"userid": userid},
+			dataType: 'json',
+			success:function(response) {		
+			// alert(response.product_image);
+				// modal spinner
+				$('.div-loading').addClass('div-hide');
+				// modal div
+				$('.div-result').removeClass('div-hide');		
+
+				$("#getUserImage").attr('src', 'users/'+response.user_image);
+
+				$("#editUserImage").fileinput({		      
+				});		
+
+				// user id 
+				$(".editUserFooter").append('<input type="hidden" name="userid" id="userid" value="'+response.user_id+'" />');				
+				$(".editUserPhotoFooter").append('<input type="hidden" name="userid" id="userid" value="'+response.user_id+'" />');				
+
+				// update the product image				
+				$("#updateUserImageForm").unbind('submit').bind('submit', function() {					
+					// form validation
+					var userImage = $("#editUserImage").val();					
+					
+					if(userImage == "") {
+						$("#editUserImage").closest('.center-block').after('<p class="text-danger">User Image field is required</p>');
+						$('#editUserImage').closest('.form-group').addClass('has-error');
+					}	else {
+						// remov error text field
+						$("#editUserImage").find('.text-danger').remove();
+						// success out for form 
+						$("#editUserImage").closest('.form-group').addClass('has-success');	  	
+					}	// /else
+
+					if(userImage) {
+						// submit loading button
+						$("#editUserImageBtn").button('loading');
+
+						var form = $(this);
+						var formData = new FormData(this);
+
+						$.ajax({
+							url : form.attr('action'),
+							type: form.attr('method'),
+							data: formData,
+							dataType: 'json',
+							cache: false,
+							contentType: false,
+							processData: false,
+							success:function(response) {
+								
+								if(response.success == true) {
+									// submit loading button
+									$("#editUserImageBtn").button('reset');																		
+
+									$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+									// shows a successful message after operation
+									$('#edit-userPhoto-messages').html('<div class="alert alert-success">'+
+										'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+										'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+										'</div>');
+
+									// remove the mesages
+									$(".alert-success").delay(500).show(10, function() {
+										$(this).delay(3000).hide(10, function() {
+											$(this).remove();
+										});
+									}); // /.alert
+
+						          	// reload the manage student table
+						          	manageUserTable.ajax.reload(null, true);
+
+						          	$(".fileinput-remove-button").click();
+
+						          	$.ajax({
+						          		url: 'php_action/fetchUserImageUrl.php?i='+userid,
+						          		type: 'post',
+						          		success:function(response) {
+						          			$("#getUserImage").attr('src', response);		
+						          		}
+						          	});																		
+
+									// remove text-error 
+									$(".text-danger").remove();
+									// remove from-group error
+									$(".form-group").removeClass('has-error').removeClass('has-success');
+
+								} // /if response.success
+								
+							} // /success function
+						}); // /ajax function
+					}	 // /if validation is ok 					
+
+					return false;
+				}); // /update the product image
+
+			} // /success function
+		}); // /ajax to fetch product image
+	}
+</script>
 <?php require_once 'includes/footer.php'; ?>
