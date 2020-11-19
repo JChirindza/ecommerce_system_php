@@ -30,6 +30,13 @@
 	  		});
 	  	</script>
 
+      <!-- ToolTip JS -->
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+
 
 	  	<!-- file input -->
 	  	<script src="assests/plugins/fileinput/js/plugins/canvas-to-blob.min.js'); ?>" type="text/javascript"></script>	
