@@ -4,7 +4,9 @@ require_once 'php_action/db_connect.php';
 session_start();
 
 if(isset($_SESSION['userId'])) {
-	header('location: ../SistemaDeVendas_ControleDeStock/dashboard.php');	
+	if ($_SESSION['userType'] == 1) {
+		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+	}
 }
 
 $errors = array();
@@ -35,11 +37,17 @@ if($_POST) {
 			if($mainResult->num_rows == 1) {
 				$value = $mainResult->fetch_assoc();
 				$user_id = $value['user_id'];
+				$user_type = $value['type'];
 
 				// set session
 				$_SESSION['userId'] = $user_id;
+				$_SESSION['userType'] = $user_type;
 
-				header('location: ../SistemaDeVendas_ControleDeStock/dashboard.php');	
+				if ($_SESSION['userType'] == 1) {
+					header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+				}else{
+					header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php');	
+				}
 			} else{
 				
 				$errors[] = "Incorrect Email/password combination";
