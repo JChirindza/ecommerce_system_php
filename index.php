@@ -1,11 +1,25 @@
 <?php 
-// require_once 'php_action/core.php';
+require_once 'php_action/db_connect.php';
 
 session_start();
 
 if(isset($_SESSION['userId'])) {
-	header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+	if ($_SESSION['userType'] == 1) {
+		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+	}
+
+	// Get username
+	$userID = $_SESSION['userId'];
+	$sql = "SELECT * FROM users WHERE user_id = '$userID' ";
+	$result = $connect->query($sql);
+	if($result->num_rows > 0) { 
+		while($row = $result->fetch_array()) {
+			$username = $row[1];
+ 		} // /while 
+	}// if num_rows
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -41,79 +55,8 @@ if(isset($_SESSION['userId'])) {
 	<script type="text/javascript" src="assests/select2/select2Custom.js"></script>
 
 	<style>
-		/* Make the image fully responsive */
-		.carousel-inner img {
-			width: 100%;
-			height: 100%;
-		}
-
-
-		.product-entry {
-			border: .1rem solid #dee2e6 !important;
-			margin-bottom: 1.5rem;
-			margin-top: 1rem;
-		}
-
-		.cart {
-			text-align: center;
-		}
-
-		.product-entry .cart a {
-			display: block;
-			color: #000;
-			padding: .5em;
-			-webkit-transition: 0.5s;
-			-o-transition: 0.5s;
-			transition: 0.5s; 
-		}
-
-		.product-entry:hover .cart {
-			display: block;
-			background-color: #dee2e6;
-		}
-
-		.product-entry .cart a:hover {
-			display: block;
-			background: #FFC300;
-			margin: 0px;
-		}
-
-		.product-name p {
-			text-align: center;
-			font-size: 16px;
-			font-family: "Roboto", Arial, sans-serif, bold;
-			font-weight: 400;
-			font-weight: bolder;
-			margin: 0 0 20px 0;
-			overflow: hidden;
-			display: -webkit-box;
-			-webkit-line-clamp: 3;
-			-webkit-box-orient: vertical;
-		}
-
-		.product-name p a {
-			color: #000;
-		}
-
-		.product-img {
-			margin: .5rem;
-		}
-
 		.view-more {
-			display: block;
-			border-top: 1px solid #dee2e6 !important;
-			background-color: white;
-			text-align: center;
-		}
-
-		.view-more:hover {
-			display: block;
-			background-color: #dee2e6 !important;
-		}
-
-		.view-more:hover a{
-			display: block;
-			background-color: #dee2e6 !important;
+			padding: .4rem;
 		}
 
 	</style>
@@ -135,47 +78,80 @@ if(isset($_SESSION['userId'])) {
 		<div class="col-md-3 row">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link text-white" href="sign-in.php"><i class="fas fa-sign-in-alt"></i> Login</a>
-					</li>
-					<li class="nav-item">
-						<a href="cart.php" class="nav-item nav-link ">
-							<h6 class="px-5 cart text-white">
-								<i class="fas fa-cart-arrow-down fa-2x"></i>
-								<?php
-
-								if (isset($_SESSION['cart'])){
-									$count = count($_SESSION['cart']);
-									echo "<span id=\"cart_count\" class=\"badge badge-primary\">$count</span>";
-								}else{
-									echo "<span id=\"cart_count\" class=\"badge badge-warning\">0</span>";
-								}
-
-								?>
-							</h6>
-						</a>
-					</li>
+					<?php if(isset($_SESSION['userId'])){ ?>
+						<li class="nav-item">
+							<a href="cart.php" class="nav-item nav-link ">
+								<h6 class="px-5 cart text-white">
+									<i class="fas fa-cart-arrow-down fa-2x"></i>
+									<?php
+									if (isset($_SESSION['cartItem'])){
+										$count = count($_SESSION['cart']);
+										echo "<span id=\"cart_count\" class=\"badge badge-warning\">$count</span>";
+									}else{
+										echo "<span id=\"cart_count\" class=\"badge badge-secondary\">0</span>";
+									}
+									?>
+								</h6>
+							</a>
+						</li>
+					<?php } else { ?>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="sign-in.php"><i class="fas fa-sign-in-alt"></i> Login</a>
+						</li>
+					<?php } ?>
+					
+					
 				</ul>
 			</div>
-			<div class="dropdown navbar-nav ">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav">
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img class="img-profile rounded-circle border border-light" src="assests/images/users/john.jpg" style="width: 35px; height: 35px;">
-							</a>
-							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="config.php"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil</a>
-								<a id="topNavSetting" class="dropdown-item" href="config.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configurações</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Sair</a>
-							</div>
-						</li>
-					</ul>
+
+			<?php if(isset($_SESSION['userId'])){ ?>
+				<div class="dropdown navbar-nav float-right">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img class="img-profile rounded-circle border border-info" id="getUserImageNav"  style="width: 35px; height: 35px;">
+								</a>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+									<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Ola, <?php echo $username; ?></div>
+									<div class="dropdown-divider mt-0 pt-0"></div>
+									<a id="topNavSetting" class="dropdown-item" href="config.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configurações</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Sair</a>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
+			<?php } ?>
+			
 		</div>
 	</nav>
+	<style type="text/css">
+		.bottom-nav a{
+			color: black;
+		}
+
+		.bottom-nav a:hover {
+			color: blue;
+		}
+	</style>
+	<div class="col-md-12 bg-white bottom-nav border-bottom">
+		<div class="container row">
+			<div class="email mr-4">
+				<a class="" href="#"><i class="fas fa-envelope mr-2 ml-4"></i>customers@computersonly.co.mz</a> 
+			</div>
+			<div class="cell mr-4">
+				<a class="" href="#"><i class="fas fa-phone-alt mr-2 ml-4"></i>+258 8000000000</a>
+			</div>
+			<div class="location mr-4">
+				<a class="" href="#"><i class="fas fa-map-marker-alt mr-2 ml-4"></i> Store location</a>
+			</div>
+			<div class="my-orders ">
+				<a class="" href="#"><i class="fas fa-truck mr-2 ml-4"></i>your orders</a>
+			</div>
+		</div>
+	</div>
 
 	<div class="d-flex" id="wrapper">
 		<div class="container-fluid bg-light m-4">
@@ -333,6 +309,31 @@ if(isset($_SESSION['userId'])) {
 	</div>
 </div>
 
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Deseja realmente sair?</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">Selecione <label class="text-muted"><i class="fas fa-sign-out-alt"></i> Sair </label> se deseja terminar a sessao.</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-times"></i></button>
+				<a class="btn btn-primary" href="sign-out.php"><i class="fas fa-sign-out-alt mr-2"></i>Sair</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ToolTip JS -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 <script>
 	$(document).ready(function(){
 
@@ -345,12 +346,11 @@ if(isset($_SESSION['userId'])) {
 			var minimum_price = $('#hidden_minimum_price').val();
 			var maximum_price = $('#hidden_maximum_price').val();
 			var brand = get_filter('brand');
-			var ram = get_filter('ram');
-			var storage = get_filter('storage');
+			
 			$.ajax({
-				url:"fetch_data.php",
+				url:"fetch_cart.php",
 				method:"POST",
-				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
+				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
 					$('.filter_computers').html(data);
 				}
@@ -373,8 +373,8 @@ if(isset($_SESSION['userId'])) {
 		$('#price_range').slider({
 			range:true,
 			min:1000,
-			max:65000,
-			values:[1000, 65000],
+			max:165000,
+			values:[1000, 165000],
 			step:500,
 			stop:function(event, ui)
 			{
@@ -403,9 +403,9 @@ if(isset($_SESSION['userId'])) {
 			var ram = get_filter('ram');
 			var storage = get_filter('storage');
 			$.ajax({
-				url:"fetch_data.php",
+				url:"fetch_cart.php",
 				method:"POST",
-				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
+				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
 					$('.filter_hardware').html(data);
 				}
@@ -428,8 +428,8 @@ if(isset($_SESSION['userId'])) {
 		$('#price_range').slider({
 			range:true,
 			min:1000,
-			max:65000,
-			values:[1000, 65000],
+			max:165000,
+			values:[1000, 165000],
 			step:500,
 			stop:function(event, ui)
 			{
@@ -455,12 +455,10 @@ if(isset($_SESSION['userId'])) {
 			var minimum_price = $('#hidden_minimum_price').val();
 			var maximum_price = $('#hidden_maximum_price').val();
 			var brand = get_filter('brand');
-			var ram = get_filter('ram');
-			var storage = get_filter('storage');
 			$.ajax({
-				url:"fetch_data.php",
+				url:"fetch_cart.php",
 				method:"POST",
-				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
+				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
 					$('.filter_componets').html(data);
 				}
@@ -483,8 +481,8 @@ if(isset($_SESSION['userId'])) {
 		$('#price_range').slider({
 			range:true,
 			min:1000,
-			max:65000,
-			values:[1000, 65000],
+			max:165000,
+			values:[1000, 165000],
 			step:500,
 			stop:function(event, ui)
 			{
@@ -496,6 +494,45 @@ if(isset($_SESSION['userId'])) {
 		});
 
 	});
+</script>
+
+<!-- Fetch User Image -->
+<script type="text/javascript">
+	var userid = <?php echo $userID; ?>;
+	// userid = 2;
+	if(userid) {
+		$("#userid").remove();		
+		// remove text-error 
+		$(".text-danger").remove();
+		// remove from-group error
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+		// modal spinner
+		$('.div-loading').removeClass('div-hide');
+		// modal div
+		$('.div-result').addClass('div-hide');
+
+		$.ajax({
+			url: 'php_action/fetchSelectedUser.php',
+			type: 'post',
+			data: {"userid": userid},
+			dataType: 'json',
+			success:function(response) {		
+			// alert(response.product_image);
+				// modal spinner
+				$('.div-loading').addClass('div-hide');
+				// modal div
+				$('.div-result').removeClass('div-hide');		
+
+				$("#getUserImageNav").attr('src', 'users/'+response.user_image);
+
+				$("#editUserImage").fileinput({		      
+				});		
+
+				
+
+			} // /success function
+		}); // /ajax to fetch product image
+	}
 </script>
 <!-- Bootstrap core JavaScript -->
 <!-- <script src="assests/jquery/jquery.min.js"></script> -->
