@@ -4,7 +4,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT * FROM users WHERE permittion != 0";
+$sql = "SELECT * FROM users WHERE status = 1";
 
 $result = $connect->query($sql);
 
@@ -70,7 +70,7 @@ if($result->num_rows > 0) {
  			// button
 			$button 		
 		); 	
- } // /while 
+ 	} // /while 
 
 }// if num_rows
 
