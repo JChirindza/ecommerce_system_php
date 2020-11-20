@@ -195,3 +195,7 @@ div.kv-avatar div.file-input div.file-preview {
 	display: block;
 	background-color: #dee2e6 !important;
 }
+
+.form-control {
+	border-radius: 0;
+}
