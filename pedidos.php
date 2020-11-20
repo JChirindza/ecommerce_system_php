@@ -12,6 +12,12 @@ if($_GET['p'] == 'add') {
 } // /else manage order
 
 
+// GET User data
+$user_id = $_SESSION['userId'];
+$sql = "SELECT * FROM users WHERE user_id = {$user_id}";
+$query = $connect->query($sql);
+$result = $query->fetch_assoc();
+
 ?>
 
 <!-- <ol class="breadcrumb">
@@ -33,20 +39,12 @@ if($_GET['p'] == 'add') {
 		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=manord"><i class="fas fa-cart-arrow-down"></i> Gerir pedido </a>
 	<?php } ?>
 </div>
+<style type="text/css">
 
-<!-- <h4>
-	<i class='glyphicon glyphicon-circle-arrow-right'></i>
-	<?php if($_GET['p'] == 'add') {
-		echo "Add Order";
-	} else if($_GET['p'] == 'manord') { 
-		echo "Manage Order";
-	} else if($_GET['p'] == 'editOrd') { 
-		echo "Edit Order";
+	#productTable thead th{
+		text-align: center;
 	}
-	?>	
-</h4>
--->
-
+</style>
 
 
 <div class="card shadow-sm mb-3">
@@ -67,35 +65,50 @@ if($_GET['p'] == 'add') {
 			<div class="success-messages"></div> <!--/success-messages-->
 
 			<form class="form-horizontal" method="POST" action="php_action/createOrder.php" id="createOrderForm">
-
-				<div class="form-group">
-					<label for="orderDate" class="col-sm-3 control-label">Order Date</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="orderDate" disabled="true" name="orderDate" autocomplete="off" />
+				<!-- <button class="btn btn-primary btn-sm ml-3 mb-2" id="">Buscar Cliente</button> -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							
+							<label for="clientName" class="col-sm-3 control-label">Client Name:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" required/>
+							</div>
+						</div> <!--/form-group-->
+						<div class="form-group">
+							<label for="clientContact" class="col-sm-3 control-label">Client Contact:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" required/>
+							</div>
+						</div> <!--/form-group-->
 					</div>
-				</div> <!--/form-group-->
-				<div class="form-group">
-					<label for="clientName" class="col-sm-3 control-label">Client Name</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" />
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="orderDate" class="col-sm-3 control-label">Vendedor:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" disabled id="userName" name="userName" value="<?php echo $result['name'] ." ".  $result['surname']; ?>" autocomplete="off" required />
+								<input type="hidden" name="systemUserId" id="systemUserId" value="<?php echo $result['user_id']; ?>">
+							</div>
+						</div> <!--/form-group-->
+						<div class="form-group">
+							<label for="orderDate" class="col-sm-3 control-label">Order Date:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" disabled id="orderDate" name="orderDate" autocomplete="off" value="<?php echo date('d-m-Y')."          ". date('H:i:s') ?>" required />
+							</div>
+						</div> <!--/form-group-->
 					</div>
-				</div> <!--/form-group-->
-				<div class="form-group">
-					<label for="clientContact" class="col-sm-3 control-label">Client Contact</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" />
-					</div>
-				</div> <!--/form-group-->			  
+				</div>
+				
 				<div class="table-responsive">
 					<table class="table" id="productTable">
 						<thead>
 							<tr>			  			
 								<th style="width:40%;">Product</th>
-								<th style="width:20%;">Rate</th>
-								<th style="width:10%;">Available Quantity</th>
-								<th style="width:15%;">Quantity</th>			  			
-								<th style="width:25%;">Total</th>			  			
-								<th style="width:10%;"></th>
+								<th style="width:15%;">Rate</th>
+								<th style="width:10%;">Available</th>			  			
+								<th style="width:10%;">Quantity</th>			  			
+								<th style="width:15%;">Total</th>			  			
+								<th style="width:5%;"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -105,7 +118,7 @@ if($_GET['p'] == 'add') {
 								<tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">			  				
 									<td style="margin-left:20px;">
 										<div class="form-group">
-											<select class="form-control large js-select2" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
+											<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" required>
 												<option value="">~~SELECT~~</option>
 												<?php
 												$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
@@ -123,14 +136,14 @@ if($_GET['p'] == 'add') {
 										<input type="text" name="rate[]" id="rate<?php echo $x; ?>" autocomplete="off" disabled="true" class="form-control" />			  					
 										<input type="hidden" name="rateValue[]" id="rateValue<?php echo $x; ?>" autocomplete="off" class="form-control" />			  					
 									</td>
-									<td style="padding-left:20px;">
+									<td style="padding-left:20px; text-align: center;">
 										<div class="form-group">
 											<p id="available_quantity<?php echo $x; ?>"></p>
 										</div>
 									</td>
 									<td style="padding-left:20px;">
 										<div class="form-group">
-											<input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" onkeyup="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" />
+											<input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" oninput="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" required/>
 										</div>
 									</td>
 									<td style="padding-left:20px;">			  					
@@ -182,7 +195,7 @@ if($_GET['p'] == 'add') {
 						<div class="form-group">
 							<label for="grandTotal" class="col-sm-4 control-label "><strong>Grand Total:</strong></label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control form-control-lg border-primary " id="grandTotal" name="grandTotal" disabled="true" />
+								<input type="text" class="form-control form-control-lg border-success " id="grandTotal" name="grandTotal" disabled="true" />
 								<input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" />
 							</div>
 						</div> <!--/form-group-->	
@@ -231,8 +244,8 @@ if($_GET['p'] == 'add') {
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentPlace" id="paymentPlace" disabled="true">
 									<option value="">~~SELECT~~</option>
-									<option value="1" selected="true">In Gujarat</option>
-									<option value="2">Out Of Gujarat</option>
+									<option value="1" selected="true">Na Loja</option>
+									<option value="2">Online</option>
 								</select>
 							</div>
 						</div> <!--/form-group-->							  
@@ -281,34 +294,43 @@ if($_GET['p'] == 'add') {
 				$data = $result->fetch_row();
 				?>
 
-				<div class="form-group">
-					<label for="orderDate" class="col-sm-3 control-label">Order Date:</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="orderDate" name="orderDate" disabled="true" autocomplete="off" value="<?php echo $data[1] ?>" />
+
+				<!--  -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="clientName" class="col-sm-3 control-label">Client Name:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" value="<?php echo $data[2] ?>" />
+							</div>
+						</div> <!--/form-group-->
+						<div class="form-group">
+							<label for="clientContact" class="col-sm-3 control-label">Client Contact:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" value="<?php echo $data[3] ?>" />
+							</div>
+						</div> <!--/form-group-->	
 					</div>
-				</div> <!--/form-group-->
-				<div class="form-group">
-					<label for="clientName" class="col-sm-3 control-label">Client Name:</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" value="<?php echo $data[2] ?>" />
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="orderDate" class="col-sm-3 control-label">Order Date:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="orderDate" name="orderDate" disabled="true" autocomplete="off" value="<?php echo $data[1] ?>" />
+							</div>
+						</div> <!--/form-group-->
 					</div>
-				</div> <!--/form-group-->
-				<div class="form-group">
-					<label for="clientContact" class="col-sm-3 control-label">Client Contact:</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" value="<?php echo $data[3] ?>" />
-					</div>
-				</div> <!--/form-group-->			  
+				</div>
+
 				<div class="table-responsive">
 					<table class="table" id="productTable">
 						<thead>
 							<tr>			  			
-								<th style="width:40%;">Product</th>
-								<th style="width:20%;">Rate</th>
-								<th style="width:15%;">Available Quantity</th>			  			
-								<th style="width:7%;">Quantity</th>			  			
+								<th style="width:45%;">Product</th>
+								<th style="width:15%;">Rate</th>
+								<th style="width:10%;">Available</th>			  			
+								<th style="width:10%;">Quantity</th>			  			
 								<th style="width:15%;">Total</th>			  			
-								<th style="width:10%;"></th>
+								<th style="width:5%;"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -354,7 +376,7 @@ if($_GET['p'] == 'add') {
 										<input type="hidden" name="rateValue[]" id="rateValue<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $orderItemData['rate']; ?>" />			  					
 									</td>
 									<td style="padding-left:20px;">
-										<div class="form-group">
+										<div class="form-group text-center">
 											<?php
 											$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
 											$productData = $connect->query($productSql);
@@ -367,8 +389,6 @@ if($_GET['p'] == 'add') {
 												else {
 													$selected = "";
 												}
-
-			  								//echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
 										 	} // /while 
 
 										 	?>
@@ -377,7 +397,7 @@ if($_GET['p'] == 'add') {
 										</td>
 										<td style="padding-left:20px;">
 											<div class="form-group">
-												<input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" onkeyup="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" value="<?php echo $orderItemData['quantity']; ?>" />
+												<input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" oninput="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" value="<?php echo $orderItemData['quantity']; ?>" />
 											</div>
 										</td>
 										<td style="padding-left:20px;">			  					
@@ -385,7 +405,6 @@ if($_GET['p'] == 'add') {
 											<input type="hidden" name="totalValue[]" id="totalValue<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $orderItemData['total']; ?>"/>			  					
 										</td>
 										<td>
-
 											<button class="btn border text-danger removeProductRowBtn" type="button" id="removeProductRowBtn" onclick="removeProductRow(<?php echo $x; ?>)"><i class="fas fa-trash"></i></button>
 										</td>
 									</tr>
@@ -528,8 +547,8 @@ if($_GET['p'] == 'add') {
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-edit"></i> Edit Payment</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Edit Payment</h4>
 			</div>      
 
 			<div class="modal-body form-horizontal" style="max-height:500px; overflow:auto;" >
@@ -574,8 +593,8 @@ if($_GET['p'] == 'add') {
 
 			</div> <!--/modal-body-->
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-				<button type="button" class="btn btn-primary" id="updatePaymentOrderBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Save changes</button>	
+				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+				<button type="button" class="btn btn-success" id="updatePaymentOrderBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> Save changes</button>	
 			</div>           
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -587,18 +606,17 @@ if($_GET['p'] == 'add') {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-trash"></i> Remove Order</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Remove Order</h4>
 			</div>
 			<div class="modal-body">
-
 				<div class="removeOrderMessages"></div>
 
 				<p>Do you really want to remove ?</p>
 			</div>
 			<div class="modal-footer removeProductFooter">
-				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-				<button type="button" class="btn btn-primary" id="removeOrderBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+				<button type="button" class="btn btn-danger" id="removeOrderBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> Save changes</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

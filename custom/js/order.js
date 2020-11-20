@@ -417,43 +417,43 @@ function addRow() {
 			'<td>'+
 			'<div class="form-group">'+
 
-			'<select class="form-control js-select2" name="productName[]" id="productName'+count+'" onchange="getProductData('+count+')" >'+
+			'<select class="form-control" name="productName[]" id="productName'+count+'" onchange="getProductData('+count+')" >'+
 			'<option value="">~~SELECT~~</option>';
-						// console.log(response);
-						$.each(response, function(index, value) {
-							tr += '<option value="'+value[0]+'">'+value[1]+'</option>';							
-						});
+			// console.log(response);
+			$.each(response, function(index, value) {
+				tr += '<option value="'+value[0]+'">'+value[1]+'</option>';							
+			});
 
-						tr += '</select>'+
-						'</div>'+
-						'</td>'+
-						'<td style="padding-left:20px;"">'+
-						'<input type="text" name="rate[]" id="rate'+count+'" autocomplete="off" disabled="true" class="form-control" />'+
-						'<input type="hidden" name="rateValue[]" id="rateValue'+count+'" autocomplete="off" class="form-control" />'+
-						'</td style="padding-left:20px;">'+
-						'<td style="padding-left:20px;">'+
-						'<div class="form-group">'+
-						'<p id="available_quantity'+count+'"></p>'+
-						'</div>'+
-						'</td>'+
-						'<td style="padding-left:20px;">'+
-						'<div class="form-group">'+
-						'<input type="number" name="quantity[]" id="quantity'+count+'" onkeyup="getTotal('+count+')" autocomplete="off" class="form-control" min="1" />'+
-						'</div>'+
-						'</td>'+
-						'<td style="padding-left:20px;">'+
-						'<input type="text" name="total[]" id="total'+count+'" autocomplete="off" class="form-control" disabled="true" />'+
-						'<input type="hidden" name="totalValue[]" id="totalValue'+count+'" autocomplete="off" class="form-control" />'+
-						'</td>'+
-						'<td>'+
-						'<button class="btn btn-outline-light text-danger removeProductRowBtn" type="button" onclick="removeProductRow('+count+')"><i class="fas fa-trash"></i></button>'+
-						'</td>'+
-						'</tr>';
-						if(tableLength > 0) {							
-							$("#productTable tbody tr:last").after(tr);
-						} else {				
-							$("#productTable tbody").append(tr);
-						}		
+			tr += '</select>'+
+			'</div>'+
+			'</td>'+
+			'<td style="padding-left:20px;"">'+
+			'<input type="text" name="rate[]" id="rate'+count+'" autocomplete="off" disabled="true" class="form-control" required/>'+
+			'<input type="hidden" name="rateValue[]" id="rateValue'+count+'" autocomplete="off" class="form-control" />'+
+			'</td style="padding-left:20px;">'+
+			'<td style="padding-left:20px; text-align: center;">'+
+			'<div class="form-group">'+
+			'<p id="available_quantity'+count+'"></p>'+
+			'</div>'+
+			'</td>'+
+			'<td style="padding-left:20px;">'+
+			'<div class="form-group">'+
+			'<input type="number" name="quantity[]" id="quantity'+count+'" oninput="getTotal('+count+')" autocomplete="off" class="form-control" min="1" required/>'+
+			'</div>'+
+			'</td>'+
+			'<td style="padding-left:20px;">'+
+			'<input type="text" name="total[]" id="total'+count+'" autocomplete="off" class="form-control" disabled="true" />'+
+			'<input type="hidden" name="totalValue[]" id="totalValue'+count+'" autocomplete="off" class="form-control" />'+
+			'</td>'+
+			'<td>'+
+			'<button class="btn border text-danger removeProductRowBtn" type="button" onclick="removeProductRow('+count+')"><i class="fas fa-trash"></i></button>'+
+			'</td>'+
+			'</tr>';
+			if(tableLength > 0) {							
+				$("#productTable tbody tr:last").after(tr);
+			} else {				
+				$("#productTable tbody").append(tr);
+			}		
 
 		} // /success
 	});	// get the product data
