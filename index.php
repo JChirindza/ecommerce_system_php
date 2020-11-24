@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
-		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+		header('location: ../SistemaDeVendas_ControleDeStock/dashboard.php');	
 	}
 
 	// Get username
@@ -70,12 +70,12 @@ if(isset($_SESSION['userId'])) {
 			<a class="brand navbar-brand logo p-0 border" href="index.php">ComputersOnly</a>
 		</div>
 		<div class="input-group col-md-6 m-auto">
-			<input type="text" class="col-sm-10" id="myInput" placeholder="Procurar..." name="procurar">
+			<input type="text" class="col-sm-10 rounded-left border-0" id="myInput" placeholder="Procurar..." name="procurar">
 			<div class="input-group-append">
 				<button type="button" class="btn btn-primary"><i class="fas fa-search fa-2x"></i></button>
 			</div>
 		</div>
-		<div class="col-md-3 row">
+		<div class="col-md-3 row">	
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
 					<?php if(isset($_SESSION['userId'])){ ?>
@@ -348,7 +348,7 @@ if(isset($_SESSION['userId'])) {
 			var brand = get_filter('brand');
 			
 			$.ajax({
-				url:"fetch_cart.php",
+				url:"fetch_data.php",
 				method:"POST",
 				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
@@ -403,7 +403,7 @@ if(isset($_SESSION['userId'])) {
 			var ram = get_filter('ram');
 			var storage = get_filter('storage');
 			$.ajax({
-				url:"fetch_cart.php",
+				url:"fetch_data.php",
 				method:"POST",
 				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
@@ -456,7 +456,7 @@ if(isset($_SESSION['userId'])) {
 			var maximum_price = $('#hidden_maximum_price').val();
 			var brand = get_filter('brand');
 			$.ajax({
-				url:"fetch_cart.php",
+				url:"fetch_data.php",
 				method:"POST",
 				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
