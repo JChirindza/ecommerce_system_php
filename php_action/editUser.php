@@ -12,9 +12,9 @@ if($_POST) {
 	$editemail 		= $_POST['editEmail'];
 	$editpassword 	= md5($_POST['editPassword']);
 	$editPermittion = $_POST['editPermittion'];
-	$userStatus		= $_POST['eidtUserStatus'];
+	$userStatus		= $_POST['editUserStatus'];
 				
-	$sql = "UPDATE users SET name = '$editName', surname = '$editSurname', email = '$editemail', password = '$editpassword', permittion = '$editPermittion', active = '$userStatus', status = 1 WHERE user_id = $userid ";
+	$sql = "UPDATE users SET name = '$editName', surname = '$editSurname', email = '$editemail', password = '$editpassword', permittion = '$editPermittion', active = '$userStatus' WHERE user_id = $userid ";
 
 	if($connect->query($sql) === TRUE) {
 		$valid['success'] = true;
