@@ -204,13 +204,13 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Type:</label>
+							<label for="clientContact" class="col-sm-4 control-label">Tipo de pagamento:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentType" id="paymentType">
 									<option value="">~~SELECT~~</option>
 									<option value="1">Cheque</option>
-									<option value="2">Cash</option>
-									<option value="3">Credit Card</option>
+									<option value="2">Dinheiro</option>
+									<option value="3">Cartao Credito</option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
@@ -242,8 +242,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="clientContact" class="col-sm-4 control-label">Payment Place:</label>
 							<div class="col-sm-8">
-								<select class="form-control" name="paymentPlace" id="paymentPlace" disabled="true">
-									<option value="">~~SELECT~~</option>
+								<select class="form-control" name="paymentPlace" id="paymentPlace">
 									<option value="1" selected="true">Na Loja</option>
 									<option value="2">Online</option>
 								</select>
@@ -517,10 +516,10 @@ $result = $query->fetch_assoc();
 									<option value="">~~SELECT~~</option>
 									<option value="1" <?php if($data[13] == 1) {
 										echo "selected";
-									} ?>  >In Gujarat</option>
+									} ?>  >Na loja</option>
 									<option value="2" <?php if($data[13] == 2) {
 										echo "selected";
-									} ?> >Out Gujarat</option>
+									} ?> >Online</option>
 								</select>
 							</div>
 						</div>							  
@@ -569,13 +568,13 @@ $result = $query->fetch_assoc();
 					</div>
 				</div> <!--/form-group-->		
 				<div class="form-group">
-					<label for="clientContact" class="col-sm-3 control-label">Payment Type</label>
+					<label for="clientContact" class="col-sm-3 control-label">Tipo de pagamento:</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="paymentType" id="paymentType" >
 							<option value="">~~SELECT~~</option>
 							<option value="1">Cheque</option>
-							<option value="2">Cash</option>
-							<option value="3">Credit Card</option>
+							<option value="2">Dinheiro</option>
+							<option value="3">Cartao de Credito</option>
 						</select>
 					</div>
 				</div> <!--/form-group-->							  
