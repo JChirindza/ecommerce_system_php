@@ -24,170 +24,167 @@ $gstn = $orderData[11];
 
 
 $orderItemSql = "SELECT order_item.product_id, order_item.rate, order_item.quantity, order_item.total,
-product.product_name FROM order_item
+   product.product_name FROM order_item
    INNER JOIN product ON order_item.product_id = product.product_id 
- WHERE order_item.order_id = $orderId";
+   WHERE order_item.order_id = $orderId";
 $orderItemResult = $connect->query($orderItemSql);
 
- $table = '<style>
-.star img {
-    visibility: visible;
-}</style>
-<table align="center" cellpadding="0" cellspacing="0" style="width: 100%;border:1px solid black;margin-bottom: 10px;">
-               <tbody>
-                  <tr>
-                     <td colspan="5" style="text-align:center;color: red;text-decoration: underline;    font-size: 25px;">TAX INVOICE</td>
-                  </tr>
-                  <tr>
-                     <td rowspan="8" colspan="2" style="border-left:1px solid black;" background-image="logo.jpg"><img src="/logo.jpg" alt="logo" width="250px;"></td>
-                     <td colspan="3" style=" text-align: right;">ORIGINAL</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;">DUPLICATE</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;color: red;font-style: italic;font-weight: 600;text-decoration: underline;font-size: 25px;">IMS</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;">Nr. Your First Address,</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;">Cityname,Pincode</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;">Tele: 1234567890,1478523690.</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;">Email: email0@email.co.in</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style=" text-align: right;color: blue;text-decoration: underline;">email0@email.co.in</td>
-                  </tr>
-                  <tr>
-                     <td colspan="2" style="padding: 0px;vertical-align: top;border-right:1px solid black;">
-                        <table align="left" cellpadding="0" cellspacing="0" style="border: thin solid black; width: 100%">
-                           <tbody>
-                              <tr>
-                                 <td style="width: 74px;vertical-align: top;color: red;" rowspan="3">TO, </td>
-                                 <td style="border-bottom-style: solid; border-bottom-width: thin; border-bottom-color: red">&nbsp;'.$clientName.'</td>
-                              </tr>
-                              <tr>
-                                 <td style="border-bottom-style: solid; border-bottom-width: thin; border-bottom-color: black">&nbsp;</td>
-                              </tr>
-                              <tr>
-                                 <td style="border-bottom-style: solid; border-bottom-width: thin; border-bottom-color: black">&nbsp;</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <table align="left" cellspacing="0" style="width: 100%; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-right-width: thin; border-bottom-width: thin; border-left-width: thin; border-right-color: black; border-bottom-color: black; border-left-color: black;">
-                           <tbody>
-                              <tr>
-                                 <td style=" border-bottom-style: solid; border-bottom-width: thin; border-bottom-color: red;color: red;">G.S.T.IN :'.$gstn.'</td>
-                                 <td style="border-left-style: solid; border-left-width: thin; border-left-color: black; border-bottom-style: solid; border-bottom-width: thin; border-bottom-color: red;color: red;">Mobile No: '.$clientContact.'</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </td>
-                     <td style="padding: 0px;vertical-align: top;" colspan="3">
-                        <table align="left" cellpadding="0" cellspacing="0" style="width: 100%">
-                           <tbody>
-                              <tr>
-                                 <td style="border-bottom-style: solid;border-bottom-width: thin;border-bottom-color: black;border-top: 1px solid black;border-right: 1px solid black;color: red;">Bill No : .</td>
-                              </tr>
-                              <tr>
-                                 <td style="border-bottom-style: solid;border-bottom-width: thin;border-bottom-color: black;border-right: 1px solid black;    color: red;">Date: '.$orderDate.'</td>
-                              </tr>
-                              <tr>
-                                 <td style="border-bottom-style: solid;border-bottom-width: thin;border-bottom-color: black;height: 52px;border-right: 1px solid black;    color: red;">G.S.T.IN: lorem ipsum</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td style="width: 123px;text-align: center;background-color: black;color: white;border-right: 1px solid white;border-left: 1px solid black;border-bottom: 1px solid black;-webkit-print-color-adjust: exact;">D.C.NO<br>
-                        &amp;DATE
-                     </td>
-                     <td style="width: 50%;text-align: center;border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-top-width: thin;border-right-width: thin;border-bottom-width: thin;border-top-color: black;border-right-color: white;border-bottom-color: black;color: white;background-color: black;-webkit-print-color-adjust: exact;">Description Of Goods</td>
-                     <td style="width: 150px;text-align: center;border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-top-width: thin;border-right-width: thin;border-bottom-width: thin;border-top-color: black;border-right-color: #fff;border-bottom-color: black;background-color: black;color: white;-webkit-print-color-adjust: exact;">Qty.</td>
-                     <td style="width: 150px;text-align: center;border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-top-width: thin;border-right-width: thin;border-bottom-width: thin;border-top-color: black;border-right-color: #fff;border-bottom-color: black;background-color: black;color: white;-webkit-print-color-adjust: exact;">Rate&nbsp; Rs.<br>
-                        Ps
-                     </td>
-                     <td style="width: 150px;text-align: center;border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-top-width: thin;border-right-width: thin;border-bottom-width: thin;border-top-color: black;border-right-color: black;border-bottom-color: black;color: white;background-color: black;-webkit-print-color-adjust: exact;">Amount&nbsp; Rs.<br>
-                        &nbsp;Ps
-                     </td>
-                  </tr>';
-                  $x = 1;
-                  $cgst = 0;
-                  $igst = 0;
-                  if($payment_place == 2)
-                  {
-                     $igst = $subTotal*18/100;
-                  }
-                  else
-                  {
-                     $cgst = $subTotal*9/100;
-                  }
-                  $total = $subTotal+2*$cgst+$igst;
-            while($row = $orderItemResult->fetch_array()) {       
-                        
-               $table .= '<tr>
-                     <td style="border-left: 1px solid black;border-right: 1px solid black;height: 27px;">'.$x.'</td>
-                     <td style="border-left: 1px solid black;height: 27px;">'.$row[4].'</td>
-                     <td style="border-left: 1px solid black;height: 27px;">'.$row[2].'</td>
-                     <td style="border-left: 1px solid black;height: 27px;">'.$row[1].'</td>
-                     <td style="border-left: 1px solid black;border-right: 1px solid black;height: 27px;">'.$row[3].'</td>
-                  </tr>
-               ';
+$table = '
+<style>
+   label { border: 0; font: 14px Georgia, Serif; overflow: hidden; resize: none; }
+   table { border-collapse: collapse; }
+   table td, table th { border: 1px solid black; padding: 5px; }
+
+   #header { height: 15px; width: 100%; margin: 20px 0; border: 1px solid black; background: #eee; text-align: center; color: black; font: bold 15px Helvetica, Sans-Serif; text-decoration: uppercase; letter-spacing: 20px; padding: 8px 0px; }
+
+   #address { width: 250px; height: 150px; float: left; margin-left: .5rem}
+   #customer { overflow: hidden; }
+
+   #logo { text-align: right; float: right; position: relative; max-width: 540px; max-height: 100px; overflow: hidden; margin-right: .5rem;}
+   #customer-title { font-size: 20px; font-weight: bold; float: left; }
+
+   #client { margin-top: 1px; width: 300px; float: left; }
+   #client td { text-align: right;  }
+   #client td.meta-head { text-align: left; background: #eee; }
+   #client td label { width: 100%; height: 20px; text-align: right; }
+
+   #meta { margin-top: 1px; width: 300px; float: right; }
+   #meta td { text-align: right;  }
+   #meta td.meta-head { text-align: left; background: #eee; }
+   #meta td label { width: 100%; height: 20px; text-align: right; }
+
+   .qty{ text-align: center; }
+
+   #items { clear: both; width: 100%; margin: 30px 0 0 0; border: 1px solid black; }
+   #items th { background: #eee; }
+   #items label { width: 80px; height: 50px; }
+   #items tr.item-row td { border:  1px solid black; vertical-align: top; }
+   #items td.description { width: 300px; }
+   #items td.item-name { width: 175px; }
+   #items td.description label, #items td.item-name label { width: 100%; }
+   #items td.total-line { border-right: 0; text-align: right; }
+   #items td.total-value { border-left: 0; padding: 10px; }
+   #items td.total-value label { height: 20px; background: none; }
+   #items td.balance { background: #eee; }
+   #items td.blank { border: 0; }
+
+   #terms { text-align: center; margin: 20px 0 0 0; }
+   #terms h5 { text-transform: uppercase; font: 13px Helvetica, Sans-Serif; letter-spacing: 10px; border-bottom: 1px solid black; padding: 0 0 8px 0; margin: 0 0 8px 0; }
+   #terms label { width: 100%; text-align: center;}
+</style>
+
+<div id="page-wrap">
+
+      <p id="header">INVOICE</p>
+      
+      <div id="identity">
+
+         <label id="address">
+            Computer Only Corp.;<br>
+            Av.: Karl Max Nr.: 1234;<br>
+            Maputo, Mocambique;<br>
+            Tel: (+258) 82 11 11 111; <br>
+            Email: computersonly@pconly.co.mz
+         </label>
+         <div id="logo">
+            <img id="image" src="assests/images/logo.png" alt="logo" />
+         </div>
+      </div>
+      
+      <div style="clear:both"></div>
+      
+      <div id="customer">
+
+         <table id="client">
+            <tr>
+               <td class="meta-head">Nome do Cliente: </td>
+               <td>'.$clientName.'</td>
+            </tr>
+            <tr>
+
+               <td class="meta-head">Contacto: </td>
+               <td>'.$clientContact.'</td>
+            </tr>
+            <tr>
+               <td class="meta-head">Nuit: </td>
+               <td>3453453</div></td>
+            </tr>
+         </table>
+
+         <table id="meta">
+            <tr>
+               <td class="meta-head">Recibo & Data Nr.</td>
+               <td>'.$orderDate.'</td>
+            </tr>
+            <tr>
+
+               <td class="meta-head">Date</td>
+               <td>'.$orderDate.'</td>
+            </tr>
+            <tr>
+               <td class="meta-head">Amount Due</td>
+               <td><div class="due">$875.00</div></td>
+            </tr>
+         </table>
+      </div>
+      
+      <table id="items">
+
+         <tr>
+            <th width="5%">#</th>
+            <th width="55%">Descricao do produto</th>
+            <th width="15%">Preco</th>
+            <th width="10%">Quantity</th>
+            <th width="15%">Preco Acumulado</th>
+         </tr>
+         ';
+         $x = 1;
+         $cgst = 0;
+         $igst = 0;
+         if($payment_place == 2) {
+            $igst = $subTotal*17/100;
+         } else {
+            $cgst = $subTotal*9/100;
+         }
+         $total = $subTotal+2*$cgst+$igst;
+         while($row = $orderItemResult->fetch_array()) {       
+         $table .= '
+            <tr class="item-row">
+               <td class="item-name"><label>'.$x.'</label></td>
+               <td class="description"><label>'.$row[4].'</label></td>
+               <td><label class="cost">'.$row[1].'</label></td>
+               <td><label class="qty">'.$row[2].'</label></td>
+               <td><span class="price">'.$row[3].'</span></td>
+            </tr>
+         ';
             $x++;
             } // /while
-                $table.= '
-                  <tr style="border-bottom: 1px solid black;">
-                     <td style="border-left: 1px solid black;border-right: 1px solid black;height: 27px;"></td>
-                     <td style="border-left: 1px solid black;height: 27px;"></td>
-                     <td style="border-left: 1px solid black;height: 27px;"></td>
-                     <td style="width: 149px;border-right-style: solid;border-bottom-style: solid;border-right-width: thin;border-bottom-width: thin;border-right-color: black;border-bottom-color: #000;background-color: black;color: white;padding-left: 5px;-webkit-print-color-adjust: exact;">Total</td>
-                     <td style="width: 218px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-top-width: thin; border-right-width: thin; border-bottom-width: thin; border-top-color: black; border-right-color: black; border-bottom-color: black;">'.$subTotal.'</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-top: 1px solid black;border-bottom: 1px solid black;border-left: 1px solid black;padding: 5px;">Neft For:- Bank Name</td>
-                     <td rowspan="2" style="border-bottom: 1px solid black;width: 199px;color: white;background-color: black;padding-left: 5px;-webkit-print-color-adjust: exact;">S.G.S.T. 9%</td>
-                     <td rowspan="2" style="border-bottom: 1px solid black;width: 288px;border-right: 1px solid black;">'.$cgst.'</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-bottom: 1px solid black;width: 859px;border-left: 1px solid black;padding: 5px;">Branch:- branch Address</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-bottom: 1px solid black;border-left: 1px solid black;padding: 5px;">Bank IFSC CODE:- 78945612301</td>
-                     <td rowspan="2" style="border-bottom: 1px solid black;width: 149px;background-color: black;color: white;padding-left: 5px;-webkit-print-color-adjust: exact;">C.G.S.T. 9%</td>
-                     <td rowspan="2" style="width:218px;border-bottom: 1px solid black;border-right: 1px solid black;">'.$cgst.'
-                     </td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-bottom: 1px solid black;border-left: 1px solid black;padding: 5px;">AC. HO. Name:- Comapany Name</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-bottom: 1px solid black;border-left: 1px solid black;padding: 5px;">AC.NO. :- lorem ipsum</td>
-                     <td style="border-bottom: 1px solid black;background-color: black;color: white;padding: 5px;-webkit-print-color-adjust: exact;">I.G.S.T. 18%</td>
-                     <td style="border-bottom: 1px solid black;border-right: 1px solid black;">'.$igst.'</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-left: 1px solid black;border-bottom: 1px solid black;color: red;padding: 5px;">Amount in words</td>
-                     <td style="border-bottom: 1px solid #fff;background-color: black;color: white;padding: 5px;-webkit-print-color-adjust: exact;">G. Total</td>
-                     <td style="border-bottom: 1px solid black;border-right: 1px solid;">'.$total.'</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-left: 1px solid black;border-bottom: 1px solid black;padding: 5px;border-right: 1px solid black;">* Subject to lorem ipsum             <span style="float: right;"> E.&amp;.O.E.</span></td>
-                     <td rowspan="2" colspan="2" style="vertical-align: bottom;padding: 5px;color: red;border-right: 1px solid black;text-align: center;">for, Company Name</td>
-                  </tr>
-                  <tr>
-                     <td colspan="3" style="border-left: 1px solid black;padding-left: 5px;border-right: 1px solid black;">
-                        * Intrest will be charged upon all acounts 
-                        <p style="margin: 0px;">remaning unpaid after due date</p>
-                     </td>
-                  </tr>
-               </tbody>
-            </table>';
-$connect->close();
+            $table.= '
+         <tr>
+            <td colspan="2" class="blank"> </td>
+            <td colspan="2" class="total-line">Total Acumulado</td>
+            <td class="total-value"><div id="subtotal">'.$subTotal.'</div></td>
+         </tr>
+         <tr>
+            <td colspan="2" class="blank"> </td>
+            <td colspan="2" class="total-line balance">Grande Total</td>
+            <td class="total-value balance"><div class="due">'.$total.'</div></td>
+         </tr>
+      </table>
+
+      <div class="">
+         <label>Assinatura do Funcionario:</label>
+         <br>
+         &nbsp;
+      </div>
+
+      <div id="terms">
+         <h5>Terms</h5>
+         <label>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</label>
+      </div>
+
+   </div>
+   ';
+   $connect->close();
 
 echo $table;
