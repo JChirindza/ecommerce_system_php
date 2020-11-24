@@ -8,7 +8,7 @@ $valid['success'] = array('success' => false, 'messages' => array());
 $userid = $_POST['userid'];
 
 if($userid) { 
- $sql = "UPDATE users SET active = 2, status = 2 WHERE user_id = {$userId}";
+ $sql = "UPDATE users SET active = 2, status = 2 WHERE user_id = {$userid}";
 
  if($connect->query($sql) === TRUE) {
  	$valid['success'] = true;

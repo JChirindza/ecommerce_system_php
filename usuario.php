@@ -1,4 +1,3 @@
-<?php require_once 'php_action/db_connect.php' ?>
 <?php require_once 'includes/header.php'; ?>
 
 <?php 
@@ -293,9 +292,9 @@ $connect->close();
 				<div class="removeUserMessages"></div>
 				<p>Do you really want to remove ?</p>
 			</div>
-			<div class="modal-footer removeUserFooter">
+			<div class="modal-footer removeProductFooter">
 				<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-outline-danger" id="removeUserBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> Save changes</button>
+				<button type="button" class="btn btn-outline-danger" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> Save changes</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
