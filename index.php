@@ -299,7 +299,7 @@ if(isset($_SESSION['userId'])) {
 					<h4><i class="fas fa-network-wired"></i> Componentes de computador</h4>
 
 					<!-- Computer components -->
-					<div class="row filter_componets"></div>
+					<div class="row filter_components"></div>
 				</div>
 				<div class="col-sm-12 view-more border-top">
 					<a href="#">+ view more</a>
@@ -446,12 +446,12 @@ if(isset($_SESSION['userId'])) {
 <script>
 	$(document).ready(function(){
 
-		filter_componets();
+		filter_components();
 
-		function filter_componets()
+		function filter_components()
 		{
-			$('.filter_componets').html('<div id="loading" style="" ></div>');
-			var action = 'filter_componets';
+			$('.filter_components').html('<div id="loading" style="" ></div>');
+			var action = 'filter_components';
 			var minimum_price = $('#hidden_minimum_price').val();
 			var maximum_price = $('#hidden_maximum_price').val();
 			var brand = get_filter('brand');
@@ -460,7 +460,7 @@ if(isset($_SESSION['userId'])) {
 				method:"POST",
 				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
 				success:function(data){
-					$('.filter_componets').html(data);
+					$('.filter_components').html(data);
 				}
 			});
 		}
