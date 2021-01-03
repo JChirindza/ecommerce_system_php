@@ -7,9 +7,9 @@
 			<div class="col-sm-3 bg-white p-3">
 				<h4 class=""><i class="fas fa-list"></i> Categorias</h4>
 				<div class="list-group list-group-flush border">
-					<a id="navClient" href="#" class="list-group-item list-group-item-action border-0">Computadores</a>
-					<a id="navReport" href="#" class="list-group-item list-group-item-action border-0">Hardware e pecas de Redes</a>
-					<a id="navSetting" href="#" class="list-group-item list-group-item-action border-0">Componentes de computadores</a>
+					<a href="#computadores" class="list-group-item list-group-item-action border-0">Computadores</a>
+					<a href="#hardware" class="list-group-item list-group-item-action border-0">Hardware e pecas de Redes</a>
+					<a href="#componentes" class="list-group-item list-group-item-action border-0">Componentes de computadores</a>
 				</div>
 			</div>
 
@@ -59,15 +59,15 @@
 			</div>
 		</div>
 
-		<div class="row mt-4">
+		<div class="row mt-4" id="computadores">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-list"></i> Computadores </h4>
 
-				<!-- Filter Computers -->
-				<div class="row filter_computers"></div>
+				<!-- fetch Computers -->
+				<div class="row fetch_computers"></div>
 			</div>
 			<div class="col-sm-12 view-more">
-				<a href="#">+ view more</a>
+				<a href="productFilters.php?category_id=1">+ view more</a>
 			</div>
 		</div>
 
@@ -100,15 +100,15 @@
 			</div>
 		</div>
 
-		<div class="row mt-4">
+		<div class="row mt-4" id="hardware">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-network-wired"></i> Hardware e Pecas de Rede </h4>
 
-				<!-- Filter Hardware and network parts -->
-				<div class="row filter_hardware"></div>
+				<!-- fetch Hardware and network parts -->
+				<div class="row fetch_hardware"></div>
 			</div>
 			<div class="col-sm-12 view-more">
-				<a href="#">+ view more</a>
+				<a href="productFilters.php?category_id=2">+ view more</a>
 			</div>
 		</div>
 
@@ -141,15 +141,15 @@
 			</div>
 		</div>
 
-		<div class="row mt-4">
+		<div class="row mt-4" id="componentes">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-network-wired"></i> Componentes de computador</h4>
 
 				<!-- Computer components -->
-				<div class="row filter_components"></div>
+				<div class="row fetch_components"></div>
 			</div>
 			<div class="col-sm-12 view-more border-top">
-				<a href="#">+ view more</a>
+				<a href="productFilters.php?category_id=3">+ view more</a>
 			</div>
 		</div>
 	</div>
@@ -183,162 +183,60 @@
 <script>
 	$(document).ready(function(){
 
-		filter_computers();
+		fetch_computers();
 
-		function filter_computers()
-		{
-			$('.filter_computers').html('<div id="loading" style="" ></div>');
-			var action = 'filter_computers';
-			var minimum_price = $('#hidden_minimum_price').val();
-			var maximum_price = $('#hidden_maximum_price').val();
-			var brand = get_filter('brand');
-			
+		function fetch_computers() {
+			$('.fetch_computers').html('<div id="loading" style="" ></div>');
+			var action = 'fetch_computers';
 			$.ajax({
-				url:"php_action/fetch_data.php",
+				url:"php_action/fetch_data.php?category_id=1",
 				method:"POST",
-				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+				data:{action:action},
 				success:function(data){
-					$('.filter_computers').html(data);
+					$('.fetch_computers').html(data);
 				}
 			});
 		}
-
-		function get_filter(class_name)
-		{
-			var filter = [];
-			$('.'+class_name+':checked').each(function(){
-				filter.push($(this).val());
-			});
-			return filter;
-		}
-
-		$('.common_selector').click(function(){
-			filter_data();
-		});
-
-		$('#price_range').slider({
-			range:true,
-			min:1000,
-			max:165000,
-			values:[1000, 165000],
-			step:500,
-			stop:function(event, ui)
-			{
-				$('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-				$('#hidden_minimum_price').val(ui.values[0]);
-				$('#hidden_maximum_price').val(ui.values[1]);
-				filter_data();
-			}
-		});
-
 	});
 </script>
 
 <script>
 	$(document).ready(function(){
 
-		filter_hardware();
+		fetch_hardware();
 
-		function filter_hardware()
-		{
-			$('.filter_hardware').html('<div id="loading" style="" ></div>');
-			var action = 'filter_hardware';
-			var minimum_price = $('#hidden_minimum_price').val();
-			var maximum_price = $('#hidden_maximum_price').val();
-			var brand = get_filter('brand');
-			var ram = get_filter('ram');
-			var storage = get_filter('storage');
+		function fetch_hardware() {
+			$('.fetch_hardware').html('<div id="loading" style="" ></div>');
+			var action = 'fetch_hardware';
 			$.ajax({
-				url:"php_action/fetch_data.php",
+				url:"php_action/fetch_data.php?category_id=2",
 				method:"POST",
-				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+				data:{action:action},
 				success:function(data){
-					$('.filter_hardware').html(data);
+					$('.fetch_hardware').html(data);
 				}
 			});
 		}
-
-		function get_filter(class_name)
-		{
-			var filter = [];
-			$('.'+class_name+':checked').each(function(){
-				filter.push($(this).val());
-			});
-			return filter;
-		}
-
-		$('.common_selector').click(function(){
-			filter_data();
-		});
-
-		$('#price_range').slider({
-			range:true,
-			min:1000,
-			max:165000,
-			values:[1000, 165000],
-			step:500,
-			stop:function(event, ui)
-			{
-				$('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-				$('#hidden_minimum_price').val(ui.values[0]);
-				$('#hidden_maximum_price').val(ui.values[1]);
-				filter_data();
-			}
-		});
-
 	});
 </script>
 
 <script>
 	$(document).ready(function(){
 
-		filter_components();
+		fetch_components();
 
-		function filter_components()
-		{
-			$('.filter_components').html('<div id="loading" style="" ></div>');
-			var action = 'filter_components';
-			var minimum_price = $('#hidden_minimum_price').val();
-			var maximum_price = $('#hidden_maximum_price').val();
-			var brand = get_filter('brand');
+		function fetch_components() {
+			$('.fetch_components').html('<div id="loading" style="" ></div>');
+			var action = 'fetch_components';
 			$.ajax({
-				url:"php_action/fetch_data.php",
+				url:"php_action/fetch_data.php?category_id=3",
 				method:"POST",
-				data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+				data:{action:action},
 				success:function(data){
-					$('.filter_components').html(data);
+					$('.fetch_components').html(data);
 				}
 			});
 		}
-
-		function get_filter(class_name)
-		{
-			var filter = [];
-			$('.'+class_name+':checked').each(function(){
-				filter.push($(this).val());
-			});
-			return filter;
-		}
-
-		$('.common_selector').click(function(){
-			filter_data();
-		});
-
-		$('#price_range').slider({
-			range:true,
-			min:1000,
-			max:165000,
-			values:[1000, 165000],
-			step:500,
-			stop:function(event, ui)
-			{
-				$('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-				$('#hidden_minimum_price').val(ui.values[0]);
-				$('#hidden_maximum_price').val(ui.values[1]);
-				filter_data();
-			}
-		});
-
 	});
 </script>
 
