@@ -162,6 +162,16 @@ div.kv-avatar div.file-input div.file-preview {
 
 .product-img {
 	margin: .5rem;
+	display: flex;
+	justify-content: center; 
+	align-items: center;
+}
+
+.product-img-2 {
+	margin: .5rem;
+	display: flex;
+	justify-content: center; 
+	align-items: center;
 }
 
 .product-brand {
@@ -234,6 +244,9 @@ div.kv-avatar div.file-input div.file-preview {
 
 .product-img-details {
 	margin: .5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .product-brand-details {
