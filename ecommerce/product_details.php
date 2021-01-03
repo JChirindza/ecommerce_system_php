@@ -11,11 +11,7 @@
 				<?php require_once 'php_action/fetchProductDetails.php'; ?>
 			</div>
 		</div>
-		<style type="text/css">
-			table .name{
-				font-weight: bolder;
-			}
-		</style>
+		
 		<div class="row mt-4">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-info-circle"></i> Detalhes técnicos </h4>
@@ -39,7 +35,7 @@
 									?>
 									<tr>
 										<td class="bg-light text-muted border"><?php echo $x ?></td>
-										<td class="name bg-light"><?php echo $dados['name'];?></td>
+										<td class="bg-light"><?php echo $dados['name'];?></td>
 										<td><?php echo $dados['description'];?></td>
 									</tr>
 
@@ -65,7 +61,7 @@
 				<h4><i class="fas fa-network-wired"></i> Produtos Relacionados </h4>
 
 				<!-- Produtos Relacionados -->
-				<div class="row filter_hardware"></div>
+				<div class="row related_products"></div>
 			</div>
 		</div>
 		<div class="row mt-4">
@@ -73,24 +69,32 @@
 				<h4><i class="fas fa-network-wired"></i> Compare com Semelhantes </h4>
 
 				<!-- Compare with Similar -->
-				<div class="row filter_hardware"></div>
+				<div class="row compare_similar"></div>
 			</div>
 			
 		</div>
 	</div>
 </div>
 
-<script type="text/javascript">
-	var productDetailsTable;
+<!-- Related Product -->
+<script>
+	$(document).ready(function(){
 
-	$(document).ready(function() {
-	// top bar active
-	$('#navBrand').addClass('active');
-	
-	// manage brand table
-	productDetailsTable = $("#productDetailsTable").DataTable({
-		'ajax': 'php_action/fetchProductTechnicalDetails.php',
-		'order': []		
+		related_products();
+
+		function related_products(){
+			$('.related_products').html('<div id="loading" style="" ></div>');
+			var product_id = $('#product_id').val();
+			
+			$.ajax({
+				url:"php_action/fetch_related.php",
+				method:"POST",
+				data:{product_id:product_id},
+				success:function(data){
+					$('.related_products').html(data);
+				}
+			});
+		}
 	});
 </script>
 <?php require_once 'includes/footer.php'; ?>
