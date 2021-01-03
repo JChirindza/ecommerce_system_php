@@ -3,25 +3,21 @@
 require_once 'db_connect.php';
 
 if(isset($_POST["action"])) {
-
-	if($_POST['action'] == "filter_computers"){
-		$sql = " SELECT * FROM product WHERE categories_id = '1' AND active = '1' ORDER BY RAND() limit 8";
-	}elseif ($_POST['action'] == "filter_hardware") {
-		$sql = " SELECT * FROM product WHERE categories_id = '2' AND active = '1' ORDER BY RAND() limit 8";
-	}elseif ($_POST['action'] == "filter_components") {
-		$sql = " SELECT * FROM product WHERE categories_id = '3' AND active = '1' ORDER BY RAND() limit 8";
+	if($_GET['category_id']){
+		$categories_id = $_GET["category_id"];
+		$sql = "SELECT * FROM product WHERE categories_id = {$categories_id} AND active = '1' ORDER BY RAND() limit 8";
 	}else{
 		$sql = " SELECT * FROM product WHERE active = '1' ORDER BY RAND() limit 8";
 	}
-
-	if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"])) {
-		$sql .= " AND rate BETWEEN '".$_POST["minimum_price"]."' AND '".$_POST["maximum_price"]."' ";
-	}
-	
-	if(isset($_POST["brand"])) {
-		$brand_filter = implode("','", $_POST["brand"]);
-		$sql .= " AND brand_id IN('".$brand_filter."') ";
-	}
+	// if($_POST['action'] == "filter_computers"){
+	// 	$sql = " SELECT * FROM product WHERE categories_id = '1' AND active = '1' ORDER BY RAND() limit 8";
+	// }elseif ($_POST['action'] == "filter_hardware") {
+	// 	$sql = " SELECT * FROM product WHERE categories_id = '2' AND active = '1' ORDER BY RAND() limit 8";
+	// }elseif ($_POST['action'] == "filter_components") {
+	// 	$sql = " SELECT * FROM product WHERE categories_id = '3' AND active = '1' ORDER BY RAND() limit 8";
+	// }else{
+	// $sql = " SELECT * FROM product WHERE active = '1' ORDER BY RAND() limit 8";
+	// }
 
 	$result = $connect->query($sql);
 
@@ -39,7 +35,7 @@ if(isset($_POST["action"])) {
 			<div class="col-md-3">
 				<a href="product_details.php?product_id='. $row['product_id'] .'">
 					<div class="product-entry">
-						<div class="col-md-12 product-img">
+						<div class="col-md-12 product-img" style="display: flex; justify-content: center; align-items: center;">
 							<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 200px; " >
 						</div>
 						<div class="product-brand">Marca '. $result2['brand_name'] .' </div>
