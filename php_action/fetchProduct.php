@@ -32,9 +32,11 @@ if($result->num_rows > 0) {
  	} // /else
 
  	$button = '<!-- Single button -->
- 	<button class="btn btn-outline-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('.$productId.')"> <i class="fas fa-edit"></i></button>
- 	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeProductModal" id="removeProductModalBtn" onclick="removeProduct('.$productId.')"> <i class="fas fa-trash"></i></button>       
- 	';
+ 	<div class="btn-group">
+ 		<a href="produto.php?p=detail&i='.$productId.'" class="btn btn-outline-success btn-sm" id="productDetailsBtn"> <i class="fas fa-eye"></i></a>
+	 	<button class="btn btn-outline-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('.$productId.')"> <i class="fas fa-edit"></i></button>
+	 	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeProductModal" id="removeProductModalBtn" onclick="removeProduct('.$productId.')"> <i class="fas fa-trash"></i></button>       
+ 	</div>';
 
 	// $brandId = $row[3];
 	// $brandSql = "SELECT * FROM brands WHERE brand_id = $brandId";

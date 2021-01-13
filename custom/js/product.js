@@ -14,11 +14,6 @@ $(document).ready(function() {
 		// // product form reset
 		$("#submitProductForm")[0].reset();		
 
-		// remove text-error 
-		$(".text-danger").remove();
-		// remove from-group error
-		$(".form-group").removeClass('has-error').removeClass('has-success');
-
 		$("#productImage").fileinput({
 			overwriteInitial: true,
 			maxFileSize: 2500,
@@ -38,6 +33,11 @@ $(document).ready(function() {
 
 		// submit product form
 		$("#submitProductForm").unbind('submit').bind('submit', function() {
+
+			// remove text-error 
+			$(".text-danger").remove();
+			// remove from-group error
+			$(".form-group").removeClass('has-error').removeClass('has-success');
 
 			// form validation
 			var productImage = $("#productImage").val();
