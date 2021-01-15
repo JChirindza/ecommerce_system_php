@@ -28,14 +28,14 @@
 							<?php
 							$x = 1;
 							$product_id = $_GET['product_id'];
-							$sql = "SELECT pd.id, pd.name, pd.description FROM product as p, product_details as pd WHERE pd.product_id = {$product_id} and p.product_id = {$product_id}";
+							$sql = "SELECT pd.id, pd.detail, pd.description FROM product as p, product_details as pd WHERE pd.product_id = {$product_id} and p.product_id = {$product_id}";
 							$resultado = mysqli_query($connect, $sql);
 							if (mysqli_num_rows($resultado) > 0):
 								while ($dados = mysqli_fetch_array($resultado)):
 									?>
 									<tr>
 										<td class="bg-light text-muted border"><?php echo $x ?></td>
-										<td class="bg-light"><?php echo $dados['name'];?></td>
+										<td class="bg-light"><?php echo $dados['detail'];?></td>
 										<td><?php echo $dados['description'];?></td>
 									</tr>
 
