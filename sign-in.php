@@ -6,6 +6,8 @@ session_start();
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
 		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+	}else{
+		header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php');	
 	}
 }
 
