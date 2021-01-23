@@ -15,6 +15,7 @@ if(isset($_SESSION['userId'])) {
 	if($result->num_rows > 0) { 
 		while($row = $result->fetch_array()) {
 			$username = $row[1];
+			$user_image_url = $row[5];
  		} // /while 
 	}// if num_rows
 }
@@ -71,7 +72,7 @@ if(isset($_SESSION['userId'])) {
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img class="img-profile rounded-circle border border-info" id="getUserImageNav"  style="width: 35px; height: 35px;">
+								<img class="img-profile rounded-circle border border-info" src="<?php echo $user_image_url; ?>"  style="width: 35px; height: 35px;">
 							</a>
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 								<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Ola, <?php echo $username; ?></div>
@@ -118,41 +119,3 @@ if(isset($_SESSION['userId'])) {
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	var userid = <?php echo $userID; ?>;
-	// userid = 2;
-	if(userid) {
-		$("#userid").remove();		
-		// remove text-error 
-		$(".text-danger").remove();
-		// remove from-group error
-		$(".form-group").removeClass('has-error').removeClass('has-success');
-		// modal spinner
-		$('.div-loading').removeClass('div-hide');
-		// modal div
-		$('.div-result').addClass('div-hide');
-
-		$.ajax({
-			url: '../php_action/fetchSelectedUser.php',
-			type: 'post',
-			data: {"userid": userid},
-			dataType: 'json',
-			success:function(response) {		
-			// alert(response.product_image);
-				// modal spinner
-				$('.div-loading').addClass('div-hide');
-				// modal div
-				$('.div-result').removeClass('div-hide');		
-
-				$("#getUserImageNav").attr('src', 'users/'+response.user_image);
-
-				$("#editUserImage").fileinput({		      
-				});		
-
-				
-
-			} // /success function
-		}); // /ajax to fetch product image
-	}
-</script>
