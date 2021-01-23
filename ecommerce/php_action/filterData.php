@@ -51,7 +51,7 @@ if(isset($_POST["action"])) {
 							<h5 style="text-align:center;" class="text-danger" >'. number_format($row['rate'], 2). " Mt" .' </h5>
 						</div>
 						<div class="cart">
-							<a href="php_action/addToCart.php" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Adicionar ao carrinho.">
+							<a href="#" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Adicionar ao carrinho.">
 								<i class="fas fa-cart-arrow-down"></i>
 							</a>
 						</div>
