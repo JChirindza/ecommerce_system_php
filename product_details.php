@@ -41,12 +41,12 @@
 					</div>
 				</div>
 				
-				<div class="view-more m-0 p-0" data-toggle="tooltip" title="Ver mais" style="cursor: pointer;">
+				<div class="view-more m-0 p-0" id="view-more" data-toggle="tooltip" title="Ver mais" style="cursor: pointer;">
 					<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-down"></i></label>
 				</div>
 
 				<!-- d-none -->
-				<div class="product-info mb-3"> 
+				<div class="product-info mb-3" id="product-info" style="display: none;"> 
 					<div class="form-group row">
 						<div class="col-sm-12 col-md-6 col-md-6">
 							<label for="quantity" class="col-12 control-label">Available Quantity: </label>
@@ -86,18 +86,38 @@
 							<?php $active = $prodResult['active']; ?>
 
 							<?php if ($active == 1) { ?>
-									<input type="text" readonly class="form-control border-0 text-success font-weight-bold" id="status" name="status" autocomplete="off" value="Available">
+								<input type="text" readonly class="form-control border-0 text-success font-weight-bold" id="status" name="status" autocomplete="off" value="Available">
 							<?php } elseif ($active == 2) { ?>
-									<input type="text" readonly class="form-control border-0 text-danger font-weight-bold" id="status" name="status" autocomplete="off" value="Not Available">
+								<input type="text" readonly class="form-control border-0 text-danger font-weight-bold" id="status" name="status" autocomplete="off" value="Not Available">
 							<?php } ?>
 						</div>
 					</div> <!-- /form-group-->
 				
 
-					<div class="view-less m-0 p-0 " data-toggle="tooltip" title="Ver menos" style="cursor: pointer;">
+					<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="Ver menos" style="cursor: pointer;">
 						<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
 					</div>
 				</div>
+
+				<script type="text/javascript">
+					var view_more = document.getElementById('view-more');
+					var view_less = document.getElementById('view-less');
+					var product_info = document.getElementById('product-info');
+					
+					view_more.onclick = function() {
+					    if (product_info.style.display === 'none') {
+					    	view_more.style.display = 'none';
+					        product_info.style.display = 'block';
+					    }
+					};
+
+					view_less.onclick = function() {						
+						if (product_info.style.display !== 'none') {
+							product_info.style.display = 'none';
+							view_more.style.display = 'block';
+						}
+					}
+				</script>
 				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('<?php echo $prodResult['product_id']; ?>')"> <i class="fas fa-edit"></i>Alterar dados</button>
 
 			</div> 

@@ -24,9 +24,9 @@ $(document).ready(function() {
 		$("#submitProductDetailsForm").unbind('submit').bind('submit', function() {
 
 			// remove text-error 
-	$(".text-danger").remove();
-	// remove from-group error
-	$(".form-group").removeClass('has-error').removeClass('has-success');
+			$(".text-danger").remove();
+			// remove from-group error
+			$(".form-group").removeClass('has-error').removeClass('has-success');
 
 			// form validation
 			var productDetail = $("#productDetail").val();
