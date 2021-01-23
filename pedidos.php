@@ -20,6 +20,25 @@ $result = $query->fetch_assoc();
 
 ?>
 
+<div class="border border-top-0 bg-white m-0 p-0 row">
+	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
+		<i class="fas fa-align-left"></i>
+	</button>
+	<ol class="breadcrumb bg-transparent mb-0">
+	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+	    <li class="breadcrumb-item active">Orders</li>
+	    <li class="breadcrumb-item active" aria-current="page">
+	    	<?php if($_GET['p'] == 'add') { ?>
+				Add Order
+			<?php } else if($_GET['p'] == 'manord') { ?>
+				Manage Order
+			<?php } else if($_GET['p'] == 'editOrd') { ?>
+				Edit Order
+			<?php } // /else manage order ?>
+		</li>
+  	</ol>
+</div>
+
 <!-- <ol class="breadcrumb">
 	<li><a href="dashboard.php">Home</a></li>
 	<li>Order</li>
@@ -61,7 +80,7 @@ $result = $query->fetch_assoc();
 	</div>
 	<div class="card-body">
 
-		<?php if($_GET['p'] == 'add') { // adicionar pedido ?>			
+		<?php if($_GET['p'] == 'add') { // add order ?>			
 			<div class="success-messages"></div> <!--/success-messages-->
 
 			<form class="form-horizontal" method="POST" action="php_action/createOrder.php" id="createOrderForm">
@@ -93,7 +112,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="orderDate" class="col-sm-3 control-label">Order Date:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" disabled id="orderDate" name="orderDate" autocomplete="off" value="<?php echo date('d-m-Y')."          ". date('H:i:s') ?>" required />
+								<input type="text" class="form-control" disabled id="orderDate" name="orderDate" autocomplete="off" value="<?php echo date('d-m-Y')."          ". date('H:i:s') ?>"/>
 							</div>
 						</div> <!--/form-group-->
 					</div>
@@ -189,7 +208,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="discount" class="col-sm-4 control-label">Discount:</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" />
+								<input type="text" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" required/>
 							</div>
 						</div> <!--/form-group-->	
 						<div class="form-group">
@@ -204,20 +223,20 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Tipo de pagamento:</label>
+							<label for="clientContact" class="col-sm-4 control-label">Payment Type:</label>
 							<div class="col-sm-8">
-								<select class="form-control" name="paymentType" id="paymentType">
+								<select class="form-control" name="paymentType" id="paymentType" required>
 									<option value="">~~SELECT~~</option>
-									<option value="1">Cheque</option>
-									<option value="2">Dinheiro</option>
-									<option value="3">Cartao Credito</option>
+									<option value="1" disabled>Cheque</option>
+									<option value="2">Cash</option>
+									<option value="3">Credit Card</option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
 							<label for="paid" class="col-sm-4 control-label"><strong>Paid Amount:</strong></label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control form-control-lg border-success" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" />
+								<input type="text" class="form-control form-control-lg border-success" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" required/>
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
@@ -231,7 +250,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="clientContact" class="col-sm-4 control-label">Payment Status:</label>
 							<div class="col-sm-8">
-								<select class="form-control" name="paymentStatus" id="paymentStatus">
+								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
 									<option value="">~~SELECT~~</option>
 									<option value="1">Full Payment</option>
 									<option value="2">Advance Payment</option>
@@ -244,7 +263,7 @@ $result = $query->fetch_assoc();
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentPlace" id="paymentPlace">
 									<option value="1" selected="true">Na Loja</option>
-									<option value="2">Online</option>
+									<option value="2" disabled>Online</option>
 								</select>
 							</div>
 						</div> <!--/form-group-->							  
@@ -300,13 +319,13 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="clientName" class="col-sm-3 control-label">Client Name:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" value="<?php echo $data[2] ?>" />
+								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" value="<?php echo $data[2] ?>" required/>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
 							<label for="clientContact" class="col-sm-3 control-label">Client Contact:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" value="<?php echo $data[3] ?>" />
+								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" value="<?php echo $data[3] ?>" required/>
 							</div>
 						</div> <!--/form-group-->	
 					</div>
@@ -349,7 +368,7 @@ $result = $query->fetch_assoc();
 			  				<td style="margin-left:20px;">
 			  					<div class="form-group">
 
-			  						<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
+			  						<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" required>
 			  							<option value="">~~SELECT~~</option>
 			  							<?php
 			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
@@ -436,7 +455,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="discount" class="col-sm-4 control-label">Discount:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" value="<?php echo $data[7] ?>" />
+								<input type="number" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" value="<?php echo $data[7] ?>" required/>
 							</div>
 						</div> <!--/form-group-->	
 						<div class="form-group">
@@ -447,7 +466,7 @@ $result = $query->fetch_assoc();
 							</div>
 						</div> <!--/form-group-->	
 						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo "IGST 17%";} else echo "GST 17%"; ?></label>
+							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo " *IVA 17%";} else echo "IVA 17%"; ?></label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="vat" name="vat" disabled="true" value="<?php echo $data[5] ?>"  />
 								<input type="hidden" class="form-control" id="vatValue" name="vatValue" value="<?php echo $data[5] ?>"  />
@@ -458,29 +477,30 @@ $result = $query->fetch_assoc();
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="gstn" name="gstn" value="<?php echo $data[14] ?>"  />
 							</div>
-						</div><!--/form-group-->		  		  
+						</div>
+						<!--/form-group-->		  		  
 					</div> <!--/col-md-6-->
 
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="paid" class="col-sm-4 control-label">Paid Amount:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" value="<?php echo $data[9] ?>"  />
+								<input type="number" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" value="<?php echo $data[9] ?>"  required/>
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
 							<label for="due" class="col-sm-4 control-label">Due Amount:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="due" name="due" disabled="true" value="<?php echo $data[10] ?>"  />
-								<input type="hidden" class="form-control" id="dueValue" name="dueValue" value="<?php echo $data[10] ?>"  />
+								<input type="hidden" class="form-control" id="dueValue" name="dueValue" value="<?php echo $data[10] ?>"  required/>
 							</div>
 						</div> <!--/form-group-->		
 						<div class="form-group">
 							<label for="clientContact" class="col-sm-4 control-label">Payment Type</label>
 							<div class="col-sm-8">
-								<select class="form-control" name="paymentType" id="paymentType" >
+								<select class="form-control" name="paymentType" id="paymentType" required>
 									<option value="">~~SELECT~~</option>
-									<option value="1" <?php if($data[11] == 1) {
+									<option value="1" disabled <?php if($data[11] == 1) {
 										echo "selected";
 									} ?> >Cheque</option>
 									<option value="2" <?php if($data[11] == 2) {
@@ -495,7 +515,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="clientContact" class="col-sm-4 control-label">Payment Status:</label>
 							<div class="col-sm-8">
-								<select class="form-control" name="paymentStatus" id="paymentStatus">
+								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
 									<option value="">~~SELECT~~</option>
 									<option value="1" <?php if($data[12] == 1) {
 										echo "selected";
@@ -516,10 +536,10 @@ $result = $query->fetch_assoc();
 									<option value="">~~SELECT~~</option>
 									<option value="1" <?php if($data[13] == 1) {
 										echo "selected";
-									} ?>  >Na loja</option>
+									}else { echo "disabled"; } ?>  >Na loja</option>
 									<option value="2" <?php if($data[13] == 2) {
 										echo "selected";
-									} ?> >Online</option>
+									}else { echo "disabled"; } ?> >Online</option>
 								</select>
 							</div>
 						</div>							  
@@ -541,7 +561,7 @@ $result = $query->fetch_assoc();
 </div> <!--/card-->	
 
 
-<!-- edit order -->
+<!-- edit order (Payment) -->
 <div class="modal fade" tabindex="-1" role="dialog" id="paymentOrderModal">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -564,24 +584,24 @@ $result = $query->fetch_assoc();
 				<div class="form-group">
 					<label for="payAmount" class="col-sm-3 control-label">Pay Amount</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="payAmount" name="payAmount"/>					      
+						<input type="text" class="form-control" id="payAmount" name="payAmount" required/>					      
 					</div>
 				</div> <!--/form-group-->		
 				<div class="form-group">
 					<label for="clientContact" class="col-sm-3 control-label">Tipo de pagamento:</label>
 					<div class="col-sm-9">
-						<select class="form-control" name="paymentType" id="paymentType" >
+						<select class="form-control" name="paymentType" id="paymentType" required>
 							<option value="">~~SELECT~~</option>
-							<option value="1">Cheque</option>
-							<option value="2">Dinheiro</option>
-							<option value="3">Cartao de Credito</option>
+							<option value="1" disabled>Cheque</option>
+							<option value="2">Cash</option>
+							<option value="3">Credit card</option>
 						</select>
 					</div>
 				</div> <!--/form-group-->							  
 				<div class="form-group">
 					<label for="clientContact" class="col-sm-3 control-label">Payment Status</label>
 					<div class="col-sm-9">
-						<select class="form-control" name="paymentStatus" id="paymentStatus">
+						<select class="form-control" name="paymentStatus" id="paymentStatus" required>
 							<option value="">~~SELECT~~</option>
 							<option value="1">Full Payment</option>
 							<option value="2">Advance Payment</option>

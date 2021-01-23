@@ -385,9 +385,9 @@ $result = $query->fetch_assoc();
 											<input type="text" name="total[]" id="total<?php echo $x; ?>" autocomplete="off" class="form-control" disabled="true" value="<?php echo $orderItemData['total']; ?>"/>			  					
 											<input type="hidden" name="totalValue[]" id="totalValue<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $orderItemData['total']; ?>"/>			  					
 										</td>
-										<!-- <td>
+										<td>
 											<button class="btn border text-danger removeProductRowBtn" type="button" id="removeProductRowBtn" onclick="removeProductRow(<?php echo $x; ?>)"><i class="fas fa-trash"></i></button>
-										</td> -->
+										</td>
 									</tr>
 									<?php
 									$arrayNumber++;
