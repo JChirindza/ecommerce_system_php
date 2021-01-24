@@ -1,15 +1,22 @@
 <?php require_once 'includes/header.php'; ?>
 
-<!-- <div class="border border-top-0 bg-white m-0 p-0">
-	<button type="button" id="menu-toggle" class="btn d-inline-block d-lg ml-auto">
+<div class="border border-top-0 bg-white m-0 p-0 row">
+	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
 		<i class="fas fa-align-left"></i>
 	</button>
+	<ol class="breadcrumb bg-transparent mb-0">
+	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+	    <li class="breadcrumb-item active">Product</li>
+	    <li class="breadcrumb-item active" aria-current="page">
+	    	<?php if($_GET['p'] == 'manprod') { ?>
+				Manage
+			<?php } else if($_GET['p'] == 'detail') { ?>
+				Details
+			<?php } // /else manage ?>
+		</li>
+  	</ol>
+</div>
 
-	<ol class="breadcrumb">
-		<li><a href="dashboard.php">Home</a></li>		  
-		<li class="active">Product</li>
-	</ol>
-</div> -->
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="pageTitle">Produto</h1>
