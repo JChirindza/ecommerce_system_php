@@ -25,9 +25,13 @@ $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
 
-$userwisesql = "SELECT users.name, users.surname , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
+$userwisesql = "SELECT users.name, users.surname, users.email, users.permittion , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 1 GROUP BY orders.user_id";
 $userwiseQuery = $connect->query($userwisesql);
 $userwieseOrder = $userwiseQuery->num_rows;
+
+$clientwisesql = "SELECT users.name, users.surname, users.email, users.active , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 2 GROUP BY orders.user_id";
+$clientwiseQuery = $connect->query($clientwisesql);
+$clientwieseOrder = $clientwiseQuery->num_rows;
 
 $connect->close();
 
@@ -183,61 +187,81 @@ $connect->close();
 	<?php } ?>  
 </div>
 
+<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
+<div class="col-12 pt-2 mb-4 p-0">
+	<div class="card shadow-sm">
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> Users orders <label class="badge badge-secondary">Funcionario</label></div>
+		<div class="card-body">
+			<table class="table table-responsive table-hover" id="userWiseOrderTable">
+				<thead>
+					<tr>			  			
+						<th style="width:25%;">Name</th>
+						<th style="width:25%;">Surname</th>
+						<th style="width:25%;">Email</th>
+						<th style="width:10%;">Type</th>
+						<th style="width:15%;">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
+					<tr>
+						<td><?php echo $orderResult['name']?></td>
+						<td><?php echo $orderResult['surname']?></td>
+						<td><?php echo $orderResult['email']?></td>
+						<td><?php if($orderResult['permittion'] = 1){ ?>
+							<label class="badge badge-info">Administrador</label>
+						<?php }elseif ($orderResult['permittion'] = 2) { ?>
+							<label class="badge badge-primary">Gestor</label>
+						<?php }elseif ($orderResult['permittion'] = 3) { ?>
+							<label class="badge badge-success">Vendedor</label>
+						<?php } ?>
+						</td>
+						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+</div> 
+<?php } ?>
+
+<div class="col-12 pt-2 mb-4 p-0">
+	<div class="card shadow-sm">
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> Users orders <label class="badge badge-secondary">Clients</label></div>
+		<div class="card-body">
+			<table class="table table-responsive table-hover" id="clientWiseOrderTable">
+				<thead>
+					<tr>			  			
+						<th style="width:25%;">Name</th>
+						<th style="width:25%;">Surname</th>
+						<th style="width:25%;">Email</th>
+						<th style="width:25%;">Status</th>
+						<th style="width:25%;">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php while ($orderResult = $clientwiseQuery->fetch_assoc()) { ?>
+					<tr>
+						<td><?php echo $orderResult['name']?></td>
+						<td><?php echo $orderResult['surname']?></td>
+						<td><?php echo $orderResult['email']?></td>
+						<td><?php if($orderResult['active'] = 1){ ?>
+							<label class="badge badge-success">Active</label>
+						<?php }elseif ($orderResult['active'] = 2) { ?>
+							<label class="badge badge-primary">Inactive</label>
+						<?php } ?>
+						</td>
+						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+</div>
+
 <div class="row">
-	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
-		<div class="col-md-12 pt-2 mb-4">
-			<div class="card shadow-sm ">
-				<div class="card-header"> <i class="fas fa-calendar"></i> Pedidos de Usuarios</div>
-				<div class="card-body">
-					<table class="table table-responsive" id="productTable">
-						<thead>
-							<tr>			  			
-								<th style="width:30%;">Name</th>
-								<th style="width:30%;">Apelido</th>
-								<th style="width:20%;">Pedidos em (MZN)</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
-								<tr>
-									<td><?php echo $orderResult['name']?></td>
-									<td><?php echo $orderResult['surname']?></td>
-									<td><?php echo $orderResult['totalorder']?></td>
-								</tr>
-							<?php } ?>
-						</tbody>
-					</table>
-				</div>	
-			</div>
-		</div> 
-	<?php  }elseif (isset($_SESSION['userId']) && $result['permittion'] != 3) { ?> 
-		<div class="col-md-12 pt-2 mb-4">
-			<div class="card shadow-sm ">
-				<div class="card-header"> <i class="fas fa-calendar"></i> Compras de Usuarios</div>
-				<div class="card-body">
-					<table class="table" id="productTable">
-						<thead>
-							<tr>			  			
-								<th style="width:35%;">Nome</th>
-								<th style="width:35%;">Apelido</th>
-								<th style="width:30%;">Compras em (MZN)</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
-								<tr>
-									<td><?php echo $orderResult['name']?></td>
-									<td><?php echo $orderResult['surname']?></td>
-									<td><?php echo $orderResult['totalorder']?></td>
-								</tr>
-							<?php } ?>
-						</tbody>
-					</table>
-				</div>	
-			</div>
-		</div> 
-	<?php } ?>
-	
 	<div class="col-md-4  pt-2 mb-4">
 		<div class="card shadow-sm ">
 			<div class="card-header">
@@ -253,7 +277,7 @@ $connect->close();
 		<div class="card shadow-sm ">
 			<div class="card-header" style="background-color:#245580;">
 				<h1><?php if($totalRevenue) {
-					echo $totalRevenue;
+					echo number_format($totalRevenue,2,",",".");
 				} else {
 					echo '0';
 				} ?></h1>
@@ -264,7 +288,7 @@ $connect->close();
 			</div>
 		</div> 
 	</div>
-</div> <!--/row-->
+</div>
 
 <!-- fullCalendar 2.2.5 -->
 <script src="assests/plugins/moment/moment.min.js"></script>
@@ -274,27 +298,25 @@ $connect->close();
 <script type="text/javascript">
 	$(function () {
 			// top bar active
-			$('#navDashboard').addClass('active');
+		$('#navDashboard').addClass('active');
 
-      //Date for the calendar events (dummy data)
-      var date = new Date();
-      var d = date.getDate(),
-      m = date.getMonth(),
-      y = date.getFullYear();
+      	//Date for the calendar events (dummy data)
+      	var date = new Date();
+      	var d = date.getDate(),
+      	m = date.getMonth(),
+      	y = date.getFullYear();
 
-      $('#calendar').fullCalendar({
-      	header: {
-      		left: '',
-      		center: 'title'
-      	},
-      	buttonText: {
-      		today: 'today',
-      		month: 'month'          
-      	}        
-      });
-
-
-  });
+      	$('#calendar').fullCalendar({
+	      	header: {
+	      		left: '',
+	      		center: 'title'
+	      	},
+	      	buttonText: {
+	      		today: 'today',
+	      		month: 'month'          
+	      	}        
+      	});
+  	});
 </script>
 
 <?php require_once 'includes/footer.php'; ?>
