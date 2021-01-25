@@ -357,8 +357,6 @@ div.kv-avatar div.file-input div.file-preview {
 }
 .process h4 {
 	margin-bottom: 0;
-	font-size: 12px;
-	/*text-transform: uppercase;*/
 	letter-spacing: 1px; 
 }
 .process.active p {
