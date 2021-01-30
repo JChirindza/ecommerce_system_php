@@ -4,7 +4,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT * FROM users WHERE status = 1";
+$sql = "SELECT * FROM users WHERE status = 1 AND type = 1";
 
 $result = $connect->query($sql);
 

@@ -6,8 +6,8 @@ $valid['success'] = array('success' => false, 'messages' => array());
 
 if($_POST) {	
 
-	$name 	= $_POST['name'];
-	$name 	= $_POST['surname'];
+	$name 		= $_POST['userName'];
+	$surname 	= $_POST['userSurname'];
 	$uemail 	= $_POST['uemail'];
 	$upassword 	= md5($_POST['upassword']);
 	$permittion	= $_POST['permittion'];
@@ -19,7 +19,7 @@ if($_POST) {
 
 	if ($count == 0) {
 		$sql = "INSERT INTO users (name, surname, email, password, user_image, type, permittion, active, status) 
-		VALUES ('$userName' , '$uemail', '$upassword', '$url', 1, '$permittion', 1, 1)";
+		VALUES ('$name', '$surname' , '$uemail', '$upassword', '$url', 1, '$permittion', 1, 1)";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;

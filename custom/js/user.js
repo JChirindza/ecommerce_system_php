@@ -39,30 +39,30 @@ $(document).ready(function() {
 		// submit product form
 		$("#submitUserForm").unbind('submit').bind('submit', function() {
 			// form validation
-			var name = $("#name").val();
-			var surname = $("#surname").val();
+			var name = $("#userName").val();
+			var surname = $("#userSurname").val();
 			var useremail = $("#uemail").val();
 			var upassword = $("#upassword").val();
 			var userPermittion = $("#permittion").val();
 
 			if(name == "") {
-				$("#name").after('<p class="text-danger">Name field is required</p>');
+				$("#userName").after('<p class="text-danger">Name field is required</p>');
 				$('#name').closest('.form-group').addClass('has-error');
 			}	else {
 				// remov error text field
-				$("#name").find('.text-danger').remove();
+				$("#serName").find('.text-danger').remove();
 				// success out for form 
-				$("#name").closest('.form-group').addClass('has-success');	  	
+				$("#serName").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
 			if(surname == "") {
-				$("#surname").after('<p class="text-danger"> Surname field is required</p>');
+				$("#userSurname").after('<p class="text-danger"> Surname field is required</p>');
 				$('#surname').closest('.form-group').addClass('has-error');
 			}	else {
 				// remov error text field
-				$("#surname").find('.text-danger').remove();
+				$("#userSurname").find('.text-danger').remove();
 				// success out for form 
-				$("#surname").closest('.form-group').addClass('has-success');	  	
+				$("#userSurname").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
 			if(useremail == "") {
@@ -198,7 +198,7 @@ function editUser(userid = null) {
 				// user email
 				$("#editEmail").val(response.email);
 				// password
-				$("#editPassword").val(response.password);
+				// $("#editPassword").val(response.password);
 				// status
 				$("#editPermittion").val(response.permittion);
 				// status
@@ -212,7 +212,7 @@ function editUser(userid = null) {
 					var name = $("#editName").val();
 					var surname = $("#editSurname").val();
 					var useremail = $("#editEmail").val();
-					var userpassword = $("#editPassword").val();
+					// var userpassword = $("#editPassword").val();
 					var userImage = $("#editUserImage").val();
 					var userStatus = $("#editUserStatus").val();
 
@@ -247,15 +247,15 @@ function editUser(userid = null) {
 						$("#editEmail").closest('.form-group').addClass('has-success');	  	
 					}	// /else
 
-					if(userpassword == "") {
-						$("#editPassword").after('<p class="text-danger">Password field is required</p>');
-						$('#editPassword').closest('.form-group').addClass('has-error');
-					}	else {
-						// remov error text field
-						$("#editPassword").find('.text-danger').remove();
-						// success out for form 
-						$("#editPassword").closest('.form-group').addClass('has-success');	  	
-					}	// /else
+					// if(userpassword == "") {
+					// 	$("#editPassword").after('<p class="text-danger">Password field is required</p>');
+					// 	$('#editPassword').closest('.form-group').addClass('has-error');
+					// }	else {
+					// 	// remov error text field
+					// 	$("#editPassword").find('.text-danger').remove();
+					// 	// success out for form 
+					// 	$("#editPassword").closest('.form-group').addClass('has-success');	  	
+					// }	// /else
 
 					if(userImage == "") {
 						$("#userImage").closest('.center-block').after('<p class="text-danger">User Image field is required</p>');
@@ -278,7 +278,7 @@ function editUser(userid = null) {
 					}	// /else
 
 
-					if(userpassword && name && surname && useremail && userStatus) {
+					if(name && surname && useremail && userStatus) {
 						// submit loading button
 						$("#editUserBtn").button('loading');
 

@@ -2,33 +2,26 @@
 
 <?php 
 
-$sql = "SELECT * FROM users";
+$sql = "SELECT * FROM users WHERE type = 1 AND status = 1";
 $query = $connect->query($sql);
 $countUsers = $query->num_rows;
-
-$orderSql = "SELECT * FROM orders WHERE order_status = 1";
-$orderQuery = $connect->query($orderSql);
-$countOrder = $orderQuery->num_rows;
-
-$totalRevenue = 0;
-while ($orderResult = $orderQuery->fetch_assoc()) {
-	$totalRevenue += $orderResult['paid'];
-}
-
-$userwisesql = "SELECT users.name, users.surname , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
-$userwiseQuery = $connect->query($userwisesql);
-$userwieseOrder = $userwiseQuery->num_rows;
 
 $connect->close();
 
 ?>
-<!-- <ol class="breadcrumb navbar navbar-expand-lg navbar-light bg-light">
-	<li><a href="dashboard.php">Pagina inicial</a></li>		  
-	<li class="active">Usuário</li>
-</ol>
--->
+<div class="border border-top-0 bg-white m-0 p-0 row">
+	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
+		<i class="fas fa-align-left"></i>
+	</button>
+	<ol class="breadcrumb bg-transparent mb-0">
+	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+	    <li class="breadcrumb-item active">Users</li>
+	    
+  	</ol>
+</div>
+
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Usuário</h1>
+	<h1 class="pageTitle">Usuários</h1>
 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addUserModalBtn" data-target="#addUserModal"> <i class="fas fa-plus"></i> Adicionar Usuario </button>
 </div>
 
@@ -60,7 +53,7 @@ $connect->close();
 							<tr>
 								<th style="width:10%;">Foto</th>
 								<th style="width:20%;">Nome</th>
-								<th style="width:20%;">Apelidp</th>
+								<th style="width:20%;">Apelido</th>
 								<th style="width:30%;">Email</th>
 								<th style="width:10%;">Status</th>
 								<th style="width:10%;">Options</th>
@@ -78,7 +71,7 @@ $connect->close();
 <!-- add user -->
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content p-1">
 
 			<form class="form-horizontal" id="submitUserForm" action="php_action/createUser.php" method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
@@ -91,10 +84,18 @@ $connect->close();
 				<div class="modal-body" style="max-height:450px; overflow:auto;">
 
 					<div class="form-group">
-						<label for="userName" class="col-sm-4 control-label">Nome do usuario: </label>
+						<label for="userName" class="col-sm-6 control-label">Nome do usuario: </label>
 						
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" autocomplete="off" >
+							<input type="text" class="form-control" id="userName" placeholder="Name" name="userName" autocomplete="off" required>
+						</div>
+					</div> <!-- /form-group-->
+
+					<div class="form-group">
+						<label for="userSurname" class="col-sm-6 control-label">Apelido do usuario: </label>
+						
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="userSurname" placeholder="Surname" name="userSurname" autocomplete="off" required>
 						</div>
 					</div> <!-- /form-group-->
 
@@ -231,13 +232,13 @@ $connect->close();
 									</div>
 								</div> <!-- /form-group-->	 	    
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="editPassword" class="col-sm-3 control-label">Password: </label>
 									
 									<div class="col-sm-8">
 										<input type="password" class="form-control" id="editPassword" placeholder="Password" name="editPassword" autocomplete="off" required>
 									</div>
-								</div> <!-- /form-group-->	
+								</div> --> <!-- /form-group-->	
 
 								<div class="form-group">
 									<label for="upassword" class="col-sm-4 control-label">Tipo de acesso: </label>
