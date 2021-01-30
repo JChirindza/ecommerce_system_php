@@ -23,9 +23,9 @@ if(isset($_POST["product_id"])) {
 			$result2 = $query2->fetch_assoc();
 
 			$output .= '
-			<div class="col-md-2">
+			<div class="col-md-2 p-0">
 				<a href="product_details.php?product_id='. $row['product_id'] .'">
-					<div class="product-entry">
+					<div class="product-entry mr-1">
 						<div class="col-md-12 product-img">
 							<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 100px; " >
 						</div>
