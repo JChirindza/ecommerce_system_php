@@ -61,7 +61,7 @@
 				<h4><i class="fas fa-network-wired"></i> Produtos Relacionados </h4>
 
 				<!-- Produtos Relacionados -->
-				<div class="row related_products"></div>
+				<div class="ml-1 row related_products"></div>
 			</div>
 		</div>
 		<div class="row mt-4">
