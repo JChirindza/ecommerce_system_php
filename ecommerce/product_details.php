@@ -28,7 +28,10 @@
 							<?php
 							$x = 1;
 							$product_id = $_GET['product_id'];
-							$sql = "SELECT pd.id, pd.detail, pd.description FROM product as p, product_details as pd WHERE pd.product_id = {$product_id} and p.product_id = {$product_id}";
+							// $sql = "SELECT pd.id, pd.detail, pd.description FROM product as p, product_details as pd WHERE pd.product_id = {$product_id} and p.product_id = {$product_id}";
+
+							$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id}";
+
 							$resultado = mysqli_query($connect, $sql);
 							if (mysqli_num_rows($resultado) > 0):
 								while ($dados = mysqli_fetch_array($resultado)):
