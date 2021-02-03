@@ -235,7 +235,7 @@
 
 				<div class="div-result">
 					<form class="form-horizontal" id="editProductDetailForm" action="php_action/editProductDetail.php" method="POST">				    
-						<div id="edit-product-detail-messages"></div>
+						<div id="edit-product-messages"></div>
 						<div class="form-group">
 							<label for="editProductDetail" class="col-sm-4 control-label">Product Detail: </label>
 							<div class="col-sm-8">
