@@ -6,13 +6,32 @@ $(document).ready(function() {
 
 	// change username
 	$("#changeUsernameForm").unbind('submit').bind('submit', function() {
+		// remove text-error 
+		$(".text-danger").remove();
+		// remove from-group error
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+
 		var form = $(this);
 
-		var username = $("#username").val();
+		var name = $("#name").val();
+		var surname = $("#surname").val();
 
-		if(username == "") {
-			$("#username").after('<p class="text-danger">Username field is required</p>');
-			$("#username").closest('.form-group').addClass('has-error');
+		if(name == "" || surname == "") {
+			if(name == "") {
+				$("#name").after('<p class="text-danger">Name field is required</p>');
+				$("#name").closest('.form-group').addClass('has-error');
+			}else{
+				$("#name").closest('.form-group').removeClass('has-error');
+				$(".text-danger").remove();
+			}
+
+			if(surname == "") {
+				$("#surname").after('<p class="text-danger">Surname field is required</p>');
+				$("#surname").closest('.form-group').addClass('has-error');
+			}else{
+				$("#surname").closest('.form-group').removeClass('has-error');
+				$(".text-danger").remove();
+			}
 		} else {
 
 			$(".text-danger").remove();
@@ -71,11 +90,16 @@ $(document).ready(function() {
 
 	// change email
 	$("#changeEmailForm").unbind('submit').bind('submit', function() {
+		// remove text-error 
+		$(".text-danger").remove();
+		// remove from-group error
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+
 		var form = $(this);
 
 		var email = $("#email").val();
 
-		if(username == "") {
+		if(email == "") {
 			$("#email").after('<p class="text-danger">Email field is required</p>');
 			$("#email").closest('.form-group').addClass('has-error');
 		} else {
@@ -117,7 +141,7 @@ $(document).ready(function() {
 						// shows a successful message after operation
 						$('.changeEmailMessages').html('<div class="alert alert-warning">'+
 							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-							'<strong><i class="fas fa-exclamation-sign"></i></strong> '+ response.messages +
+							'<strong><i class="fas fa-exclamation"></i></strong> '+ response.messages +
 							'</div>');
 
 						// remove the mesages
