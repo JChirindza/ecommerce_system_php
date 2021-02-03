@@ -2,8 +2,7 @@
 
 require_once 'core.php';
 
-// $product_id = $_GET['i'];
-$product_id = 9;
+$product_id = $_GET['product_id'];
 
 $sql = "SELECT product_details.id, product_details.detail, product_details.description, product_details.active FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.status = 1 AND product.product_id = {$product_id} ORDER BY product_details.id DESC";
 
