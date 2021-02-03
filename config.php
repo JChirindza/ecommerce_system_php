@@ -9,18 +9,22 @@ $result = $query->fetch_assoc();
 
 $connect->close();
 ?>
+<div class="border border-top-0 bg-white m-0 p-0 row">
+	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
+		<i class="fas fa-align-left"></i>
+	</button>
+	<ol class="breadcrumb bg-transparent mb-0">
+	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+	    <li class="breadcrumb-item active">Settings</li>
+  	</ol>
+</div>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Configuracoes</h1>
+	<h1 class="pageTitle">Settings</h1>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
-		<!-- <ol class="breadcrumb">
-			<li><a href="dashboard.php">Home</a></li>		  
-			<li class="active">Setting</li>
-		</ol> -->
-
 		<div class="card mb-3">
 			<div class="card-header">
 				<h6 class="m-0 font-weight-bold text-muted">Alterar Dados</h6>
@@ -108,7 +112,7 @@ $connect->close();
 								<div class="form-group">
 									<label for="email" class="col-sm control-label">Email:</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $result['email']; ?>" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required/>
+										<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $result['email']; ?>" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$"/>
 									</div>
 								</div>
 
