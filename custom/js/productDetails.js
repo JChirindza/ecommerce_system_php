@@ -3,10 +3,17 @@ var manageProductDetailsTable;
 $(document).ready(function() {
 	// top nav bar 
 	$('#navProduct').addClass('active');
+
+	var product_id = $("#productId").val();
+
 	// manage product details data table
 	manageProductDetailsTable = $('#manageProductDetailsTable').DataTable({
-		'ajax': 'php_action/fetchProductDetails.php',
-		'order': []
+		"ajax": {
+			"url": 'php_action/fetchProductDetails.php',
+			"data":{
+				"product_id": product_id
+			}
+		}
 	});
 
 	// add product modal btn clicked
