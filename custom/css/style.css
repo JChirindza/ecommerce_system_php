@@ -193,19 +193,34 @@ div.kv-avatar div.file-input div.file-preview {
 	color: red;
 }
 
+/**********  Product Details ***************/
+.productDetails .product-entry-details {
+	margin: 0; 
+	padding: 1rem; 
+}
 
-/********** Product Entry Details **********/
-.product-entry-details {
+.productDetails .product-img-2{
+	border: 1px solid #dee2e6 !important;
+	padding: 3px;
+}
+
+.productDetails .product-img-2:hover{
+	border: 1px solid #6c757d !important;
+	cursor: pointer;
+	padding: 3px;
+}
+
+.productDetails .product-entry-details {
 	border: .1rem solid #f1f1f1 !important;
 	margin-bottom: 1.5rem;
 	margin-top: 1rem;
 }
 
-.product-entry-details .cart .add-to-cart{
+.productDetails .product-entry-details .cart .add-to-cart{
 	text-align: center;
 }
 
-.product-entry-details .cart  a {
+.productDetails .product-entry-details .cart  a {
 	display: block;
 	color: #000;
 	padding: .5em;
@@ -214,18 +229,18 @@ div.kv-avatar div.file-input div.file-preview {
 	transition: 0.5s; 
 }
 
-.product-entry-details:hover .cart {
+.productDetails .product-entry-details:hover .cart {
 	display: block;
 	background-color: #dee2e6;
 }
 
-.product-entry-details .cart a:hover {
+.productDetails .product-entry-details .cart a:hover {
 	display: block;
 	background: #FFC300;
 	margin: 0px;
 }
 
-.product-name-details p {
+.productDetails .product-name-details p {
 	text-align: left;
 	font-size: 15px;
 	font-family: "Roboto", Arial, sans-serif, bold;
@@ -237,39 +252,42 @@ div.kv-avatar div.file-input div.file-preview {
 	-webkit-box-orient: vertical;
 }
 
-.product-name-details p a {
+.productDetails .product-name-details p a {
 	color: #007185;
 }
 
-.product-img-details {
+.productDetails .product-img-details {
 	margin: .5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.product-brand-details {
+.productDetails .product-brand-details {
 	/*padding-left: .5rem;*/
 	color: #6c757d;
 }
 
-.product-stars-details {
+.productDetails .product-stars-details {
 	color: gold;
 }
 
-.product-stars-details {
+.productDetails .product-stars-details {
 	padding-top: .5rem;
 }
 
-.product-price-details h5{
+.productDetails .product-price-details h5{
 	color: red;
 }
 
 
 /********** Related Products **********/
-.related_products .product-entry:hover {
-    border: 1px solid #6c757d !important;
-    cursor: pointer;
+.relatedProducts .product-entry {
+	margin-left: 1rem;
+}
+.relatedProducts .product-entry:hover {
+	border: 1px solid #6c757d !important;
+	cursor: pointer;
 }
 
 
