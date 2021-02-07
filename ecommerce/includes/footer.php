@@ -1,4 +1,4 @@
-<footer class="sticky-footer bg-white " style="margin-bottom: auto!important;">
+<footer class="sticky-footer bg-white mt-1" style="margin-bottom: auto!important;">
 	<div class="container my-auto ">
 		<div class="copyright text-center my-auto">
 			<span>Copyright <i class="fas fa-copyright"></i> Sitema de Vendas e Controle de Stock 2020 - <?php echo $anoAtual = date('Y'); ?></span>
@@ -6,6 +6,13 @@
 	</div>
 </footer>
 </div> <!-- container -->
+
+<!-- ToolTip JS -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 <!-- Fetch User Image -->
 <script type="text/javascript">
 	var userid = <?php echo $userID; ?>;

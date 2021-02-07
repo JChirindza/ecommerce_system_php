@@ -10,7 +10,7 @@ if(isset($_POST["product_id"])) {
 	$query1 = $connect->query($sql1);
 	$result1 = $query1->fetch_assoc();
 
-	$sql = " SELECT * FROM product WHERE active = '1' AND categories_id = {$result1['categories_id']} AND product_id != {$product_id} ORDER BY RAND() limit 8";
+	$sql = " SELECT * FROM product WHERE active = '1' AND categories_id = {$result1['categories_id']} AND product_id != {$product_id} ORDER BY RAND() limit 5";
 	$result = $connect->query($sql);
 
 	$output = '';
@@ -23,10 +23,10 @@ if(isset($_POST["product_id"])) {
 			$result2 = $query2->fetch_assoc();
 
 			$output .= '
-			<div class="col-md-2 p-0">
+			<div class="col-auto col-lg-2 p-0 mb-0">
 				<a href="product_details.php?product_id='. $row['product_id'] .'">
-					<div class="product-entry mr-1">
-						<div class="col-md-12 product-img">
+					<div class="product-entry">
+						<div class="product-img">
 							<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 100px; " >
 						</div>
 						<div class="product-brand" style= "text-align: center;">Marca '. $result2['brand_name'] .' </div>

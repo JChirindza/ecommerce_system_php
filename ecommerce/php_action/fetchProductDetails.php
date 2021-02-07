@@ -19,48 +19,35 @@ require_once 'db_connect.php';
 			$result2 = $query2->fetch_assoc();
 
 			$output .= '
-				<div class="product-entry p-3">
+				<div class="product-entry-details">
 					<div class="row">
-					<style>
-						.product-img-2{
-							border: 1px solid #dee2e6 !important;
-						}
-
-						.product-img-2:hover{
-							border: 1px solid #6c757d !important;
-							cursor: pointer
-						}
-					</style>
-						<div class="col-md-6">
-							<div class="col-md-12 product-img-details">
-								<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 250px; " >
-							</div>
-
-							<div class="row pt-2 ml-2">
-								<div class="col-md-2">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<div class="row">
+								<div class="d-flex col-md-2 col-lg-1 p-0 ml-1 d-md-inline d-lg-inline">
 									<a href="#">
-										<div class="product-img-2 p-2">
+										<div class="product-img-2 m-0">
+											<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
+										</div>
+									</a>
+
+									<a href="#">
+										<div class="product-img-2 m-0">
+											<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
+										</div>
+									</a>
+
+									<a href="#">
+										<div class="product-img-2 m-0">
 											<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
 										</div>
 									</a>
 								</div>
-								<div class="col-md-2">
-									<a href="#">
-										<div class="product-img-2 p-2">
-											<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
-										</div>
-									</a>
-								</div>
-								<div class="col-md-2">
-									<a href="#">
-										<div class="product-img-2 p-2">
-											<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
-										</div>
-									</a>
+								<div class="col-sm-12 col-md-9 col-lg-10 product-img-details">
+									<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 250px; " >
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-sm-12 col-md-6 col-lg-6">
 							<div class="product-name-details">
 								<p><strong>'. $row['product_name'] .'</strong></p>
 							</div>
@@ -77,7 +64,7 @@ require_once 'db_connect.php';
 							</div>
 
 							<div class="product-price-details">
-								<h5  >'. number_format($row['rate'], 2). " Mt" .' </h5>
+								<h5  >'. number_format($row['rate'],2,",",".").' <label class="text-muted">Mt</label></h5>
 							</div>
 							<div class="col-md-5 p-0">
 								<div class="cart mt-4">
@@ -99,4 +86,3 @@ require_once 'db_connect.php';
 }
 
 ?>
-
