@@ -27,7 +27,7 @@ if(isset($_POST["action"])) {
 			$result2 = $query2->fetch_assoc();
 
 			$output .= '
-			<div class="col-sm-4 col-lg-3 col-md-3">
+			<div class="col-sm-4 col-lg-3 col-md-3 mt-3">
 				<a href="product_details.php?product_id='. $row['product_id'] .'">
 					<div class="product-entry">
 						<div class="col-md-12 product-img" style="display: flex; justify-content: center; align-items: center;">

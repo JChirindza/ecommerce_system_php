@@ -1,9 +1,9 @@
 <?php require_once 'includes/header.php'; ?>
 
 <div class="d-flex" id="wrapper">
-	<div class="container-fluid bg-white m-4">
+	<div class="container-fluid bg-white m-4 productFilters">
 		<div class="row">        	
-			<div class="col-md-2 border-right p-4">                				
+			<div class="col-md-2 border-right p-3 filterByRate">                				
 				<div class="list-group">
 					<h3>Price</h3>
 					<?php 
@@ -22,7 +22,23 @@
 					<input type="hidden" id="hidden_maximum_price" value="<?php $maxPrice; ?>" />
 					<p id="price_show"><?php echo $minPrice ." - ". $maxPrice; ?></p>
 					<div id="price_range"></div>
-				</div>				
+				</div>	
+				<style type="text/css">
+					.filterByCategories a, label, i{
+						color: black;
+						padding-bottom: .4rem;
+						cursor: pointer;
+					}
+				</style>
+				<div class="list-group mt-4 border-top filterByCategories">
+					<h3 class="mt-4">Categories</h3>
+					<div>
+						<a href="productFilters.php?category_id=1" class="ctg"><label> <i class="fa fa-angle-right fa-w-10"></i> Computadores</label></a>
+						<a href="productFilters.php?category_id=2" class="ctg"><label> <i class="fa fa-angle-right fa-w-10"></i> Hardware e pesas de Rede</label></a>
+						<a href="productFilters.php?category_id=3" class="ctg"><label> <i class="fa fa-angle-right fa-w-10"></i> Componentes de Computadores</label></a>
+					</div>
+				</div>	
+
 				<div class="list-group mt-4 border-top">
 					<h3 class="mt-4">Brand</h3>
 					<div style="height: 280px; overflow-y: auto; overflow-x: hidden;">
@@ -45,10 +61,30 @@
 				</div>
 			</div>
 
-			<div class="col-md-9">
-				<h2 align="center">Product Filters</h2>
+			<div class="col-sm-12 col-md-10 col-lg-10">
+				<div class="row col-12 p-2 justify-content-end">
+					<div class="limit ">Show:
+						<select id="product_filter" disabled>
+							<option value="12" selected="selected">12</option>
+							<option value="15">15</option>
+							<option value="18">18</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+						</select>
+					</div>
+					<div class="sort pl-4">Sort By:
+						<select id="product_sort" disabled>
+							<option value="1" selected="selected">Default</option>
+							<option value="2">Name (A - Z)</option>
+							<option value="3">Name (Z - A)</option>
+							<option value="4">Price (Low &gt; High)</option>
+							<option value="5">Price (High &gt; Low)</option>
+						</select>
+					</div>
+				</div>
+
 				<input type="hidden" name="" id="category_id" value="<?php echo $_GET['category_id']; ?>">
-				<div class="row filter_data"></div>
+				<div class="border-top row filter_data"></div>
 			</div>
 		</div>
 	</div>
@@ -101,7 +137,7 @@
 			min:<?php echo $minPrice; ?>,
 			max:<?php echo $maxPrice; ?>,
 			values:[<?php echo $minPrice; ?>, <?php echo $maxPrice; ?>],
-			step:500,
+			step:0.5,
 			stop:function(event, ui) {
 				$('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
 				$('#hidden_minimum_price').val(ui.values[0]);

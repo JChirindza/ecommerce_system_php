@@ -144,7 +144,7 @@
 								<?php } ?>
 							</tr>
 						</thead>
-						<tbody class="border">
+						<tbody class="border-left border-bottom">
 							<?php
 							$x = 1;
 							$product_id = $_GET['product_id'];

@@ -179,13 +179,14 @@ div.kv-avatar div.file-input div.file-preview {
 
 .product-stars {
 	color: gold;
+	
 }
 
-/*.product-stars {
+.product-stars {
 	border: black;
 	text-align: center;
 	padding-bottom: .5rem;
-}*/
+}
 
 .product-price h5{
 	text-align: center;
