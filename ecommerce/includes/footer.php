@@ -6,6 +6,13 @@
 	</div>
 </footer>
 </div> <!-- container -->
+
+<!-- ToolTip JS -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 <!-- Fetch User Image -->
 <script type="text/javascript">
 	var userid = <?php echo $userID; ?>;

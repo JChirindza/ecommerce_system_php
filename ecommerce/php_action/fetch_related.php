@@ -23,7 +23,7 @@ if(isset($_POST["product_id"])) {
 			$result2 = $query2->fetch_assoc();
 
 			$output .= '
-			<div class="col-auto col-lg-2 p-0 mb-1 mb-lg-0 mb-md-1">
+			<div class="col-auto col-lg-2 p-0 mb-0">
 				<a href="product_details.php?product_id='. $row['product_id'] .'">
 					<div class="product-entry">
 						<div class="product-img">

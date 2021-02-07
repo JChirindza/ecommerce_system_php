@@ -100,17 +100,48 @@
 								<?php 
 
 								$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id}";
-
 								$result = mysqli_query($connect, $sql);
-
 								$prodResult = mysqli_fetch_array($result)
 								?>
 
 								<th width="20%" class="text-center border-0"></th>
-								<th width="20%" class="text-center border border-primary"><img src="../src/<?php echo $prodResult['product_image']; ?>" class="img-fluid" style="height: 100px; " ></th>
-								<th width="20%" class="text-center"><img src="../src/../assests/images/stock/20805620935f381fbe42241.jpg" class="img-fluid" style="height: 100px; " ></th>
-								<th width="20%" class="text-center border"><img src="../src/../assests/images/stock/20090931475f38257462116.jpg" class="img-fluid" style="height: 100px; " ></th>
-								<th width="20%" class="text-center border"><img src="../src/../assests/images/stock/6956077385f3822d8513ca.jpg" class="img-fluid" style="height: 100px; " ></th>
+								<th width="20%" class="text-center border border-primary">
+									<img src="../src/<?php echo $prodResult['product_image']; ?>" class="img-fluid" style="height: 100px; " >
+									<div class="product-stars">
+										<h6>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="fas fa-star"></i>
+											<i class="far fa-star"></i>
+										</h6>
+									</div>
+									<div class="product-price"><?php echo number_format($prodResult['rate'],2,",",".") ?><label class="text-muted">Mt</label></div>
+								</th>
+
+								<?php 
+
+								$sql = "SELECT * FROM product WHERE categories_id = {$prodResult['categories_id']} AND active  = 1 AND product_id != {$product_id} ORDER BY RAND() limit 3";
+								$result = mysqli_query($connect, $sql);
+
+								while ($related_products = mysqli_fetch_array($result)) { 
+									?>
+									<th width="20%" class="text-center border similarProduct">
+										<a href="product_details.php?product_id='<?php echo $related_products['product_id']; ?>'">
+											<img src="../src/<?php echo $related_products['product_image']; ?>" class="img-fluid" style="height: 100px; " >
+											<div class="product-stars">
+												<h6>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="far fa-star"></i>
+												</h6>
+											</div>
+											<div class="product-price"><?php echo number_format($related_products['rate'],2,",",".") ?><label class="text-muted">Mt</label></div>
+										</a>
+									</th>
+								<?php } ?>
 							</tr>
 						</thead>
 						<tbody class="border">
@@ -125,7 +156,7 @@
 								while ($dados = mysqli_fetch_array($resultado)):
 									?>
 									<tr>
-										<td class=""><?php echo $dados['detail'];?></td>
+										<td class="font-weight-bolder d-flex justify-content-center"><?php echo $dados['detail'];?></td>
 										<td class="bg-light border"><?php echo $dados['description'];?></td>
 										<td class="border"><?php echo $dados['description'];?></td>
 										<td class="border"><?php echo $dados['description'];?></td>

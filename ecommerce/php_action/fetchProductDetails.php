@@ -64,7 +64,7 @@ require_once 'db_connect.php';
 							</div>
 
 							<div class="product-price-details">
-								<h5  >'. number_format($row['rate'], 2). " Mt" .' </h5>
+								<h5  >'. number_format($row['rate'],2,",",".").' <label class="text-muted">Mt</label></h5>
 							</div>
 							<div class="col-md-5 p-0">
 								<div class="cart mt-4">

@@ -114,8 +114,7 @@ div.kv-avatar div.file-input div.file-preview {
 /* Product Entry */
 .product-entry {
 	border: .1rem solid #f1f1f1 !important;
-	margin-bottom: 1.5rem;
-	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 .product-entry .cart .add-to-cart{
@@ -182,11 +181,11 @@ div.kv-avatar div.file-input div.file-preview {
 	color: gold;
 }
 
-.product-stars {
+/*.product-stars {
 	border: black;
 	text-align: center;
 	padding-bottom: .5rem;
-}
+}*/
 
 .product-price h5{
 	text-align: center;
@@ -270,9 +269,6 @@ div.kv-avatar div.file-input div.file-preview {
 
 .productDetails .product-stars-details {
 	color: gold;
-}
-
-.productDetails .product-stars-details {
 	padding-top: .5rem;
 }
 
@@ -291,7 +287,32 @@ div.kv-avatar div.file-input div.file-preview {
 }
 
 
-/********** View more **********/
+/*********** Compare With Similars *********/
+.compareSimilars .product-stars {
+    color: gold;
+    padding-top: .5rem;
+    padding-bottom: 0;
+}
+
+.compareSimilars .similarProduct:hover{
+	border: 0;
+	border-top: 1px solid #6c757d !important;
+	border-bottom: 1px solid #6c757d !important;
+}
+
+.compareSimilars .product-price {
+	color: red;
+	margin: 0;
+}
+
+.compareSimilars .product-price label {
+	padding-left: .25rem;
+	margin: 0;
+	color: grey;
+}
+
+
+/****************** View more ***************/
 .view-more {
 	display: block;
 	border-top: 1px solid #dee2e6 !important;
