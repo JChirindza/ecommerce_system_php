@@ -229,7 +229,7 @@ div.kv-avatar div.file-input div.file-preview {
 	transition: 0.5s; 
 }
 
-.productDetails .product-entry-details:hover .cart {
+.productDetails .product-entry-details .cart {
 	display: block;
 	background-color: #dee2e6;
 }
@@ -238,6 +238,14 @@ div.kv-avatar div.file-input div.file-preview {
 	display: block;
 	background: #FFC300;
 	margin: 0px;
+}
+
+@media (max-width: 768px) {
+	.productDetails .product-entry-details .cart a {
+		display: block;
+		background: #FFC300;
+		margin: 0px;
+	}
 }
 
 .productDetails .product-name-details p {
@@ -290,9 +298,9 @@ div.kv-avatar div.file-input div.file-preview {
 
 /*********** Compare With Similars *********/
 .compareSimilars .product-stars {
-    color: gold;
-    padding-top: .5rem;
-    padding-bottom: 0;
+	color: gold;
+	padding-top: .5rem;
+	padding-bottom: 0;
 }
 
 .compareSimilars .similarProduct:hover{

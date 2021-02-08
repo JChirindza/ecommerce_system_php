@@ -1,7 +1,7 @@
 <?php require_once 'includes/header.php'; ?>
 
 <div class="d-flex" id="wrapper">
-	<div class="container-fluid bg-white m-4 productFilters">
+	<div class="container-fluid bg-white m-md-2 m-lg-4 productFilters">
 		<div class="row">        	
 			<div class="col-md-2 border-right p-3 filterByRate">                				
 				<div class="list-group">
@@ -10,7 +10,7 @@
 
 					$category_id = $_GET['category_id'];
 
-					$sql = "SELECT Min(rate) as minPrice, Max(rate) as maxPrice FROM product WHERE categories_id = {$category_id}";
+					$sql = "SELECT Min(rate) as minPrice, Max(rate) as maxPrice  FROM product WHERE categories_id = {$category_id} AND active = 1";
 					$query = $connect->query($sql);
 					$result = $query->fetch_assoc();
 
@@ -30,12 +30,27 @@
 						cursor: pointer;
 					}
 				</style>
+				<?php  
+
+					$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = 1 AND active = 1";
+					$query = $connect->query($sql);
+					$result1 = $query->fetch_assoc();
+
+					$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = 2 AND active = 1";
+					$query = $connect->query($sql);
+					$result2 = $query->fetch_assoc();
+
+					$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = 3 AND active = 1";
+					$query = $connect->query($sql);
+					$result3 = $query->fetch_assoc();
+				?>
+
 				<div class="list-group mt-4 border-top filterByCategories">
 					<h3 class="mt-4">Categories</h3>
-					<div>
-						<a href="productFilters.php?category_id=1" class="ctg"><label> <i class="fa fa-angle-right fa-w-10"></i> Computadores</label></a>
-						<a href="productFilters.php?category_id=2" class="ctg"><label> <i class="fa fa-angle-right fa-w-10"></i> Hardware e pesas de Rede</label></a>
-						<a href="productFilters.php?category_id=3" class="ctg"><label> <i class="fa fa-angle-right fa-w-10"></i> Componentes de Computadores</label></a>
+					<div class="col-12 p-0">
+						<a href="productFilters.php?category_id=1" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> Computadores (<?php echo $result1['countProduct']; ?>)</label></a>
+						<a href="productFilters.php?category_id=2" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> Hardware e pesas de Rede (<?php echo $result2['countProduct']; ?>)</label></a>
+						<a href="productFilters.php?category_id=3" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> Componentes de Computadores (<?php echo $result3['countProduct']; ?>)</label></a>
 					</div>
 				</div>	
 
@@ -52,9 +67,14 @@
 							$sql2 = "SELECT brand_name FROM brands WHERE brand_id = '$brandID' ";
 							$query2 = $connect->query($sql2);
 							$result2 = $query2->fetch_assoc();
+
+							$sql = "SELECT * FROM product WHERE active = '1' AND categories_id = {$category_id} AND brand_id = {$brandID}";
+							$query2 = $connect->query($sql);
+							$countBrands = $query2->num_rows;
+
 							?>
 							<div class="list-group-item checkbox">
-								<label><input type="checkbox" class="common_selector brand" value="<?php echo $row['brand_id']; ?>"  > <?php echo $result2['brand_name']; ?></label>
+								<label><input type="checkbox" class="common_selector brand" value="<?php echo $row['brand_id']; ?>"  > <?php echo $result2['brand_name']; ?> (<?php echo $countBrands; ?>)</label>
 							</div>
 						<?php } ?>
 					</div>
