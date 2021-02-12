@@ -116,7 +116,7 @@
 					<div class="form-group">
 						<label for="brandName" class="col-sm-4 control-label">Brand Name: </label>
 						<div class="col-sm-8">
-							<select class="form-control js-select2 js-example-placeholder-single col-12" id="brandName" name="brandName">
+							<select class="form-control js-select2 js-example-placeholder-single" id="brandName" name="brandName">
 								<option value="">~~SELECT~~</option>
 								<?php 
 								$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 AND brand_active = 1";
