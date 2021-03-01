@@ -92,13 +92,13 @@ $connect->close();
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Total)</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($totalRevenue) {
-								echo number_format($totalRevenue,0,",",".");
+								echo number_format($totalRevenue,2,",",".");
 							} else {
 								echo '0';
 							} ?> <label class="text-muted">Mt</label></div>
 						</div>
 						<div class="col-auto">
-							<i class="fas fa-money-check-alt fa-2x text-gray-300"></i>
+							<i class="fas fa-coins fa-2x text-gray-300"></i>
 						</div>
 					</div>
 				</div>
@@ -113,7 +113,7 @@ $connect->close();
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings ( <label class="text-muted"><?php echo date('Y'); ?></label> )</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisYearRevenue) {
-								echo number_format($thisYearRevenue,0,",",".");
+								echo number_format($thisYearRevenue,2,",",".");
 							}else{
 								echo '0';
 							} ?> <label class="text-muted">Mt</label></div>
@@ -134,7 +134,7 @@ $connect->close();
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Earnings ( <label class="text-muted"><?php echo date('M-Y'); ?></label> )</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisMonthRevenue) {
-								echo number_format($thisMonthRevenue,0,",",".");
+								echo number_format($thisMonthRevenue,2,",",".");
 							}else{
 								echo '0';
 							} ?> <label class="text-muted">Mt</label></div>
@@ -245,7 +245,7 @@ $connect->close();
 									<label class="badge badge-info">Vendedor</label>
 								<?php } ?>
 							</td>
-							<td><?php echo number_format($orderResult['totalorder'],0,",",".")?></td>
+							<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
 						</tr>
 					<?php } ?>
 				</tbody>
@@ -281,7 +281,7 @@ $connect->close();
 								<label class="badge badge-secondary">Inactive</label>
 							<?php } ?>
 						</td>
-						<td><?php echo number_format($orderResult['totalorder'],0,",",".")?></td>
+						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
 					</tr>
 				<?php } ?>
 			</tbody>
@@ -306,7 +306,7 @@ $connect->close();
 		<div class="card">
 			<div class="card-header bg-white">
 				<h1><?php if($totalRevenue) {
-					echo number_format($totalRevenue,0,",",".");
+					echo number_format($totalRevenue,2,",",".");
 				} else {
 					echo '0';
 				} ?></h1>
