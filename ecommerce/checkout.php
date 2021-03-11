@@ -12,7 +12,8 @@
 <div class="bg-white m-0 p-0 ml-4 mr-4">
 	<ol class="breadcrumb bg-transparent m-0 p-1 pl-4">
 	    <li class="breadcrumb-item"><a href="home.php">Home</a></li>
-	    <li class="breadcrumb-item active">Cart</li>
+	    <li class="breadcrumb-item"><a href="cart.php?c=cart">Cart</a></li>
+	    <li class="breadcrumb-item active">Checkout</li>
   	</ol>
 </div>
 
@@ -23,16 +24,16 @@
 			<div class="col-md-12 col-md-offset-1">
 				<div class="process-wrap mt-4">
 					<div class="process text-center active">
-						<p><span>01</span></p>
-						<h5>Carrinho de compras</h5>
+						<p><span><i class="fas fa-check"></i></span></p>
+						<label>Carrinho de compras</label>
 					</div>
-					<div class="process text-center active">
-						<p><span>02</span></p>
-						<h5> Pagamento </h5>
+					<div class="process text-center">
+						<p  class="next"><span>02</span></p>
+						<label>Pagamento</label>
 					</div>
 					<div class="process text-center">
 						<p><span>03</span></p>
-						<h5>Finalizar</h5>
+						<label>Finalizar</label>
 					</div>
 				</div>
 			</div>
@@ -41,7 +42,7 @@
 			<div class="col-sm p-4 bg-white">
 				<div class="d-sm-flex align-items-center justify-content-between">
 					<h4><i class="fas fa-list"></i> Pagamento </h4>
-					<label>Created on: <strong><?php echo $result['cart_date']; ?></strong></label>
+					<!-- <label>Created on: <strong><?php echo $result['cart_date']; ?></strong></label> -->
 				</div>
 				<style type="text/css">
 					#productTable td, th {
@@ -104,7 +105,7 @@
 								echo '
 								<li>
 									<ul>
-										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span></li>
+										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span></li>
 									</ul>
 								</li>';
 							}
@@ -126,7 +127,7 @@
 						<div class="">
 							<div class="row">
 								<p><a href="cart.php?c=cart" class="btn btn-primary rounded-0"> Back to Cart </a></p>
-								<p><a href="checkout.php" class="btn btn-success rounded-0"> Finalize </a></p>
+								<p><a href="#" class="btn btn-success rounded-0"> Finalize </a></p>
 							</div>
 						</div>
 					</div>
