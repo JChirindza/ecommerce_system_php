@@ -377,7 +377,7 @@ div.kv-avatar div.file-input div.file-preview {
 }
 .process:after {
 	position: absolute;
-	top: 33%;
+	top: 28%;
 	right: -50%;
 	content: '';
 	width: 100%;
@@ -385,6 +385,18 @@ div.kv-avatar div.file-input div.file-preview {
 	background: #f0f0f0;
 	z-index: -1; 
 }
+
+.process.active:after {
+	position: absolute;
+	top: 28%;
+	right: -50%;
+	content: '';
+	width: 100%;
+	height: 1.5px;
+	background: #0ca678;
+	z-index: -1; 
+}
+
 .process:last-child:after {
 	display: none; 
 }
@@ -393,7 +405,7 @@ div.kv-avatar div.file-input div.file-preview {
 	width: 60px;
 	height: 60px;
 	display: table;
-	border: 2px solid #fafafa;
+	border: 2px solid #dee2e6;
 	margin: 0 auto;
 	margin-bottom: 20px;
 	background: #fff;
@@ -404,6 +416,10 @@ div.kv-avatar div.file-input div.file-preview {
 	-ms-border-radius: 50%;
 	border-radius: 50%; 
 }
+
+.process .next{
+	border: 2px solid #0ca678;
+}
 .process p span {
 	display: table-cell;
 	vertical-align: middle; 
@@ -413,8 +429,12 @@ div.kv-avatar div.file-input div.file-preview {
 	letter-spacing: 1px; 
 }
 .process.active p {
-	border: 2px solid #f0f0f0; 
+	border: 2px solid #f0f0f0;
+	background: #0ca678;
 }
 .process.active p span {
-	color: #FFC300; 
+	color: #000000; 
 }
+
+
+/************* Navbar Two - Submenu ************/

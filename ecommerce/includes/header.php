@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +12,14 @@
 	<!-- bootstrap CSS 4.5.3 -->
 	<link rel="stylesheet" href="../assests/bootstrap/css/bootstrap.min.css">
 	<!-- fontawesome JS 5.15.1 -->
-	<script type="text/javascript" src="../assests/font-awesome/js/all.min.js"></script>
+	<!-- <script type="text/javascript" src="../assests/font-awesome/js/all.min.js"></script> -->
+	
+	<!-- fontawesome css 5.15.1 -->
+	<link rel="stylesheet" type="text/css" href="../assests/font-awesome/css/all.min.css">
+
 	<!-- custom css -->
 	<link rel="stylesheet" href="../custom/css/style.css">
+	<link rel="stylesheet" href="custom/css/style_navbar_two.css">
 	<!-- DataTables 1.10.22 -->
 	<link rel="stylesheet" href="../assests/plugins/datatables/css/jquery.dataTables.min.css">
 	<!-- file input -->
@@ -42,5 +46,5 @@
 
 	<!-- Navbar -->
 	<?php require_once 'includes/navbar.php'; ?>
-		<!-- Navbar_info -->
-		<?php require_once 'includes/navbar_info.php'; ?>
+		<!-- Navbar Menu -->
+		<?php require_once 'includes/navbar_two.php'; ?>
