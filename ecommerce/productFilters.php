@@ -1,11 +1,20 @@
 <?php require_once 'includes/header.php'; ?>
 
 <div class="d-flex" id="wrapper">
-	<div class="container-fluid bg-white m-md-2 m-lg-4 productFilters">
-		<div class="row">        	
-			<div class="col-md-2 border-right p-3 filterByRate">                				
-				<div class="list-group">
-					<h3>Price</h3>
+	<div class="container-fluid productFilters ml-md-4 mr-md-4 ml-lg-4 mr-lg-4">
+
+		<div class="m-0 p-0">
+			<ol class="breadcrumb bg-transparent m-0">
+				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
+				<li class="breadcrumb-item active">Filters</li>
+			</ol>
+		</div>
+
+
+		<div class="row bg-white mt-2 mt-md-0 mt-lg-0">      	
+			<div class="col-md-2 border-right p-3  ">                				
+				<div class="list-group filterByRate">
+					<h4>Price</h4>
 					<?php 
 
 					$category_id = $_GET['category_id'];
@@ -29,34 +38,50 @@
 						padding-bottom: .4rem;
 						cursor: pointer;
 					}
+
+					.filterByCategories a label:hover{
+						font-weight: bolder;
+					}
+
+					.filterByCategories i:hover {
+						color: gray;
+					}
 				</style>
-				<?php  
-
-					$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = 1 AND active = 1";
-					$query = $connect->query($sql);
-					$result1 = $query->fetch_assoc();
-
-					$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = 2 AND active = 1";
-					$query = $connect->query($sql);
-					$result2 = $query->fetch_assoc();
-
-					$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = 3 AND active = 1";
-					$query = $connect->query($sql);
-					$result3 = $query->fetch_assoc();
-				?>
 
 				<div class="list-group mt-4 border-top filterByCategories">
-					<h3 class="mt-4">Categories</h3>
+					<h4 class="mt-4">Categories</h4>
 					<div class="col-12 p-0">
-						<a href="productFilters.php?category_id=1" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> Computadores (<?php echo $result1['countProduct']; ?>)</label></a>
-						<a href="productFilters.php?category_id=2" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> Hardware e pesas de Rede (<?php echo $result2['countProduct']; ?>)</label></a>
-						<a href="productFilters.php?category_id=3" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> Componentes de Computadores (<?php echo $result3['countProduct']; ?>)</label></a>
+
+
+
+						<div style="height: auto; max-height: 200px; overflow-y: auto; overflow-x: hidden; ">
+							<?php
+							// gets all active categories
+							$sql = "SELECT categories_id, categories_name FROM categories WHERE categories_active = 1";
+							$result = $connect->query($sql);
+
+							foreach($result as $row) { 
+							// Counts the total products by category
+								$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = {$row['categories_id']} AND active = 1";
+								$query = $connect->query($sql);
+								$resultCount = $query->fetch_assoc();
+
+								if ($resultCount['countProduct'] >= 0) { ?>
+									<div class="list-group-item p-0 m-0 border-0">
+										<a href="productFilters.php?category_id=<?php echo $row['categories_id']; ?>" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> <?php echo $row['categories_name']; ?> (<?php echo $resultCount['countProduct']; ?>)</label></a>
+									</div>
+									<?php 
+								} 
+							} 
+							?>
+						</div>
 					</div>
-				</div>	
+				</div>
+
 
 				<div class="list-group mt-4 border-top">
-					<h3 class="mt-4">Brand</h3>
-					<div style="height: 280px; overflow-y: auto; overflow-x: hidden;">
+					<h4 class="mt-4">Brand</h4>
+					<div style="height: auto; max-height: 280px; overflow-y: auto; overflow-x: hidden;">
 						<?php
 						$category_id = $_GET['category_id'];
 						$sql = "SELECT DISTINCT(brand_id) FROM product WHERE active = '1' AND categories_id = {$category_id} ORDER BY product_id DESC";
@@ -82,7 +107,7 @@
 			</div>
 
 			<div class="col-sm-12 col-md-10 col-lg-10">
-				<div class="row col-12 p-2 justify-content-end">
+				<div class="row p-2 justify-content-end">
 					<div class="limit ">Show:
 						<select id="product_filter" disabled>
 							<option value="12" selected="selected">12</option>

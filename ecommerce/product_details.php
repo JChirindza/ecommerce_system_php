@@ -3,7 +3,7 @@
 <div class="d-flex" id="wrapper">
 	<div class="container-fluid bg-light m-md-2 m-lg-4">
 
-		<div class="row">
+		<div class="row mt-2 mt-md-0 mt-lg-0">
 			<div class="col-sm-12 bg-white p-3 productDetails">
 				<h4><i class="fas fa-list"></i> Detalhes do Produto </h4>
 
@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		
-		<div class="row mt-1 mt-md-3 mt-lg-4">
+		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-md-6 col-lg-6 bg-white p-3 technicalDetails">
 				<h4><i class="fas fa-info-circle"></i> Detalhes técnicos </h4>
 				<div class="table-responsive">
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-1 mt-md-3 mt-lg-4">
+		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-12 bg-white p-3 relatedProducts">
 				<h4><i class="fas fa-network-wired"></i> Produtos Relacionados </h4>
 
@@ -87,7 +87,7 @@
 				<div class="row related_products"></div>
 			</div>
 		</div>
-		<div class="row mt-1 mt-md-3 mt-lg-4">
+		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-sm-12 bg-white p-3 compareSimilars">
 				<h4><i class="fas fa-network-wired"></i> Compare com Semelhantes </h4>
 

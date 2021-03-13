@@ -9,27 +9,22 @@ $result = $query->fetch_assoc();
 
 ?>
 
-<div class="bg-white m-0 p-0 ml-4 mr-4">
-	<ol class="breadcrumb bg-transparent m-0 p-1 pl-4">
-		<li class="breadcrumb-item"><a href="home.php">Home</a></li>
-		<li class="breadcrumb-item active">Cart</li>
-	</ol>
-</div>
-
 <div class="d-flex" id="wrapper">
-	<div class="container-fluid bg-light m-4">
+	<div class="container-fluid bg-light ml-md-4 mr-md-4 ml-lg-4 mr-lg-4">
+
+		<div class="m-0 p-0">
+			<ol class="breadcrumb bg-transparent m-0">
+				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
+				<li class="breadcrumb-item active">Cart</li>
+			</ol>
+		</div>
 
 		<?php if($_GET['c'] == 'carts') { // gerir carts ?>
 			<div class="row mb-4">
 				<div class="col-sm p-4 bg-white">
 					<div class="d-sm-flex align-items-center justify-content-between">
-						<h4><i class="fas fa-list"></i> Lista de Carrinhos </h4>
+						<h4><i class="fas fa-list"></i> Carts List </h4>
 					</div>
-					<style type="text/css">
-						#productTable td, th {
-							text-align: center;
-						}
-					</style>
 
 					<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 						<table class="table border-bottom" id="manageCartsListTable">
@@ -39,7 +34,7 @@ $result = $query->fetch_assoc();
 									<th style="width:40%;">Date</th>
 									<th style="width:15%">Total Items</th>
 									<th style="width:25%;">Payment Status</th>
-									<th style="width:10%;">Opcoes</th>
+									<th style="width:10%;">Options</th>
 								</tr>
 							</thead>
 						</table>
@@ -48,7 +43,7 @@ $result = $query->fetch_assoc();
 			</div>
 		<?php } else if($_GET['c'] == 'cart') { // cart ?> 
 
-			<div class="card border-0 row mb-4">
+			<div class="card border-0 row">
 				<div class="col-md-12 col-md-offset-1">
 					<div class="process-wrap mt-4">
 						<div class="process text-center">
@@ -67,17 +62,12 @@ $result = $query->fetch_assoc();
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row mt-2 mt-md-4 mt-lg-4">
 				<div class="col-sm p-4 bg-white">
 					<div class="d-sm-flex align-items-center justify-content-between">
 						<h4><i class="fas fa-list"></i> Carrinho de Compras </h4>
 						<label>Created on: <strong><?php echo $result['cart_date']; ?></strong></label>
 					</div>
-					<style type="text/css">
-						#productTable td, th {
-							text-align: center;
-						}
-					</style>
 
 					<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 						<table class="table border-bottom" id="manageCartTable">

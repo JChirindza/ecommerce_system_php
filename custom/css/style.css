@@ -436,5 +436,39 @@ div.kv-avatar div.file-input div.file-preview {
 	color: #000000; 
 }
 
+/************** Checkout  ********************/
+.checkout #productTable td, th {
+	text-align: center;
+}
+
+.checkout .cart-detail ul {
+	width: 100%;
+	padding: 0;
+	float: left;
+	margin: 0; 
+}
+.checkout .cart-detail ul li {
+	font-weight: 400;
+	width: 100%;
+	display: block;
+	float: left; 
+}
+.checkout .cart-detail ul li span {
+	margin-bottom: 15px;
+	display: block;
+	float: left;
+	border-bottom: 1px solid #e6e6e6;
+	width: 100px; 
+}
+.checkout .cart-detail ul li span:first-child {
+	width: calc(100% - 120px);
+	overflow: hidden; 
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+.checkout .cart-detail ul li span:last-child {
+	width: 120px; 
+}
 
 /************* Navbar Two - Submenu ************/

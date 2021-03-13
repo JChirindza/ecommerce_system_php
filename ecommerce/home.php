@@ -1,9 +1,9 @@
 <?php require_once 'includes/header.php'; ?>
 
 <div class="d-flex" id="wrapper">
-	<div class="container-fluid bg-light m-4">
+	<div class="container-fluid bg-light m-md-2 m-lg-4">
 
-		<div class="row">
+		<div class="row mt-2 mt-md-0 mt-lg-0">
 			<div class="col-sm-3 bg-white p-3">
 				<h4 class=""><i class="fas fa-list"></i> Categorias</h4>
 				<div class="list-group list-group-flush border">
@@ -16,7 +16,6 @@
 			<div class="col-sm-6">
 				<div id="demo" class="carousel slide border" data-ride="carousel">
 
-					<!-- Indicators -->
 					<ul class="carousel-indicators">
 						<li data-target="#demo" data-slide-to="0" class="active"></li>
 						<li data-target="#demo" data-slide-to="1"></li>
@@ -25,7 +24,6 @@
 						<li data-target="#demo" data-slide-to="4"></li>
 					</ul>
 
-					<!-- The slideshow -->
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<img src="../assests/images/slide/s4.jpg" style="width:100%;height:250px;" alt="">
@@ -44,7 +42,6 @@
 						</div>
 					</div>
 
-					<!-- Left and right controls -->
 					<a class="carousel-control-prev" href="#demo" data-slide="prev">
 						<span class="carousel-control-prev-icon"></span>
 					</a>
@@ -59,7 +56,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-4" id="computadores">
+		<div class="row mt-2 mt-md-3 mt-lg-4" id="computadores">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-list"></i> Computadores </h4>
 
@@ -71,7 +68,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-4">
+		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-sm-3 border bg-white p-3">
 				<h4><i class="fas fa-list"></i> Categorias</h4>
 				<div class="list-group list-group-flush">
@@ -100,7 +97,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-4" id="hardware">
+		<div class="row mt-2 mt-md-3 mt-lg-4" id="hardware">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-network-wired"></i> Hardware e Pecas de Rede </h4>
 
@@ -112,7 +109,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-4">
+		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-sm-3 border bg-white p-3">
 				<h4><i class="fas fa-list"></i> Categorias</h4>
 				<div class="list-group list-group-flush">
@@ -141,7 +138,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-4" id="componentes">
+		<div class="row mt-2 mt-md-3 mt-lg-4" id="componentes">
 			<div class="col-sm-12 bg-white p-3">
 				<h4><i class="fas fa-network-wired"></i> Componentes de computador</h4>
 
