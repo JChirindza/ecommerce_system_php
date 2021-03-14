@@ -18,7 +18,7 @@ if(isset($_POST["action"])) {
 	$result = $connect->query($sql);
 
 	$output = '';
-	if($result->num_rows > 0) {
+	if($result && $result->num_rows > 0) { 
 		foreach($result as $row) {
 			$brandID = $row['brand_id'];
 

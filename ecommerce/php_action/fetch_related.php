@@ -38,7 +38,8 @@ if(isset($_POST["product_id"])) {
 			';
 		}
 	} else {
-		$output = '<h3>No Data Found</h3>';
+		$output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
+		<h5 class="p-5 text-muted">No Data Found</h5></div>';
 	}
 	
 	echo $output;

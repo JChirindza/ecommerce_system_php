@@ -9,20 +9,11 @@ if(isset($_POST["action"])) {
 	}else{
 		$sql = " SELECT * FROM product WHERE active = '1' ORDER BY RAND() limit 8";
 	}
-	// if($_POST['action'] == "filter_computers"){
-	// 	$sql = " SELECT * FROM product WHERE categories_id = '1' AND active = '1' ORDER BY RAND() limit 8";
-	// }elseif ($_POST['action'] == "filter_hardware") {
-	// 	$sql = " SELECT * FROM product WHERE categories_id = '2' AND active = '1' ORDER BY RAND() limit 8";
-	// }elseif ($_POST['action'] == "filter_components") {
-	// 	$sql = " SELECT * FROM product WHERE categories_id = '3' AND active = '1' ORDER BY RAND() limit 8";
-	// }else{
-	// $sql = " SELECT * FROM product WHERE active = '1' ORDER BY RAND() limit 8";
-	// }
 
 	$result = $connect->query($sql);
 
 	$output = '';
-	if($result->num_rows > 0) { 
+	if($result && $result->num_rows > 0) { 
 		foreach($result as $row) {
 
 			$brandID = $row['brand_id'];
@@ -67,7 +58,8 @@ if(isset($_POST["action"])) {
 			';
 		}
 	} else {
-		$output = '<h3>No Data Found</h3>';
+		$output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
+		<h5 class="p-5 text-muted">No Data Found</h5></div>';
 	}
 	
 	echo $output;

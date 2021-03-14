@@ -10,7 +10,6 @@
 			</ol>
 		</div>
 
-
 		<div class="row bg-white mt-2 mt-md-0 mt-lg-0">      	
 			<div class="col-md-2 border-right p-3  ">                				
 				<div class="list-group filterByRate">
@@ -52,8 +51,6 @@
 					<h4 class="mt-4">Categories</h4>
 					<div class="col-12 p-0">
 
-
-
 						<div style="height: auto; max-height: 200px; overflow-y: auto; overflow-x: hidden; ">
 							<?php
 							// gets all active categories
@@ -61,12 +58,12 @@
 							$result = $connect->query($sql);
 
 							foreach($result as $row) { 
-							// Counts the total products by category
+								// Counts the total products by category
 								$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = {$row['categories_id']} AND active = 1";
 								$query = $connect->query($sql);
 								$resultCount = $query->fetch_assoc();
 
-								if ($resultCount['countProduct'] >= 0) { ?>
+								if ($resultCount['countProduct'] > 0) { ?>
 									<div class="list-group-item p-0 m-0 border-0">
 										<a href="productFilters.php?category_id=<?php echo $row['categories_id']; ?>" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> <?php echo $row['categories_name']; ?> (<?php echo $resultCount['countProduct']; ?>)</label></a>
 									</div>
@@ -77,7 +74,6 @@
 						</div>
 					</div>
 				</div>
-
 
 				<div class="list-group mt-4 border-top">
 					<h4 class="mt-4">Brand</h4>
