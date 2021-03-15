@@ -20,7 +20,7 @@
                          </div>
                          <ul class="menu-main">
                               <li>
-                                   <a href="#">Home</a>
+                                   <a href="home.php">Home</a>
                               </li>
                               <li class="menu-item-has-children">
                                    <a href="#">New <i class="fa fa-angle-down"></i></a>
@@ -58,21 +58,34 @@
                                         $sql = "SELECT categories_id, categories_name FROM categories WHERE categories_active = 1";
                                         $query = $connect->query($sql);
 
-                                        while ($row = $query->fetch_array()) { ?>
-                                             <div class="list-item">
-                                                  <h4 class="title"><?php echo $row['categories_name']; ?></h4>
-                                                  <ul>
-                                                       <?php  
-                                                       $sql1 = "SELECT sub_category_id, sub_category_name FROM sub_categories WHERE categories_id = {$row['categories_id']} AND active = 1";
-                                                       $query1 = $connect->query($sql1);
+                                        while ($row = $query->fetch_array()) { 
+                                             $categories_id = $row['categories_id'];
 
-                                                       while ($data = $query1->fetch_array()) { ?>
-                                                            <li><a href="#"><?php echo $data['sub_category_name']; ?></a></li>
-                                                       <?php } ?>
+                                             // verifica se a categoria esta relacionada a uma subcategoria com um producto activo.
+                                             $sql = "SELECT * FROM product WHERE categories_id = {$categories_id} AND active = 1";
+                                             $countQuery = $connect->query($sql);
+                                             if($countQuery->num_rows > 0) {
 
-                                                  </ul>
-                                             </div>
-                                             <?php 
+                                                  ?>
+                                                  <div class="list-item">
+                                                       <h4 class="title"><a href="productFilters.php?category_id=<?php echo $categories_id; ?>"><?php echo $row['categories_name']; ?></a></h4>
+                                                       <ul>
+                                                            <?php  
+                                                            $sql1 = "SELECT sub_category_id, sub_category_name FROM sub_categories WHERE categories_id = {$categories_id} AND active = 1";
+                                                            $query1 = $connect->query($sql1);
+
+                                                            // $sql = "SELECT count()"
+                                                            // Verifica se a subcategoria esta relacionada a um produto activo
+                                                            
+
+                                                            while ($data = $query1->fetch_array()) { ?>
+                                                                 <li><a href="#"><?php echo $data['sub_category_name']; ?></a></li>
+                                                            <?php } ?>
+
+                                                       </ul>
+                                                  </div>
+                                                  <?php 
+                                             } 
                                         } ?>
                                    </div>
                               </li>
@@ -106,7 +119,7 @@
                <!-- menu end here -->
                <div class="header-item item-right">
                     <!-- mobile menu trigger -->
-                    <div class="mobile-menu-trigger"><span></span></div>
+                    <div class="mobile-menu-trigger"><i class="fas fa-align-justify"></i></div>
                     <a href="#"><i class="fas fa-search"></i></a>
                     <a href="#"><i class="far fa-heart"></i></a>
                     <a href="cart.php?c=cartList"><i class="fas fa-shopping-cart"></i></a>
