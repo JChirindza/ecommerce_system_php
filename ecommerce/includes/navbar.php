@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
-		header('location: ../SistemaDeVendas_ControleDeStock/dashboard.php');	
+		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
 	}
 
 	// Get username
@@ -23,7 +23,7 @@ if(isset($_SESSION['userId'])) {
 
 ?>
 
-<nav class="navbar navbar-expand-lg border-bottom shadow-sm bg-dark " >
+<nav class="navbar navbar-expand-lg border-bottom shadow-sm bg-dark">
 	<!-- Brand -->
 	<div class="col-sm-2 col-md-4 col-lg-3">
 		<a class="navbar-brand logo p-0 border" href="../index.php">ComputersOnly</a>
