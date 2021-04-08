@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2021 at 07:26 PM
+-- Generation Time: Apr 08, 2021 at 12:46 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `brands` (
   `brand_id` int(11) NOT NULL,
-  `brand_name` varchar(255) NOT NULL,
-  `brand_active` int(11) NOT NULL DEFAULT 0,
-  `brand_status` int(11) NOT NULL DEFAULT 0
+  `brand_name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `brand_active` enum('1','2') NOT NULL,
+  `brand_status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -39,35 +39,37 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`brand_id`, `brand_name`, `brand_active`, `brand_status`) VALUES
-(1, 'Apple', 1, 1),
-(2, 'Lenovo', 1, 1),
-(3, 'Dell', 1, 1),
-(4, 'Alienware', 1, 1),
-(5, 'Google', 1, 1),
-(6, 'Hp', 1, 1),
-(7, 'Asus', 1, 1),
-(8, 'MI', 1, 1),
-(9, 'Panasonic', 2, 1),
-(10, 'Samsung', 1, 1),
-(11, 'Sandisk', 2, 1),
-(12, 'Moto', 1, 1),
-(13, 'VIVO', 1, 1),
-(14, 'Infinix', 2, 1),
-(15, 'Honor', 1, 1),
-(16, 'Bose', 1, 1),
-(17, 'Acer', 1, 1),
-(18, 'Toshiba', 1, 1),
-(19, 'Logitech', 1, 1),
-(20, 'PNY', 1, 1),
-(21, 'ARESGAME', 1, 2),
-(22, 'NZXT', 1, 1),
-(23, 'GIGABYTE', 1, 1),
-(24, 'Thermaltake', 1, 1),
-(25, 'Seagate', 1, 1),
-(26, 'zxczxc', 1, 2),
-(27, 'Intel', 1, 1),
-(28, 'vxcvxc xcv', 2, 1),
-(29, 'Sony', 1, 1);
+(1, 'Apple', '1', '1'),
+(2, 'Lenovo', '1', '1'),
+(3, 'Dell', '1', '1'),
+(4, 'Alienware', '1', '1'),
+(5, 'Google', '1', '1'),
+(6, 'Hp', '1', '1'),
+(7, 'Asus', '1', '1'),
+(8, 'MI', '1', '1'),
+(9, 'Panasonic', '2', '1'),
+(10, 'Samsung', '1', '1'),
+(11, 'Sandisk', '2', '1'),
+(12, 'Moto', '1', '1'),
+(13, 'VIVO', '1', '1'),
+(14, 'Infinix', '2', '1'),
+(15, 'Honor', '1', '1'),
+(16, 'Bose', '1', '1'),
+(17, 'Acer', '1', '1'),
+(18, 'Toshiba', '1', '1'),
+(19, 'Logitech', '1', '1'),
+(20, 'PNY', '1', '1'),
+(21, 'ARESGAME', '1', '2'),
+(22, 'NZXT', '1', '1'),
+(23, 'GIGABYTE', '1', '1'),
+(24, 'Thermaltake', '1', '1'),
+(25, 'Seagate', '1', '1'),
+(26, 'zxczxc', '1', '2'),
+(27, 'Intel', '1', '1'),
+(28, 'vxcvxc xcv', '2', '1'),
+(29, 'Sony', '1', '1'),
+(30, 'Kensingston', '2', '1'),
+(31, 'Invens', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -78,8 +80,8 @@ INSERT INTO `brands` (`brand_id`, `brand_name`, `brand_active`, `brand_status`) 
 CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `payment_status` int(11) NOT NULL,
-  `cart_status` int(11) NOT NULL,
+  `payment_status` enum('1','2') NOT NULL,
+  `cart_status` enum('1','2') NOT NULL,
   `cart_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -88,9 +90,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `cart_status`, `cart_date`) VALUES
-(1, 5, 1, 1, '2021-01-03 20:22:40'),
-(2, 6, 2, 1, '2021-01-04 13:26:47'),
-(3, 5, 1, 1, '2021-01-04 13:26:47');
+(1, 5, '1', '1', '2021-01-03 20:22:40'),
+(2, 6, '2', '1', '2021-01-04 13:26:47'),
+(3, 5, '1', '1', '2021-01-04 13:26:47');
 
 -- --------------------------------------------------------
 
@@ -103,8 +105,8 @@ CREATE TABLE `cart_item` (
   `cart_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `active` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `active` enum('1','2') NOT NULL,
+  `status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -112,10 +114,10 @@ CREATE TABLE `cart_item` (
 --
 
 INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES
-(1, 1, 1, 3, 1, 1),
-(2, 1, 4, 2, 1, 1),
-(3, 2, 5, 4, 1, 1),
-(4, 3, 8, 2, 1, 1);
+(1, 1, 1, 3, '1', '1'),
+(2, 1, 4, 2, '1', '1'),
+(3, 2, 5, 4, '1', '1'),
+(4, 3, 8, 2, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -126,8 +128,8 @@ INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `a
 CREATE TABLE `categories` (
   `categories_id` int(11) NOT NULL,
   `categories_name` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `categories_active` int(11) NOT NULL DEFAULT 0,
-  `categories_status` int(11) NOT NULL DEFAULT 0
+  `categories_active` enum('1','2') CHARACTER SET utf8 NOT NULL DEFAULT '1',
+  `categories_status` enum('1','2') CHARACTER SET utf8 NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -135,10 +137,13 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active`, `categories_status`) VALUES
-(1, 'Computadores', 1, 1),
-(2, 'Hardware e Peças de rede', 1, 1),
-(3, 'Componentes de Computador', 1, 1),
-(4, 'sdasdas', 1, 1);
+(1, 'Computers', '1', '1'),
+(2, 'Hardware and network parts', '1', '1'),
+(3, 'Computer components', '1', '1'),
+(4, 'sdasdas', '1', '1'),
+(5, 'rtyr rtyrtyr rtyrtyrt', '2', '1'),
+(6, 'dfgdfg dfg', '1', '1'),
+(7, 'egtttytr rtyrttryt', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -149,19 +154,20 @@ INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active
 CREATE TABLE `clients` (
   `client_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
-  `adress` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL,
-  `active` int(11) NOT NULL
+  `active` enum('1','2') NOT NULL,
+  `status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`client_id`, `user_id`, `contact`, `adress`, `status`, `active`) VALUES
-(1, 5, '821231130', '', 1, 1),
-(2, 6, '841441424', '', 1, 1);
+INSERT INTO `clients` (`client_id`, `user_id`, `name`, `surname`, `contact`, `active`, `status`) VALUES
+(1, 5, 'sdfs', 'ertdfg', '821231130', '1', '1'),
+(2, 6, 'sdfs', 'dfgdfgdfgd', '841441424', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -215,7 +221,8 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (19, '2021-02-04 16:34:12', 'fsdf', '82343454567', '13000.00', '2210.00', '15210.00', '0', '15210.00', '15210.00', '0.00', 2, 1, 1, '2210.00', 1, 1),
 (20, '2021-03-01 17:25:50', 'swerwer erwe', '8523424564', '404457.50', '68757.77', '473215.27', '0', '473215.27', '44460.00', '428755.27', 2, 1, 1, '6460.00', 1, 1),
 (21, '2021-02-04 16:53:18', 'hghghg hgh', '873455466', '90000.00', '15300.00', '105300.00', '0', '105300.00', '105300.00', '0.00', 2, 1, 1, '15300.00', 1, 4),
-(22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1);
+(22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1),
+(23, '2021-04-01 12:49:51', 'dsrserse erwer', '54564564', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -225,12 +232,12 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 
 CREATE TABLE `order_item` (
   `order_item_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL DEFAULT 0,
-  `product_id` int(11) NOT NULL DEFAULT 0,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `quantity` varchar(255) NOT NULL,
   `rate` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
-  `order_item_status` int(11) NOT NULL DEFAULT 0
+  `order_item_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -274,11 +281,6 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (76, 18, 5, '2', '45000.00', '90000.00', 1),
 (77, 19, 25, '1', '6500.00', '6500.00', 1),
 (78, 19, 25, '1', '6500.00', '6500.00', 1),
-(79, 0, 6, '1', '38000.00', '38000.00', 1),
-(80, 0, 6, '1', '38000.00', '38000.00', 1),
-(81, 0, 6, '1', '38000.00', '38000.00', 1),
-(82, 0, 6, '1', '38000.00', '38000.00', 1),
-(83, 0, 6, '1', '38000.00', '38000.00', 1),
 (85, 21, 5, '2', '45000.00', '90000.00', 1),
 (226, 20, 6, '1', '38000.00', '38000.00', 1),
 (227, 20, 19, '4', '85200.00', '340800.00', 1),
@@ -292,7 +294,8 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (246, 15, 24, '5', '4595.50', '22977.50', 1),
 (247, 15, 25, '3', '6500.00', '19500.00', 1),
 (248, 15, 8, '3', '950.00', '2850.00', 1),
-(249, 15, 1, '1', '125000.00', '125000.00', 1);
+(249, 15, 1, '1', '125000.00', '125000.00', 1),
+(250, 23, 19, '1', '85200.00', '85200.00', 1);
 
 -- --------------------------------------------------------
 
@@ -308,8 +311,8 @@ CREATE TABLE `product` (
   `categories_id` int(11) NOT NULL,
   `quantity` mediumint(5) NOT NULL,
   `rate` decimal(8,2) NOT NULL,
-  `active` int(11) NOT NULL DEFAULT 0,
-  `status` int(11) NOT NULL DEFAULT 0
+  `active` enum('1','2') NOT NULL,
+  `status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -317,25 +320,25 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`, `categories_id`, `quantity`, `rate`, `active`, `status`) VALUES
-(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 9, '125000.00', 1, 1),
-(4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 3, '22500.00', 1, 1),
-(5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 10, '45000.00', 1, 1),
-(6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 21, '38000.00', 1, 1),
-(7, 'Asus TUF FX505DT Gaming Laptop, 15.6â€ 120Hz Full HD, AMD Ryzen 5 R5-3550H Processor, GeForce GTX 1650 Graphics, 8GB DDR4, 256GB PCIe SSD, Gigabit Wi-Fi 5, Windows 10 Home, FX505DT-AH51, RGB Keyboard', '../assests/images/stock/20090931475f38257462116.jpg', 7, 1, 20, '68500.00', 1, 1),
-(8, 'Logitech Keyboard', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 30, '950.00', 1, 1),
-(9, 'Dell OptiPlex 7450 All in One Desktop Computer with Touch, Intel Core i5-7500, 8GB DDR4, 500GB Hard Drive, Windows 10 Pro (31JHY) (Renewed)', '../assests/images/stock/14723156875fa006a95f007.jpg', 3, 1, 20, '64386.00', 1, 1),
-(10, 'Logitech M525 Wireless Mouse â€“ Long 3 Year Battery Life, Ergonomic Shape for Right or Left Hand Use, Micro-Precision Scroll Wheel, and USB Unifying Receiver for Computers and Laptops, Black/Gray', '../assests/images/stock/5229306055fb5961fbe84e.jpg', 19, 3, 12, '1275.00', 1, 1),
-(11, 'Logitech MK850 Performance Wireless Keyboard and Mouse - combo', '../assests/images/stock/21043172265fb59704405d9.jpg', 19, 3, 10, '4690.00', 1, 1),
-(12, 'NZXT Kraken X63 280mm - RL-KRX63-01 - AIO RGB CPU Liquid Cooler - Rotating Infinity Mirror Design - Improved Pump - Powered By CAM V4 - RGB Connector - Aer P 140mm Radiator Fans (2 Included)', '../assests/images/stock/17434396695fb599bce1e04.jpg', 22, 2, 3, '16600.00', 1, 1),
-(13, 'GIGABYTE Z390 UD, Intel LGA1151/Z390/ATX/M.2/Realtek ALC887/Realtek 8118 Gaming LAN/HDMI/Gaming Motherboard', '../assests/images/stock/16979005775fb59a1e386f5.jpg', 23, 2, 17, '12500.00', 1, 1),
-(14, 'ARESGAME Power Supply 500W 80+ Bronze Certified PSU', '../assests/images/stock/11697838475fb59a9f714df.jpg', 21, 2, 3, '6050.00', 1, 1),
-(15, 'PNY Quadro P620 Graphic Card - 2 GB GDDR5 - Low-Profile - Single Slot Space Required', '../assests/images/stock/12580887025fb59b725f1ad.jpg', 20, 2, 8, '1340.00', 1, 1),
-(16, 'Thermaltake V200 Tempered Glass RGB Edition 12V MB Sync Capable ATX Mid-Tower Chassis with 3 120mm 12V RGB Fan + 1 Black 120mm Rear Fan Pre-Installed CA-1K8-00M1WN-01', '../assests/images/stock/1776517525fb59d4683e0a.jpg', 24, 2, 22, '8730.50', 1, 1),
-(17, 'Intel Core I5 3570S - 3.1 Ghz - 4 Cores - 4 Threads - 6 Mb Cache - Lga1155 Socket - Oem \"Product Type: Computer Components/Processors\"', '../assests/images/stock/15883469225fc048184d737.jpg', 27, 2, 16, '5150.00', 1, 1),
-(18, 'Seagate â€” Disco rÃ­gido externo 6 TB - central para backup ', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 6, '14750.50', 1, 1),
-(19, 'Laptop para jogos Acer Nitro 5, 9ª geração Intel Core i7-9750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 16GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN515-54-728C', '../assests/images/stock/17672098385ff388ae809bb.jpg', 17, 1, 18, '85200.00', 1, 1),
-(24, 'Sony ', '../assests/images/stock/113770375601264a59ebea.jpg', 29, 3, 50, '4595.50', 1, 1),
-(25, 'Bose', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 24, '6500.00', 1, 1);
+(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 9, '125000.00', '1', '1'),
+(4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 3, '22500.00', '1', '1'),
+(5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 10, '45000.00', '1', '1'),
+(6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 21, '38000.00', '1', '1'),
+(7, 'Asus TUF FX505DT Gaming Laptop, 15.6â€ 120Hz Full HD, AMD Ryzen 5 R5-3550H Processor, GeForce GTX 1650 Graphics, 8GB DDR4, 256GB PCIe SSD, Gigabit Wi-Fi 5, Windows 10 Home, FX505DT-AH51, RGB Keyboard', '../assests/images/stock/20090931475f38257462116.jpg', 7, 1, 20, '68500.00', '1', '1'),
+(8, 'Logitech Keyboard', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 30, '950.00', '1', '1'),
+(9, 'Dell OptiPlex 7450 All in One Desktop Computer with Touch, Intel Core i5-7500, 8GB DDR4, 500GB Hard Drive, Windows 10 Pro (31JHY) (Renewed)', '../assests/images/stock/14723156875fa006a95f007.jpg', 3, 1, 20, '64386.00', '1', '1'),
+(10, 'Logitech M525 Wireless Mouse â€“ Long 3 Year Battery Life, Ergonomic Shape for Right or Left Hand Use, Micro-Precision Scroll Wheel, and USB Unifying Receiver for Computers and Laptops, Black/Gray', '../assests/images/stock/5229306055fb5961fbe84e.jpg', 19, 3, 12, '1275.00', '1', '1'),
+(11, 'Logitech MK850 Performance Wireless Keyboard and Mouse - combo', '../assests/images/stock/21043172265fb59704405d9.jpg', 19, 3, 10, '4690.00', '1', '1'),
+(12, 'NZXT Kraken X63 280mm - RL-KRX63-01 - AIO RGB CPU Liquid Cooler - Rotating Infinity Mirror Design - Improved Pump - Powered By CAM V4 - RGB Connector - Aer P 140mm Radiator Fans (2 Included)', '../assests/images/stock/17434396695fb599bce1e04.jpg', 22, 2, 3, '16600.00', '1', '1'),
+(13, 'GIGABYTE Z390 UD, Intel LGA1151/Z390/ATX/M.2/Realtek ALC887/Realtek 8118 Gaming LAN/HDMI/Gaming Motherboard', '../assests/images/stock/16979005775fb59a1e386f5.jpg', 23, 2, 17, '12500.00', '1', '1'),
+(14, 'ARESGAME Power Supply 500W 80+ Bronze Certified PSU', '../assests/images/stock/11697838475fb59a9f714df.jpg', 21, 2, 3, '6050.00', '1', '1'),
+(15, 'PNY Quadro P620 Graphic Card - 2 GB GDDR5 - Low-Profile - Single Slot Space Required', '../assests/images/stock/12580887025fb59b725f1ad.jpg', 20, 2, 8, '1340.00', '1', '1'),
+(16, 'Thermaltake V200 Tempered Glass RGB Edition 12V MB Sync Capable ATX Mid-Tower Chassis with 3 120mm 12V RGB Fan + 1 Black 120mm Rear Fan Pre-Installed CA-1K8-00M1WN-01', '../assests/images/stock/1776517525fb59d4683e0a.jpg', 24, 2, 22, '8730.50', '1', '1'),
+(17, 'Intel Core I5 3570S - 3.1 Ghz - 4 Cores - 4 Threads - 6 Mb Cache - Lga1155 Socket - Oem \"Product Type: Computer Components/Processors\"', '../assests/images/stock/15883469225fc048184d737.jpg', 27, 2, 16, '5150.00', '1', '1'),
+(18, 'Seagate Disco ri­gido externo 6 TB - central para backup ', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 6, '14750.50', '1', '1'),
+(19, 'Laptop para jogos Acer Nitro 5, 9ª geração Intel Core i7-9750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 16GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN515-54-728C', '../assests/images/stock/17672098385ff388ae809bb.jpg', 17, 1, 17, '85200.00', '1', '1'),
+(24, 'Sony ', '../assests/images/stock/113770375601264a59ebea.jpg', 29, 3, 50, '4595.50', '1', '1'),
+(25, 'Bose', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 24, '6500.00', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -348,8 +351,8 @@ CREATE TABLE `product_details` (
   `product_id` int(11) NOT NULL,
   `detail` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `active` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `active` enum('1','2') NOT NULL,
+  `status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -357,36 +360,37 @@ CREATE TABLE `product_details` (
 --
 
 INSERT INTO `product_details` (`id`, `product_id`, `detail`, `description`, `active`, `status`) VALUES
-(1, 9, 'Tamanho de tela vertical', '23.8 Polegadas', 1, 1),
-(2, 9, 'Maximo de resolucao da tela', '1920x1080 Pixels', 1, 1),
-(3, 9, 'Modelo de placa de video', 'Integrated Graphics', 1, 1),
-(4, 9, 'Descricao do cartao', 'Integrated', 1, 1),
-(5, 9, 'Tamanho da memoria flash', '8 GB', 1, 1),
-(6, 9, 'Memoria de video', '64 GB', 1, 1),
-(7, 9, 'Numero de portas USB 2.0', '2', 1, 1),
-(8, 9, 'Sistema operacional', 'Windows 10 Pro', 2, 1),
-(9, 9, 'Peso do produto', '3.8 kg', 1, 1),
-(10, 7, 'asd', 'asd', 1, 1),
-(11, 7, 'vcxvx', 'sdfsd', 1, 1),
-(12, 7, 'cvx', 'xcdfg', 2, 1),
-(13, 6, 'sdvsd sdf', 'sdf fgfg ', 1, 1),
-(14, 6, 'adsa a', 'sdfs cvx', 1, 1),
-(15, 6, 'sfdsd sdfsd', 'cxvc', 1, 1),
-(16, 6, 'dasdaasda', 'sdfsd', 2, 1),
-(17, 12, 'assdsdf sdf sd', 'sdf', 1, 1),
-(18, 12, 'sdfsdfs', '34', 2, 1),
-(19, 12, 'dfgdf fgfgh', '12', 1, 1),
-(20, 19, 'qqqqq', 'erwer', 1, 1),
-(21, 19, 'ffffff', 'gfgfgfg', 1, 1),
-(22, 19, 'sdfsdf', 'sdfs', 1, 1),
-(23, 19, 'gdfgdf', 'qwe3243', 1, 1),
-(24, 1, 'asdas', 'sdfsd', 1, 1),
-(25, 4, 'asdasd', 'asdasd', 1, 1),
-(26, 5, 'gfhfgg fggfgf', 'fghfgh fghfg', 1, 1),
-(27, 5, 'we we rewr', 'ew 234', 1, 1),
-(28, 25, 'dsdhfghf hf', '500', 1, 1),
-(29, 25, 'erw', '3gb', 1, 1),
-(30, 25, 'sdfsdf', 'sdfs', 1, 1);
+(1, 9, 'Tamanho de tela vertical', '23.8 Polegadas', '1', '1'),
+(2, 9, 'Maximo de resolucao da tela', '1920x1080 Pixels', '1', '1'),
+(3, 9, 'Modelo de placa de video', 'Integrated Graphics', '1', '1'),
+(4, 9, 'Descricao do cartao', 'Integrated', '1', '1'),
+(5, 9, 'Tamanho da memoria flash', '8 GB', '1', '1'),
+(6, 9, 'Memoria de video', '64 GB', '1', '1'),
+(7, 9, 'Numero de portas USB 2.0', '2', '1', '1'),
+(8, 9, 'Sistema operacional', 'Windows 10 Pro', '2', '1'),
+(9, 9, 'Peso do produto', '3.8 kg', '1', '1'),
+(10, 7, 'asd', 'asd', '1', '1'),
+(11, 7, 'vcxvx', 'sdfsd', '1', '1'),
+(12, 7, 'cvx', 'xcdfg', '2', '1'),
+(13, 6, 'sdvsd sdf', 'sdf fgfg ', '1', '1'),
+(14, 6, 'adsa a', 'sdfs cvx', '1', '1'),
+(15, 6, 'sfdsd sdfsd', 'cxvc', '1', '1'),
+(16, 6, 'dasdaasda', 'sdfsd', '2', '1'),
+(17, 12, 'assdsdf sdf sd', 'sdf', '1', '1'),
+(18, 12, 'sdfsdfs', '34', '2', '1'),
+(19, 12, 'dfgdf fgfgh', '12', '1', '1'),
+(20, 19, 'qqqqq', 'erwer', '1', '1'),
+(21, 19, 'ffffff', 'gfgfgfg', '1', '1'),
+(22, 19, 'sdfsdf', 'sdfs', '1', '1'),
+(23, 19, 'gdfgdf', 'qwe3243', '1', '1'),
+(24, 1, 'asdas', 'sdfsd', '1', '1'),
+(25, 4, 'asdasd', 'asdasd', '1', '1'),
+(26, 5, 'gfhfgg fggfgf', 'fghfgh fghfg', '1', '1'),
+(27, 5, 'we we rewr', 'ew 234', '1', '1'),
+(28, 25, 'dsdhfghf hf', '500', '1', '1'),
+(29, 25, 'erw', '3gb', '1', '1'),
+(30, 25, 'sdfsdf', 'sdfs', '1', '1'),
+(31, 25, 'sdadsasd asd asd', 'fsfs 545', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -398,8 +402,8 @@ CREATE TABLE `sub_categories` (
   `sub_category_id` int(11) NOT NULL,
   `categories_id` int(11) NOT NULL,
   `sub_category_name` varchar(255) NOT NULL,
-  `active` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `active` enum('1','2') NOT NULL,
+  `status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -407,17 +411,28 @@ CREATE TABLE `sub_categories` (
 --
 
 INSERT INTO `sub_categories` (`sub_category_id`, `categories_id`, `sub_category_name`, `active`, `status`) VALUES
-(1, 1, 'Desktop', 1, 1),
-(2, 1, 'Laptop', 1, 1),
-(3, 2, 'Roteadores', 1, 1),
-(4, 2, 'Motherboards', 1, 1),
-(5, 3, 'Mouse ', 1, 1),
-(6, 3, 'Teclado', 1, 1),
-(7, 4, 'sdfsd', 1, 1),
-(8, 4, 'sdfsdf', 1, 1),
-(9, 4, 'fgjghj ghj', 1, 1),
-(10, 4, 'rtyrtbc fghf', 1, 1),
-(11, 4, 'dg dgfd dfgfdg', 1, 1);
+(1, 1, 'Desktop', '1', '1'),
+(2, 1, 'Laptop', '1', '1'),
+(3, 2, 'Routers', '1', '1'),
+(4, 2, 'Motherboards', '1', '1'),
+(5, 3, 'Mouse ', '1', '1'),
+(6, 3, 'Keyboards', '1', '1'),
+(7, 4, 'sdfsd', '1', '1'),
+(8, 4, 'sdfsdf', '1', '1'),
+(9, 4, 'fgjghj ghj', '1', '1'),
+(10, 4, 'rtyrtbc fghf', '1', '1'),
+(11, 4, 'dg dgfd dfgfdg', '1', '1'),
+(12, 5, 'sdfsdfsd fdsdfs sfd', '1', '1'),
+(13, 5, 'sdfsdfsdf fds', '1', '1'),
+(14, 5, 'sdfsdf', '1', '1'),
+(15, 6, 'sdfsffdd', '1', '1'),
+(16, 6, 'qweqw qwe', '1', '1'),
+(17, 7, 'sdfsd', '1', '1'),
+(18, 7, 'vcbvbcvgfh fggf', '1', '1'),
+(19, 3, 'Hard Disk Drive - External', '1', '1'),
+(20, 2, 'CPU', '1', '1'),
+(21, 2, 'Graphic card', '1', '1'),
+(22, 3, 'Headphones', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -428,14 +443,14 @@ INSERT INTO `sub_categories` (`sub_category_id`, `categories_id`, `sub_category_
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `surname` varchar(255) CHARACTER SET utf8 NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 NOT NULL,
   `user_image` text CHARACTER SET utf8 NOT NULL,
   `type` int(11) NOT NULL,
   `permittion` int(11) NOT NULL,
-  `active` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `active` enum('1','2') CHARACTER SET utf8 NOT NULL,
+  `status` enum('1','2') CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -443,23 +458,23 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_image`, `type`, `permittion`, `active`, `status`) VALUES
-(1, 'Admin1', 'user1', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, 1, 1),
-(2, 'John', 'Chirindza', 'johnchirindza@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john2.png', 1, 2, 1, 1),
-(3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, 2, 1),
-(4, 'Armando', 'Cossa', 'armandocossa@live.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 1, 3, 1, 1),
-(5, 'client', 'user', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, 1, 1),
-(6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '7363a0d0604902af7b70b271a0b96480', '../assests/images/photo_default.png', 2, 0, 1, 1),
-(7, 'cscs ', 'cscs', 'cscs@cscs.cscs', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, 1, 1),
-(8, 'asd asd', 'dsa', 'asd@asd.asd', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, 1, 1),
-(9, 'admin2', 'user2', 'admin@pconly.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, 1, 1),
-(10, 'dsa', 'dsas', 'dsa@das.dsa', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, 2, 1),
-(11, 'rew', 'ewq', 'qwe@eqw.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, 2, 2),
-(12, 'tretr', 'treerr', 'trerer@treere.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, 1, 1),
-(13, 'xcvxc', 'vcbvbc', 'xcvxc@vcvxc.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, 1, 1),
-(14, 'dfgdfb', 'fgfgh', 'dfgfg@gfhfg.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, 2, 1),
-(15, 'ffgdf', 'fgfgas', 'sdfsdf@sad.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, 1, 1),
-(16, 'asd', 'asd', 'asd1@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, 1, 1),
-(17, 'fdsa', 'fds', 'fsd@fds.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, 1, 1);
+(1, 'Admin1', 'user1', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, '1', '1'),
+(2, 'John', 'Chirindza', 'johnchirindza@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john2.png', 1, 2, '1', '1'),
+(3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '2', '1'),
+(4, 'Armando', 'Cossa', 'armandocossa@live.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 1, 3, '1', '1'),
+(5, 'client', 'user', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '7363a0d0604902af7b70b271a0b96480', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(7, 'cscs ', 'cscs', 'cscs@cscs.cscs', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(8, 'asd asd', 'dsa', 'asd@asd.asd', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(9, 'admin2', 'user2', 'admin@pconly.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(10, 'dsa', 'dsas', 'dsa@das.dsa', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '2', '1'),
+(11, 'rew', 'ewq', 'qwe@eqw.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '2', '2'),
+(12, 'tretr', 'treerr', 'trerer@treere.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(13, 'xcvxc', 'vcbvbc', 'xcvxc@vcvxc.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(14, 'dfgdfb', 'fgfgh', 'dfgfg@gfhfg.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, '2', '1'),
+(15, 'ffgdf', 'fgfgas', 'sdfsdf@sad.com', '510d714eee0930b4190fa67ada648725', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(16, 'asd', 'asd', 'asd1@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(17, 'fdsa', 'fds', 'fsd@fds.com', '510d714eee0930b4190fa67ada648725', '../assests/images/photo_default.png', 1, 3, '1', '1');
 
 --
 -- Indexes for dumped tables
@@ -475,13 +490,15 @@ ALTER TABLE `brands`
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
-  ADD PRIMARY KEY (`cart_id`);
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  ADD PRIMARY KEY (`cart_item_id`);
+  ADD PRIMARY KEY (`cart_item_id`),
+  ADD UNIQUE KEY `cart_id` (`cart_id`,`product_id`);
 
 --
 -- Indexes for table `categories`
@@ -493,37 +510,45 @@ ALTER TABLE `categories`
 -- Indexes for table `clients`
 --
 ALTER TABLE `clients`
-  ADD PRIMARY KEY (`client_id`);
+  ADD PRIMARY KEY (`client_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`);
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `order_item`
 --
 ALTER TABLE `order_item`
-  ADD PRIMARY KEY (`order_item_id`);
+  ADD PRIMARY KEY (`order_item_id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `brand_id` (`brand_id`),
+  ADD KEY `categories_id` (`categories_id`);
 
 --
 -- Indexes for table `product_details`
 --
 ALTER TABLE `product_details`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  ADD PRIMARY KEY (`sub_category_id`);
+  ADD PRIMARY KEY (`sub_category_id`),
+  ADD KEY `categories_id` (`categories_id`);
 
 --
 -- Indexes for table `users`
@@ -540,7 +565,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -558,7 +583,7 @@ ALTER TABLE `cart_item`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `clients`
@@ -570,13 +595,13 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -588,19 +613,67 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `sub_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `sub_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `cart_item`
+--
+ALTER TABLE `cart_item`
+  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `clients`
+--
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION,
+  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`brand_id`) ON DELETE NO ACTION,
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`categories_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `product_details`
+--
+ALTER TABLE `product_details`
+  ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `sub_categories`
+--
+ALTER TABLE `sub_categories`
+  ADD CONSTRAINT `sub_categories_ibfk_1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`categories_id`) ON DELETE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
