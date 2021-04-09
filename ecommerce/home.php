@@ -4,16 +4,16 @@
 	<div class="container-fluid bg-light m-md-2 m-lg-4">
 
 		<div class="row mt-2 mt-md-0 mt-lg-0">
-			<div class="col-sm-3 bg-white p-3">
+			<div class="col-sm-4 col-md-3 col-lg-3 bg-white p-3">
 				<h4 class=""><i class="fas fa-list"></i> Categories</h4>
-				<div class="list-group list-group-flush border">
+				<div class="list-group list-group-flush">
 					<?php  
 					$sql = "SELECT categories_id, categories_name FROM categories WHERE categories_active = 1 LIMIT 3";
 					$result = $connect->query($sql);
 					if($result && $result->num_rows > 0) { 
 						foreach($result as $categoryData) {
 							?>
-							<a href="#category_<?php echo $categoryData['categories_id']; ?>" class="list-group-item list-group-item-action border-0"><?php echo $categoryData['categories_name']; ?></a>
+							<a href="#category_<?php echo $categoryData['categories_id']; ?>" class="mt-1 pt-1 pb-1 list-group-item list-group-item-action border rounded-pill"><?php echo $categoryData['categories_name']; ?></a>
 							<?php  
 						}
 					}
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-6">
+			<div class="col-sm-8 col-md-6 col-lg-6">
 				<div id="demo" class="carousel slide border" data-ride="carousel">
 
 					<ul class="carousel-indicators">
@@ -59,7 +59,7 @@
 				</div>					
 			</div>
 
-			<div class="col-sm-3 border bg-white p-3">
+			<div class="col-sm-3 col-md-3 col-lg-3 bg-white p-3 d-none d-md-inline d-lg-inline">
 				<h4><i class="fas fa-list"></i> Categories</h4>
 			</div>
 		</div>
@@ -107,7 +107,7 @@
 													<h5 style="text-align:center;" class="text-danger" ><?php echo number_format($productData['rate'], 2). " Mt"; ?></h5>
 												</div>
 												<div class="cart">
-													<a href="#" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Adicionar ao carrinho.">
+													<a href="#" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Add to cart">
 														<i class="fas fa-cart-arrow-down"></i>
 													</a>
 												</div>
