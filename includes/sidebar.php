@@ -1,5 +1,4 @@
 <div class="border-right" id="sidebar-wrapper">
-	<!-- <div class="sidebar-heading">Start Bootstrap </div> -->
 	<div class="list-group list-group-flush">
 		<a id="navDashboard" href="dashboard.php" class="list-group-item list-group-item-action border-0"> <i class="fa fa-desktop fa-lg mr-2 "></i> Dashboard</a>
 		<?php if(isset($_SESSION['userId']) && $_SESSION['userId']!=2) { ?>
