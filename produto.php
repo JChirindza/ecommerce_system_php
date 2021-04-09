@@ -116,7 +116,7 @@
 					<div class="form-group">
 						<label for="brandName" class="col-sm-4 control-label">Brand Name: </label>
 						<div class="col-sm-8">
-							<select class="form-control js-select2 js-example-placeholder-single" id="brandName" name="brandName">
+							<select class="form-control js-select2 js-example-placeholder-single" style="width: 100%;" id="brandName" name="brandName">
 								<option value="">~~SELECT~~</option>
 								<?php 
 								$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 AND brand_active = 1";
@@ -134,7 +134,7 @@
 					<div class="form-group">
 						<label for="categoryName" class="col-sm-4 control-label">Category Name: </label>
 						<div class="col-sm-8">
-							<select type="text" class="form-control js-select2" id="categoryName" placeholder="Product Name" name="categoryName" >
+							<select type="text" class="form-control js-select2" style="width: 100%;" id="categoryName" placeholder="Product Name" name="categoryName" >
 								<option value="">~~SELECT~~</option>
 								<?php 
 								$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
@@ -261,7 +261,7 @@
 								<div class="form-group">
 									<label for="editBrandName" class="col-sm-4 control-label">Brand Name: </label>
 									<div class="col-sm-8">
-										<select class="form-control" id="editBrandName" name="editBrandName">
+										<select class="form-control" id="editBrandName js-select2" style="width: 100%;" name="editBrandName">
 											<option value="">~~SELECT~~</option>
 											<?php 
 											$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 AND brand_active = 1";
@@ -279,7 +279,7 @@
 								<div class="form-group">
 									<label for="editCategoryName" class="col-sm-4 control-label">Category Name: </label>
 									<div class="col-sm-8">
-										<select type="text" class="form-control" id="editCategoryName" name="editCategoryName" >
+										<select type="text" class="form-control js-select2" style="width: 100%;" id="editCategoryName" name="editCategoryName" >
 											<option value="">~~SELECT~~</option>
 											<?php 
 											$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";

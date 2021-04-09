@@ -46,19 +46,3 @@
 		<div id="page-content-wrapper" class="bg-light">
 
 			<div class="container-fluid">
-
-				<!-- <div class="row border border-top-0 bg-white m-0 p-0">
-					<div class="col-md-1">
-						<button type="button" id="menu-toggle" class="btn d-inline-block d-lg ml-auto">
-							<i class="fas fa-align-left"></i>
-						</button>
-					</div>
-
-
-					<div class="col-md-2">
-						<ol class="breadcrumb">
-							<li><a href="dashboard.php">Home </a></li>	/	  
-							<li class="active"> Product</li>
-						</ol>
-					</div>
-				</div> -->
