@@ -41,7 +41,7 @@ $result = $query->fetch_assoc();
 		<div class="row mt-2 mt-md-4 mt-lg-4">
 			<div class="checkout col-sm p-4 bg-white">
 				<div class="d-sm-flex align-items-center justify-content-between">
-					<h4><i class="fas fa-list"></i> Pagamento </h4>
+					<h4><i class="fas fa-list"></i> Payment</h4>
 				</div>
 				
 				<div class="row">
@@ -102,11 +102,6 @@ $result = $query->fetch_assoc();
 			</div>
 		</div>
 	</div>
-</div>
-
-<!-- <script src="custom/js/cart.js"></script> -->
-
-<?php require_once 'includes/footer.php'; ?></div>
 </div>
 
 <!-- <script src="custom/js/cart.js"></script> -->

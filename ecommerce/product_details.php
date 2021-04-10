@@ -12,7 +12,7 @@
 
 		<div class="row mt-2 mt-md-0 mt-lg-0">
 			<div class="col-sm-12 bg-white p-3 productDetails">
-				<h4><i class="fas fa-list"></i> Detalhes do Produto </h4>
+				<h4><i class="fas fa-list"></i> Product details </h4>
 
 				<!-- Product Details -->
 				<?php  
@@ -123,13 +123,13 @@
 		
 		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-md-6 col-lg-6 bg-white p-3 technicalDetails">
-				<h4><i class="fas fa-info-circle"></i> Detalhes técnicos </h4>
+				<h4><i class="fas fa-info-circle"></i> Technical details </h4>
 				<div class="table-responsive">
 					<table class="table" id="productDetailsTable">
 						<thead class="bg-light border">
 							<tr>							
 								<th width="5%">#</th>
-								<th width="45%" class="text-center">Detalhe</th>
+								<th width="45%" class="text-center">Detail</th>
 								<th class="text-center">Description</th>
 							</tr>
 						</thead>
@@ -168,7 +168,7 @@
 			</div>
 
 			<div class="col-md-6 col-lg-6 bg-white p-3 productDesctiption">
-				<h4><i class="fas fa-info-circle"></i> Descricao do produto </h4>
+				<h4><i class="fas fa-info-circle"></i> Product description </h4>
 				<div class="row product_description m-2">
 					<li>1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
@@ -190,7 +190,7 @@
 
 		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-12 bg-white p-3 relatedProducts">
-				<h4><i class="fas fa-network-wired"></i> Produtos Relacionados </h4>
+				<h4><i class="fas fa-network-wired"></i> Related products </h4>
 
 				<!-- Produtos Relacionados -->
 				<div class="row related_products"></div>
@@ -198,7 +198,7 @@
 		</div>
 		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-sm-12 bg-white p-3 compareSimilars">
-				<h4><i class="fas fa-network-wired"></i> Compare com Semelhantes </h4>
+				<h4><i class="fas fa-network-wired"></i> Compare with similar </h4>
 
 				<!-- Compare with Similar -->
 				<div class="row compare_similar"></div>
