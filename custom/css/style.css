@@ -182,9 +182,8 @@ div.kv-avatar div.file-input div.file-preview {
 	color: #6c757d;
 }
 
-.product-stars {
+.product-stars i{
 	color: gold;
-	
 }
 
 .product-stars {
@@ -197,6 +196,20 @@ div.kv-avatar div.file-input div.file-preview {
 	text-align: center;
 	color: red;
 }
+
+/**********  product filters **************/
+.productFilters .product-stars i{
+	color: gold;
+	
+}
+
+.productFilters .product-stars {
+	border: black;
+	text-align: center;
+	padding-bottom: .5rem;
+}
+
+
 
 /**********  Product Details ***************/
 .productDetails .product-entry-details {

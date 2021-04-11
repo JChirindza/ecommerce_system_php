@@ -5,6 +5,8 @@ require_once 'db_connect.php';
 if(isset($_POST["action"])) {
 
 	$categories_id = $_POST["category_id"];
+	$limit = $_POST['limit'];
+	$sort = $_POST['sort'];
 
 	$sql = "SELECT * FROM product WHERE categories_id = {$categories_id} AND active = '1'";
 	if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"])) {
@@ -14,6 +16,19 @@ if(isset($_POST["action"])) {
 		$brand_filter = implode("','", $_POST["brand"]);
 		$sql .= "AND brand_id IN('".$brand_filter."')";
 	}
+
+	// By default 1
+
+	if($sort == 2) {
+		$sql .= "ORDER BY product_name ASC ";
+	}elseif ($sort == 3){
+		$sql .= "ORDER BY product_name DESC ";
+	}elseif ($sort == 4) {
+		$sql .= "ORDER BY rate ASC ";
+	}elseif ($sort == 5) {
+		$sql .= "ORDER BY rate DESC ";
+	}
+	$sql .= " limit {$limit}";
 
 	$result = $connect->query($sql);
 
@@ -28,36 +43,37 @@ if(isset($_POST["action"])) {
 
 			$output .= '
 			<div class="col-sm-4 col-lg-3 col-md-3 mt-3">
-				<a href="product_details.php?product_id='. $row['product_id'] .'">
-					<div class="product-entry">
-						<div class="col-md-12 product-img" style="display: flex; justify-content: center; align-items: center;">
-							<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 200px; " >
-						</div>
-						<div class="product-brand">Brand '. $result2['brand_name'] .' </div>
-						<div class="product-name card-body">
-							<p align="center"><strong><a href="product_details.php?product_id='. $row['product_id'] .'" class="" data-toggle="tooltip" title="'. $row['product_name'] .'">'. $row['product_name'] .'</a></strong></p>
-						</div>
-						<div class="product-stars">
-							<h6>
-		                        <i class="fas fa-star"></i>
-		                        <i class="fas fa-star"></i>
-		                        <i class="fas fa-star"></i>
-		                        <i class="fas fa-star"></i>
-		                        <i class="far fa-star"></i>
-		                    </h6>
-						</div>
-						<div class="product-price">
+			<a href="product_details.php?product_id='. $row['product_id'] .'">
+			<div class="product-entry">
+			<div class="col-md-12 product-img" style="display: flex; justify-content: center; align-items: center;">
+			<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 200px; " >
+			</div>
+			<div class="product-brand">Brand '. $result2['brand_name'] .' </div>
+			<div class="product-name card-body">
+			<p align="center"><strong><a href="product_details.php?product_id='. $row['product_id'] .'" class="" data-toggle="tooltip" title="'. $row['product_name'] .'">'. $row['product_name'] .'</a></strong></p>
+			</div>
+			<div class="product-stars">
+			<h6>
 
-							<h5 style="text-align:center;" class="text-danger" >'. number_format($row['rate'], 2). " Mt" .' </h5>
-						</div>
-						<div class="cart">
-							<a href="#" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Add to cart.">
-								<i class="fas fa-cart-arrow-down"></i>
-							</a>
-						</div>
-						<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
-					</div>
-				</a>
+			<i class="fas fa-star"></i>
+			<i class="fas fa-star"></i>
+			<i class="fas fa-star"></i>
+			<i class="fas fa-star"></i>
+			<i class="far fa-star"></i>
+			</h6>
+			</div>
+			<div class="product-price">
+
+			<h5 style="text-align:center;" class="text-danger" >'. number_format($row['rate'], 2). " Mt" .' </h5>
+			</div>
+			<div class="cart">
+			<a href="#" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Add to cart.">
+			<i class="fas fa-cart-arrow-down"></i>
+			</a>
+			</div>
+			<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
+			</div>
+			</a>
 			</div>
 			';
 		}
