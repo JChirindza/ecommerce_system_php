@@ -233,7 +233,7 @@ function editProductDetail(productDetailId = null) {
 									$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
 
 									// shows a successful message after operation
-									$('#edit-product-messages').html('<div class="alert alert-success">'+
+									$('#edit-product-detail-messages').html('<div class="alert alert-success">'+
 										'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 										'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 										'</div>');
