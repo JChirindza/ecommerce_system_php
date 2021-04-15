@@ -133,8 +133,8 @@ $(document).ready(function() {
 								});
 							}); // /.alert
 
-		          // reload the manage student table
-		          manageUserTable.ajax.reload(null, true);
+				          	// reload the manage student table
+				          	manageUserTable.ajax.reload(null, true);
 
 							// remove text-error 
 							$(".text-danger").remove();
@@ -315,7 +315,7 @@ function editUser(userid = null) {
 									}); // /.alert
 
 							        // reload the manage student table
-						          	manageUserTable.ajax.reload(null, true);
+							        manageUserTable.ajax.reload(null, true);
 
 									// remove text-error 
 									$(".text-danger").remove();
@@ -388,11 +388,11 @@ function editUser(userid = null) {
 						          	$(".fileinput-remove-button").click();
 
 						          	$.ajax({
-							          	url: 'php_action/fetchUserImageUrl.php?i='+userid,
-							          	type: 'post',
-							          	success:function(response) {
-							          		$("#getUserImage").attr('src', response);		
-							          	}
+						          		url: 'php_action/fetchUserImageUrl.php?i='+userid,
+						          		type: 'post',
+						          		success:function(response) {
+						          			$("#getUserImage").attr('src', response);		
+						          		}
 						          	});																		
 
 									// remove text-error 

@@ -199,7 +199,7 @@ $connect->close();
 									</div>
 								</div> <!-- /form-group-->	     	           	       
 								
-								<div class="modal-footer editUserFooter">
+								<div class="modal-footer editUserPhotoFooter">
 									<button type="button" class="btn btn-outline-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
 								</div> <!-- /modal-footer -->
 							</form>

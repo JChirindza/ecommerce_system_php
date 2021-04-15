@@ -5,16 +5,16 @@
 		<i class="fas fa-align-left"></i>
 	</button>
 	<ol class="breadcrumb bg-transparent mb-0">
-	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-	    <li class="breadcrumb-item active">Product</li>
-	    <li class="breadcrumb-item active" aria-current="page">
-	    	<?php if($_GET['p'] == 'manprod') { ?>
+		<li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+		<li class="breadcrumb-item active">Product</li>
+		<li class="breadcrumb-item active" aria-current="page">
+			<?php if($_GET['p'] == 'manprod') { ?>
 				Manage
 			<?php } else if($_GET['p'] == 'detail') { ?>
 				Details
 			<?php } // /else manage ?>
 		</li>
-  	</ol>
+	</ol>
 </div>
 
 
@@ -165,9 +165,9 @@
 						</div>
 					</div>	
 				</form> <!-- /.form -->	 
-		   	</div> <!-- /modal-body -->
+			</div> <!-- /modal-body -->
 
-		   	<div class="modal-footer">
+			<div class="modal-footer">
 				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal"> <i class="fas fa-times"></i></button>
 			</div> <!-- /modal-footer -->	
 
@@ -222,7 +222,7 @@
 									</div>
 								</div> <!-- /form-group-->	     	           	       
 								
-								<div class="form-group">
+								<div class="form-group editProductPhotoFooter">
 									<label for="editProductImage" class="col-sm-4 control-label">Select Photo: </label>
 									<div class="col-sm-8">
 										<!-- the avatar markup -->
@@ -231,7 +231,11 @@
 											<input type="file" class="form-control" id="editProductImage" placeholder="Product Name" name="editProductImage" class="file-loading" style="width:auto;"/>
 										</div>
 									</div>
-								</div> <!-- /form-group-->	     	           	       
+									
+								</div> <!-- /form-group-->
+								<div class="editProductPhotoFooter">
+									
+								</div>	     	           	       
 							</form> <!-- /form -->
 						</div>
 						<div id="menuEdit2" class="tab-pane fade" >
@@ -272,21 +276,21 @@
 										} // while
 										
 										?>
-										</select>
-									</div>
-								</div> <!-- /form-group-->	
+									</select>
+								</div>
+							</div> <!-- /form-group-->	
 
-								<div class="form-group">
-									<label for="editCategoryName" class="col-sm-4 control-label">Category Name: </label>
-									<div class="col-sm-8">
-										<select type="text" class="form-control js-select2" style="width: 100%;" id="editCategoryName" name="editCategoryName" >
-											<option value="">~~SELECT~~</option>
-											<?php 
-											$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
-											$result = $connect->query($sql);
+							<div class="form-group">
+								<label for="editCategoryName" class="col-sm-4 control-label">Category Name: </label>
+								<div class="col-sm-8">
+									<select type="text" class="form-control js-select2" style="width: 100%;" id="editCategoryName" name="editCategoryName" >
+										<option value="">~~SELECT~~</option>
+										<?php 
+										$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
+										$result = $connect->query($sql);
 
-											while($row = $result->fetch_array()) {
-												echo "<option value='".$row[0]."'>".$row[1]."</option>";
+										while($row = $result->fetch_array()) {
+											echo "<option value='".$row[0]."'>".$row[1]."</option>";
 											} // while
 											
 											?>
