@@ -455,7 +455,7 @@ div.kv-avatar div.file-input div.file-preview {
 }
 
 /************** Checkout  ********************/
-.checkout #productTable td, th {
+.checkout #productTable td th {
 	text-align: center;
 }
 

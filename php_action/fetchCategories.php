@@ -17,22 +17,17 @@ if($result->num_rows > 0) {
  	// active 
  	if($row[2] == 1) {
  		// activate member
- 		$activeCategories = "<label class='label label-success'>Available</label>";
+ 		$activeCategories = "<label class='badge badge-success'>Available</label>";
  	} else {
  		// deactivate member
- 		$activeCategories = "<label class='label label-danger'>Not Available</label>";
+ 		$activeCategories = "<label class='badge badge-danger'>Not Available</label>";
  	}
 
  	$button = '<!-- Single button -->
 	<div class="btn-group">
-	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Action <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu">
-	    <li><a type="button" data-toggle="modal" id="editCategoriesModalBtn" data-target="#editCategoriesModal" onclick="editCategories('.$categoriesId.')"> <i class="glyphicon glyphicon-edit"></i> Edit</a></li>
-	    <li><a type="button" data-toggle="modal" data-target="#removeCategoriesModal" id="removeCategoriesModalBtn" onclick="removeCategories('.$categoriesId.')"> <i class="glyphicon glyphicon-trash"></i> Remove</a></li>  
-	    <li><a type="button" data-toggle="modal" id="addSubcategoriesModalBtn" data-target="#addSubcategoriesModal" onclick="addSubcategories('.$categoriesId.')"> <i class="glyphicon glyphicon-edit"></i> Add subcateogries</a></li>     
-	  </ul>
+		<a href="categoria.php?c=subc&i='.$categoriesId.'" class="btn btn-outline-success btn-sm" id="categoryDetailsBtn"> <i class="fas fa-eye"></i></a>
+	    <button class="btn btn-outline-primary btn-sm" data-toggle="modal" id="editCategoriesModalBtn" data-target="#editCategoriesModal" onclick="editCategories('.$categoriesId.')"> <i class="fas fa-edit"></i></button>
+	    <button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeCategoriesModal" id="removeCategoriesModalBtn" onclick="removeCategories('.$categoriesId.')"> <i class="fas fa-trash"></i></button>
 	</div>';
 
  	$output['data'][] = array( 		

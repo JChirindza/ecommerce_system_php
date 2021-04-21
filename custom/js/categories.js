@@ -11,15 +11,19 @@ $(document).ready(function() {
 
 	// on click on submit categories form modal
 	$('#addCategoriesModalBtn').unbind('click').bind('click', function() {
+
+
 		// reset the form text
 		$("#submitCategoriesForm")[0].reset();
-		// remove the error text
-		$(".text-danger").remove();
-		// remove the form error
-		$('.form-group').removeClass('has-error').removeClass('has-success');
-
+		
 		// submit categories form function
 		$("#submitCategoriesForm").unbind('submit').bind('submit', function() {
+
+			// remove the error text
+			$(".text-danger").remove();
+			// remove the form error
+			$('.form-group').removeClass('has-error').removeClass('has-success');
+
 
 			var categoriesName = $("#categoriesName").val();
 			var categoriesStatus = $("#categoriesStatus").val();
@@ -63,18 +67,18 @@ $(document).ready(function() {
 							manageCategoriesTable.ajax.reload(null, false);						
 
 	  	  			// reset the form text
-							$("#submitCategoriesForm")[0].reset();
+	  	  			$("#submitCategoriesForm")[0].reset();
 							// remove the error text
 							$(".text-danger").remove();
 							// remove the form error
 							$('.form-group').removeClass('has-error').removeClass('has-success');
-	  	  			
-	  	  			$('#add-categories-messages').html('<div class="alert alert-success">'+
-	            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-	            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-		          '</div>');
+							
+							$('#add-categories-messages').html('<div class="alert alert-success">'+
+								'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+								'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+								'</div>');
 
-	  	  			$(".alert-success").delay(500).show(10, function() {
+							$(".alert-success").delay(500).show(10, function() {
 								$(this).delay(3000).hide(10, function() {
 									$(this).remove();
 								});
@@ -181,13 +185,13 @@ function editCategories(categoriesId = null) {
 									$(".text-danger").remove();
 									// remove the form error
 									$('.form-group').removeClass('has-error').removeClass('has-success');
-			  	  			
-			  	  			$('#edit-categories-messages').html('<div class="alert alert-success">'+
-			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-			            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-				          '</div>');
+									
+									$('#edit-categories-messages').html('<div class="alert alert-success">'+
+										'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+										'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+										'</div>');
 
-			  	  			$(".alert-success").delay(500).show(10, function() {
+									$(".alert-success").delay(500).show(10, function() {
 										$(this).delay(3000).hide(10, function() {
 											$(this).remove();
 										});
@@ -212,7 +216,7 @@ function editCategories(categoriesId = null) {
 
 // remove categories function
 function removeCategories(categoriesId = null) {
-		
+	
 	$.ajax({
 		url: 'php_action/fetchSelectedCategories.php',
 		type: 'post',
@@ -233,40 +237,40 @@ function removeCategories(categoriesId = null) {
 					success:function(response) {
 						if(response.success == true) {
  							// remove categories btn
-							$("#removeCategoriesBtn").button('reset');
+ 							$("#removeCategoriesBtn").button('reset');
 							// close the modal 
 							$("#removeCategoriesModal").modal('hide');
 							// update the manage categories table
 							manageCategoriesTable.ajax.reload(null, false);
 							// udpate the messages
 							$('.remove-messages').html('<div class="alert alert-success">'+
-	            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-	            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-		          '</div>');
+								'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+								'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+								'</div>');
 
-	  	  			$(".alert-success").delay(500).show(10, function() {
+							$(".alert-success").delay(500).show(10, function() {
 								$(this).delay(3000).hide(10, function() {
 									$(this).remove();
 								});
 							}); // /.alert
- 						} else {
+						} else {
  							// close the modal 
-							$("#removeCategoriesModal").modal('hide');
+ 							$("#removeCategoriesModal").modal('hide');
 
  							// udpate the messages
-							$('.remove-messages').html('<div class="alert alert-success">'+
-	            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-	            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-		          '</div>');
+ 							$('.remove-messages').html('<div class="alert alert-success">'+
+ 								'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+ 								'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+ 								'</div>');
 
-	  	  			$(".alert-success").delay(500).show(10, function() {
-								$(this).delay(3000).hide(10, function() {
-									$(this).remove();
-								});
+ 							$(".alert-success").delay(500).show(10, function() {
+ 								$(this).delay(3000).hide(10, function() {
+ 									$(this).remove();
+ 								});
 							}); // /.alert
  						} // /else
-						
-						
+ 						
+ 						
 					} // /success function
 				}); // /ajax function request server to remove the categories data
 			}); // /remove categories btn clicked to remove the categories function
