@@ -9,7 +9,7 @@ product.categories_id, product.quantity, product.rate, product.active, product.s
 brands.brand_name, categories.categories_name FROM product 
 INNER JOIN brands ON product.brand_id = brands.brand_id 
 INNER JOIN categories ON product.categories_id = categories.categories_id  
-WHERE product.status = 1 AND product.quantity>0 ORDER BY product_id DESC";
+WHERE product.status = 1 ORDER BY product_id DESC";
 
 $result = $connect->query($sql);
 
