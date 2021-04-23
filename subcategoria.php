@@ -35,46 +35,82 @@ $categoryResult = $query->fetch_assoc();
 						</div>
 					</div> <!-- /form-group-->	     	        
 				</div>
-				
-				<div class="view-more m-0 p-0" id="view-more" data-toggle="tooltip" title="Show related products" style="cursor: pointer;">
-					<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-down"></i></label>
+
+				<div class="form-group row mb-0">
+					<div class="form-group col-12">
+						<label class="col-12 control-label mb-0">Related products: </label>
+						<hr class="mb-0">
+						<div class="view-more m-0 p-0" id="view-more" data-toggle="tooltip" title="Show related products" style="cursor: pointer;">
+							<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-down"></i></label>
+						</div>
+
+						<!-- d-none | related products -->
+						<div class="product-info" id="product-info" style="display: none;"> 
+							<div class="row ml-3">
+								<?php
+
+								$sql = "SELECT * FROM product WHERE active = '1' AND categories_id = {$categoryId} ORDER BY RAND() limit 4";
+								$result = $connect->query($sql);
+
+								$output = '';
+								if($result->num_rows > 0) { 
+									foreach($result as $row) {
+										$brandID = $row['brand_id'];
+
+										$sql2 = "SELECT brand_name FROM brands WHERE brand_id = '$brandID' ";
+										$query2 = $connect->query($sql2);
+										$result2 = $query2->fetch_assoc();
+
+										$output .= '
+										<div class="col-auto col-lg-2 p-0 m-0 pr-5 pt-4">
+										<a href="produto.php?p=detail&i='. $row['product_id'] .'">
+										<div class="product-entry">
+										<div class="product-img">
+										<img src="src/'. $row['product_image'] .'" class="img-fluid" style="height: 100px; " >
+										</div>
+										<div class="product-brand" style= "text-align: center;">Marca '. $result2['brand_name'] .' </div>
+
+										<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
+										</div>
+										</a>
+										</div>
+										';
+									}
+								} else {
+									$output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
+									<h5 class="p-5 text-muted">No Data Found</h5></div>';
+								}
+								echo $output;
+								?>
+							</div>
+
+							<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="Hide related Subcategory" style="cursor: pointer;">
+								<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
+							</div>
+						</div>
+
+						<script type="text/javascript">
+							var view_more = document.getElementById('view-more');
+							var view_less = document.getElementById('view-less');
+							var product_info = document.getElementById('product-info');
+
+							view_more.onclick = function() {
+								if (product_info.style.display === 'none') {
+									view_more.style.display = 'none';
+									product_info.style.display = 'block';
+								}
+							};
+
+							view_less.onclick = function() {						
+								if (product_info.style.display !== 'none') {
+									product_info.style.display = 'none';
+									view_more.style.display = 'block';
+								}
+							}
+						</script>
+					</div> <!-- /form-group-->	        	 
 				</div>
 
-				<!-- d-none | related products -->
-				<div class="product-info mb-3" id="product-info" style="display: none;"> 
-					
-					<!-- <div class="">
-						<?php  
-						$sql = "SELECT sub_category_id, sub_category_name FROM sub_categories WHERE status = 1 AND categories_id = {$categoryId}";
-						$query = $connect->query($sql);
-						$subcategoryResult = $query->fetch_assoc();
-						?>
-					</div> -->
-
-					<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="Hide related Subcategory" style="cursor: pointer;">
-						<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
-					</div>
-				</div>
-
-				<script type="text/javascript">
-					var view_more = document.getElementById('view-more');
-					var view_less = document.getElementById('view-less');
-					var product_info = document.getElementById('product-info');
-					
-					view_more.onclick = function() {
-						if (product_info.style.display === 'none') {
-							view_more.style.display = 'none';
-							product_info.style.display = 'block';
-						}
-					};
-
-					view_less.onclick = function() {						
-						if (product_info.style.display !== 'none') {
-							product_info.style.display = 'none';
-							view_more.style.display = 'block';
-						}
-					}
-				</script>
 				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editCategoriesModalBtn" data-target="#editCategoriesModal" onclick="editCategories('<?php echo $categoryResult['categories_id']; ?>')"> <i class="fas fa-edit"></i>Alterar dados</button>
 			</div> 
 		</div>
@@ -98,7 +134,7 @@ $categoryResult = $query->fetch_assoc();
 					<table class="table" id="manageSubcategoriesTable">
 						<thead>
 							<tr>							
-								<th width="10%">#</th>
+								<th width="5%">#</th>
 								<th width="50%">Subcategory name</th>
 								<th width="20%">Status</th>
 								<th width="10%">Option</th>

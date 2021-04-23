@@ -41,10 +41,13 @@
 					<div class="table-responsive">
 						<table class="table table-hover" id="manageCategoriesTable">
 							<thead>
-								<tr>							
-									<th>Categories Name</th>
-									<th>Status</th>
-									<th style="width:10%;">Options</th>
+								<tr>			
+									<th width="5%">#</th>				
+									<th width="40%">Categories Name</th>
+									<th width="15%">Subcategories</th>
+									<th width="15%">Products</th>
+									<th width="15%">Status</th>
+									<th width="10%">Options</th>
 								</tr>
 							</thead>
 						</table><!-- /table -->

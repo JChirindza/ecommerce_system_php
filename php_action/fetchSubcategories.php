@@ -20,10 +20,10 @@ if($result->num_rows > 0) {
  		// active 
 		if($row[2] == 1) {
  			// activate member
-			$active = "<label class='badge badge-success'>Active</label>";
+			$active = "<label class='badge badge-success'>Available</label>";
 		} else {
  			// deactivate member
-			$active = "<label class='badge badge-danger'>Not Active</label>";
+			$active = "<label class='badge badge-danger'>Not Available</label>";
  		} // /else
 
  		$button = '<!-- button -->
