@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2021 at 12:46 PM
+-- Generation Time: May 15, 2021 at 08:34 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -20,6 +20,14 @@ SET time_zone = "+00:00";
 --
 -- Database: `loja`
 --
+
+CREATE SCHEMA IF NOT EXISTS `loja` DEFAULT CHARACTER SET utf8 ;
+USE `loja` ;
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 -- --------------------------------------------------------
 
@@ -69,7 +77,8 @@ INSERT INTO `brands` (`brand_id`, `brand_name`, `brand_active`, `brand_status`) 
 (28, 'vxcvxc xcv', '2', '1'),
 (29, 'Sony', '1', '1'),
 (30, 'Kensingston', '2', '1'),
-(31, 'Invens', '1', '1');
+(31, 'Invens', '1', '1'),
+(32, 'Rekam', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -117,7 +126,10 @@ INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `a
 (1, 1, 1, 3, '1', '1'),
 (2, 1, 4, 2, '1', '1'),
 (3, 2, 5, 4, '1', '1'),
-(4, 3, 8, 2, '1', '1');
+(4, 3, 8, 2, '1', '1'),
+(5, 1, 8, 2, '1', '1'),
+(6, 3, 10, 2, '1', '1'),
+(7, 2, 12, 1, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -140,10 +152,11 @@ INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active
 (1, 'Computers', '1', '1'),
 (2, 'Hardware and network parts', '1', '1'),
 (3, 'Computer components', '1', '1'),
-(4, 'sdasdas', '1', '1'),
-(5, 'rtyr rtyrtyr rtyrtyrt', '2', '1'),
-(6, 'dfgdfg dfg', '1', '1'),
-(7, 'egtttytr rtyrttryt', '1', '1');
+(4, 'sdasdas', '2', '1'),
+(5, 'rtyr rtyrtyr rtyrtyrt', '1', '1'),
+(6, 'dfgdfg dfg', '2', '1'),
+(7, 'egtttytr rtyrttryt', '2', '1'),
+(8, 'asda', '1', '2');
 
 -- --------------------------------------------------------
 
@@ -222,7 +235,7 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (20, '2021-03-01 17:25:50', 'swerwer erwe', '8523424564', '404457.50', '68757.77', '473215.27', '0', '473215.27', '44460.00', '428755.27', 2, 1, 1, '6460.00', 1, 1),
 (21, '2021-02-04 16:53:18', 'hghghg hgh', '873455466', '90000.00', '15300.00', '105300.00', '0', '105300.00', '105300.00', '0.00', 2, 1, 1, '15300.00', 1, 4),
 (22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1),
-(23, '2021-04-01 12:49:51', 'dsrserse erwer', '54564564', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1);
+(23, '2021-04-23 13:08:57', 'dsrserse erwer', '54564564', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +308,7 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (247, 15, 25, '3', '6500.00', '19500.00', 1),
 (248, 15, 8, '3', '950.00', '2850.00', 1),
 (249, 15, 1, '1', '125000.00', '125000.00', 1),
-(250, 23, 19, '1', '85200.00', '85200.00', 1);
+(251, 23, 19, '1', '85200.00', '85200.00', 1);
 
 -- --------------------------------------------------------
 
@@ -325,7 +338,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`
 (5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 10, '45000.00', '1', '1'),
 (6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 21, '38000.00', '1', '1'),
 (7, 'Asus TUF FX505DT Gaming Laptop, 15.6â€ 120Hz Full HD, AMD Ryzen 5 R5-3550H Processor, GeForce GTX 1650 Graphics, 8GB DDR4, 256GB PCIe SSD, Gigabit Wi-Fi 5, Windows 10 Home, FX505DT-AH51, RGB Keyboard', '../assests/images/stock/20090931475f38257462116.jpg', 7, 1, 20, '68500.00', '1', '1'),
-(8, 'Logitech Keyboard', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 30, '950.00', '1', '1'),
+(8, 'Logitech Keyboard', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 0, '950.00', '1', '1'),
 (9, 'Dell OptiPlex 7450 All in One Desktop Computer with Touch, Intel Core i5-7500, 8GB DDR4, 500GB Hard Drive, Windows 10 Pro (31JHY) (Renewed)', '../assests/images/stock/14723156875fa006a95f007.jpg', 3, 1, 20, '64386.00', '1', '1'),
 (10, 'Logitech M525 Wireless Mouse â€“ Long 3 Year Battery Life, Ergonomic Shape for Right or Left Hand Use, Micro-Precision Scroll Wheel, and USB Unifying Receiver for Computers and Laptops, Black/Gray', '../assests/images/stock/5229306055fb5961fbe84e.jpg', 19, 3, 12, '1275.00', '1', '1'),
 (11, 'Logitech MK850 Performance Wireless Keyboard and Mouse - combo', '../assests/images/stock/21043172265fb59704405d9.jpg', 19, 3, 10, '4690.00', '1', '1'),
@@ -338,7 +351,9 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`
 (18, 'Seagate Disco ri­gido externo 6 TB - central para backup ', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 6, '14750.50', '1', '1'),
 (19, 'Laptop para jogos Acer Nitro 5, 9ª geração Intel Core i7-9750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 16GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN515-54-728C', '../assests/images/stock/17672098385ff388ae809bb.jpg', 17, 1, 17, '85200.00', '1', '1'),
 (24, 'Sony ', '../assests/images/stock/113770375601264a59ebea.jpg', 29, 3, 50, '4595.50', '1', '1'),
-(25, 'Bose', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 24, '6500.00', '1', '1');
+(25, 'Bose', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 25, '6500.00', '1', '1'),
+(26, 'Gaming Laptop Acer Nitro 5, 7ª geração Intel Core i5-5750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 8GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN516-54-348C', '../assests/images/stock/1860861486072dde24f8f4.jpg', 17, 1, 13, '76000.00', '1', '1'),
+(27, 'Dell Latitude 9510 15\" 2 in 1 Notebook - Intel Core i5 i5-10310U 1.7GHz', '../assests/images/stock/85166466081924fc0294.jpg', 3, 1, 5, '175000.00', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -387,10 +402,14 @@ INSERT INTO `product_details` (`id`, `product_id`, `detail`, `description`, `act
 (25, 4, 'asdasd', 'asdasd', '1', '1'),
 (26, 5, 'gfhfgg fggfgf', 'fghfgh fghfg', '1', '1'),
 (27, 5, 'we we rewr', 'ew 234', '1', '1'),
-(28, 25, 'dsdhfghf hf', '500', '1', '1'),
+(28, 25, 'dsdhfghf hf', '500', '2', '2'),
 (29, 25, 'erw', '3gb', '1', '1'),
 (30, 25, 'sdfsdf', 'sdfs', '1', '1'),
-(31, 25, 'sdadsasd asd asd', 'fsfs 545', '1', '1');
+(31, 25, 'sdadsasd asd', 'fsfs 545', '1', '1'),
+(32, 15, 'asdas ', '112px asda', '1', '1'),
+(33, 26, 'dasdas', '12', '2', '2'),
+(34, 26, 'sdfsd ', '23', '2', '2'),
+(35, 27, 'dasd', 'dasd', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -432,7 +451,11 @@ INSERT INTO `sub_categories` (`sub_category_id`, `categories_id`, `sub_category_
 (19, 3, 'Hard Disk Drive - External', '1', '1'),
 (20, 2, 'CPU', '1', '1'),
 (21, 2, 'Graphic card', '1', '1'),
-(22, 3, 'Headphones', '1', '1');
+(22, 3, 'Headphones', '1', '1'),
+(39, 1, 'asdas', '2', '2'),
+(40, 1, 'dfgdgdf  gdfgdf', '2', '2'),
+(41, 1, 'fg dfg dfg dfg', '1', '1'),
+(42, 1, 'dasda', '2', '2');
 
 -- --------------------------------------------------------
 
@@ -458,23 +481,24 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_image`, `type`, `permittion`, `active`, `status`) VALUES
-(1, 'Admin1', 'user1', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, '1', '1'),
+(1, 'Admin1', 'user11', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, '1', '1'),
 (2, 'John', 'Chirindza', 'johnchirindza@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john2.png', 1, 2, '1', '1'),
-(3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '2', '1'),
-(4, 'Armando', 'Cossa', 'armandocossa@live.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 1, 3, '1', '1'),
+(3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/9773099666082b87f92f56.jpg', 1, 3, '1', '1'),
+(4, 'Armando', 'Cossa', 'armandocossa@live.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
 (5, 'client', 'user', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
-(6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '7363a0d0604902af7b70b271a0b96480', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (7, 'cscs ', 'cscs', 'cscs@cscs.cscs', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
-(8, 'asd asd', 'dsa', 'asd@asd.asd', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(8, 'asd asd', 'dsa', 'asd@asd.asd', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (9, 'admin2', 'user2', 'admin@pconly.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (10, 'dsa', 'dsas', 'dsa@das.dsa', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '2', '1'),
 (11, 'rew', 'ewq', 'qwe@eqw.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '2', '2'),
-(12, 'tretr', 'treerr', 'trerer@treere.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(12, 'tretr', 'treerr', 'trerer@treere.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (13, 'xcvxc', 'vcbvbc', 'xcvxc@vcvxc.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
-(14, 'dfgdfb', 'fgfgh', 'dfgfg@gfhfg.com', 'd41d8cd98f00b204e9800998ecf8427e', '../assests/images/photo_default.png', 2, 0, '2', '1'),
-(15, 'ffgdf', 'fgfgas', 'sdfsdf@sad.com', '510d714eee0930b4190fa67ada648725', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(14, 'dfgdfb', 'fgfgh', 'dfgfg@gfhfg.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '2', '1'),
+(15, 'ffgdf', 'fgfgas', 'sdfsdf@sad.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (16, 'asd', 'asd', 'asd1@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
-(17, 'fdsa', 'fds', 'fsd@fds.com', '510d714eee0930b4190fa67ada648725', '../assests/images/photo_default.png', 1, 3, '1', '1');
+(17, 'fdsa', 'fds', 'fsd@fds.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
+(18, 'asdas', 'asdas', 'asda@sadsd.cppm', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1');
 
 --
 -- Indexes for dumped tables
@@ -498,7 +522,8 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`cart_item_id`),
-  ADD UNIQUE KEY `cart_id` (`cart_id`,`product_id`);
+  ADD KEY `cart_id` (`cart_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `categories`
@@ -565,7 +590,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -577,13 +602,13 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `clients`
@@ -601,41 +626,48 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `sub_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `sub_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Constraints for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE NO ACTION;
+  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE NO ACTION,
+  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `clients`

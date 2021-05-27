@@ -33,80 +33,83 @@
 
 							$output .= '
 								<div class="product-entry-details">
-									<div class="row">
-										<div class="col-sm-12 col-md-6 col-lg-6">
-											<div class="row">
-												<div class="d-flex col-md-2 col-lg-1 p-0 ml-1 d-md-inline d-lg-inline">
-													<a href="#">
-														<div class="product-img-2 m-0">
-															<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
-														</div>
-													</a>
+									<form class="form-horizontal" id="submitProductToCartForm" action="php_action/addToCart.php" method="POST">
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-6">
+												<div class="row">
+													<div class="d-flex col-md-2 col-lg-1 p-0 ml-1 d-md-inline d-lg-inline">
+														<a href="#">
+															<div class="product-img-2 m-0">
+																<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
+															</div>
+														</a>
 
-													<a href="#">
-														<div class="product-img-2 m-0">
-															<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
-														</div>
-													</a>
+														<a href="#">
+															<div class="product-img-2 m-0">
+																<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
+															</div>
+														</a>
 
-													<a href="#">
-														<div class="product-img-2 m-0">
-															<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
-														</div>
-													</a>
-												</div>
-												<div class="col-sm-12 col-md-9 col-lg-10 product-img-details">
-													<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 250px; " >
+														<a href="#">
+															<div class="product-img-2 m-0">
+																<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 40px; " >
+															</div>
+														</a>
+													</div>
+													<div class="col-sm-12 col-md-9 col-lg-10 product-img-details">
+														<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 250px; " >
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-sm-12 col-md-6 col-lg-6">
-											<div class="product-name-details">
-												<p><strong>'. $row['product_name'] .'</strong></p>
-											</div>
-
-											<div class="row">
-												<div class="col-md-6 col-lg-6">
-													<div class="product-brand-details">Marca '. $result2['brand_name'] .' </div>
-
-													<div class="product-stars-details">
-														<h6>
-									                        <i class="fas fa-star"></i>
-									                        <i class="fas fa-star"></i>
-									                        <i class="fas fa-star"></i>
-									                        <i class="fas fa-star"></i>
-									                        <i class="far fa-star"></i>
-									                    </h6>
-													</div>
-
-													<div class="product-price-details">
-														<h5  >'. number_format($row['rate'],2,",",".").' <label class="text-muted">Mt</label></h5>
-													</div>
+											<div class="col-sm-12 col-md-6 col-lg-6">
+												<div class="product-name-details">
+													<p><strong>'. $row['product_name'] .'</strong></p>
 													
 												</div>
+												<div id="add-to-cart-messages"></div>
+												<div class="row">
+													<div class="col-md-6 col-lg-6">
+														<div class="product-brand-details">Marca '. $result2['brand_name'] .' </div>
 
-												<div class="col-md-6 col-lg-6 mt-4">
-													<div class="form-group col-12 m-0 p-0">
-														<label for="quantity" class="col-sm-4 control-label">Quantity: </label>
-														<div class="col-sm-8">
-															<input type="number" class="form-control font-weight-bold" id="quantity" placeholder="Quantity" name="quantity" autocomplete="off" min="1" max="'. $row['quantity'].'" value="1">
-															<label class="text-muted font-weight-light">Avalible: '. $row['quantity'].'</label>
+														<div class="product-stars-details">
+															<h6>
+										                        <i class="fas fa-star"></i>
+										                        <i class="fas fa-star"></i>
+										                        <i class="fas fa-star"></i>
+										                        <i class="fas fa-star"></i>
+										                        <i class="far fa-star"></i>
+										                    </h6>
+														</div>
+
+														<div class="product-price-details">
+															<h5  >'. number_format($row['rate'],2,",",".").' <label class="text-muted">Mt</label></h5>
+														</div>
+														
+													</div>
+
+													<div class="col-md-6 col-lg-6 mt-4">
+														<div class="form-group col-12 m-0 p-0">
+															<label for="quantity" class="col-sm-4 control-label">Quantity: </label>
+															<div class="col-sm-8">
+																<input type="number" class="form-control font-weight-bold" id="quantity" placeholder="Quantity" name="quantity" autocomplete="off" min="1" max="'. $row['quantity'].'" value="1">
+																<label class="text-muted font-weight-light">Avalible: '. $row['quantity'].'</label>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
 
-											<div class="col-md-5 p-0">
-												<div class="cart mt-4">
-													<a href="#" class="btn btn-sm add-to-cart" title="Adicionar ao carrinho.">
-														<i class="fas fa-cart-arrow-down"></i>
-													</a>
+												<div class="col-md-5 p-0">
+													<div class="cart mt-4">
+														<a class="btn btn-sm add-to-cart" id="addToCartBtn" title="Adicionar ao carrinho.">
+															<i class="fas fa-cart-arrow-down"></i>
+														</a>
+													</div>
 												</div>
+												
 											</div>
-											
 										</div>
-									</div>
-									<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
+										<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
+									</form>
 								</div>
 							';
 						}
@@ -314,4 +317,5 @@
 		}
 	});
 </script>
+<script type="text/javascript" src="custom/js/cart.js"></script>
 <?php require_once 'includes/footer.php'; ?>
