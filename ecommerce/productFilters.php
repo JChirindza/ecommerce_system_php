@@ -105,17 +105,16 @@
 			<div class="col-sm-12 col-md-10 col-lg-10">
 				<div class="row p-2 justify-content-end">
 					<div class="limit ">Show:
-						<select id="product_filter" disabled>
-							<option value="12" selected="selected">12</option>
-							<option value="15">15</option>
-							<option value="18">18</option>
+						<select id="product_limit">
+							<option value="8">8</option>
+							<option value="12">12</option>
 							<option value="20">20</option>
-							<option value="25">25</option>
+							<option value="28">28</option>
 						</select>
 					</div>
 					<div class="sort pl-4">Sort By:
-						<select id="product_sort" disabled>
-							<option value="1" selected="selected">Default</option>
+						<select id="product_sort">
+							<option value="1">Default</option>
 							<option value="2">Name (A - Z)</option>
 							<option value="3">Name (Z - A)</option>
 							<option value="4">Price (Low &gt; High)</option>
@@ -149,12 +148,14 @@
 			var category_id = $('#category_id').val();
 			var minimum_price = $('#hidden_minimum_price').val();
 			var maximum_price = $('#hidden_maximum_price').val();
+			var limit = $('#product_limit').val();
+			var sort = $('#product_sort').val();
 			var brand = get_filter('brand');
 
 			$.ajax({
 				url:"php_action/filterData.php",
 				method:"POST",
-				data:{action:action, category_id:category_id, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+				data:{action:action, category_id:category_id, minimum_price:minimum_price, maximum_price:maximum_price, limit:limit, sort:sort, brand:brand},
 				success:function(data){
 					$('.filter_data').html(data);
 				}
@@ -168,6 +169,14 @@
 			});
 			return filter;
 		}
+
+		$('#product_limit').on('change', function(){
+			filter_data();
+		});
+
+		$('#product_sort').on('change', function(){
+			filter_data();
+		});		
 
 		$('.common_selector').click(function(){
 			filter_data();

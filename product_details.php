@@ -1,16 +1,16 @@
 
 <?php 
-	$productId = $_GET['i'];
+$productId = $_GET['i'];
 
-	$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
-	product.categories_id, product.quantity, product.rate, product.active, product.status, 
-	brands.brand_name, categories.categories_name FROM product 
-	INNER JOIN brands ON product.brand_id = brands.brand_id 
-	INNER JOIN categories ON product.categories_id = categories.categories_id  
-	WHERE product.status = 1 AND product.product_id = {$productId}";
+$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
+product.categories_id, product.quantity, product.rate, product.active, product.status, 
+brands.brand_name, categories.categories_name FROM product 
+INNER JOIN brands ON product.brand_id = brands.brand_id 
+INNER JOIN categories ON product.categories_id = categories.categories_id  
+WHERE product.status = 1 AND product.product_id = {$productId}";
 
-	$query = $connect->query($sql);
-	$prodResult = $query->fetch_assoc();
+$query = $connect->query($sql);
+$prodResult = $query->fetch_assoc();
 ?>
 <div class="row mb-3">
 	<div class="col-12">
@@ -18,7 +18,7 @@
 			<div class="card-header bg-white">
 				<h6 class="m-0 font-weight-bold">Dados do produto </h6>
 			</div>
-				
+			
 			<div class="card-body ">
 				<div class="form-group col-12">
 					<div class="row ">
@@ -48,14 +48,14 @@
 				<!-- d-none -->
 				<div class="product-info mb-3" id="product-info" style="display: none;"> 
 					<div class="form-group row">
-						<div class="col-sm-12 col-md-6 col-md-6">
+						<div class="form-group col-md-6 col-lg-6">
 							<label for="quantity" class="col-12 control-label">Available Quantity: </label>
-							<div class="col-sm-12">
+							<div class="col-12">
 								<input type="text" readonly class="form-control border-0" id="quantity" name="quantity" autocomplete="off" value="<?php echo $prodResult['quantity']; ?>">
 							</div>
 						</div> <!-- /form-group-->	        	 
 
-						<div class="form-group col-sm-12 col-md-6 col-md-6">
+						<div class="form-group col-md-6 col-lg-6 pt-4 pt-md-0 pt-lg-0">
 							<label for="rate" class="col-12 control-label">Rate: </label>
 							<div class="col-12">
 								<input type="text" readonly class="form-control border-0" id="rate" name="rate" autocomplete="off" value="<?php echo $prodResult['rate']; ?>">
@@ -64,14 +64,14 @@
 					</div>
 					
 					<div class="form-group row">
-						<div class="col-sm-12 col-md-6 col-md-6">
+						<div class="form-group col-md-6 col-lg-6">
 							<label for="brand" class="col-12 control-label">Brand Name: </label>
 							<div class="col-12">
 								<input type="text" readonly class="form-control border-0" id="brand" name="brand" autocomplete="off" value="<?php echo $prodResult['brand_name']; ?>">
 							</div>
 						</div> <!-- /form-group-->	
 
-						<div class="col-sm-12 col-md-6 col-md-6">
+						<div class="form-group col-md-6 col-lg-6 pt-4 pt-md-0 pt-lg-0">
 							<label for="category" class="col-12 control-label">Category Name: </label>
 							<div class="col-12">
 								<input type="text" readonly class="form-control border-0" id="category" name="category" autocomplete="off" value="<?php echo $prodResult['categories_name']; ?>">
@@ -79,9 +79,9 @@
 						</div> <!-- /form-group-->
 					</div>					        	         	       
 
-					<div class="form-group">
+					<div class="form-group pt-2 pt-md-0 pt-lg-0">
 						<label for="status" class="col-12 control-label">Status: </label>
-						<div class="col-2">
+						<div class="form-group col-md-3 col-lg-3">
 							
 							<?php $active = $prodResult['active']; ?>
 
@@ -92,7 +92,7 @@
 							<?php } ?>
 						</div>
 					</div> <!-- /form-group-->
-				
+					
 
 					<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="Ver menos" style="cursor: pointer;">
 						<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
@@ -105,10 +105,10 @@
 					var product_info = document.getElementById('product-info');
 					
 					view_more.onclick = function() {
-					    if (product_info.style.display === 'none') {
-					    	view_more.style.display = 'none';
-					        product_info.style.display = 'block';
-					    }
+						if (product_info.style.display === 'none') {
+							view_more.style.display = 'none';
+							product_info.style.display = 'block';
+						}
 					};
 
 					view_less.onclick = function() {						
@@ -132,7 +132,7 @@
 			<div class="card-header bg-white">
 				<h6 class="m-0 font-weight-bold"> Detalhes tecnicos</h6>
 			</div>
-				
+			
 			<div class="card-body ">
 				<button class="btn btn-primary btn-sm m-0" data-toggle="modal" id="addProductDetailsModalBtn" data-target="#addProductDetailModal"> <i class="fas fa-plus"></i> Adicionar detalhes </button>
 				<hr>
@@ -205,9 +205,9 @@
 					</div>	
 					<input type="hidden" name="productId" id="productId" value="<?php echo $prodResult['product_id']; ?>">
 				</form> <!-- /.form -->	 
-		   	</div> <!-- /modal-body -->
+			</div> <!-- /modal-body -->
 
-		   	<div class="modal-footer">
+			<div class="modal-footer">
 				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal"> <i class="fas fa-times"></i></button>
 			</div> <!-- /modal-footer -->	
 
@@ -235,7 +235,7 @@
 
 				<div class="div-result">
 					<form class="form-horizontal" id="editProductDetailForm" action="php_action/editProductDetail.php" method="POST">				    
-						<div id="edit-product-messages"></div>
+						<div id="edit-product-detail-messages"></div>
 						<div class="form-group">
 							<label for="editProductDetail" class="col-sm-4 control-label">Product Detail: </label>
 							<div class="col-sm-8">

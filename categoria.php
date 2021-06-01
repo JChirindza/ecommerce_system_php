@@ -1,47 +1,65 @@
 <?php require_once 'includes/header.php'; ?>
 
-<div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Categorias</h1>
-	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addCategoriesModalBtn" data-target="#addCategoriesModal"> <i class="glyphicon glyphicon-plus-sign"></i> Adicionar Categoria </button>
+<div class="border border-top-0 bg-white m-0 p-0 row">
+	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
+		<i class="fas fa-align-left"></i>
+	</button>
+	<ol class="breadcrumb bg-transparent mb-0">
+		<li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+		<li class="breadcrumb-item active">Categories</li>
+		<li class="breadcrumb-item active" aria-current="page">
+			<?php if($_GET['c'] == 'manctg') { ?>
+				Manage
+			<?php } else if($_GET['c'] == 'subc') { ?>
+				Details
+			<?php } // /else manage ?>
+		</li>
+	</ol>
 </div>
 
-<div class="row">
-	<div class="col-md-12">
+<div class="d-sm-flex align-items-center justify-content-between m-3">
+	<h1 class="pageTitle">Categories</h1>
+	<?php if($_GET['c'] == 'manctg') { // manage categories ?>
+		<button class="btn btn-primary btn-sm" data-toggle="modal" id="addCategoriesModalBtn" data-target="#addCategoriesModal"> <i class="fas fa-plus"></i> Add Category </button>
+	<?php } else if($_GET['c'] == 'subc') { // add categories ?>
+		<a href="produto.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Manage categories </a>
+	<?php } ?>
+	
+</div>
 
-		<!-- <ol class="breadcrumb">
-			<li><a href="dashboard.php">Home</a></li>		  
-			<li class="active">Category</li>
-		</ol> -->
-
-		<div class="card">
-			<div class="card-header">
-				<h6 class="m-0 font-weight-bold text-muted">Gerir Categorias</h6>
-			</div>
-
-			<div class="card-body ">
-
-				<div class="remove-messages"></div>
-
-				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-primary btn-sm" data-toggle="modal" id="addCategoriesModalBtn" data-target="#addCategoriesModal"> <i class="glyphicon glyphicon-plus-sign"></i> Adicionar Categoria </button>
-				</div> <!-- /div-action -->				
-				
-				<div class="table-responsive">
-					<table class="table" id="manageCategoriesTable">
-						<thead>
-							<tr>							
-								<th>Categories Name</th>
-								<th>Status</th>
-								<th style="width:10%;">Options</th>
-							</tr>
-						</thead>
-					</table><!-- /table -->
+<?php if($_GET['c'] == 'manctg') { // gerir produto ?>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header bg-white">
+					<h6 class="m-0 font-weight-bold text-muted">Manage Categories</h6>
 				</div>
-			</div> 
-		</div>	
-	</div> <!-- /col-md-12 -->
-</div> <!-- /row -->
 
+				<div class="card-body ">
+
+					<div class="remove-messages"></div>
+					<div class="table-responsive">
+						<table class="table table-hover" id="manageCategoriesTable">
+							<thead>
+								<tr>			
+									<th width="5%">#</th>				
+									<th width="40%">Categories Name</th>
+									<th width="15%">Subcategories</th>
+									<th width="15%">Products</th>
+									<th width="15%">Status</th>
+									<th width="10%">Options</th>
+								</tr>
+							</thead>
+						</table><!-- /table -->
+					</div>
+				</div> 
+			</div>	
+		</div> <!-- /col-md-12 -->
+	</div> <!-- /row -->
+<?php } else if($_GET['c'] == 'subc') { // add subcategories
+	// add subcategories
+	require_once 'subcategoria.php';
+} ?>
 
 <!-- add categories -->
 <div class="modal fade" id="addCategoriesModal" tabindex="-1" role="dialog">
@@ -50,7 +68,7 @@
 
 			<form class="form-horizontal" id="submitCategoriesForm" action="php_action/createCategories.php" method="POST">
 				<div class="modal-header">
-					<h4 class="modal-title"><i class="fa fa-plus"></i> Add Categories</h4>
+					<h4 class="modal-title"><i class="fas fa-plus"></i> Add Categories</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
@@ -76,9 +94,8 @@
 				</div> <!-- /modal-body -->
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-
-					<button type="submit" class="btn btn-primary" id="createCategoriesBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button>
+					<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+					<button type="submit" class="btn btn-success" id="createCategoriesBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> Save Changes</button>
 				</div> <!-- /modal-footer -->	      
 			</form> <!-- /.form -->	     
 		</div> <!-- /modal-content -->    
@@ -129,9 +146,8 @@
 				</div> <!-- /modal-body -->
 
 				<div class="modal-footer editCategoriesFooter">
-					<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-
-					<button type="submit" class="btn btn-success" id="editCategoriesBtn" data-loading-text="Loading..." autocomplete="off"> <i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button>
+					<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+					<button type="submit" class="btn btn-success" id="editCategoriesBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> Save Changes</button>
 				</div>
 				<!-- /modal-footer -->
 			</form>
@@ -148,15 +164,15 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="glyphicon glyphicon-trash"></i> Remove Category</h4>
+				<h4 class="modal-title"><i class="fas fa-trash"></i> Remove Category</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<p>Do you really want to remove ?</p>
 			</div>
 			<div class="modal-footer removeCategoriesFooter">
-				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-				<button type="button" class="btn btn-primary" id="removeCategoriesBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+				<button type="button" class="btn btn-outline-danger" id="removeCategoriesBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> Save changes</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -164,5 +180,6 @@
 <!-- /categories -->
 
 <script src="custom/js/categories.js"></script>
+<script src="custom/js/subcategories.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>

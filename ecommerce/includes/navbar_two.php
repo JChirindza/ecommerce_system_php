@@ -1,14 +1,15 @@
 <header class="nav-menu-two">
 	<div class="container">
 		<div class="row v-center">
-                  <!-- <div class="header-item item-left">
+
+               <!-- <div class="header-item item-left">
                         <div class="logo">
                               <a href="#">MyStore</a>
                         </div>
-                   </div> -->
-
-                   <!-- menu start here -->
-                   <div class="header-item item-center">
+                    </div> 
+               -->
+               <!-- menu start here -->
+               <div class="header-item item-center">
 
                     <div class="menu-overlay"></div>
 
@@ -55,37 +56,30 @@
                                    <a href="#">Categories <i class="fa fa-angle-down"></i></a>
                                    <div class="sub-menu mega-menu mega-menu-column-4">
                                         <?php  
-                                        $sql = "SELECT categories_id, categories_name FROM categories WHERE categories_active = 1";
+                                        // Visualiza categorias activas com pelomenos um produto activo e relacionado a categoria
+                                        $sql = "SELECT c.categories_id, c.categories_name FROM categories AS c INNER JOIN product AS p ON p.categories_id = c.categories_id AND p.active = 1 AND c.categories_active = 1  GROUP BY c.categories_id";
                                         $query = $connect->query($sql);
 
                                         while ($row = $query->fetch_array()) { 
                                              $categories_id = $row['categories_id'];
 
-                                             // verifica se a categoria esta relacionada a uma subcategoria com um producto activo.
-                                             $sql = "SELECT * FROM product WHERE categories_id = {$categories_id} AND active = 1";
-                                             $countQuery = $connect->query($sql);
-                                             if($countQuery->num_rows > 0) {
+                                             ?>
+                                             <div class="list-item">
+                                                  <h4 class="title"><a href="productFilters.php?category_id=<?php echo $categories_id; ?>"><?php echo $row['categories_name']; ?></a></h4>
+                                                  <ul>
+                                                       <?php  
+                                                       // Visualiza as subcategorias
+                                                       $sql1 = "SELECT sub_category_id, sub_category_name FROM sub_categories WHERE categories_id = {$categories_id} AND active = 1";
+                                                       $query1 = $connect->query($sql1);
 
-                                                  ?>
-                                                  <div class="list-item">
-                                                       <h4 class="title"><a href="productFilters.php?category_id=<?php echo $categories_id; ?>"><?php echo $row['categories_name']; ?></a></h4>
-                                                       <ul>
-                                                            <?php  
-                                                            $sql1 = "SELECT sub_category_id, sub_category_name FROM sub_categories WHERE categories_id = {$categories_id} AND active = 1";
-                                                            $query1 = $connect->query($sql1);
+                                                       
+                                                       while ($data = $query1->fetch_array()) { ?>
+                                                            <li><a href="productFilters.php?category_id=<?php echo $categories_id; ?>"><?php echo $data['sub_category_name']; ?></a></li>
+                                                       <?php } ?>
 
-                                                            // $sql = "SELECT count()"
-                                                            // Verifica se a subcategoria esta relacionada a um produto activo
-                                                            
-
-                                                            while ($data = $query1->fetch_array()) { ?>
-                                                                 <li><a href="#"><?php echo $data['sub_category_name']; ?></a></li>
-                                                            <?php } ?>
-
-                                                       </ul>
-                                                  </div>
-                                                  <?php 
-                                             } 
+                                                  </ul>
+                                             </div>
+                                             <?php 
                                         } ?>
                                    </div>
                               </li>
