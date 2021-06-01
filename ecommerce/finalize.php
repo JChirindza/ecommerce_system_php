@@ -31,7 +31,8 @@ $result = $query->fetch_assoc();
 				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cart">Cart</a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>">Cart items</a></li>
-				<li class="breadcrumb-item active">Checkout</li>
+				<li class="breadcrumb-item"><a href="checkout.php?i=<?php echo $_GET['i']; ?>">Checkout</a></li>
+				<li class="breadcrumb-item active">Finalize</li>
 			</ol>
 		</div>
 
@@ -43,11 +44,11 @@ $result = $query->fetch_assoc();
 						<label>Cart items</label>
 					</div>
 					<div class="process text-center active">
-						<p  class="next"><span><i class="fas fa-check"></i></span></span></p>
+						<p><span><i class="fas fa-check"></i></span></p>
 						<label>Checkout</label>
 					</div>
 					<div class="process text-center">
-						<p><span>03</span></p>
+						<p class="next"><span><i class="fas fa-check"></i></span></p>
 						<label>Finalize</label>
 					</div>
 				</div>
@@ -62,9 +63,9 @@ $result = $query->fetch_assoc();
 				<hr>
 				<div class="row">
 					
-					<div class="cart-detail col-sm-12 col-md-8 col-lg-8 mb-3">
+					<div class="cart-detail col-sm-12 col-md-7 col-lg-7 mb-3">
 						<h5>Selected items</h5>
-						<ul class="pl-4">
+						<ul>
 							<?php 
 							$count = 0;
 							$total = 0;
@@ -82,20 +83,20 @@ $result = $query->fetch_assoc();
 								
 								echo '
 								<li>
-									<ul>
-										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span>
-										</li>
-									</ul>
+								<ul>
+								<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span>
+								</li>
+								</ul>
 								</li>';
 							}
 							?>
 						</ul>
 					</div>
 
-					<div class="col-sm-12 col-md-4 col-lg-4">
-						<h5 class="">Payment options <label class="badge badge-pill badge-secondary pl-4 pr-4">Finalize</label></h5>
-						<label class="text-muted pl-3"><i class="fas fa-info-circle mr-2"></i>Choose one of the following options to finalize:</label>
-						<div class="row pl-4 d-flex justify-content-start">
+					<div class="col-sm-12 col-md-5 col-lg-5">
+						<h5 class="">Payment options <label class="badge badge-pill badge-success pl-4 pr-4">Finalize</label></h5>
+						<label class="text-muted"><i class="fas fa-info-circle pr-2"></i>Choose one of the following options to finalize:</label>
+						<div class="row pl-lg-1 d-flex justify-content-start">
 							<div class="btn btn-danger p-lg-3 m-lg-2 mpesa border rounded-lg">
 								<label class="font-weight-bold pl-4 pr-4"><i class="fas fa-mobile-alt fa-2x pr-md-2 pr-lg-2"></i>Mpesa</label>
 							</div>
@@ -115,7 +116,7 @@ $result = $query->fetch_assoc();
 							<span id="subTotal" class="font-weight-bold"><?php echo number_format($total, 2,",","."); ?> Mt</span>
 						</div>
 						<div class="">
-							<p><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>" class="btn btn-primary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-4"></i>Back to Cart </a></p>
+							<p><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>" class="btn btn-primary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-4"></i>Checkout </a></p>
 						</div>
 					</div>
 				</div>
