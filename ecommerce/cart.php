@@ -55,7 +55,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							<label>Cart items</label>
 						</div>
 						<div class="process text-center">
-							<p class="next"><span><i class="fas fa-check"></i></span></p>
+							<p class="next"><span>02</span></p>
 							<label>Checkout</label>
 						</div>
 						<div class="process text-center">
@@ -104,23 +104,12 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 
 					<?php } else if($_GET['c'] == 'cartItems') { // cart ?> 
 
-						<?php 
-						$cartId = $_GET['i'];
-						$sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
-						$query = $connect->query($sql);
-						$result = $query->fetch_assoc();
-						?>
-						<!-- <div class="card-header bg-white d-sm-flex align-items-center justify-content-between">
-							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-list"></i> Manage Cart Items</h6>
-							<label>Created on: <strong><?php echo $result['cart_date']; ?></strong></label>
-						</div> -->
-
 						<div class="card-body">
 
 							<div id="success-messages"></div>
 
 							<style type="text/css"> #manageCartItemTable th{ border-bottom: none; } </style>
-							<input type="text" hidden id="cartId" name="cartId" value="<?php echo $cartId; ?>">
+							<input type="text" hidden id="cartId" name="cartId" value="<?php echo $_GET['i']; ?>">
 							<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 								<table class="table border-bottom" id="manageCartItemTable">
 									<thead>
@@ -150,7 +139,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 									<div class="">
 										<div class="row">
 											<p><a href="home.php" class="btn btn-primary rounded-0"> Continue Shopping </a></p>
-											<p><a href="checkout.php?i=<?php echo $cartId; ?>" class="btn btn-success rounded-0"> Checkout </a></p>
+											<p><a href="checkout.php?i=<?php echo $_GET['i']; ?>" class="btn btn-success rounded-0"> Checkout </a></p>
 										</div>
 									</div>
 								</div>

@@ -14,14 +14,6 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	die();
 }
 ?>
-<?php 
-$cartId = $_GET['i'];
-// $cartId = 1;
-$sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
-$query = $connect->query($sql);
-$result = $query->fetch_assoc();
-
-?>
 
 <div class="d-flex" id="wrapper">
 	<div class="container-fluid bg-light ml-md-4 mr-md-4 ml-lg-4 mr-lg-4">
@@ -30,7 +22,7 @@ $result = $query->fetch_assoc();
 			<ol class="breadcrumb bg-transparent m-0">
 				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cart">Cart</a></li>
-				<li class="breadcrumb-item"><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>">Cart items</a></li>
+				<li class="breadcrumb-item"><a href="cart.php?c=cartItems&i=<?php echo $_GET['i']; ?>">Cart items</a></li>
 				<li class="breadcrumb-item active">Checkout</li>
 			</ol>
 		</div>
@@ -38,9 +30,11 @@ $result = $query->fetch_assoc();
 		<div class="card border-0 row">
 			<div class="col-md-12 col-md-offset-1">
 				<div class="process-wrap mt-4">
-					<div class="process text-center active">
-						<p><span><i class="fas fa-check"></i></span></p>
-						<label>Cart items</label>
+					<a href="cart.php?c=cartItems&i=<?php echo $_GET['i']; ?>">
+						<div class="process text-center active">
+							<p><span><i class="fas fa-check"></i></span></p>
+							<label>Cart items</label>
+						</a>
 					</div>
 					<div class="process text-center active">
 						<p  class="next"><span><i class="fas fa-check"></i></span></span></p>
@@ -61,7 +55,7 @@ $result = $query->fetch_assoc();
 				</div>
 				<hr>
 				<div class="row">
-					
+
 					<div class="cart-detail col-sm-12 col-md-8 col-lg-8 mb-3">
 						<h5>Selected items</h5>
 						<ul class="pl-4">
@@ -69,24 +63,22 @@ $result = $query->fetch_assoc();
 							$count = 0;
 							$total = 0;
 
-							$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId}";
+							$sql = "SELECT * FROM cart_item WHERE cart_id = {$_GET['i']}";
 							$resultado = mysqli_query($connect, $sql);
 
 							while ($dados = mysqli_fetch_array($resultado)) { 
-
 								$sql2 = "SELECT * FROM product WHERE product_id = {$dados['product_id']} ";
 								$query = $connect->query($sql2);
 								$resultProduct = $query->fetch_assoc();
-
 								$total += $resultProduct['rate'] * $dados['quantity']; 
-								
-								echo '
+								?>
 								<li>
 									<ul>
-										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span>
+										<li><span class="text-muted" data-toggle="tooltip" title="<?php echo $resultProduct['product_name']; ?>"><?php echo $dados['quantity'].' x '.$resultProduct['product_name']; ?></span> <span data-toggle="tooltip" title="<?php echo $dados['quantity'].' x '.number_format($resultProduct['rate'],2,",","."); ?>"> <?php echo number_format($resultProduct['rate'] * $dados['quantity'],2,",","."); ?> Mt</span>
 										</li>
 									</ul>
-								</li>';
+								</li>
+								<?php
 							}
 							?>
 						</ul>
@@ -96,7 +88,7 @@ $result = $query->fetch_assoc();
 						<h5 class="">Payment options <label class="badge badge-pill badge-secondary pl-4 pr-4">Finalize</label></h5>
 						<label class="text-muted pl-3"><i class="fas fa-info-circle mr-2"></i>Choose one of the following options to finalize:</label>
 						<div class="row pl-4 d-flex justify-content-start">
-							<div class="btn btn-danger p-lg-3 m-lg-2 mpesa border rounded-lg">
+							<div class="btn btn-danger p-lg-3 m-lg-2 mpesa border rounded-lg" title="Vodacom Mpesa">
 								<label class="font-weight-bold pl-4 pr-4"><i class="fas fa-mobile-alt fa-2x pr-md-2 pr-lg-2"></i>Mpesa</label>
 							</div>
 							<div class="btn btn-info p-lg-3 m-lg-2 paypal border rounded-lg" title="Paypal" >
@@ -115,7 +107,7 @@ $result = $query->fetch_assoc();
 							<span id="subTotal" class="font-weight-bold"><?php echo number_format($total, 2,",","."); ?> Mt</span>
 						</div>
 						<div class="">
-							<p><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>" class="btn btn-primary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-4"></i>Back to Cart </a></p>
+							<p><a href="cart.php?c=cartItems&i=<?php echo $_GET['i']; ?>" class="btn btn-primary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-4"></i>Back to Cart </a></p>
 						</div>
 					</div>
 				</div>
