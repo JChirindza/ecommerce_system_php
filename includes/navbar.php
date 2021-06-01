@@ -1,13 +1,17 @@
+<?php require_once 'php_action/core.php'; ?>
 <?php 
 // Get username
-$userID = $_SESSION['userId'];
-$sql = "SELECT * FROM users WHERE user_id = '$userID' ";
-$result = $connect->query($sql);
-if($result->num_rows > 0) { 
-	while($row = $result->fetch_array()) {
-		$username = $row[1];
- 	} // /while 
-}// if num_rows
+if (isset($_SESSION['userId'])) {
+	$userID = $_SESSION['userId'];
+	$sql = "SELECT * FROM users WHERE user_id = '$userID' ";
+	$result = $connect->query($sql);
+	if($result->num_rows > 0) { 
+		while($row = $result->fetch_array()) {
+			$username = $row[1];
+	 	} // /while 
+	}// if num_rows
+}
+
 ?>
 <nav class="navbar navbar-expand-lg border-bottom shadow-sm" >
 	<!-- Brand -->
@@ -66,7 +70,7 @@ if($result->num_rows > 0) {
 			dataType: 'json',
 			success:function(response) {		
 			// alert(response.product_image);
-				$("#getUserImageNav").attr('src', 'users/'+response.user_image);
+			$("#getUserImageNav").attr('src', 'users/'+response.user_image);
 			} // /success function
 		}); // /ajax to fetch product image
 	}

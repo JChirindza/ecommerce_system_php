@@ -52,7 +52,7 @@
 	}
 </script>
 <!-- Bootstrap core JavaScript -->
-<!-- <script src="../assests/jquery/jquery.min.js"></script> -->
+<script src="../assests/jquery/jquery.min.js"></script>
 <script src="../assests/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- DataTables -->

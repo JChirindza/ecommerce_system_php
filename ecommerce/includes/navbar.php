@@ -3,9 +3,9 @@ require_once 'php_action/db_connect.php';
 
 session_start();
 
-if(isset($_SESSION['userId'])) {
-	if ($_SESSION['userType'] == 1) {
-		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
+	if($_SESSION['userType'] == 1) {
+		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');
 	}
 
 	// Get username
@@ -43,31 +43,23 @@ if(isset($_SESSION['userId'])) {
 					<li class="nav-item">
 						<a class="nav-link text-white" href="home.php">Home</a>
 					</li>
-					<?php if(isset($_SESSION['userId'])){ ?>
+					<?php if (isset($_SESSION['userId'])){ ?>
 						<li class="nav-item">
 							<a href="cart.php" class="nav-item nav-link ">
 								<h6 class="px-5 cart text-white">
 									<i class="fas fa-cart-arrow-down fa-2x"></i>
-									<?php
-									if (isset($_SESSION['cartItem'])){
-										$count = count($_SESSION['cart']);
-										echo "<span id=\"cart_count\" class=\"badge badge-warning\">$count</span>";
-									}else{
-										echo "<span id=\"cart_count\" class=\"badge badge-secondary\">0</span>";
-									}
-									?>
+
 								</h6>
 							</a>
 						</li>
-					<?php } else { ?>
+					<?php }else{ ?>
 						<li class="nav-item">
 							<a class="nav-link text-white" href="../sign-in.php">Login</a>
 						</li>
 					<?php } ?>
 				</ul>
 			</div>
-
-			<?php if(isset($_SESSION['userId'])){ ?>
+			<?php if (isset($_SESSION['userId'])){ ?>
 				<div class="col-3">
 					
 
@@ -76,7 +68,7 @@ if(isset($_SESSION['userId'])) {
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<img class="img-profile rounded-circle border border-info" src="<?php echo $user_image_url; ?>"  style="width: 35px; height: 35px;">
+										<img class="img-profile rounded-circle border border-info" src=""  style="width: 35px; height: 35px;">
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 										<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Hello, <?php echo $username; ?></div>
@@ -91,6 +83,7 @@ if(isset($_SESSION['userId'])) {
 					</div>
 				</div>
 			<?php } ?>
+
 		</div>
 	</div>
 	
@@ -120,7 +113,6 @@ if(isset($_SESSION['userId'])) {
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<?php require_once '../loginForm.php'; ?>
 			</div>
 		</div>
 	</div>
