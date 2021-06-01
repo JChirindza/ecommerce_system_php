@@ -1,8 +1,10 @@
 <?php 	
 require_once 'db_connect.php';
+session_start();
 
+$user_id = $_SESSION['userId'];
 $sql = "SELECT cart_id, payment_status, cart_date FROM cart
-WHERE cart_status = 1 ORDER BY cart_id DESC";
+WHERE user_id = {$user_id} AND cart_status = 1 ORDER BY cart_id DESC";
 
 $result = $connect->query($sql);
 

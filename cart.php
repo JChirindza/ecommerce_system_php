@@ -80,12 +80,6 @@
 									<!-- <span id="subTotal" class="font-weight-bold"><?php echo number_format($total,2,",","."); ?> Mt</span> -->
 								</p>
 							</div>
-							<div class="">
-								<div class="row">
-									<p><a href="home.php" class="btn btn-primary rounded-0"> Continue Shopping </a></p>
-									<p><a href="checkout.php" class="btn btn-success rounded-0"> Checkout </a></p>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

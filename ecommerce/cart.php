@@ -1,8 +1,6 @@
 <?php require_once 'includes/header.php'; ?>
 <?php  
-if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) {
-		// header('location: http://localhost/SistemaDeVendas_ControleDeStock/ecommerce/home.php');	
-	?>
+if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	<div class="p-4">
 		<div class="alert alert-warning" role="alert">
 			<i class="fas fa-exclamation-triangle"></i>
@@ -23,21 +21,68 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) {
 			<ol class="breadcrumb bg-transparent m-0">
 				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=carts">Carts</a></li>
-				<li class="breadcrumb-item active">Cart items</li>
+				<?php if($_GET['c'] == 'cartItems') { ?>
+					<li class="breadcrumb-item active">Cart items</li>
+				<?php } ?>
 			</ol>
 		</div>
 
-		<div class="row mt-2 mt-md-0 mt-lg-0">
-			<div class="col-sm-12 bg-white p-3 productDetails">
-				<h4><i class="fas fa-cart-arrow-down"></i> Cart </h4>
-
-				<!-- Cart & cart items -->
-				<?php if($_GET['c'] == 'carts') { // manege carts ?>
-					<div class="card">
-						<div class="card-header bg-white d-sm-flex align-items-center justify-content-between">
-							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-list"></i> Manage Cart</h6>
+		<?php if($_GET['c'] == 'carts') { ?>
+			<div class="card border-0 row">
+				<div class="col-md-12 col-md-offset-1">
+					<div class="process-wrap mt-4">
+						<div class="process text-center active">
+							<p><span><i class="fas fa-check"></i></span></p>
+							<label>Cart items</label>
 						</div>
+						<div class="process text-center">
+							<p  class="next"><span>02</span></p>
+							<label>Checkout</label>
+						</div>
+						<div class="process text-center">
+							<p><span>03</span></p>
+							<label>Finalize</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php } elseif($_GET['c'] == 'cartItems') { ?>
+			<div class="card border-0 row">
+				<div class="col-md-12 col-md-offset-1">
+					<div class="process-wrap mt-4">
+						<div class="process text-center active">
+							<p><span><i class="fas fa-check"></i></span></p>
+							<label>Cart items</label>
+						</div>
+						<div class="process text-center">
+							<p class="next"><span><i class="fas fa-check"></i></span></p>
+							<label>Checkout</label>
+						</div>
+						<div class="process text-center">
+							<p><span>03</span></p>
+							<label>Finalize</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
+		
 
+		
+		
+		<div class="row mt-2 mt-md-4 mt-lg-4">
+			<div class="col-sm-12 bg-white p-3 cart">
+				<div class="card">
+					<div class="card-header bg-white d-sm-flex align-items-center justify-content-between">
+						<?php if($_GET['c'] == 'carts') { // manage carts ?>
+							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> Manage Carts</h6>
+						<?php }elseif($_GET['c'] == 'cartItems'){ ?>
+							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> Manage Cart Items</h6>
+						<?php } ?>
+						
+					</div>
+					<!-- Cart & cart items -->
+					<?php if($_GET['c'] == 'carts') { // manage carts ?>
 						<div class="card-body ">
 
 							<div id="success-messages"></div>
@@ -56,31 +101,25 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) {
 								</table>
 							</div>
 						</div>
-					</div>
 
-				<?php } else if($_GET['c'] == 'cartItems') { // cart ?> 
+					<?php } else if($_GET['c'] == 'cartItems') { // cart ?> 
 
-					<?php 
-					$cartId = $_GET['i'];
-					$sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
-					$query = $connect->query($sql);
-					$result = $query->fetch_assoc();
-					?>
-					<div class="card">
-						<div class="card-header bg-white d-sm-flex align-items-center justify-content-between">
+						<?php 
+						$cartId = $_GET['i'];
+						$sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
+						$query = $connect->query($sql);
+						$result = $query->fetch_assoc();
+						?>
+						<!-- <div class="card-header bg-white d-sm-flex align-items-center justify-content-between">
 							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-list"></i> Manage Cart Items</h6>
 							<label>Created on: <strong><?php echo $result['cart_date']; ?></strong></label>
-						</div>
+						</div> -->
 
-						<div class="card-body ">
+						<div class="card-body">
 
 							<div id="success-messages"></div>
 
-							<style type="text/css">
-								#manageCartItemTable th{
-									border-bottom: none;
-								}
-							</style>
+							<style type="text/css"> #manageCartItemTable th{ border-bottom: none; } </style>
 							<input type="text" hidden id="cartId" name="cartId" value="<?php echo $cartId; ?>">
 							<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 								<table class="table border-bottom" id="manageCartItemTable">
@@ -95,6 +134,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) {
 										</tr>
 									</thead>
 								</table>
+								<hr>
 							</div>
 
 							<div class="d-flex justify-content-end">
@@ -110,14 +150,14 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) {
 									<div class="">
 										<div class="row">
 											<p><a href="home.php" class="btn btn-primary rounded-0"> Continue Shopping </a></p>
-											<p><a href="checkout.php" class="btn btn-success rounded-0"> Checkout </a></p>
+											<p><a href="checkout.php?i=<?php echo $cartId; ?>" class="btn btn-success rounded-0"> Checkout </a></p>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				<?php } ?>	
+					<?php } ?>	
+				</div>
 			</div>
 		</div>
 	</div>
