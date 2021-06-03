@@ -63,7 +63,8 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							$count = 0;
 							$total = 0;
 
-							$sql = "SELECT * FROM cart_item WHERE cart_id = {$_GET['i']}";
+							// retorna somente produtos com quantidade em stock maior que zero.
+							$sql = "SELECT * FROM cart_item AS c WHERE c.cart_id = {$_GET['i']} AND (SELECT p.quantity FROM product AS p WHERE p.quantity > 0 AND p.product_id = c.product_id) ORDER BY `cart_item_id` DESC";
 							$resultado = mysqli_query($connect, $sql);
 
 							while ($dados = mysqli_fetch_array($resultado)) { 
