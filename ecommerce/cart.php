@@ -31,12 +31,12 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<div class="card border-0 row">
 				<div class="col-md-12 col-md-offset-1">
 					<div class="process-wrap mt-4">
-						<div class="process text-center active">
-							<p><span><i class="fas fa-check"></i></span></p>
+						<div class="process text-center">
+							<p><span>01</span></p>
 							<label>Cart items</label>
 						</div>
 						<div class="process text-center">
-							<p  class="next"><span>02</span></p>
+							<p><span>02</span></p>
 							<label>Checkout</label>
 						</div>
 						<div class="process text-center">
@@ -197,4 +197,8 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 <!-- /remove cart item-->
 
 <script src="custom/js/cart.js"></script>
+<script type="text/javascript">
+	// nav bar 
+	$(".navCart").addClass('border-bottom');
+</script>
 <?php require_once 'includes/footer.php'; ?>

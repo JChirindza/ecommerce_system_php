@@ -5,27 +5,41 @@ require_once 'db_connect.php';
 session_start();
 
 $valid['success'] = array('success' => false, 'messages' => array());
-echo "OKKKKKKKK.";
+
 if(isset($_SESSION['userId'])) {
 	if($_POST) {
 
-		$cartId = 1;
-		$productId = $_POST['productId'];
-		$quantity = 1;
+		if (isset($_SESSION['cartId'])) {
 
-		$sql = "INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES (NULL, '$cartId', '$productId', '$quantity', '1', '1') ";
+			$cartId = $_SESSION['cartId'];
+			$productId = $_POST['productId'];
+			$quantity = 1;
 
-		if($connect->query($sql) === TRUE) {
-			$valid['success'] = true;
-			$valid['messages'] = "Successfully Added";	
-		} else {
-			$valid['success'] = false;
-			$valid['messages'] = "Error while adding the members";
+			// Verifica se o producto ja existe, caso exista aumenta a quantidade.
+			$sql = "SELECT * FROM cart_item WHERE cart_id = $cartId AND product_id = {$productId} LIMIT 1";
+			$result = $connect->query($sql);
+
+			if ($result && $result->num_rows > 0) {
+				$cartItemResult = $result->fetch_array();
+
+				$newQuantity = $cartItemResult['quantity'] + $quantity;
+				$sql = "UPDATE cart_item SET quantity = {$newQuantity} WHERE cart_item_id = {$cartItemResult['cart_item_id']} AND product_id = {$productId}";
+			}else{
+				$sql = "INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES (NULL, '$cartId', '$productId', '$quantity', '1', '1') ";
+			}
+
+			if($connect->query($sql) === TRUE) {
+				$valid['success'] = true;
+				$valid['messages'] = "Successfully Added";	
+			} else {
+				$valid['success'] = false;
+				$valid['messages'] = "Error while adding the members";
+			}
+
+			$connect->close();
+
+			echo json_encode($valid);
 		}
-
-		$connect->close();
-
-		echo json_encode($valid);
 	}
 }else{ 
 	?>

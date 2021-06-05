@@ -145,5 +145,8 @@
 		</div> -->		
 	</div>
 </div>
-
+<script type="text/javascript">
+	// nav bar 
+	$(".navHome").addClass('border-bottom');
+</script>
 <?php require_once 'includes/footer.php'; ?>

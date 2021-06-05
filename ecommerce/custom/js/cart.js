@@ -19,85 +19,95 @@ $(document).ready(function() {
 		}
 	});
 
-	// submit productToCart form function
-	$("#submitProductToCartForm").unbind('submit').bind('submit', function() {
-		// remove the error text
-		$(".text-danger").remove();
-		// remove the form error
-		$('.form-group').removeClass('has-error').removeClass('has-success');			
+	// add To cart btn clicked
+	$("#addToCartBtn").unbind('click').bind('click', function() {
+		// submit productToCart form function
+		$("#submitProductToCartForm").unbind('submit').bind('submit', function() {
+			// remove the error text
+			$(".text-danger").remove();
+			// remove the form error
+			$('.form-group').removeClass('has-error').removeClass('has-success');			
 
-		var quantity = $("#quantity").val();
+			var quantity = $("#quantity").val();
+			var product_id = $("#product_id").val();
 
-		if(quantity == "" && quantity <= 0) {
-			$("#quantity").after('<p class="text-danger">Quantity field is required</p>');
-			$('#quantity').closest('.form-group').addClass('has-error');
-		} else {
-			// remov error text field
-			$("#quantity").find('.text-danger').remove();
-			// success out for form 
-			$("#quantity").closest('.form-group').addClass('has-success');	  	
-		}
-		
-		if(quantity) {
-			var form = $(this);
-			// button loading
-			$("#addToCartBtn").button('loading');
+			if(quantity == "" && quantity <= 0) {
+				$("#quantity").after('<p class="text-danger">Quantity field is required</p>');
+				$('#quantity').closest('.form-group').addClass('has-error');
+			} else {
+				// remov error text field
+				$("#quantity").find('.text-danger').remove();
+				// success out for form 
+				$("#quantity").closest('.form-group').addClass('has-success');	  	
+			}
+			
+			if(quantity && product_id) {
+				var form = $(this);
+				var formData = new FormData(this);
+				// button loading
+				$("#addToCartBtn").button('loading');
 
-			$.ajax({
-				url : form.attr('action'),
-				type: form.attr('method'),
-				data: form.serialize(),
-				dataType: 'json',
-				success:function(response) {
-					// button loading
-					$("#addToCartBtn").button('reset');
+				$.ajax({
+					url : form.attr('action'),
+					type: form.attr('method'),
+					data: formData,
+					dataType: 'json',
+					cache: false,
+					contentType: false,
+					processData: false,
+					success:function(response) {
+						// button loading
+						$("#addToCartBtn").button('reset');
 
-					if(response.success == true) {
-		  	  			// reset the form text
-		  	  			$("#submitProductToCartForm")[0].reset();
-						// remove the error text
-						$(".text-danger").remove();
-						// remove the form error
-						$('.form-group').removeClass('has-error').removeClass('has-success');
+						if(response.success == true) {
+			  	  			// reset the form text
+			  	  			$("#submitProductToCartForm")[0].reset();
+							// remove the error text
+							$(".text-danger").remove();
+							// remove the form error
+							$('.form-group').removeClass('has-error').removeClass('has-success');
 
-						$('#add-to-cart-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
-							'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
-							'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
-							'</div>');
+							$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
 
-						$(".alert-success").delay(500).show(10, function() {
-							$(this).delay(3000).hide(10, function() {
-								$(this).remove();
-							});
-						}); // /.alert
-					}  // if
+							$('#add-to-cart-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
+								'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
+								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+								'</div>');
 
-				} // /success
-			}); // /ajax	
-		} // if
+							$(".alert-success").delay(500).show(10, function() {
+								$(this).delay(3000).hide(10, function() {
+									$(this).remove();
+								});
+							}); // /.alert
+						}  // if
 
-		return false;
-	}); // /submit brand form function
-}); // /document
+					} // /success
+				}); // /ajax	
+			} // if
+
+			return false;
+			}); // /submit form
+	}); // /add product to cart btn clicked
+}); // document.ready fucntion
 
 
 function addProductToCart(productId = null){
 	console.log("product_id:"+productId);
 	if (productId) {
-			console.log(1111);
-			$.ajax({
-				url: 'php_action/addToCart.php',
-				type: 'post',
-				data: {productId : productId},
-				dataType: 'json',
-				success:function(response) {
-					$("#addToCartBtn").button('reset');
+		console.log(1111);
+		$.ajax({
+			url: 'php_action/addToCart.php',
+			type: 'post',
+			data: {productId : productId},
+			dataType: 'json',
+			success:function(response) {
+				$("#addToCartBtn").button('reset');
 
-					if(response.success == true) {
+				if(response.success == true) {
 
 						// success messages
-						$("#success-messages").html('<div class="alert alert-success">'+
-							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+						$('#add-to-cart-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
+							'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
 							'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 							'</div>');
 
@@ -110,13 +120,13 @@ function addProductToCart(productId = null){
 
 					} else {
 						// error messages
-						$(".add-to-cart-messages").html('<div class="alert alert-warning">'+
-							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-							'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+						$('#add-to-cart-messages').html('<div class="alert-sm alert-warning rounded pl-2 pr-2">'+
+							'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
+							'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 							'</div>');
 
 						// remove the mesages
-						$(".alert-success").delay(500).show(10, function() {
+						$(".alert-warning").delay(500).show(10, function() {
 							$(this).delay(3000).hide(10, function() {
 								$(this).remove();
 							});

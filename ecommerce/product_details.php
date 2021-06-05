@@ -200,7 +200,7 @@
 				<!-- Compare with Similar -->
 				<div class="row compare_similar"></div>
 				<div class="table-responsive table-hover">
-					<table class="table" id="productDetailsTable">
+					<table class="table" id="compareSimilarDetailsTable">
 						<thead>
 							<tr>						
 								<?php 
