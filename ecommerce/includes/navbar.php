@@ -16,8 +16,33 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 		while($row = $result->fetch_array()) {
 			$username = $row[1];
 			$user_image_url = $row[5];
+
+			// verifica se o usuario autenticado tem um carrinho iniciado.
+			if(!isset($_SESSION['cartId'])){
+				// busca por um carrinho do usuario logado que nao tenha sido pago(2) e que esteja activo(1)
+				$sql = "SELECT * FROM cart WHERE user_id = {$userID} AND payment_status = 2 AND active = 1 limit 1";
+				$userCartResult = $connect->query($sql);
+				if ($userCartResult && $userCartResult->num_rows > 0) {
+					$userCart = $userCartResult->fetch_array();
+					$_SESSION['cartId'] = $userCart['cart_id'];
+				}elseif(!isset($_SESSION['cartId'])){
+					// Se nao tiver um carrinho activo(disponivel), cria um novo carrinho vazio para usuario.
+					$sql = "INSERT INTO `cart` (`user_id`, `payment_status`, `active`, `cart_status`) VALUES ('$userID', '2', '1', '1')";
+					if($newCartResult = $connect->query($sql)) {
+						$cart_id = $connect->insert_id;
+						// echo "New record created successfully. Last inserted ID is: " . $cart_id;
+						$_SESSION['cartId'] = $cart_id;
+					} 
+				}
+			}
  		} // /while 
 	}// if num_rows
+	
+	if (isset($_SESSION['cartId'])) {
+		$countItemSql = "SELECT * FROM cart_item WHERE cart_id = {$_SESSION['cartId']}";
+		$itemCountResult = $connect->query($countItemSql);
+		$itemCountRow = $itemCountResult->num_rows;
+	}
 }
 
 
@@ -38,37 +63,43 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	</div>
 	<div class="col-sm-4 col-md-4 col-lg-3 d-flex justify-content-end">
 		<div class="row">
-			<div class="col-9 collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="col-10 collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link text-white" href="home.php">Home</a>
 					</li>
-					<?php if (isset($_SESSION['userId'])){ ?>
+					<?php 
+					if (isset($_SESSION['userId'])){ ?>
 						<li class="nav-item">
-							<a href="cart.php" class="nav-item nav-link ">
+							<a href="cart.php?c=cartItems&i=<?php echo $_SESSION['cartId']; ?>" class="nav-item nav-link ">
 								<h6 class="px-5 cart text-white">
 									<i class="fas fa-cart-arrow-down fa-2x"></i>
-
+									<?php
+									if (isset($_SESSION['cartId'])){
+										?><span id="cart_count" class="badge badge-warning"><?php echo $itemCountRow; ?></span><?php
+									} ?>
 								</h6>
 							</a>
 						</li>
-					<?php }else{ ?>
+						<?php 
+					}else{ ?>
 						<li class="nav-item">
 							<a class="nav-link text-white" href="../sign-in.php">Login</a>
 						</li>
-					<?php } ?>
+						<?php 
+					} ?>
 				</ul>
 			</div>
 			<?php if (isset($_SESSION['userId'])){ ?>
-				<div class="col-3">
-					
+				<div class="col-2">
+
 
 					<div class="dropdown navbar-nav float-right">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<img class="img-profile rounded-circle border border-info" src=""  style="width: 35px; height: 35px;">
+										<img class="img-profile rounded-circle border border-info" src="../src/<?php echo $user_image_url; ?>"  style="width: 45px; height: 45px;">
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 										<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Hello, <?php echo $username; ?></div>
@@ -86,7 +117,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 
 		</div>
 	</div>
-	
+
 </nav>
 
 <!-- Logout Modal-->

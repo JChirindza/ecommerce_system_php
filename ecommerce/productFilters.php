@@ -32,14 +32,14 @@
 					<div id="price_range"></div>
 				</div>	
 				<style type="text/css">
-					.filterByCategories a, label, i{
-						color: black;
+					.filterByCategories a > label {
+						color: #007185;
 						padding-bottom: .4rem;
 						cursor: pointer;
 					}
 
 					.filterByCategories a label:hover{
-						font-weight: bolder;
+						color: black;
 					}
 
 					.filterByCategories i:hover {

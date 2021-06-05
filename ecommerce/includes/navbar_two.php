@@ -24,35 +24,6 @@
                                    <a href="home.php">Home</a>
                               </li>
                               <li class="menu-item-has-children">
-                                   <a href="#">New <i class="fa fa-angle-down"></i></a>
-                                   <div class="sub-menu mega-menu mega-menu-column-4">
-                                        <div class="list-item text-center">
-                                             <a href="#">
-                                                  <img src="img/p1.jpg" alt="new Product">
-                                                  <h4 class="title">Product 1</h4>
-                                             </a>
-                                        </div>
-                                        <div class="list-item text-center">
-                                             <a href="#">
-                                                  <img src="img/p2.jpg" alt="new Product">
-                                                  <h4 class="title">Product 2</h4>
-                                             </a>
-                                        </div>
-                                        <div class="list-item text-center">
-                                             <a href="#">
-                                                  <img src="img/p3.jpg" alt="new Product">
-                                                  <h4 class="title">Product 3</h4>
-                                             </a>
-                                        </div>
-                                        <div class="list-item text-center">
-                                             <a href="#">
-                                                  <img src="img/p4.jpg" alt="new Product">
-                                                  <h4 class="title">Product 4</h4>
-                                             </a>
-                                        </div>
-                                   </div>
-                              </li>
-                              <li class="menu-item-has-children">
                                    <a href="#">Categories <i class="fa fa-angle-down"></i></a>
                                    <div class="sub-menu mega-menu mega-menu-column-4">
                                         <?php  
@@ -84,23 +55,17 @@
                                    </div>
                               </li>
                               <li class="menu-item-has-children">
-                                   <a href="#">Blog <i class="fas fa-angle-down"></i></a>
-                                   <div class="sub-menu single-column-menu">
-                                        <ul>
-                                             <li><a href="#">Standard Layout</a></li>
-                                             <li><a href="#">Grid Layout</a></li>
-                                             <li><a href="#">single Post Layout</a></li>
-                                        </ul>
-                                   </div>
-                              </li>
-                              <li class="menu-item-has-children">
                                    <a href="#">Pages <i class="fas fa-angle-down"></i></a>
                                    <div class="sub-menu single-column-menu">
                                         <ul>
-                                             <li><a href="#">Carts</a></li>
-                                             <li><a href="#">Login</a></li>
-                                             <li><a href="#">Register</a></li>
+                                             <?php if (isset($_SESSION['userId'])){ ?>
+                                                  <li><a href="cart.php?c=carts">Carts</a></li>
+                                             <?php }else{ ?>
+                                                  <li><a href="../sign-in.php">Login</a></li>
+                                                  <li><a href="../sign-up.php">Register</a></li>
+                                             <?php } ?>
                                              <li><a href="#">Store Location</a></li>
+                                             <li><a href="#">Delivery Locations</a></li>
                                         </ul>
                                    </div>
                               </li>
@@ -116,7 +81,9 @@
                     <div class="mobile-menu-trigger"><i class="fas fa-align-justify"></i></div>
                     <a href="#"><i class="fas fa-search"></i></a>
                     <a href="#"><i class="far fa-heart"></i></a>
-                    <a href="cart.php?c=cartList"><i class="fas fa-shopping-cart"></i></a>
+                    <?php if (isset($_SESSION['userId'])){ ?>
+                         <a href="cart.php?c=cartItems&i=<?php echo $_SESSION['cartId']; ?>"><i class="fas fa-shopping-cart"></i></a>
+                    <?php } ?>
                </div>
           </div>
      </div>
