@@ -96,12 +96,12 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<img class="img-profile rounded-circle border border-info" src="../src/<?php echo $user_image_url; ?>"  style="width: 40px; height: 40px;">
+										<img class="img-profile rounded-circle border border-info" id="getUserImageNav"  style="width: 35px; height: 35px;">
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 										<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Hello, <?php echo $username; ?></div>
 										<div class="dropdown-divider mt-0 pt-0"></div>
-										<a id="topNavSetting" class="dropdown-item" href="config.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Settings</a>
+										<a id="topNavSetting" class="dropdown-item" href="setting.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Settings</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
 									</div>
@@ -145,3 +145,18 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var userid = <?php echo $userID; ?>;
+	if(userid) {
+		$.ajax({
+			url: 'php_action/fetchSelectedUser.php',
+			type: 'post',
+			data: {"userid": userid},
+			dataType: 'json',
+			success:function(response) {		
+			// alert(response.product_image);
+			$("#getUserImageNav").attr('src', '../users/'+response.user_image);
+			} // /success function
+		}); // /ajax to fetch product image
+	}
+</script>

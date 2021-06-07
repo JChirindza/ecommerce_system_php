@@ -384,8 +384,8 @@ function setUserImage(userid = null){
 				// modal div
 				$('.div-result').removeClass('div-hide');		
 
-				$("#getUserImage").attr('src', 'users/'+response.user_image);
-				$("#getUserImageNav").attr('src', 'users/'+response.user_image);
+				$("#getUserImage").attr('src', '../users/'+response.user_image);
+				$("#getUserImageNav").attr('src', '../users/'+response.user_image);
 			} // /success function
 		}); // /ajax to fetch product image
 
