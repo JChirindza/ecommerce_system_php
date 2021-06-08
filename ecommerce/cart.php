@@ -6,8 +6,8 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<i class="fas fa-exclamation-triangle"></i>
 			Nao tem permissao para aceder a esta pagina.
 		</div>
-		<div class="d-flex justify-content-center">
-			<a href="../sign-in.php" class="btn btn-primary"><i class="fas fa-sign-in-alt pr-2"></i> Sign-in</a>
+		<div class="d-flex justify-content-center mt-5">
+			<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
 		</div>
 	</div>
 	<?php

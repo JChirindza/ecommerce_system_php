@@ -1,48 +1,64 @@
 <?php 
 require_once 'php_action/db_connect.php';
 
-$valid['success'] = array('success' => false, 'messages' => array());
+// $valid['success'] = array('success' => false, 'messages' => array());
+
+require_once 'php_action/db_connect.php';
+
+session_start();
+
+if(isset($_SESSION['userId'])) {
+    if ($_SESSION['userType'] == 1) {
+        header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php'); 
+    }else{
+        header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+    }
+}
+
+$errors = array();
 
 if($_POST) {    
 
     $name       = $_POST['name'];
     $surname    = $_POST['surname'];
-    $uemail     = $_POST['uemail'];
-    $upassword  = md5($_POST['upassword']);
+    $uemail     = strtolower($_POST['uemail']);
+    $upassword  = $_POST['upassword'];
+    $cpassword  = $_POST['cpassword'];
     $url        = '../assests/images/photo_default.png';
     
-    $cpassword =  md5($_POST['cpassword']);
-    
-    $sql1 = "SELECT * FROM users WHERE email = '$uemail' ";
-    $query1 = $connect->query($sql1);
-    $count = $query1->num_rows;
+    // check if email exists
+    $sql1       = "SELECT * FROM users WHERE email = '$uemail' AND active != 2";
+    $query1     = $connect->query($sql1);
+    $count      = $query1->num_rows;
     
     if ($count == 0) {
         if($upassword == $cpassword) {
 
             $sql = "INSERT INTO users (name, surname, email, password, user_image, type, permittion, active, status) 
-            VALUES ('$name', '$surname', '$uemail', '$upassword', '$url', 2, 0, 1, 1)";
+            VALUES ('$name', '$surname', '$uemail', md5('$upassword'), '$url', 2, 0, 1, 1)";
 
             if($connect->query($sql) === TRUE) {
-                $valid['success'] = true;
-                $valid['messages'] = "Successfully Added";  
+                $user_id = $connect->insert_id;
+                // echo "New record created successfully. Last inserted ID is: " . $userId;
+
+                // set session
+                $_SESSION['userId'] = $user_id;
+                $_SESSION['userType'] = 2;
+
+                $errors[] = "Successfully Added"; 
+
+                header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+
             } else {
-                $valid['success'] = false;
-                $valid['messages'] = "Error while adding the members";
+                $errors[] = "Error while adding the members";
             }
         } else {
-            $valid['success'] = false;
-            $valid['messages'] = "New password does not match with Conform password";
+            $errors[] = "New password does not match with Conform password";
         }
     } else {
-        $valid['success'] = false;
-        $valid['messages'] = "Existing email, please type another one!";
+        $errors[] = "Existing email, please type another one!";
     }
 } // if in_array        
-
-$connect->close();
-
-echo json_encode($valid);
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +69,7 @@ echo json_encode($valid);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistema de Vendas - Online</title>
+    <title>ComputersOnly - Web Store</title>
 
     <!-- bootstrap CSS 4.5.3 -->
     <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -61,15 +77,6 @@ echo json_encode($valid);
     <script type="text/javascript" src="assests/font-awesome/js/all.min.js"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="custom/css/style.css">
-    <!-- DataTables 1.10.22 -->
-    <link rel="stylesheet" href="assests/plugins/datatables/css/jquery.dataTables.min.css">
-    <!-- file input -->
-    <link rel="stylesheet" href="assests/plugins/fileinput/css/fileinput.min.css">
-    <!-- jquery -->
-    <script src="assests/jquery/jquery.min.js"></script>
-    <!-- jquery ui 1.12.1 -->  
-    <link rel="stylesheet" href="assests/jquery-ui/jquery-ui.min.css">
-    <script src="assests/jquery-ui/jquery-ui.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -79,21 +86,32 @@ echo json_encode($valid);
                     <a class="col-md navbar-brand logo p-0 text-primary" href="index.php">ComputersOnly</a>
                 </div>
                 <div class="card">
-                    <div class="card-header text-center">
-                        <h4 class="h4 text-gray-900">Criar uma conta!</h4>
+                    <div class="card-header text-center bg-white">
+                        <h4 class="h4 text-gray-900">Create Account</h4>
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal" id="submitUserForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
-                            <div id="add-user-messages"></div>
+
+                            <!-- <div id="add-user-messages"></div> -->
+
+                            <div class="messages">
+                                <?php if($errors) {
+                                    foreach ($errors as $key => $value) {
+                                        echo '<div class="alert alert-warning" role="alert">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        '.$value.'</div>';                                      
+                                    }
+                                } ?>
+                            </div>
 
                             <div class="p-4">
                                 <form class="user">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control" id="name" placeholder="Nome" name="name" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="name" placeholder="Name" name="name" autocomplete="off" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="surname" placeholder="Apelido" name="surname" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="surname" placeholder="Surname" name="surname" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -101,39 +119,38 @@ echo json_encode($valid);
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="password" class="form-control form-control-user" id="upassword" placeholder="Senha" required>
+                                            <input type="password" class="form-control form-control-user" name="upassword" id="upassword" placeholder="Password" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="password" class="form-control form-control-user" id="cpassword" placeholder="Repetir a senha" required>
+                                            <input type="password" class="form-control form-control-user" name="cpassword" id="cpassword" placeholder="Confirm password" required>
                                         </div>
                                     </div>
-                                    <!-- user type >>> 1 - Funcionario -->
-                                    <input type="text" name="" hidden="true" id="type" value="2">
-
-                                    <button type="submit" id="createUserBtn" class="btn btn-success btn-user btn-block" data-loading-text="Loading...">Registar conta</button>
+                                    <button type="submit" id="createUserBtn" class="btn btn-success btn-user btn-block" data-loading-text="Loading...">Register Account</button>
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <a href="forgot-password.html">Esqueceu senha?</a>
-                                </div>
-                                <div class="row">
+                                
+                                <div class="row mt-4">
                                     <div class="col-sm-12 text-center">
                                         <a href="sign-in.php" id="back" class="font-weight-light">
-                                            <label class="text-muted">Ja tem uma conta?</label>
+                                            <label class="text-muted">Already have account?</label>
                                             <i class="fas fa-sign-in-alt"></i> 
-                                            Fazer Login
+                                            Login
                                         </a>
                                     </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="forgot-password.html">Forgot your password?</a>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <div class="text-center p-4">
+                    <label class="text-muted"><i class="fas fa-info-circle"></i> By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</label>
+
+                </div>  
             </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- container -->  
-    <script src="custom/js/user.js"></script>
+        </div><!-- /row -->
+    </div><!-- container -->  
 </body>
 </html>

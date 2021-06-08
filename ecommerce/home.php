@@ -18,11 +18,16 @@
 						}
 					}else{ ?>
 						<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
-						<h5 class="p-5 text-muted">No Data Found</h5></div>
-					<?php
-					}
-					?>
+							<h5 class="p-5 text-muted">No Data Found</h5></div>
+							<?php
+						}
+						?>
 					</div>
+					<?php if (!isset($_SESSION['userId'])){ ?>
+						<div class="d-flex justify-content-center mt-4">
+							<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
+						</div>
+					<?php } ?>
 				</div>
 
 				<div class="col-sm-8 col-md-6 col-lg-6">

@@ -100,6 +100,12 @@
 						<?php } ?>
 					</div>
 				</div>
+
+				<?php if (!isset($_SESSION['userId'])){ ?>
+					<div class="d-flex justify-content-center mt-5">
+						<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
+					</div>
+				<?php } ?>
 			</div>
 
 			<div class="col-sm-12 col-md-10 col-lg-10">

@@ -65,13 +65,12 @@ if($_POST) {
 <!DOCTYPE html>
 <html>
 <head>
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Sistema de Vendas - Online</title>
+	<title>ComputersOnly - Web Store</title>
 
 	<!-- bootstrap CSS 4.5.3 -->
 	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -79,30 +78,62 @@ if($_POST) {
 	<script type="text/javascript" src="assests/font-awesome/js/all.min.js"></script>
 	<!-- custom css -->
 	<link rel="stylesheet" href="custom/css/style.css">
-	<!-- DataTables 1.10.22 -->
-	<link rel="stylesheet" href="assests/plugins/datatables/css/jquery.dataTables.min.css">
-	<!-- file input -->
-	<link rel="stylesheet" href="assests/plugins/fileinput/css/fileinput.min.css">
-	<!-- jquery -->
-	<script src="assests/jquery/jquery.min.js"></script>
-	<!-- jquery ui 1.12.1 -->  
-	<link rel="stylesheet" href="assests/jquery-ui/jquery-ui.min.css">
-	<script src="assests/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Select2 CDN -->
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
-	<!-- Select2 - Custom JS -->
-	<script type="text/javascript" src="assests/select2/select2Custom.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="row vertical ">
 			<div class="col-md-4 col-md-offset-4 m-auto">
-				<?php require_once 'loginForm.php'; ?>
+				<div class="col-md pb-2">
+					<a class="col-md navbar-brand logo p-0 text-primary" href="index.php">ComputersOnly</a>
+				</div>
+				<div class="card">
+					<div class="card-header text-center bg-white">
+						<h4>Sign-in</h4>
+					</div>
+					<div class="card-body">
+						<div class="messages">
+							<?php if($errors) {
+								foreach ($errors as $key => $value) {
+									echo '<div class="alert alert-warning" role="alert">
+									<i class="fas fa-exclamation"></i>
+									'.$value.'</div>';										
+								}
+							} ?>
+						</div>
+						<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
+							<fieldset>
+								<div class="form-group">
+									<div class="col-sm-12">
+										<input type="email" class="form-control" id="email" name="email" placeholder="Email" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required />
+									</div> 
+								</div>
+								<div class="form-group">
+									<div class="col-sm-12">
+										<input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required/>
+									</div>
+								</div>								
+								<div class="form-group">
+									<div class="col-sm-offset-0 col-sm-12">
+										<button type="submit" class="btn btn-success btn-block"> <i class="glyphicon glyphicon-log-in"></i> Entrar</button>
+										<a href="esqueceuSenha.php" id="esqueceuSenha" class="font-weight-light">Forgot password?</a>
+									</div>
+								</div>
+							</fieldset>
+							<hr>
+							<div class="form-group">
+								<div class="col-sm-offset-0 col-sm-12">
+									<a href="sign-up.php" class="btn btn-primary btn-block" id="addUserModalBtn"> <i class="fas fa-sign-in-alt"></i> Create new Account</a>
+								</div>
+								<div class="col-sm-12 text-center">
+									<a href="index.php" id="back" class="font-weight-light"><i class="fas fa-arrow-left"></i> Back</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- container -->	
+	</div><!-- container -->	
 </body>
 </html>
 
