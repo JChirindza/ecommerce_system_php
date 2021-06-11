@@ -255,7 +255,7 @@ $(document).ready(function() {
 			$('.div-result').addClass('div-hide');
 
 			$.ajax({
-				url: 'php_action/fetchSelectedUser.php',
+				url: 'php_action/ctrl_user.php?action=readSelected',
 				type: 'post',
 				data: {"userid": userid},
 				dataType: 'json',
@@ -332,14 +332,6 @@ $(document).ready(function() {
 
 							          	$(".fileinput-remove-button").click();
 
-							          	// $.ajax({
-							          	// 	url: 'php_action/fetchUserImageUrl.php?i='+userid,
-							          	// 	type: 'post',
-							          	// 	success:function(response) {
-							          	// 		$("#getUserImage").attr('src', response);
-							          	// 	}
-							          	// });																		
-
 										// remove text-error 
 										$(".text-danger").remove();
 										// remove from-group error
@@ -373,7 +365,7 @@ function setUserImage(userid = null){
 		$('.div-result').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedUser.php',
+			url: 'php_action/ctrl_user.php?action=readSelected',
 			type: 'post',
 			data: {"userid": userid},
 			dataType: 'json',

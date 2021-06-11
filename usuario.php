@@ -21,8 +21,8 @@ $connect->close();
 </div>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Usuários</h1>
-	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addUserModalBtn" data-target="#addUserModal"> <i class="fas fa-plus"></i> Adicionar Usuario </button>
+	<h1 class="pageTitle">Users</h1>
+	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addUserModalBtn" data-target="#addUserModal"> <i class="fas fa-plus"></i> Add Users </button>
 </div>
 
 <div class="row">
@@ -32,7 +32,7 @@ $connect->close();
 			<div class="col-md-4 pt-2">
 				<div class="card ">
 					<div class="card-body d-sm-flex align-items-center justify-content-between">
-						<label>Total de usuarios</label>
+						<label>Total Users</label>
 						<span class="badge-secondary badge-pill"><?php echo $countUsers; ?></span>	
 					</div> 
 				</div> 
@@ -41,7 +41,7 @@ $connect->close();
 		<hr>
 		<div class="card">
 			<div class="card-header">
-				<h6 class="m-0 font-weight-bold text-muted">Gerir Usuários</h6>
+				<h6 class="m-0 font-weight-bold text-muted">Manage Users</h6>
 			</div>
 
 			<div class="card-body ">
@@ -51,9 +51,9 @@ $connect->close();
 					<table class="table table-striped" id="manageUserTable">
 						<thead>
 							<tr>
-								<th style="width:10%;">Foto</th>
-								<th style="width:20%;">Nome</th>
-								<th style="width:20%;">Apelido</th>
+								<th style="width:10%;">Photo</th>
+								<th style="width:20%;">Name</th>
+								<th style="width:20%;">Surname</th>
 								<th style="width:30%;">Email</th>
 								<th style="width:10%;">Status</th>
 								<th style="width:10%;">Options</th>
@@ -73,7 +73,7 @@ $connect->close();
 	<div class="modal-dialog">
 		<div class="modal-content p-1">
 
-			<form class="form-horizontal" id="submitUserForm" action="php_action/createUser.php" method="POST" enctype="multipart/form-data">
+			<form class="form-horizontal" id="submitUserForm" action="php_action/ctrl_user.php?action=create" method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
 					<h4 class="modal-title"><i class="fa fa-plus"></i> Add User</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -84,7 +84,7 @@ $connect->close();
 				<div class="modal-body" style="max-height:450px; overflow:auto;">
 
 					<div class="form-group">
-						<label for="userName" class="col-sm-6 control-label">Nome do usuario: </label>
+						<label for="userName" class="col-sm-6 control-label">First name: </label>
 						
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="userName" placeholder="Name" name="userName" autocomplete="off" required>
@@ -92,7 +92,7 @@ $connect->close();
 					</div> <!-- /form-group-->
 
 					<div class="form-group">
-						<label for="userSurname" class="col-sm-6 control-label">Apelido do usuario: </label>
+						<label for="userSurname" class="col-sm-6 control-label">Surname: </label>
 						
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="userSurname" placeholder="Surname" name="userSurname" autocomplete="off" required>
@@ -116,18 +116,18 @@ $connect->close();
 					</div> <!-- /form-group-->	
 
 					<div class="form-group">
-						<label for="upassword" class="col-sm-4 control-label">Tipo de acesso: </label>
+						<label for="upassword" class="col-sm-4 control-label">Type of access: </label>
 						
 						<div class="col-sm-8">
 							<select class="form-control" id="permittion" name="permittion" required>
 								<option value="">~~SELECT~~</option>
-								<option value="1">Administrador</option>
-								<option value="2">Gestor</option>
-								<option value="3">Vendedor</option>
+								<option value="1">Administrator</option>
+								<option value="2">Manager</option>
+								<option value="3">Seller</option>
 							</select>
 						</div>
 					</div> <!-- /form-group-->
-					<!-- user type >>> 1 - Funcionario -->
+					<!-- user type >>> 1 - stuff -->
 					<input type="text" name="" hidden="true" id="type" value="1">
 				</div> <!-- /modal-body -->
 				
@@ -165,10 +165,10 @@ $connect->close();
 					<div class="form-group ">
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#menu1">Foto</a>
+								<a class="nav-link active" data-toggle="tab" href="#menu1">Photo</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#menu2">Alterar Dados</a>
+								<a class="nav-link" data-toggle="tab" href="#menu2">Change Information</a>
 							</li>
 						</ul>
 					</div>
@@ -176,7 +176,7 @@ $connect->close();
 					<!-- Tab panes -->
 					<div class="tab-content border border-top-0">
 						<div id="menu1" class="tab-pane active" >
-							<form action="php_action/editUserImage.php" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
+							<form action="php_action/ctrl_user.php?action=updateImage" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
 
 								<div id="edit-userPhoto-messages"></div>
 
@@ -205,22 +205,22 @@ $connect->close();
 							</form>
 						</div>
 						<div id="menu2" class="tab-pane fade" >
-							<form class="form-horizontal" id="editUserForm" action="php_action/editUser.php" method="POST">				    
+							<form class="form-horizontal" id="editUserForm" action="php_action/ctrl_user.php?action=update" method="POST">				    
 								<div id="edit-user-messages"></div>
 
 								<div class="form-group">
-									<label for="editName" class="col-sm-3 control-label"> Nome: </label>
+									<label for="editName" class="col-sm-3 control-label"> First name: </label>
 									
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="editName" placeholder="Nome" name="editName" autocomplete="off" required>
+										<input type="text" class="form-control" id="editName" placeholder="First name" name="editName" autocomplete="off" required>
 									</div>
 								</div> <!-- /form-group-->
 
 								<div class="form-group">
-									<label for="editSurname" class="col-sm-3 control-label"> Apelido: </label>
+									<label for="editSurname" class="col-sm-3 control-label"> Surname: </label>
 									
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="editSurname" placeholder="Apelido" name="editSurname" autocomplete="off" required>
+										<input type="text" class="form-control" id="editSurname" placeholder="Surname" name="editSurname" autocomplete="off" required>
 									</div>
 								</div> <!-- /form-group-->
 
@@ -232,22 +232,14 @@ $connect->close();
 									</div>
 								</div> <!-- /form-group-->	 	    
 
-								<!-- <div class="form-group">
-									<label for="editPassword" class="col-sm-3 control-label">Password: </label>
-									
-									<div class="col-sm-8">
-										<input type="password" class="form-control" id="editPassword" placeholder="Password" name="editPassword" autocomplete="off" required>
-									</div>
-								</div> --> <!-- /form-group-->	
-
 								<div class="form-group">
-									<label for="upassword" class="col-sm-4 control-label">Tipo de acesso: </label>
+									<label for="upassword" class="col-sm-4 control-label">Type of access: </label>
 									<div class="col-sm-8">
 										<select class="form-control" id="editPermittion" name="editPermittion" required>
 											<option value="">~~SELECT~~</option>
-											<option value="1">Administrador</option>
-											<option value="2">Gestor</option>
-											<option value="3">Vendedor</option>
+											<option value="1">Administrator</option>
+											<option value="2">Manager</option>
+											<option value="3">Seller</option>
 										</select>
 									</div>
 								</div> <!-- /form-group-->
@@ -257,8 +249,8 @@ $connect->close();
 									<div class="col-sm-8">
 										<select class="form-control" id="editUserStatus" name="editUserStatus" required>
 											<option value="">~~SELECT~~</option>
-											<option value="1">Activo</option>
-											<option value="2">Inactivo</option>
+											<option value="1">Active</option>
+											<option value="2">Inactive</option>
 										</select>
 									</div>
 								</div> <!-- /form-group-->        	 
@@ -269,7 +261,6 @@ $connect->close();
 								</div> <!-- /modal-footer -->				     
 							</form> <!-- /.form -->	
 						</div>
-
 					</div>    
 					<!-- /product info -->
 				</div>

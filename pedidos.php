@@ -39,23 +39,12 @@ $result = $query->fetch_assoc();
   	</ol>
 </div>
 
-<!-- <ol class="breadcrumb">
-	<li><a href="dashboard.php">Home</a></li>
-	<li>Order</li>
-	<li class="active">
-		<?php if($_GET['p'] == 'add') { ?>
-			Add Order
-		<?php } else if($_GET['p'] == 'manord') { ?>
-			Manage Order
-		<?php } // /else manage order ?>
-	</li>
-</ol> -->
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Pedidos</h1>
+	<h1 class="pageTitle">Orders</h1>
 	<?php if($_GET['p'] == 'manord') { ?>
-		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=add"><i class="fas fa-cart-plus"></i> Adicionar pedido </a>
+		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=add"><i class="fas fa-cart-plus"></i> Add Order </a>
 	<?php } else { ?>
-		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=manord"><i class="fas fa-cart-arrow-down"></i> Gerir pedido </a>
+		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=manord"><i class="fas fa-cart-arrow-down"></i> Manage Orders </a>
 	<?php } ?>
 </div>
 <style type="text/css">
@@ -67,14 +56,14 @@ $result = $query->fetch_assoc();
 
 
 <div class="card shadow-sm mb-3">
-	<div class="card-header">
+	<div class="card-header bg-white">
 
 		<?php if($_GET['p'] == 'add') { ?>
-			<i class="fas fa-cart-plus"></i>	Adicionar Pedidos
+			<i class="fas fa-cart-plus"></i>	Add Orders
 		<?php } else if($_GET['p'] == 'manord') { ?>
-			<i class="fas fa-cart-arrow-down"></i> Gerir Pedidos
+			<i class="fas fa-cart-arrow-down"></i> Manage Orders
 		<?php } else if($_GET['p'] == 'editOrd') { ?>
-			<i class="fas fa-edit"></i> Alterar Pedidos
+			<i class="fas fa-edit"></i> Edit Orders
 		<?php } ?>
 
 	</div>
@@ -83,7 +72,7 @@ $result = $query->fetch_assoc();
 		<?php if($_GET['p'] == 'add') { // add order ?>			
 			<div class="success-messages"></div> <!--/success-messages-->
 
-			<form class="form-horizontal" method="POST" action="php_action/createOrder.php" id="createOrderForm">
+			<form class="form-horizontal" method="POST" action="php_action/ctrl_order.php?action=create" id="createOrderForm">
 				<!-- <button class="btn btn-primary btn-sm ml-3 mb-2" id="">Buscar Cliente</button> -->
 				<div class="row">
 					<div class="col-md-6">
@@ -103,7 +92,7 @@ $result = $query->fetch_assoc();
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="orderDate" class="col-sm-3 control-label">Vendedor:</label>
+							<label for="orderDate" class="col-sm-3 control-label">Seller:</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" disabled id="userName" name="userName" value="<?php echo $result['name'] ." ".  $result['surname']; ?>" autocomplete="off" required />
 								<input type="hidden" name="systemUserId" id="systemUserId" value="<?php echo $result['user_id']; ?>">
@@ -180,7 +169,7 @@ $result = $query->fetch_assoc();
 					</table>
 				</div>
 
-				<button type="button" class="btn btn-primary btn-sm ml-3 mb-4" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="fas fa-plus"></i> Adicionar Linha </button>
+				<button type="button" class="btn btn-primary btn-sm ml-3 mb-4" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="fas fa-plus"></i> Add Field </button>
 
 				<div class="row">
 					<div class="col-md-6">
@@ -192,7 +181,7 @@ $result = $query->fetch_assoc();
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst">IVA 17%:</label>
+							<label for="vat" class="col-sm-4 control-label gst">VAT 17%:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="vat" name="gstn" readonly="true" />
 								<input type="hidden" class="form-control" id="vatValue" name="vatValue" />
@@ -281,7 +270,7 @@ $result = $query->fetch_assoc();
 
 			<div id="success-messages"></div>
 			<div class="table-responsive">
-				<table class="table table-striped" id="manageOrderTable">
+				<table class="table table-hover" id="manageOrderTable">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -301,7 +290,7 @@ $result = $query->fetch_assoc();
 			
 			<div class="success-messages"></div> <!--/success-messages-->
 
-			<form class="form-horizontal" method="POST" action="php_action/editOrder.php" id="editOrderForm">
+			<form class="form-horizontal" method="POST" action="php_action/ctrl_order.php?action=update" id="editOrderForm">
 
 				<?php $orderId = $_GET['i'];
 
@@ -444,7 +433,13 @@ $result = $query->fetch_assoc();
 								<input type="hidden" class="form-control" id="subTotalValue" name="subTotalValue" value="<?php echo $data[4] ?>" />
 							</div>
 						</div> <!--/form-group-->			  
-
+						<div class="form-group">
+							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo " *IVA 17%";} else echo "IVA 17%"; ?></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="vat" name="vat" disabled="true" value="<?php echo $data[5] ?>"  />
+								<input type="hidden" class="form-control" id="vatValue" name="vatValue" value="<?php echo $data[5] ?>"  />
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="totalAmount" class="col-sm-4 control-label">Total Amount</label>
 							<div class="col-sm-8">
@@ -461,23 +456,17 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="grandTotal" class="col-sm-4 control-label">Grand Total:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="grandTotal" name="grandTotal" disabled="true" value="<?php echo $data[8] ?>"  />
+								<input type="text" class="form-control form-control-lg border-success" id="grandTotal" name="grandTotal" disabled="true" value="<?php echo $data[8] ?>"  />
 								<input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" value="<?php echo $data[8] ?>"  />
 							</div>
 						</div> <!--/form-group-->	
-						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo " *IVA 17%";} else echo "IVA 17%"; ?></label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="vat" name="vat" disabled="true" value="<?php echo $data[5] ?>"  />
-								<input type="hidden" class="form-control" id="vatValue" name="vatValue" value="<?php echo $data[5] ?>"  />
-							</div>
-						</div> 
-						<div class="form-group">
+						 
+						<!-- <div class="form-group">
 							<label for="gstn" class="col-sm-4 control-label gst">G.S.T.IN:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="gstn" name="gstn" value="<?php echo $data[14] ?>"  />
 							</div>
-						</div>
+						</div> -->
 						<!--/form-group-->		  		  
 					</div> <!--/col-md-6-->
 

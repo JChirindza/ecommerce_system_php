@@ -5,7 +5,7 @@ $(document).ready(function() {
 	$('#navProduct').addClass('active');
 	// manage product data table
 	manageProductTable = $('#manageProductTable').DataTable({
-		'ajax': 'php_action/fetchProduct.php',
+		'ajax': 'php_action/ctrl_product.php?action=read',
 		'order': []
 	});
 
@@ -156,8 +156,8 @@ $(document).ready(function() {
 								});
 							}); // /.alert
 
-		          // reload the manage student table
-		          manageProductTable.ajax.reload(null, true);
+				          	// reload the manage student table
+				          	manageProductTable.ajax.reload(null, true);
 
 							// remove text-error 
 							$(".text-danger").remove();
@@ -194,7 +194,7 @@ function editProduct(productId = null) {
 		$('.div-result').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedProduct.php',
+			url: 'php_action/ctrl_product.php?action=readSelected',
 			type: 'post',
 			data: {productId: productId},
 			dataType: 'json',
@@ -353,8 +353,8 @@ function editProduct(productId = null) {
 										});
 									}); // /.alert
 
-				          // reload the manage student table
-				          manageProductTable.ajax.reload(null, true);
+				          			// reload the manage student table
+				          			manageProductTable.ajax.reload(null, true);
 
 									// remove text-error 
 									$(".text-danger").remove();
@@ -427,7 +427,7 @@ function editProduct(productId = null) {
 					          	$(".fileinput-remove-button").click();
 
 					          	$.ajax({
-					          		url: 'php_action/fetchProductImageUrl.php?i='+productId, type: 'post',
+					          		url: 'php_action/ctrl_product.php?action=readImageUrl&i='+productId, type: 'post',
 					          		success:function(response) {
 					          			$("#getProductImage").attr('src', response);		
 					          		}
@@ -460,7 +460,7 @@ function removeProduct(productId = null) {
 			// loading remove button
 			$("#removeProductBtn").button('loading');
 			$.ajax({
-				url: 'php_action/removeProduct.php',
+				url: 'php_action/ctrl_product.php?action=delete',
 				type: 'post',
 				data: {productId: productId},
 				dataType: 'json',
@@ -508,33 +508,3 @@ function removeProduct(productId = null) {
 		}); // /remove product btn clicked
 	} // /if productid
 } // /remove product function
-
-function clearForm(oForm) {
-	// var frm_elements = oForm.elements;									
-	// console.log(frm_elements);
-	// 	for(i=0;i<frm_elements.length;i++) {
-	// 		field_type = frm_elements[i].type.toLowerCase();									
-	// 		switch (field_type) {
-	// 	    case "text":
-	// 	    case "password":
-	// 	    case "textarea":
-	// 	    case "hidden":
-	// 	    case "select-one":	    
-	// 	      frm_elements[i].value = "";
-	// 	      break;
-	// 	    case "radio":
-	// 	    case "checkbox":	    
-	// 	      if (frm_elements[i].checked)
-	// 	      {
-	// 	          frm_elements[i].checked = false;
-	// 	      }
-	// 	      break;
-	// 	    case "file": 
-	// 	    	if(frm_elements[i].options) {
-	// 	    		frm_elements[i].options= false;
-	// 	    	}
-	// 	    default:
-	// 	        break;
-	//     } // /switch
-	// 	} // for
-}

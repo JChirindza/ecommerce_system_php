@@ -20,14 +20,14 @@ $connect->close();
 </div>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Settings</h1>
+	<h1 class="pageTitle">Profile Settings</h1>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
 		<div class="card mb-3">
 			<div class="card-header">
-				<h6 class="m-0 font-weight-bold text-muted">Alterar Dados</h6>
+				<h6 class="m-0 font-weight-bold text-muted">Edit profile</h6>
 			</div>
 
 			<div class="card-body">
@@ -35,23 +35,23 @@ $connect->close();
 				<div class="form-group ">
 					<ul class="nav nav-tabs" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#menu1">Alterar Foto</a>
+							<a class="nav-link active" data-toggle="tab" href="#menu1">Photo</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#menu2">Alterar Nome do usuario</a>
+							<a class="nav-link" data-toggle="tab" href="#menu2">Names</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#menu3">Alterar email</a>
+							<a class="nav-link" data-toggle="tab" href="#menu3">Email</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#menu4">Alterar Senha</a>
+							<a class="nav-link" data-toggle="tab" href="#menu4">Password</a>
 						</li>
 					</ul>
 				</div>
 				<!-- Tab panes -->
 				<div class="tab-content border border-top-0">
 					<div id="menu1" class="tab-pane active" >
-						<form action="php_action/changeUserImage.php" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
+						<form action="php_action/ctrl_user.php?action=changeUserImage" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
 
 							<div id="edit-userPhoto-messages"></div>
 
@@ -76,20 +76,20 @@ $connect->close();
 						</form>
 					</div>
 					<div id="menu2" class="tab-pane fade" >
-						<form action="php_action/changeUsername.php" method="post" class="form-horizontal col-sm-8" id="changeUsernameForm">
+						<form action="php_action/ctrl_user.php?action=changeUsername" method="post" class="form-horizontal col-sm-8" id="changeUsernameForm">
 							<fieldset >
 
 								<div class="changeUsernameMessages"></div>			
 
 								<div class="form-group">
-									<label for="name" class="col-sm control-label">Nome:</label>
+									<label for="name" class="col-sm control-label">Name:</label>
 									<div class="col-sm-10 mb-3">
-										<input type="text" class="form-control" id="name" name="name" placeholder="Nome" value="<?php echo $result['name']; ?>" required/>
+										<input type="text" class="form-control" id="name" name="name" placeholder="First name" value="<?php echo $result['name']; ?>" required/>
 									</div>
 
-									<label for="surname" class="col-sm control-label">Apelido:</label>
+									<label for="surname" class="col-sm control-label">Surname:</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="surname" name="surname" placeholder="Apelido" value="<?php echo $result['surname']; ?>" required/>
+										<input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" value="<?php echo $result['surname']; ?>" required/>
 									</div>
 								</div>
 
@@ -104,7 +104,7 @@ $connect->close();
 					</div>
 
 					<div id="menu3" class="tab-pane fade" >
-						<form action="php_action/changeEmail.php" method="post" class="form-horizontal col-sm-8" id="changeEmailForm">
+						<form action="php_action/ctrl_user.php?action=changeEmail" method="post" class="form-horizontal col-sm-8" id="changeEmailForm">
 							<fieldset >
 
 								<div class="changeEmailMessages"></div>			
@@ -127,7 +127,7 @@ $connect->close();
 					</div>
 
 					<div id="menu4" class="tab-pane fade">
-						<form action="php_action/changePassword.php" method="post" class="form-horizontal col-sm-8" id="changePasswordForm">
+						<form action="php_action/ctrl_user.php?action=changePassword" method="post" class="form-horizontal col-sm-8" id="changePasswordForm">
 							<fieldset>
 								<div class="changePasswordMessages"></div>
 
@@ -170,7 +170,4 @@ $connect->close();
 
 
 <script src="custom/js/setting.js"></script>
-<script type="text/javascript">
-
-</script>
 <?php require_once 'includes/footer.php'; ?>

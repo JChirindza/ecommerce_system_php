@@ -19,11 +19,11 @@
 
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Produto</h1>
+	<h1 class="pageTitle">Product</h1>
 	<?php if($_GET['p'] == 'manprod') { // gerir produto ?>
-		<button class="btn btn-primary btn-sm" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="fas fa-plus"></i> Adicionar produto </button>
+		<button class="btn btn-primary btn-sm" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="fas fa-plus"></i> Add Product </button>
 	<?php } else if($_GET['p'] == 'detail') { // adicionar detalhes ?>
-		<a href="produto.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Gerir produtos </a>
+		<a href="produto.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Manage Products </a>
 	<?php } ?>
 	
 </div>
@@ -33,7 +33,7 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header bg-white">
-					<h6 class="m-0 font-weight-bold text-muted">Gerir Produtos</h6>
+					<h6 class="m-0 font-weight-bold text-muted">Manage Products</h6>
 				</div>
 
 				<div class="card-body ">
@@ -76,7 +76,7 @@
 			</div>
 
 			<div class="modal-body" style="max-height:450px; overflow:auto;">
-				<form class="form-horizontal" id="submitProductForm" action="php_action/createProduct.php" method="POST" enctype="multipart/form-data">
+				<form class="form-horizontal" id="submitProductForm" action="php_action/ctrl_product.php?action=create" method="POST" enctype="multipart/form-data">
 
 					<div id="add-product-messages"></div>
 
@@ -199,10 +199,10 @@
 					<div class="form-group ">
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#menuEdit1"> Foto</a>
+								<a class="nav-link active" data-toggle="tab" href="#menuEdit1"> Photo</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#menuEdit2"> Dados</a>
+								<a class="nav-link" data-toggle="tab" href="#menuEdit2"> Information</a>
 							</li>
 						</ul>
 					</div>
@@ -210,7 +210,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content border border-top-0">
 						<div id="menuEdit1" class="tab-pane active" >
-							<form action="php_action/editProductImage.php" method="POST" id="updateProductImageForm" class="form-horizontal" enctype="multipart/form-data">
+							<form action="php_action/ctrl_product.php?action=updateImage" method="POST" id="updateProductImageForm" class="form-horizontal" enctype="multipart/form-data">
 
 								<br />
 								<div id="edit-productPhoto-messages"></div>
@@ -239,7 +239,7 @@
 							</form> <!-- /form -->
 						</div>
 						<div id="menuEdit2" class="tab-pane fade" >
-							<form class="form-horizontal" id="editProductForm" action="php_action/editProduct.php" method="POST">				    
+							<form class="form-horizontal" id="editProductForm" action="php_action/ctrl_product.php?action=update" method="POST">				    
 								<div id="edit-product-messages"></div>
 								<div class="form-group">
 									<label for="editProductName" class="col-sm-4 control-label">Product Name: </label>

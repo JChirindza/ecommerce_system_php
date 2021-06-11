@@ -66,7 +66,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 
-			<form class="form-horizontal" id="submitCategoriesForm" action="php_action/createCategories.php" method="POST">
+			<form class="form-horizontal" id="submitCategoriesForm" action="php_action/ctrl_category.php?action=create" method="POST">
 				<div class="modal-header">
 					<h4 class="modal-title"><i class="fas fa-plus"></i> Add Categories</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -109,7 +109,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 
-			<form class="form-horizontal" id="editCategoriesForm" action="php_action/editCategories.php" method="POST">
+			<form class="form-horizontal" id="editCategoriesForm" action="php_action/ctrl_category.php?action=update" method="POST">
 				<div class="modal-header">
 					<h4 class="modal-title"><i class="fa fa-edit"></i> Edit Category</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

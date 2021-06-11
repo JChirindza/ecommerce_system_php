@@ -1,8 +1,8 @@
 <?php require_once 'includes/header.php'; ?>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Marcas</h1>
-	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addBrandModel"> <i class="fas fa-plus"></i> Adicionar marca </button>
+	<h1 class="pageTitle">Brands</h1>
+	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addBrandModel"> <i class="fas fa-plus"></i> Add brand </button>
 </div>
 
 <div class="row">
@@ -15,7 +15,7 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h6 class="m-0 font-weight-bold text-muted">Gerir marca</h6>
+				<h6 class="m-0 font-weight-bold text-muted">Manage Brands</h6>
 			</div>
 
 			<div class="card-body ">
@@ -42,7 +42,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
-			<form class="form-horizontal" id="submitBrandForm" action="php_action/createBrand.php" method="POST">
+			<form class="form-horizontal" id="submitBrandForm" action="php_action/ctrl_brand.php?action=create" method="POST">
 				<div class="modal-header">
 					<h4 class="modal-title"><i class="fa fa-plus"></i> Add Brand</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -90,7 +90,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
-			<form class="form-horizontal" id="editBrandForm" action="php_action/editBrand.php" method="POST">
+			<form class="form-horizontal" id="editBrandForm" action="php_action/ctrl_brand.php?action=update" method="POST">
 				<div class="modal-header">
 					<h4 class="modal-title"><i class="fa fa-edit"></i> Edit Brand</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

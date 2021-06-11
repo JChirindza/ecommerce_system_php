@@ -16,7 +16,7 @@ $prodResult = $query->fetch_assoc();
 	<div class="col-12">
 		<div class="card rounded-0">
 			<div class="card-header bg-white">
-				<h6 class="m-0 font-weight-bold">Dados do produto </h6>
+				<h6 class="m-0 font-weight-bold">Product Information </h6>
 			</div>
 			
 			<div class="card-body ">
@@ -118,7 +118,7 @@ $prodResult = $query->fetch_assoc();
 						}
 					}
 				</script>
-				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('<?php echo $prodResult['product_id']; ?>')"> <i class="fas fa-edit"></i>Alterar dados</button>
+				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('<?php echo $prodResult['product_id']; ?>')"> <i class="fas fa-edit"></i>Edit information</button>
 
 			</div> 
 		</div>
@@ -130,11 +130,11 @@ $prodResult = $query->fetch_assoc();
 	<div class="col-12">
 		<div class="card rounded-0">
 			<div class="card-header bg-white">
-				<h6 class="m-0 font-weight-bold"> Detalhes tecnicos</h6>
+				<h6 class="m-0 font-weight-bold"> Technical Details</h6>
 			</div>
 			
 			<div class="card-body ">
-				<button class="btn btn-primary btn-sm m-0" data-toggle="modal" id="addProductDetailsModalBtn" data-target="#addProductDetailModal"> <i class="fas fa-plus"></i> Adicionar detalhes </button>
+				<button class="btn btn-primary btn-sm m-0" data-toggle="modal" id="addProductDetailsModalBtn" data-target="#addProductDetailModal"> <i class="fas fa-plus"></i> Add Details </button>
 				<hr>
 
 				<div class="remove-messages"></div>
@@ -144,10 +144,10 @@ $prodResult = $query->fetch_assoc();
 						<thead>
 							<tr>							
 								<th width="5%">#</th>
-								<th width="40%">Detalhe</th>
-								<th width="40%">Descricao</th>
-								<th width="10%">Estado</th>
-								<th width="5%" class="text-center">Opcoes</th>
+								<th width="40%">Details</th>
+								<th width="40%">Description</th>
+								<th width="10%">Status</th>
+								<th width="5%" class="text-center">Options</th>
 							</tr>
 						</thead>
 					</table>
@@ -170,7 +170,7 @@ $prodResult = $query->fetch_assoc();
 			</div>
 
 			<div class="modal-body" style="max-height:450px; overflow:auto;">
-				<form class="form-horizontal" id="submitProductDetailsForm" action="php_action/createProductDetails.php" method="POST" enctype="multipart/form-data">
+				<form class="form-horizontal" id="submitProductDetailsForm" action="php_action/ctrl_productDetail.php?action=create" method="POST" enctype="multipart/form-data">
 
 					<div id="add-product-detail-messages"></div>
 
@@ -234,7 +234,7 @@ $prodResult = $query->fetch_assoc();
 				</div>
 
 				<div class="div-result">
-					<form class="form-horizontal" id="editProductDetailForm" action="php_action/editProductDetail.php" method="POST">				    
+					<form class="form-horizontal" id="editProductDetailForm" action="php_action/ctrl_productDetail.php?action=update" method="POST">				    
 						<div id="edit-product-detail-messages"></div>
 						<div class="form-group">
 							<label for="editProductDetail" class="col-sm-4 control-label">Product Detail: </label>

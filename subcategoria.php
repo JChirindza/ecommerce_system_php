@@ -158,7 +158,7 @@ $categoryResult = $query->fetch_assoc();
 			</div>
 
 			<div class="modal-body" style="max-height:450px; overflow:auto;">
-				<form class="form-horizontal" id="submitSubcategoryForm" action="php_action/createSubcategory.php" method="POST" enctype="multipart/form-data">
+				<form class="form-horizontal" id="submitSubcategoryForm" action="php_action/ctrl_subcategory.php?action=create" method="POST" enctype="multipart/form-data">
 
 					<div id="add-subcategory-messages"></div>
 
@@ -215,7 +215,7 @@ $categoryResult = $query->fetch_assoc();
 				</div>
 
 				<div class="div-result">
-					<form class="form-horizontal" id="editSubcategoryForm" action="php_action/editSubcategory.php" method="POST">				    
+					<form class="form-horizontal" id="editSubcategoryForm" action="php_action/ctrl_subcategory.php?action=update" method="POST">				    
 						<div id="edit-subcategory-messages"></div>
 						<div class="form-group">
 							<label for="editSubcategoryName" class="col-sm-4 control-label">Subcategory name: </label>

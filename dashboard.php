@@ -219,7 +219,7 @@ $connect->close();
 <?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
 	<div class="col-12 pt-2 mb-4 p-0">
 		<div class="card">
-			<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> Users orders <label class="badge badge-secondary">Funcionario</label></div>
+			<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> Users orders <label class="badge badge-secondary">Employees</label></div>
 			<div class="card-body">
 				<table class="table table-responsive table-hover" id="userWiseOrderTable">
 					<thead>

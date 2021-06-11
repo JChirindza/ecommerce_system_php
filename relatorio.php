@@ -19,7 +19,7 @@ $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
 
-$userwisesql = "SELECT users.username , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 GROUP BY orders.user_id";
+$userwisesql = "SELECT users.name, users.surname, users.email, users.permittion, SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 1 AND users.status = 1 GROUP BY orders.user_id";
 $userwiseQuery = $connect->query($userwisesql);
 $userwieseOrder = $userwiseQuery->num_rows;
 
@@ -28,7 +28,7 @@ $connect->close();
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Relatorios</h1>
+	<h1 class="pageTitle">Reports</h1>
 </div>
 
 <div class="row">
@@ -40,7 +40,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#"  class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Total de pedidos</label>
+								<label>Total orders</label>
 								<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
 							</div>
 						</a>
@@ -52,7 +52,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Mais pedidos</label>
+								<label>Most requested</label>
 								<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
 							</div>
 						</a>
@@ -63,20 +63,20 @@ $connect->close();
 		<div class="card shadow-sm">
 
 			<div class="card-header">
-				<i class="fas fa-chart-area"></i> Relatorio de Pedidos
+				<i class="fas fa-chart-area"></i> Order report
 			</div>
 			<div class="card-body">
-				<form class="form-horizontal" action="php_action/getOrderReport.php" method="post" id="getOrderReportForm">
+				<form class="form-horizontal" action="php_action/ctrl_report.php?action=genOrderReport" method="post" id="getOrderReportForm">
 					<div class="form-group">
 						<label for="startDate" class="col-sm-4 control-label">Start Date</label>
 						<div class="col-sm">
-							<input type="text" class="form-control" id="startDate" name="startDate" placeholder="Start Date" />
+							<input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date" required/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="endDate" class="col-sm-4 control-label">End Date</label>
 						<div class="col-sm">
-							<input type="text" class="form-control" id="endDate" name="endDate" placeholder="End Date" />
+							<input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date" required/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -98,7 +98,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#"  class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Total de Compras</label>
+								<label>Total purchases</label>
 								<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
 							</div>
 						</a>
@@ -110,7 +110,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Mais pedidos</label>
+								<label>Most bought</label>
 								<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
 							</div>
 						</a>
@@ -118,7 +118,7 @@ $connect->close();
 				</div> 
 			</div> <!--/col-md-4-->
 		</div>
-		<div class="card shadow-sm">
+		<!-- <div class="card shadow-sm">
 			<div class="card-header">
 				<i class="fas fa-chart-area"></i> Relatorio de Compras
 			</div>
@@ -143,7 +143,7 @@ $connect->close();
 					</div>
 				</form>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<!-- /col-dm-12 -->
 </div>

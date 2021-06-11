@@ -9,7 +9,7 @@ $(document).ready(function() {
 	// manage product details data table
 	manageSubcategoriesTable = $('#manageSubcategoriesTable').DataTable({
 		"ajax": {
-			"url": 'php_action/fetchSubcategories.php',
+			"url": 'php_action/ctrl_subcategory.php?action=read',
 			"data":{
 				"categories_id": categories_id
 			}
@@ -132,7 +132,7 @@ function editSubcategory(subcategoryId = null) {
 		$('.div-result').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedSubcategory.php',
+			url: 'php_action/ctrl_subcategory.php?action=readSelected',
 			type: 'post',
 			data: {subcategoryId: subcategoryId},
 			dataType: 'json',
@@ -248,7 +248,7 @@ function removeSubcategory(subcategoryId = null) {
 			// loading remove button
 			$("#removeSubcategoryBtn").button('loading');
 			$.ajax({
-				url: 'php_action/removeSubcategory.php',
+				url: 'php_action/ctrl_subcategory.php?action=delete',
 				type: 'post',
 				data: {subcategoryId: subcategoryId},
 				dataType: 'json',
