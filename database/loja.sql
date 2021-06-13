@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2021 at 08:34 PM
+-- Generation Time: Jun 13, 2021 at 02:22 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -20,14 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `loja`
 --
-
-CREATE SCHEMA IF NOT EXISTS `loja` DEFAULT CHARACTER SET utf8 ;
-USE `loja` ;
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
 
 -- --------------------------------------------------------
 
@@ -90,18 +82,20 @@ CREATE TABLE `cart` (
   `cart_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `payment_status` enum('1','2') NOT NULL,
+  `active` enum('1','2') NOT NULL,
   `cart_status` enum('1','2') NOT NULL,
-  `cart_date` datetime NOT NULL
+  `cart_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `cart_status`, `cart_date`) VALUES
-(1, 5, '1', '1', '2021-01-03 20:22:40'),
-(2, 6, '2', '1', '2021-01-04 13:26:47'),
-(3, 5, '1', '1', '2021-01-04 13:26:47');
+INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `active`, `cart_status`, `cart_date`) VALUES
+(1, 5, '1', '1', '1', '2021-01-03 20:22:40'),
+(2, 6, '2', '1', '1', '2021-01-04 13:26:47'),
+(3, 5, '1', '1', '1', '2021-01-04 13:26:47'),
+(4, 5, '2', '1', '1', '2021-06-13 02:17:42');
 
 -- --------------------------------------------------------
 
@@ -129,7 +123,9 @@ INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `a
 (4, 3, 8, 2, '1', '1'),
 (5, 1, 8, 2, '1', '1'),
 (6, 3, 10, 2, '1', '1'),
-(7, 2, 12, 1, '1', '1');
+(7, 2, 12, 1, '1', '1'),
+(8, 4, 4, 2, '1', '1'),
+(9, 4, 9, 4, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -235,7 +231,7 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (20, '2021-03-01 17:25:50', 'swerwer erwe', '8523424564', '404457.50', '68757.77', '473215.27', '0', '473215.27', '44460.00', '428755.27', 2, 1, 1, '6460.00', 1, 1),
 (21, '2021-02-04 16:53:18', 'hghghg hgh', '873455466', '90000.00', '15300.00', '105300.00', '0', '105300.00', '105300.00', '0.00', 2, 1, 1, '15300.00', 1, 4),
 (22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1),
-(23, '2021-04-23 13:08:57', 'dsrserse erwer', '54564564', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1);
+(23, '2021-06-13 02:19:18', 'dsrserse erwer', '54564564', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +304,7 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (247, 15, 25, '3', '6500.00', '19500.00', 1),
 (248, 15, 8, '3', '950.00', '2850.00', 1),
 (249, 15, 1, '1', '125000.00', '125000.00', 1),
-(251, 23, 19, '1', '85200.00', '85200.00', 1);
+(252, 23, 19, '1', '85200.00', '85200.00', 1);
 
 -- --------------------------------------------------------
 
@@ -596,13 +592,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -626,7 +622,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 
 --
 -- AUTO_INCREMENT for table `product`
