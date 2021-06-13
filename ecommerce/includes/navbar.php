@@ -67,7 +67,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 				<ul class="navbar-nav">
 					<li class="nav-item border-primary navHome">
 						<a class="nav-link text-white" href="home.php">
-						<i class="fas fa-home fa-lg"></i>
+							<i class="fas fa-home fa-lg"></i>
 						</a>
 					</li>
 					<?php 
@@ -75,7 +75,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 						<li class="nav-item border-primary navCart pl-2">
 							<a href="cart.php?c=cartItems&i=<?php echo $_SESSION['cartId']; ?>" class="nav-link text-white">
 								<i class="fas fa-cart-arrow-down fa-lg"></i>
-								<span id="cart_count" class="badge badge-warning m-0"><?php echo $itemCountRow; ?></span>
+								<span id="cart_count_items" class="badge badge-warning m-0"></span>
 							</a>
 						</li>
 						<?php 
@@ -155,6 +155,19 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 			// alert(response.product_image);
 			$("#getUserImageNav").attr('src', '../users/'+response.user_image);
 			} // /success function
+		}); // /ajax to fetch product image
+	}
+
+	setCartItemQuantity();
+	// set cart item quantity
+	function setCartItemQuantity(){
+		$.ajax({
+			url: 'php_action/getCartItemQuantity.php',
+			type: 'post',
+			dataType: 'json',
+			success:function(response) {		
+				$('#cart_count_items').text(response.totalQuantiy);
+				} // /success function
 		}); // /ajax to fetch product image
 	}
 </script>
