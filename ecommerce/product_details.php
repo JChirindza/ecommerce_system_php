@@ -65,7 +65,7 @@
 										<p><strong><?php echo $row['product_name']; ?></strong></p>
 
 									</div>
-									<div id="add-to-cart-messages"></div>
+									<div id="add-to-cart-messages_<?php echo $product_id; ?>"></div>
 									<div class="row">
 										<div class="col-md-6 col-lg-6">
 											<div class="product-brand-details">Marca <?php echo $result2['brand_name']; ?> </div>

@@ -107,9 +107,10 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 						<div class="card-body">
 
 							<div id="success-messages"></div>
-
+							<div class="update-cart-item-messages"></div>
 							<style type="text/css"> #manageCartItemTable th{ border-bottom: none; } </style>
 							<input type="text" hidden id="cartId" name="cartId" value="<?php echo $_GET['i']; ?>">
+							<div id="update-cart-item-messages"></div>
 							<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 								<table class="table border-bottom" id="manageCartItemTable">
 									<thead>
@@ -133,7 +134,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 											<span>
 												<strong class="text-muted">Total: </strong>
 											</span>
-											<!-- <span id="subTotal" class="font-weight-bold"><?php echo number_format($total,2,",","."); ?> Mt</span> -->
+											<span id="subTotalValue_cartItem" class="font-weight-bold"></span>
 										</p>
 									</div>
 									<div class="">

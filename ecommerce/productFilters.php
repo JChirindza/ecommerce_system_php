@@ -204,5 +204,5 @@
 
 	});
 </script>
-
+<script type="text/javascript" src="custom/js/cart.js"></script>
 <?php require_once 'includes/footer.php'; ?>

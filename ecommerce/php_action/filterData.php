@@ -48,6 +48,7 @@ if(isset($_POST["action"])) {
 			<div class="col-md-12 product-img" style="display: flex; justify-content: center; align-items: center;">
 			<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 200px; " >
 			</div>
+			<div id="add-to-cart-messages_'. $row['product_id'] .'"></div>
 			<div class="product-brand">Brand '. $result2['brand_name'] .' </div>
 			<div class="product-name card-body">
 			<p align="center"><strong><a href="product_details.php?product_id='. $row['product_id'] .'" class="" data-toggle="tooltip" title="'. $row['product_name'] .'">'. $row['product_name'] .'</a></strong></p>
@@ -67,8 +68,7 @@ if(isset($_POST["action"])) {
 			<h5 style="text-align:center;" class="text-danger" >'. number_format($row['rate'], 2). " Mt" .' </h5>
 			</div>
 			<div class="cart">
-			<a href="#" class="btn btn-sm add-to-cart" data-toggle="tooltip" title="Add to cart.">
-			<i class="fas fa-cart-arrow-down"></i>
+			<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart('. $row['product_id'] .');" data-loading-text="Loading..." autocomplete="off" title="Add to cart"><i class="fas fa-cart-arrow-down"></i>
 			</a>
 			</div>
 			<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
