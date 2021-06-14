@@ -93,9 +93,7 @@ $(document).ready(function() {
 
 
 function addProductToCart(productId = null){
-	console.log("product_id:"+productId);
 	if (productId) {
-		console.log(1111);
 		$.ajax({
 			url: 'php_action/addToCart.php',
 			type: 'post',
