@@ -1,4 +1,24 @@
-<?php  
+<?php 
+
+/**
+ *	
+ * */
+if (isset($_GET['action']) && !empty($_GET['action'])) {
+	$action = $_GET['action'];
+	switch($action) {
+		case 'readRelated':
+		fetchRelated();
+		break;
+		case 'readFilters':
+		filterProducts();
+		break;
+		
+		// default:
+		// 	// code...
+		// break;
+	}
+}
+
 
 function fetchRelated(){
 	require_once 'db_connect.php';

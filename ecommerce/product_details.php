@@ -305,7 +305,7 @@
 			var product_id = $('#product_id').val();
 			
 			$.ajax({
-				url:"php_action/fetch_related.php",
+				url:"php_action/ctrl_product.php?action=readRelated",
 				method:"POST",
 				data:{product_id:product_id},
 				success:function(data){

@@ -159,7 +159,7 @@
 			var brand = get_filter('brand');
 
 			$.ajax({
-				url:"php_action/filterData.php",
+				url:"php_action/ctrl_product.php?action=readFilters",
 				method:"POST",
 				data:{action:action, category_id:category_id, minimum_price:minimum_price, maximum_price:maximum_price, limit:limit, sort:sort, brand:brand},
 				success:function(data){

@@ -4,7 +4,7 @@ var manageCartItemTable;
 $(document).ready(function() {
 
 	manageCartsTable = $('#manageCartsTable').DataTable({
-		'ajax' : 'php_action/fetchCart.php',
+		'ajax' : 'php_action/ctrl_cart.php?action=readCart',
 		'cart': []
 	}); // manage cart Data Table
 	
@@ -13,7 +13,7 @@ $(document).ready(function() {
 	// manage cart item data table
 	manageCartItemTable = $('#manageCartItemTable').DataTable({
 		"ajax": {
-			"url": 'php_action/fetchCartItem.php',
+			"url": 'php_action/ctrl_cart.php?action=readItems',
 			"data":{
 				"cartId": cartId
 			}
@@ -95,7 +95,7 @@ $(document).ready(function() {
 function addProductToCart(productId = null){
 	if (productId) {
 		$.ajax({
-			url: 'php_action/addToCart.php',
+			url: 'php_action/ctrl_cart.php?action=addTocart',
 			type: 'post',
 			data: {productId : productId},
 			dataType: 'json',
@@ -152,7 +152,7 @@ function updateItemQuantity(productId = null, row = null){
 		var quantity = Number($("#quantity"+row).val());
 
 		$.ajax({
-			url: 'php_action/editItemQuantity.php',
+			url: 'php_action/ctrl_cart.php?action=updateQuantity',
 			type: 'post',
 			data: {productId : productId, quantity: quantity},
 			dataType: 'json',
@@ -204,7 +204,7 @@ function removeCart(cartId = null) {
 			$("#removeCartBtn").button('loading');
 
 			$.ajax({
-				url: 'php_action/removeCart.php',
+				url: 'php_action/ctrl_cart.php?action=deleteCart',
 				type: 'post',
 				data: {cartId : cartId},
 				dataType: 'json',
@@ -263,7 +263,7 @@ function removeCartItem(cartItemId = null) {
 			$("#removeCartItemBtn").button('loading');
 
 			$.ajax({
-				url: 'php_action/removeCartItem.php',
+				url: 'php_action/ctrl_cart.php?action=deleteItem',
 				type: 'post',
 				data: {cartItemId : cartItemId},
 				dataType: 'json',
@@ -317,7 +317,7 @@ function removeCartItem(cartItemId = null) {
 // set cart total Value
 function setCartTotal(){
 	$.ajax({
-		url: 'php_action/getTotalCartValue.php',
+		url: 'php_action/ctrl_cart.php?action=readTotalCart',
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {		
@@ -329,7 +329,7 @@ function setCartTotal(){
 // set cart item quantity
 function setCartItemQuantity(){
 	$.ajax({
-		url: 'php_action/getCartItemQuantity.php',
+		url: 'php_action/ctrl_cart.php?action=readItemQuant',
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {		
