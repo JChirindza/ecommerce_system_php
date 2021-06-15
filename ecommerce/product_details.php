@@ -295,25 +295,6 @@
 </div>
 
 <!-- Related Product -->
-<script>
-	$(document).ready(function(){
-
-		related_products();
-
-		function related_products(){
-			$('.related_products').html('<div id="loading" style="" ></div>');
-			var product_id = $('#product_id').val();
-			
-			$.ajax({
-				url:"php_action/ctrl_product.php?action=readRelated",
-				method:"POST",
-				data:{product_id:product_id},
-				success:function(data){
-					$('.related_products').html(data);
-				}
-			});
-		}
-	});
-</script>
+<script type="text/javascript" src="custom/js/product.js"></script>
 <script type="text/javascript" src="custom/js/cart.js"></script>
 <?php require_once 'includes/footer.php'; ?>
