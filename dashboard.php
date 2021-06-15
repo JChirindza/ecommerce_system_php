@@ -78,7 +78,7 @@ $connect->close();
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="text-muted">Dashboard</h1>
-	<a href="orders.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
+	<a href="orders.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-cogs fa-sm text-white-50"></i> Manage Orders</a>
 </div>
 
 <?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
