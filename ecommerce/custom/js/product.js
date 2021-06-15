@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
+	// product filters
 	filter_data();
-
 	function filter_data(){
-		$('.filter_data').html('<div id="loading" style="" ></div>');
+		$('.loading_area').html('<div id="loading" style="" ></div>');
 		var action = 'fetch_data';
 		var category_id = $('#category_id').val();
 		var minimum_price = $('#hidden_minimum_price').val();
@@ -18,6 +18,7 @@ $(document).ready(function(){
 			data:{action:action, category_id:category_id, minimum_price:minimum_price, maximum_price:maximum_price, limit:limit, sort:sort, brand:brand},
 			success:function(data){
 				$('.filter_data').html(data);
+				$('#loading').remove();
 			}
 		});
 	}
@@ -59,4 +60,21 @@ $(document).ready(function(){
 		}
 	});
 
+
+	// product details
+	related_products();
+	function related_products(){
+		$('.loading_area').html('<div id="loading" style="" ></div>');
+		var product_id = $('#product_id').val();
+
+		$.ajax({
+			url:"php_action/ctrl_product.php?action=readRelated",
+			method:"POST",
+			data:{product_id:product_id},
+			success:function(data){
+				$('.related_products').html(data);
+				$('#loading').remove();
+			}
+		});
+	}
 });
