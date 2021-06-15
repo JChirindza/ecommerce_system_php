@@ -147,7 +147,7 @@ function removeBrand(){
 
 	if($brandId) { 
 
-		$sql = "UPDATE brands SET brand_status = 2 WHERE brand_id = {$brandId}";
+		$sql = "UPDATE brands SET brand_status = 2 AND active = 2 WHERE brand_id = {$brandId}";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
