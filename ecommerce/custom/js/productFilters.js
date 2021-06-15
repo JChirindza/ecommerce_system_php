@@ -42,11 +42,14 @@ $(document).ready(function(){
 		filter_data();
 	});
 
+	var min_price = Number($('#hidden_minimum_price').val());
+	var max_price = Number($('#hidden_maximum_price').val());
+
 	$('#price_range').slider({
 		range:true,
-		min:<?php echo $minPrice; ?>,
-		max:<?php echo $maxPrice; ?>,
-		values:[<?php echo $minPrice; ?>, <?php echo $maxPrice; ?>],
+		min:min_price,
+		max:max_price,
+		values:[min_price, max_price],
 		step:0.5,
 		stop:function(event, ui) {
 			$('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
