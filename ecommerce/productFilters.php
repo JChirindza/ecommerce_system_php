@@ -130,6 +130,7 @@
 
 				<input type="hidden" name="" id="category_id" value="<?php echo $_GET['category_id']; ?>">
 				<div class="border-top row filter_data"></div>
+				<div class="loading_area"></div>
 			</div>
 		</div>
 	</div>
@@ -137,11 +138,11 @@
 <style>
 	#loading {
 		text-align:center; 
-		background: url('../loader.gif') no-repeat center; 
+		background: url('../assests/images/app/loader.gif') no-repeat center; 
 		height: 150px;
 	}
 </style>
 
-<script type="text/javascript" src="custom/js/productFilters.js"></script>
+<script type="text/javascript" src="custom/js/product.js"></script>
 <script type="text/javascript" src="custom/js/cart.js"></script>
 <?php require_once 'includes/footer.php'; ?>
