@@ -22,7 +22,7 @@
 	<?php if($_GET['c'] == 'manctg') { // manage categories ?>
 		<button class="btn btn-primary btn-sm" data-toggle="modal" id="addCategoriesModalBtn" data-target="#addCategoriesModal"> <i class="fas fa-plus"></i> Add Category </button>
 	<?php } else if($_GET['c'] == 'subc') { // add categories ?>
-		<a href="produto.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Manage categories </a>
+		<a href="products.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Manage categories </a>
 	<?php } ?>
 	
 </div>
@@ -58,7 +58,7 @@
 	</div> <!-- /row -->
 <?php } else if($_GET['c'] == 'subc') { // add subcategories
 	// add subcategories
-	require_once 'subcategoria.php';
+	require_once 'subcategories.php';
 } ?>
 
 <!-- add categories -->

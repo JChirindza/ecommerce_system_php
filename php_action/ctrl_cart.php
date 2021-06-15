@@ -114,11 +114,11 @@ function fetchCartItems(){
 			$imageUrl = substr($resultProduct['product_image'], 3);
 
 			$productImage = "
-			<a href='produto.php?p=detail&i=".$productId."'>
+			<a href='products.php?p=detail&i=".$productId."'>
 			<img class='img-round' src='".$imageUrl."' style='height:80px; width:120px;'/>
 			</a>
 			";
-			$productName = "<a href='produto.php?p=detail&i=".$productId."'>".$resultProduct['product_name']."</a>";
+			$productName = "<a href='products.php?p=detail&i=".$productId."'>".$resultProduct['product_name']."</a>";
 			$price = $resultProduct['rate'];
 			$availableQuantity = $resultProduct['quantity'];
 			$total = $price * $quantity;

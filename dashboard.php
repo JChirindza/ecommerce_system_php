@@ -78,7 +78,7 @@ $connect->close();
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="text-muted">Dashboard</h1>
-	<a href="pedidos.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
+	<a href="orders.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
 </div>
 
 <?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
@@ -170,7 +170,7 @@ $connect->close();
 
 	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
 		<div class="col-md-4 pt-2 mb-4">
-			<a href="produto.php?p=manprod" class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
+			<a href="products.php?p=manprod" class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 				<div class="card card-success">
 					<div class="card-body">
 
@@ -185,7 +185,7 @@ $connect->close();
 		</div> <!--/col-md-4-->
 
 		<div class="col-md-4 pt-2 mb-4">
-			<a href="produto.php?p=manprod" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
+			<a href="products.php?p=manprod" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 				<div class="card card-danger">
 					<div class="card-body">
 
@@ -202,7 +202,7 @@ $connect->close();
 
 	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
 		<div class="col-md-4 pt-2 mb-4">
-			<a href="pedidos.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
+			<a href="orders.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
 				<div class="card">
 					<div class="card-body">
 						<div class="d-sm-flex align-items-center justify-content-between">

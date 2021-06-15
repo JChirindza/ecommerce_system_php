@@ -63,7 +63,7 @@ $categoryResult = $query->fetch_assoc();
 
 										$output .= '
 										<div class="col-auto col-lg-2 p-0 m-0 pr-5 pt-4">
-										<a href="produto.php?p=detail&i='. $row['product_id'] .'">
+										<a href="products.php?p=detail&i='. $row['product_id'] .'">
 										<div class="product-entry">
 										<div class="product-img">
 										<img src="src/'. $row['product_image'] .'" class="img-fluid" style="height: 100px; " >

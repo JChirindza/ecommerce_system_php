@@ -165,7 +165,7 @@ function fetchOrders(){
 		 	Action <span class="caret"></span>
 		 	</button>
 		 	<ul class="dropdown-menu bg-transparent border-0">
-		 	<li><a href="pedidos.php?p=editOrd&i='.$orderId.'" class="btn btn-success btn-sm col-12" id="editOrderModalBtn"> <i class="fas fa-edit"></i> Edit</a></li>
+		 	<li><a href="orders.php?p=editOrd&i='.$orderId.'" class="btn btn-success btn-sm col-12" id="editOrderModalBtn"> <i class="fas fa-edit"></i> Edit</a></li>
 
 		 	<li><a type="button" class="btn btn-primary btn-sm col-12" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="fas fa-money-bill"></i> Payment</a></li>
 

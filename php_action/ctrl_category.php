@@ -98,7 +98,7 @@ function fetchCategories(){
 
 			$button = '<!-- Single button -->
 			<div class="btn-group">
-			<a href="categoria.php?c=subc&i='.$categoriesId.'" class="btn btn-outline-success btn-sm" id="categoryDetailsBtn"> <i class="fas fa-eye"></i></a>
+			<a href="categories.php?c=subc&i='.$categoriesId.'" class="btn btn-outline-success btn-sm" id="categoryDetailsBtn"> <i class="fas fa-eye"></i></a>
 			<button class="btn btn-outline-primary btn-sm" data-toggle="modal" id="editCategoriesModalBtn" data-target="#editCategoriesModal" onclick="editCategories('.$categoriesId.')"> <i class="fas fa-edit"></i></button>
 			<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeCategoriesModal" id="removeCategoriesModalBtn" onclick="removeCategories('.$categoriesId.')"> <i class="fas fa-trash"></i></button>
 			</div>';

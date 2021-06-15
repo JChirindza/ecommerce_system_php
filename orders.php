@@ -41,9 +41,9 @@ $result = $query->fetch_assoc();
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="pageTitle">Orders</h1>
 	<?php if($_GET['p'] == 'manord') { ?>
-		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=add"><i class="fas fa-cart-plus"></i> Add Order </a>
+		<a type="button" class="btn-primary btn-sm" href="orders.php?p=add"><i class="fas fa-cart-plus"></i> Add Order </a>
 	<?php } else { ?>
-		<a type="button" class="btn-primary btn-sm" href="pedidos.php?p=manord"><i class="fas fa-cart-arrow-down"></i> Manage Orders </a>
+		<a type="button" class="btn-primary btn-sm" href="orders.php?p=manord"><i class="fas fa-cart-arrow-down"></i> Manage Orders </a>
 	<?php } ?>
 </div>
 <style type="text/css">
@@ -72,7 +72,6 @@ $result = $query->fetch_assoc();
 			<div class="success-messages"></div> <!--/success-messages-->
 
 			<form class="form-horizontal" method="POST" action="php_action/ctrl_order.php?action=create" id="createOrderForm">
-				<!-- <button class="btn btn-primary btn-sm ml-3 mb-2" id="">Buscar Cliente</button> -->
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">

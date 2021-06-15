@@ -23,7 +23,7 @@
 	<?php if($_GET['p'] == 'manprod') { // gerir produto ?>
 		<button class="btn btn-primary btn-sm" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="fas fa-plus"></i> Add Product </button>
 	<?php } else if($_GET['p'] == 'detail') { // adicionar detalhes ?>
-		<a href="produto.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Manage Products </a>
+		<a href="products.php?p=manprod" class="btn btn-primary btn-sm"> <i class="fas fa-cogs"></i> Manage Products </a>
 	<?php } ?>
 	
 </div>

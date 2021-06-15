@@ -1,18 +1,23 @@
 <?php require_once 'includes/header.php'; ?>
 
+<div class="border border-top-0 bg-white m-0 p-0 row">
+	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
+		<i class="fas fa-align-left"></i>
+	</button>
+	<ol class="breadcrumb bg-transparent mb-0">
+	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+	    <li class="breadcrumb-item active">Brands</li>
+	    
+  	</ol>
+</div>
+
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="pageTitle">Brands</h1>
-	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addBrandModel"> <i class="fas fa-plus"></i> Add brand </button>
+	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addUserModalBtn" data-target="#addUserModal"> <i class="fas fa-plus"></i> Add Brand </button>
 </div>
 
 <div class="row">
 	<div class="col-md-12 mb-4">
-
-		<!-- <ol class="breadcrumb">
-		  <li><a href="dashboard.php">Home</a></li>		  
-		  <li class="active">Brand</li>
-		</ol> -->
-
 		<div class="card">
 			<div class="card-header">
 				<h6 class="m-0 font-weight-bold text-muted">Manage Brands</h6>

@@ -159,7 +159,7 @@ $(document).ready(function() {
 								'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 								'<a type="button" onclick="printOrder('+response.order_id+')" class="btn btn-primary btn-sm ml-4 mr-2"> <i class="fas fa-print"></i> Print </a>'+
-								'<a href="pedidos.php?p=add" class="btn btn-default border border-info btn-sm" > <i class="fas fa-plus"></i> Add New Order </a>'+
+								'<a href="orders.php?p=add" class="btn btn-default border border-info btn-sm" > <i class="fas fa-plus"></i> Add New Order </a>'+
 								'</div>');
 								
 								$("html, body, div.card, div.card-body").animate({scrollTop: '0px'}, 100);
@@ -316,7 +316,7 @@ $(document).ready(function() {
 								'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 								'<a type="button" onclick="printOrder('+response.order_id+')" class="btn btn-primary btn-sm ml-4 mr-2"> <i class="fas fa-print"></i> Print </a>'+
-								'<a href="pedidos.php?p=add" class="btn btn-default border border-info btn-sm" > <i class="fas fa-plus"></i> Add New Order </a>'+
+								'<a href="orders.php?p=add" class="btn btn-default border border-info btn-sm" > <i class="fas fa-plus"></i> Add New Order </a>'+
 								'</div>');
 							
 							$("html, body, div.card, div.card-body").animate({scrollTop: '0px'}, 100);
