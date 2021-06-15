@@ -1,8 +1,6 @@
 <?php 
 require_once 'php_action/db_connect.php';
 
-// $valid['success'] = array('success' => false, 'messages' => array());
-
 require_once 'php_action/db_connect.php';
 
 session_start();
