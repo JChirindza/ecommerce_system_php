@@ -161,7 +161,7 @@ function removeCategory(){
 
 	if($categoriesId) { 
 
-		$sql = "UPDATE categories SET categories_status = 2 WHERE categories_id = {$categoriesId}";
+		$sql = "UPDATE categories SET categories_active = 2, categories_status = 2 AND WHERE categories_id = {$categoriesId}";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
