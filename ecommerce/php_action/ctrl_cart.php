@@ -10,16 +10,16 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		addToCart();
 		break;
 		case 'readCart':
-		fetchSelectedUser();
+		fetchCart();
 		break;
 		case 'readItems':
-		fetchUserImageUrl();
+		fetchCartItem();
 		break;
 		case 'deleteCart':
-		changeUserEmail();
+		removeCart();
 		break;
 		case 'deleteItem':
-		changeUserPassword();
+		removeCartItem();
 		break;
 		case 'updateQuantity':
 		editItemQuantity();
