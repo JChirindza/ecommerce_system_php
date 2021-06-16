@@ -154,6 +154,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 			success:function(response) {		
 			// alert(response.product_image);
 			$("#getUserImageNav").attr('src', '../users/'+response.user_image);
+			$("#getUserImage").attr('src', '../users/'+response.user_image);
 			} // /success function
 		}); // /ajax to fetch product image
 	}
