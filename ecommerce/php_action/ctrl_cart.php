@@ -10,16 +10,16 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		addToCart();
 		break;
 		case 'readCart':
-		fetchSelectedUser();
+		fetchCart();
 		break;
 		case 'readItems':
-		fetchUserImageUrl();
+		fetchCartItem();
 		break;
 		case 'deleteCart':
-		changeUserEmail();
+		removeCart();
 		break;
 		case 'deleteItem':
-		changeUserPassword();
+		removeCartItem();
 		break;
 		case 'updateQuantity':
 		editItemQuantity();
@@ -62,7 +62,7 @@ function addToCart(){
 					$newQuantity = $cartItemResult['quantity'] + $quantity;
 					$sql = "UPDATE cart_item SET quantity = {$newQuantity} WHERE cart_item_id = {$cartItemResult['cart_item_id']} AND product_id = {$productId}";
 				}else{
-					$sql = "INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES (NULL, '$cartId', '$productId', '$quantity', '1', '1') ";
+					$sql = "INSERT INTO `cart_item` (`cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES ('$cartId', '$productId', '$quantity', '1', '1') ";
 				}
 
 				if($connect->query($sql) === TRUE) {

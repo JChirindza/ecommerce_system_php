@@ -162,7 +162,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	// set cart item quantity
 	function setCartItemQuantity(){
 		$.ajax({
-			url: 'php_action/getCartItemQuantity.php',
+			url: 'php_action/ctrl_cart.php?action=readItemQuant',
 			type: 'post',
 			dataType: 'json',
 			success:function(response) {		
