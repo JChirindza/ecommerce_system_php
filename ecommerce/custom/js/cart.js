@@ -95,7 +95,7 @@ $(document).ready(function() {
 function addProductToCart(productId = null){
 	if (productId) {
 		$.ajax({
-			url: 'php_action/ctrl_cart.php?action=addTocart',
+			url: 'php_action/ctrl_cart.php?action=addToCart',
 			type: 'post',
 			data: {productId : productId},
 			dataType: 'json',

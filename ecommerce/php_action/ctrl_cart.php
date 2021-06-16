@@ -160,7 +160,7 @@ function fetchCartItem(){
 	$output = array('data' => array());
 
 	if($result->num_rows > 0) { 
-
+		$x = 1;
 		while($row = $result->fetch_array()) {
 			$cartItemId = $row[0];
 			$productId = $row[1];
@@ -183,7 +183,7 @@ function fetchCartItem(){
 			$total = $price * $quantity;
 
 			$quantityInput = '
-			<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity<?php echo $x; ?>"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'" value="'.$quantity.'" required>
+			<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity'.$x.'"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'"  oninput="updateItemQuantity('.$productId.','.$x.')" value="'.$quantity.'" required>
 			<label class="text-muted" style="font-size: 14px;">Available: '.$availableQuantity.'</label>
 			';
 
@@ -199,6 +199,7 @@ function fetchCartItem(){
 				$total,
 				$button 		
 			);
+			$x++;
 	 	} // /while 
 
 	}// if num_rows
