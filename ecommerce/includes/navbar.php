@@ -147,7 +147,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	var userid = <?php echo $userID; ?>;
 	if(userid) {
 		$.ajax({
-			url: 'php_action/fetchSelectedUser.php',
+			url: 'php_action/ctrl_user.php?action=readSelected',
 			type: 'post',
 			data: {"userid": userid},
 			dataType: 'json',

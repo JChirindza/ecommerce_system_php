@@ -58,7 +58,7 @@ $connect->close();
 					<!-- Tab panes -->
 					<div class="tab-content border border-top-0">
 						<div id="menu1" class="tab-pane active" >
-							<form action="php_action/changeUserImage.php" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
+							<form action="php_action/ctrl_user.php?action=editImage" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
 
 								<div id="edit-userPhoto-messages"></div>
 
@@ -83,7 +83,7 @@ $connect->close();
 							</form>
 						</div>
 						<div id="menu2" class="tab-pane fade" >
-							<form action="php_action/changeUsername.php" method="post" class="form-horizontal col-sm-8" id="changeUsernameForm">
+							<form action="php_action/ctrl_user.php?action=editUsername" method="post" class="form-horizontal col-sm-8" id="changeUsernameForm">
 								<fieldset >
 
 									<div class="changeUsernameMessages"></div>			
@@ -111,7 +111,7 @@ $connect->close();
 						</div>
 
 						<div id="menu3" class="tab-pane fade" >
-							<form action="php_action/changeEmail.php" method="post" class="form-horizontal col-sm-8" id="changeEmailForm">
+							<form action="php_action/ctrl_user.php?action=editEmail" method="post" class="form-horizontal col-sm-8" id="changeEmailForm">
 								<fieldset >
 
 									<div class="changeEmailMessages"></div>			
@@ -134,7 +134,7 @@ $connect->close();
 						</div>
 
 						<div id="menu4" class="tab-pane fade">
-							<form action="php_action/changePassword.php" method="post" class="form-horizontal col-sm-8" id="changePasswordForm">
+							<form action="php_action/ctrl_user.php?action=editPassword" method="post" class="form-horizontal col-sm-8" id="changePasswordForm">
 								<fieldset>
 									<div class="changePasswordMessages"></div>
 

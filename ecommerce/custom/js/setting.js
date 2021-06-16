@@ -255,7 +255,7 @@ $(document).ready(function() {
 			$('.div-result').addClass('div-hide');
 
 			$.ajax({
-				url: 'php_action/fetchSelectedUser.php',
+				url: 'php_action/ctrl_user.php?action=readSelected',
 				type: 'post',
 				data: {"userid": userid},
 				dataType: 'json',
@@ -373,7 +373,7 @@ function setUserImage(userid = null){
 		$('.div-result').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedUser.php',
+			url: 'php_action/ctrl_user.php?action=readSelected',
 			type: 'post',
 			data: {"userid": userid},
 			dataType: 'json',
