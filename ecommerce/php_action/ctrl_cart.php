@@ -100,7 +100,7 @@ function fetchCart(){
 
 	$user_id = $_SESSION['userId'];
 	$sql = "SELECT cart_id, payment_status, cart_date FROM cart
-	WHERE user_id = {$user_id} AND cart_status = 1 ORDER BY cart_id DESC";
+	WHERE user_id = {$user_id} AND status = 1 ORDER BY cart_id DESC";
 
 	$result = $connect->query($sql);
 
@@ -217,7 +217,7 @@ function removeCart(){
 
 	if($cartId) { 
 
-		$sql = "UPDATE cart SET cart_status = 2 WHERE cart_id = {$cartId}";
+		$sql = "UPDATE cart SET active = 2, status = 2 WHERE cart_id = {$cartId}";
 
 		$cartItem = "UPDATE cart_item SET active = 2, status = 2 WHERE cart_id = {$cartId}";
 
