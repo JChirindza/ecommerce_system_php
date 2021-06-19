@@ -35,7 +35,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 				<a id="navProduct" href="products.php?p=manprod" class="list-group-item list-group-item-action border-0"><i class="fab fa-product-hunt fa-lg mr-2"></i>Products</a>
 				<a id="navBrand" href="brands.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-business-time fa-lg mr-2"></i>Brands</a>
 				<a id="navCategories" href="categories.php?c=manctg" class="list-group-item list-group-item-action border-0"><i class="fas fa-clipboard fa-lg mr-2"></i>Categories</a>
-				<a id="navUser" href="users.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-users fa-lg mr-2"></i>Usuarios</a>
+				<a id="navUser" href="users.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-users fa-lg mr-2"></i>Users</a>
 			<?php } ?>
 			<?php if(isset($_SESSION['userId']) && $_SESSION['userId']!=2) { ?>
 				<!-- <a id="navClient" href="cliente.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-people-arrows fa-lg mr-2"></i>Clientes</a> -->
@@ -43,7 +43,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<?php if(isset($_SESSION['userId']) && $_SESSION['userId']!=3) { ?>
 				<a id="navReport" href="reports.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-chart-line fa-lg mr-2"></i>Reports</a>
 			<?php } ?>
-			<a id="navSetting" href="profile.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-cogs fa-lg mr-2"></i>Profile</a>
+			<a id="navSetting" href="profile.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-user-cog fa-lg mr-2"></i>Profile</a>
 		</div>
 	</div>
 	<?php 
