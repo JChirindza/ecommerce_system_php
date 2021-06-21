@@ -183,7 +183,7 @@ function fetchCartItem(){
 			$total = $price * $quantity;
 
 			$quantityInput = '
-			<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity'.$x.'"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'"  oninput="updateItemQuantity('.$productId.','.$x.')" value="'.$quantity.'" required>
+			<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity'.$x.'"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'"  onchange="updateItemQuantity('.$productId.','.$x.')" value="'.$quantity.'" required>
 			<label class="text-muted" style="font-size: 14px;">Available: '.$availableQuantity.'</label>
 			';
 
@@ -272,6 +272,7 @@ function editItemQuantity(){
 			$cartId = $_SESSION['cartId'];
 			$productId = $_POST['productId'];
 			$quantity = $_POST['quantity'];
+			if ($quantity <= 0) { $quantity = 1; } // Para que nao se introduza quantidade negativa ou igual a 0
 
 			// Verifica se o producto ja existe, caso exista aumenta a quantidade.
 			$sql = "SELECT * FROM cart_item WHERE cart_id = $cartId AND product_id = {$productId} LIMIT 1";
