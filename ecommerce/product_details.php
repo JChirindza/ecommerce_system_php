@@ -91,7 +91,7 @@
 												<label for="quantity" class="col-sm-4 control-label">Quantity: </label>
 												<div class="col-sm-8">
 													<input type="number" class="form-control font-weight-bold" id="quantity" placeholder="Quantity" name="quantity" autocomplete="off" min="1" max="<?php echo $row['quantity']; ?>" value="1">
-													<label class="text-muted font-weight-light">Avalible: <?php echo $row['quantity']; ?></label>
+													<label class="text-muted font-weight-light">Available: <?php echo $row['quantity']; ?></label>
 												</div>
 											</div>
 										</div>
