@@ -13,6 +13,7 @@
 					if($result && $result->num_rows > 0) { 
 						foreach($result as $categoryData) {
 							?>
+							<!-- # slides to the category id location -->
 							<a href="#category_<?php echo $categoryData['categories_id']; ?>" class="mt-1 pt-1 pb-1 list-group-item list-group-item-action border rounded-pill"><?php echo $categoryData['categories_name']; ?></a>
 							<?php  
 						}
@@ -68,8 +69,30 @@
 					</div>					
 				</div>
 
-				<div class="col-sm-3 col-md-3 col-lg-3 bg-white p-3 d-none d-md-inline d-lg-inline">
-					<h4><i class="fas fa-list"></i> Categories</h4>
+				<style type="text/css">
+					.shopByCategory a{
+						border: 1px solid #dee2e6;
+						padding: 0.25rem;
+					}
+					.shopByCategory a:hover{
+						border: 1px solid #6c757d !important;
+					}
+					.shopByCategory a img{
+						height: 82px;
+					}
+				</style>
+
+				<div class="shopByCategory col-sm-3 col-md-3 col-lg-3 bg-white pt-3 d-none d-md-inline d-lg-inline">
+					<h4><i class="fas fa-list"></i> Shop by category</h4>
+					<div class="row col-12 m-auto d-flex justify-content-center">
+						<div class="row col-12">
+							<a href="productFilters.php?category_id=1" data-toggle="tooltip" title="Computers" class="computers col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/1860861486072dde24f8f4.jpg"></a>
+							<a href="productFilters.php?category_id=2" data-toggle="tooltip" title="Hardware and network parts" class="hardware col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/16979005775fb59a1e386f5.jpg"></a>
+						
+							<a href="productFilters.php?category_id=3" data-toggle="tooltip" title="Computer components" class="components col-5 my-1 mx-2  d-flex justify-content-center"><img src="../assests/images/stock/5229306055fb5961fbe84e.jpg"></a>
+							<a href="productFilters.php" data-toggle="tooltip" title="Featured categories" class="featured col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/15883469225fc048184d737.jpg"></a>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -115,10 +138,6 @@
 													<div class="product-price">
 
 														<h5 style="text-align:center;" class="text-danger" ><?php echo number_format($productData['rate'], 2). " Mt"; ?></h5>
-													</div>
-													<div class="cart">
-														<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $productData['product_id']; ?>);" data-loading-text="Loading..." autocomplete="off" title="Add to cart"><i class="fas fa-cart-arrow-down"></i>
-														</a>
 													</div>
 												</div>
 											</a>
