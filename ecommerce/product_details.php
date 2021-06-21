@@ -99,7 +99,7 @@
 
 									<div class="col-md-5 p-0">
 										<div class="cart mt-4">
-											<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $product_id; ?>);" data-loading-text="Loading..." autocomplete="off" title="Adicionar ao carrinho"><i class="fas fa-cart-arrow-down"></i>
+											<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $product_id; ?>);" data-loading-text="Loading..." autocomplete="off" title="Add to cart"><i class="fas fa-cart-arrow-down"></i>
 											</a>
 										</div>
 									</div>
