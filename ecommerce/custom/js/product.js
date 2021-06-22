@@ -6,6 +6,7 @@ $(document).ready(function(){
 		$('.loading_area').html('<div id="loading" style="" ></div>');
 		var action = 'fetch_data';
 		var category_id = $('#category_id').val();
+		var page = $('#page').val();
 		var minimum_price = $('#hidden_minimum_price').val();
 		var maximum_price = $('#hidden_maximum_price').val();
 		var limit = $('#product_limit').val();
@@ -15,7 +16,7 @@ $(document).ready(function(){
 		$.ajax({
 			url:"php_action/ctrl_product.php?action=readFilters",
 			method:"POST",
-			data:{action:action, category_id:category_id, minimum_price:minimum_price, maximum_price:maximum_price, limit:limit, sort:sort, brand:brand},
+			data:{action:action, category_id:category_id, page:page, minimum_price:minimum_price, maximum_price:maximum_price, limit:limit, sort:sort, brand:brand},
 			success:function(data){
 				$('.filter_data').html(data);
 				$('#loading').remove();
