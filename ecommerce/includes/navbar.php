@@ -27,7 +27,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 					$_SESSION['cartId'] = $userCart['cart_id'];
 				}elseif(!isset($_SESSION['cartId'])){
 					// Se nao tiver um carrinho activo(disponivel), cria um novo carrinho vazio para usuario.
-					$sql = "INSERT INTO `cart` (`user_id`, `payment_status`, `active`, `cart_status`) VALUES ('$userID', '2', '1', '1')";
+					$sql = "INSERT INTO `cart` (`user_id`, `payment_status`, `active`, `status`) VALUES ('$userID', '2', '1', '1')";
 					if($newCartResult = $connect->query($sql)) {
 						$cart_id = $connect->insert_id;
 						// echo "New record created successfully. Last inserted ID is: " . $cart_id;
