@@ -91,7 +91,7 @@
 												<label for="quantity" class="col-sm-4 control-label">Quantity: </label>
 												<div class="col-sm-8">
 													<input type="number" class="form-control font-weight-bold" id="quantity" placeholder="Quantity" name="quantity" autocomplete="off" min="1" max="<?php echo $row['quantity']; ?>" value="1">
-													<label class="text-muted font-weight-light">Avalible: <?php echo $row['quantity']; ?></label>
+													<label class="text-muted font-weight-light">Available: <?php echo $row['quantity']; ?></label>
 												</div>
 											</div>
 										</div>
@@ -99,7 +99,7 @@
 
 									<div class="col-md-5 p-0">
 										<div class="cart mt-4">
-											<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $product_id; ?>);" data-loading-text="Loading..." autocomplete="off" title="Adicionar ao carrinho"><i class="fas fa-cart-arrow-down"></i>
+											<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $product_id; ?>);" data-loading-text="Loading..." autocomplete="off" title="Add to cart"><i class="fas fa-cart-arrow-down"></i>
 											</a>
 										</div>
 									</div>

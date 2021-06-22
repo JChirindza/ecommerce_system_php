@@ -29,11 +29,11 @@ if (isset($_SESSION['userId'])) {
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Hello, <?php echo $username; ?></div>
-							<div class="dropdown-divider mt-0 mb-0 pb-0 pt-0"></div>
+							<div class="dropdown-divider my-0 py-0"></div>
 							<a id="topNavSetting" class="dropdown-item" href="profile.php"><i class="fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>Profile</a>
 							<div class="dropdown-divider mt-0 mb-0 pb-0 pt-0"></div>
 							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeuserModal"><i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>Change user</a>
-							<div class="dropdown-divider mt-0 mb-0 pb-0 pt-0"></div>
+							<div class="dropdown-divider my-0 py-0"></div>
 							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
 						</div>
 					</li>

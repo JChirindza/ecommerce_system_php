@@ -1,5 +1,17 @@
 <?php require_once 'includes/header.php'; ?>
 
+<script>
+	function pageValidation() {
+		var valid = true;
+		var pageNo = $('#page-no').val();
+		var totalPage = $('#total-page').val();
+		if(pageNo == ""|| pageNo < 1 || !pageNo.match(/\d+/) || pageNo > parseInt(totalPage)){
+			$("#page-no").css("border-color","#ee0000").show();
+			valid=false;
+		}
+		return valid;
+	}
+</script>
 <div class="d-flex" id="wrapper">
 	<div class="container-fluid productFilters ml-md-4 mr-md-4 ml-lg-4 mr-lg-4">
 
@@ -16,9 +28,13 @@
 					<h4>Price</h4>
 					<?php 
 
-					$category_id = $_GET['category_id'];
+					$sql = "SELECT Min(rate) as minPrice, Max(rate) as maxPrice FROM product WHERE active = 1";
 
-					$sql = "SELECT Min(rate) as minPrice, Max(rate) as maxPrice  FROM product WHERE categories_id = {$category_id} AND active = 1";
+					if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
+						$category_id = $_GET['category_id'];
+						$sql .= " AND categories_id = {$category_id}";
+					}
+
 					$query = $connect->query($sql);
 					$result = $query->fetch_assoc();
 
@@ -30,21 +46,6 @@
 					<p id="price_show"><?php echo $minPrice ." - ". $maxPrice; ?></p>
 					<div id="price_range"></div>
 				</div>	
-				<style type="text/css">
-					.filterByCategories a > label {
-						color: #007185;
-						padding-bottom: .4rem;
-						cursor: pointer;
-					}
-
-					.filterByCategories a label:hover{
-						color: black;
-					}
-
-					.filterByCategories i:hover {
-						color: gray;
-					}
-				</style>
 
 				<div class="list-group mt-4 border-top filterByCategories">
 					<h4 class="mt-4">Categories</h4>
@@ -78,25 +79,37 @@
 					<h4 class="mt-4">Brand</h4>
 					<div style="height: auto; max-height: 280px; overflow-y: auto; overflow-x: hidden;">
 						<?php
-						$category_id = $_GET['category_id'];
-						$sql = "SELECT DISTINCT(brand_id) FROM product WHERE active = '1' AND categories_id = {$category_id} ORDER BY product_id DESC";
+
+						$sql = "SELECT DISTINCT(brand_id) FROM product WHERE active = '1' ";
+
+						if (isset($_GET['category_id'])) {
+							$sql .= " AND categories_id = {$_GET['category_id']} ";
+						}
+
+						$sql .= " ORDER BY product_id DESC";
 						$result = $connect->query($sql);
 
-						foreach($result as $row) {
-							$brandID = $row['brand_id'];
-							$sql2 = "SELECT brand_name FROM brands WHERE brand_id = '$brandID' ";
-							$query2 = $connect->query($sql2);
-							$result2 = $query2->fetch_assoc();
+						if ($result) {
 
-							$sql = "SELECT * FROM product WHERE active = '1' AND categories_id = {$category_id} AND brand_id = {$brandID}";
-							$query2 = $connect->query($sql);
-							$countBrands = $query2->num_rows;
+							foreach($result as $row) {
+								$brandID = $row['brand_id'];
+								$sql2 = "SELECT brand_name FROM brands WHERE brand_id = '$brandID' ";
+								$query2 = $connect->query($sql2);
+								$result2 = $query2->fetch_assoc();
 
-							?>
-							<div class="list-group-item checkbox">
-								<label><input type="checkbox" class="common_selector brand" value="<?php echo $row['brand_id']; ?>"  > <?php echo $result2['brand_name']; ?> (<?php echo $countBrands; ?>)</label>
-							</div>
-						<?php } ?>
+								$sql = "SELECT * FROM product WHERE active = '1' AND brand_id = {$brandID}";
+								if (isset($_GET['category_id'])) {
+									$sql .= " AND categories_id = {$_GET['category_id']} ";
+								}
+								$query2 = $connect->query($sql);
+								$countBrands = $query2->num_rows;
+
+								?>
+								<div class="list-group-item checkbox">
+									<label><input type="checkbox" class="common_selector brand" value="<?php echo $row['brand_id']; ?>"  > <?php echo $result2['brand_name']; ?> (<?php echo $countBrands; ?>)</label>
+								</div>
+							<?php } 
+						} ?>
 					</div>
 				</div>
 
@@ -128,19 +141,20 @@
 					</div>
 				</div>
 
-				<input type="hidden" name="" id="category_id" value="<?php echo $_GET['category_id']; ?>">
-				<div class="border-top row filter_data"></div>
+				<input type="hidden" id="page" value="<?php if(isset($_GET['page'])){ echo $_GET['page']; } ?>">
+				<input type="hidden" id="category_id" value="<?php if(isset($_GET['category_id'])){ echo $_GET['category_id']; } ?>">
+				<div class="border-top row filter_data "></div>
 				<div class="loading_area"></div>
 			</div>
 		</div>
 	</div>
 </div>
 <style>
-	#loading {
-		text-align:center; 
-		background: url('../assests/images/app/loader.gif') no-repeat center; 
-		height: 150px;
-	}
+#loading {
+	text-align:center; 
+	background: url('../assests/images/app/loader.gif') no-repeat center; 
+	height: 150px;
+}
 </style>
 
 <script type="text/javascript" src="custom/js/product.js"></script>
