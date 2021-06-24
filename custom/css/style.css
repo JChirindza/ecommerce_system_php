@@ -118,8 +118,8 @@ div.kv-avatar div.file-input div.file-preview {
 
 /* Product Entry */
 .product-entry {
-	border: .1rem solid #f1f1f1 !important;
-	margin-bottom: 1rem;
+	border: .1rem solid #f8f9fa !important;
+	margin-bottom: 2rem;
 }
 
 .product-entry:hover .cart {
@@ -133,7 +133,7 @@ div.kv-avatar div.file-input div.file-preview {
 	/*font-family: "Roboto", Arial, sans-serif, bold;*/
 	font-weight: 400;
 	font-weight: bolder;
-	margin: 0 0 20px 0;
+	margin: 0 0 0px 0;
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-line-clamp: 4;
