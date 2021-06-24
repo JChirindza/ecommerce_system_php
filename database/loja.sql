@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2021 at 02:22 AM
+-- Generation Time: Jun 22, 2021 at 02:38 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -59,12 +59,12 @@ INSERT INTO `brands` (`brand_id`, `brand_name`, `brand_active`, `brand_status`) 
 (18, 'Toshiba', '1', '1'),
 (19, 'Logitech', '1', '1'),
 (20, 'PNY', '1', '1'),
-(21, 'ARESGAME', '1', '2'),
+(21, 'ARESGAME', '1', '1'),
 (22, 'NZXT', '1', '1'),
 (23, 'GIGABYTE', '1', '1'),
 (24, 'Thermaltake', '1', '1'),
 (25, 'Seagate', '1', '1'),
-(26, 'zxczxc', '1', '2'),
+(26, 'zxczxc', '2', '2'),
 (27, 'Intel', '1', '1'),
 (28, 'vxcvxc xcv', '2', '1'),
 (29, 'Sony', '1', '1'),
@@ -83,7 +83,7 @@ CREATE TABLE `cart` (
   `user_id` int(11) NOT NULL,
   `payment_status` enum('1','2') NOT NULL,
   `active` enum('1','2') NOT NULL,
-  `cart_status` enum('1','2') NOT NULL,
+  `status` enum('1','2') NOT NULL,
   `cart_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -91,11 +91,15 @@ CREATE TABLE `cart` (
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `active`, `cart_status`, `cart_date`) VALUES
+INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `active`, `status`, `cart_date`) VALUES
 (1, 5, '1', '1', '1', '2021-01-03 20:22:40'),
 (2, 6, '2', '1', '1', '2021-01-04 13:26:47'),
 (3, 5, '1', '1', '1', '2021-01-04 13:26:47'),
-(4, 5, '2', '1', '1', '2021-06-13 02:17:42');
+(4, 5, '2', '1', '1', '2021-06-13 02:17:42'),
+(5, 8, '2', '1', '1', '2021-06-13 16:30:25'),
+(6, 19, '2', '1', '1', '2021-06-14 10:57:46'),
+(7, 20, '2', '1', '1', '2021-06-14 17:36:36'),
+(8, 22, '2', '1', '1', '2021-06-16 12:27:33');
 
 -- --------------------------------------------------------
 
@@ -118,14 +122,21 @@ CREATE TABLE `cart_item` (
 
 INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES
 (1, 1, 1, 3, '1', '1'),
-(2, 1, 4, 2, '1', '1'),
 (3, 2, 5, 4, '1', '1'),
 (4, 3, 8, 2, '1', '1'),
 (5, 1, 8, 2, '1', '1'),
 (6, 3, 10, 2, '1', '1'),
 (7, 2, 12, 1, '1', '1'),
-(8, 4, 4, 2, '1', '1'),
-(9, 4, 9, 4, '1', '1');
+(31, 5, 8, 7, '1', '1'),
+(36, 5, 9, 3, '1', '1'),
+(37, 5, 11, 2, '1', '1'),
+(38, 6, 4, 2, '1', '1'),
+(39, 6, 13, 2, '1', '1'),
+(49, 4, 12, 2, '1', '1'),
+(56, 4, 16, 1, '1', '1'),
+(57, 4, 17, 1, '1', '1'),
+(58, 4, 4, 1, '1', '1'),
+(59, 4, 1, 1, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -152,7 +163,7 @@ INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active
 (5, 'rtyr rtyrtyr rtyrtyrt', '1', '1'),
 (6, 'dfgdfg dfg', '2', '1'),
 (7, 'egtttytr rtyrttryt', '2', '1'),
-(8, 'asda', '1', '2');
+(8, 'asda', '2', '2');
 
 -- --------------------------------------------------------
 
@@ -213,7 +224,7 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (2, '2020-11-20 16:31:44', 'wer', '3543', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422', '0.00', 2, 1, 1, '2822.00', 1, 1),
 (3, '2020-11-20 15:29:23', 'dfgdf', '65464', '38000.00', '6460.00', '44460.00', '0', '44460.00', '44460', '0.00', 2, 1, 1, '6460.00', 1, 1),
 (4, '2021-02-04 17:49:50', 'sdfsd', '456456456', '22500.00', '3825.00', '26325.00', '0', '26325.00', '26325', '0.00', 2, 1, 1, '3825.00', 1, 2),
-(5, '2021-03-01 15:42:22', 'fsdfs', '42347676', '88500.00', '15045.00', '103545.00', '0', '103545.00', '59085', '44460.00', 2, 1, 1, '8585.00', 1, 1),
+(5, '2021-06-19 14:15:22', 'fsdfs', '42347676', '6500.00', '1105.00', '7605.00', '0', '7605.00', '7605.00', '0.00', 2, 1, 1, '8585.00', 1, 1),
 (6, '2021-01-24 15:03:10', 'ghhggh', '7656756', '1275.00', '216.75', '1491.75', '0', '1491.75', '1492', '-0.25', 0, 1, 2, '216.75', 1, 5),
 (7, '2020-11-22 22:37:42', 'ewrwee', '345345', '45000.00', '7650.00', '52650.00', '0', '52650.00', '52650', '0.00', 2, 1, 1, '7650.00', 1, 1),
 (8, '2020-11-22 22:37:39', 'sdfsdf', '3453453453', '247886.00', '42140.62', '290026.62', '100', '289926.62', '289927', '-0.38', 2, 1, 1, '42140.62', 1, 1),
@@ -226,12 +237,13 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (15, '2021-03-01 18:46:56', 'dfgdfgd', '435453453', '179252.50', '30472.93', '209725.43', '0', '209725.43', '39511.48', '170213.95', 2, 1, 1, '5740.98', 1, 1),
 (16, '2021-02-04 17:52:18', 'dsdf sdf', '8234345345', '503512.00', '85597.04', '589109.04', '0', '589109.04', '589109.04', '0.00', 2, 1, 1, '85597.04', 1, 4),
 (17, '2021-02-04 16:25:29', 'ssds sdfdf sdf', '8434345465', '176900.00', '30073.00', '206973.00', '0', '206973.00', '206973.00', '0.00', 3, 1, 1, '30073.00', 1, 1),
-(18, '2021-02-04 17:51:29', 'sdfdfsd sdf', '85345345', '157500.00', '26775.00', '184275.00', '0', '184275.00', '184275.00', '0.00', 2, 1, 1, '26775.00', 1, 4),
+(18, '2021-06-15 20:27:15', 'sdfdfsd sdf', '85345345', '157500.00', '26775.00', '184275.00', '0', '184275.00', '184275.00', '0.00', 2, 1, 1, '0', 1, 22),
 (19, '2021-02-04 16:34:12', 'fsdf', '82343454567', '13000.00', '2210.00', '15210.00', '0', '15210.00', '15210.00', '0.00', 2, 1, 1, '2210.00', 1, 1),
 (20, '2021-03-01 17:25:50', 'swerwer erwe', '8523424564', '404457.50', '68757.77', '473215.27', '0', '473215.27', '44460.00', '428755.27', 2, 1, 1, '6460.00', 1, 1),
 (21, '2021-02-04 16:53:18', 'hghghg hgh', '873455466', '90000.00', '15300.00', '105300.00', '0', '105300.00', '105300.00', '0.00', 2, 1, 1, '15300.00', 1, 4),
 (22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1),
-(23, '2021-06-13 02:19:18', 'dsrserse erwer', '54564564', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '', 1, 1);
+(23, '2021-06-15 20:36:05', 'dsfsdf', '54564', '106500.00', '18105.00', '124605.00', '0', '124605.00', '99684', '24921.00', 2, 1, 1, '0', 1, 22),
+(24, '2021-06-19 14:00:51', 'sdfsd', '54345345', '125000.00', '21250.00', '146250.00', '0', '146250.00', '146250.00', '0.00', 2, 1, 1, '21250.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -285,9 +297,6 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (69, 16, 12, '1', '16600.00', '16600.00', 1),
 (72, 17, 19, '2', '85200.00', '170400.00', 1),
 (73, 17, 25, '1', '6500.00', '6500.00', 1),
-(74, 18, 5, '1', '45000.00', '45000.00', 1),
-(75, 18, 4, '1', '22500.00', '22500.00', 1),
-(76, 18, 5, '2', '45000.00', '90000.00', 1),
 (77, 19, 25, '1', '6500.00', '6500.00', 1),
 (78, 19, 25, '1', '6500.00', '6500.00', 1),
 (85, 21, 5, '2', '45000.00', '90000.00', 1),
@@ -304,7 +313,13 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (247, 15, 25, '3', '6500.00', '19500.00', 1),
 (248, 15, 8, '3', '950.00', '2850.00', 1),
 (249, 15, 1, '1', '125000.00', '125000.00', 1),
-(252, 23, 19, '1', '85200.00', '85200.00', 1);
+(407, 18, 5, '1', '45000.00', '45000.00', 1),
+(408, 18, 4, '1', '22500.00', '22500.00', 1),
+(409, 18, 5, '2', '45000.00', '90000.00', 1),
+(412, 23, 6, '1', '38000.00', '38000.00', 1),
+(413, 23, 7, '1', '68500.00', '68500.00', 1),
+(415, 24, 1, '1', '125000.00', '125000.00', 1),
+(417, 5, 25, '1', '6500.00', '6500.00', 1);
 
 -- --------------------------------------------------------
 
@@ -329,27 +344,27 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`, `categories_id`, `quantity`, `rate`, `active`, `status`) VALUES
-(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 9, '125000.00', '1', '1'),
-(4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 3, '22500.00', '1', '1'),
-(5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 10, '45000.00', '1', '1'),
+(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 8, '125000.00', '1', '1'),
+(4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 13, '22500.00', '1', '1'),
+(5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 2, '45000.00', '1', '1'),
 (6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 21, '38000.00', '1', '1'),
 (7, 'Asus TUF FX505DT Gaming Laptop, 15.6â€ 120Hz Full HD, AMD Ryzen 5 R5-3550H Processor, GeForce GTX 1650 Graphics, 8GB DDR4, 256GB PCIe SSD, Gigabit Wi-Fi 5, Windows 10 Home, FX505DT-AH51, RGB Keyboard', '../assests/images/stock/20090931475f38257462116.jpg', 7, 1, 20, '68500.00', '1', '1'),
-(8, 'Logitech Keyboard', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 0, '950.00', '1', '1'),
+(8, 'Logitech Keyboard', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 20, '950.00', '1', '1'),
 (9, 'Dell OptiPlex 7450 All in One Desktop Computer with Touch, Intel Core i5-7500, 8GB DDR4, 500GB Hard Drive, Windows 10 Pro (31JHY) (Renewed)', '../assests/images/stock/14723156875fa006a95f007.jpg', 3, 1, 20, '64386.00', '1', '1'),
 (10, 'Logitech M525 Wireless Mouse â€“ Long 3 Year Battery Life, Ergonomic Shape for Right or Left Hand Use, Micro-Precision Scroll Wheel, and USB Unifying Receiver for Computers and Laptops, Black/Gray', '../assests/images/stock/5229306055fb5961fbe84e.jpg', 19, 3, 12, '1275.00', '1', '1'),
 (11, 'Logitech MK850 Performance Wireless Keyboard and Mouse - combo', '../assests/images/stock/21043172265fb59704405d9.jpg', 19, 3, 10, '4690.00', '1', '1'),
-(12, 'NZXT Kraken X63 280mm - RL-KRX63-01 - AIO RGB CPU Liquid Cooler - Rotating Infinity Mirror Design - Improved Pump - Powered By CAM V4 - RGB Connector - Aer P 140mm Radiator Fans (2 Included)', '../assests/images/stock/17434396695fb599bce1e04.jpg', 22, 2, 3, '16600.00', '1', '1'),
+(12, 'NZXT Kraken X63 280mm - RL-KRX63-01 - AIO RGB CPU Liquid Cooler - Rotating Infinity Mirror Design - Improved Pump - Powered By CAM V4 - RGB Connector - Aer P 140mm Radiator Fans (2 Included)', '../assests/images/stock/17434396695fb599bce1e04.jpg', 22, 2, 13, '16600.00', '1', '1'),
 (13, 'GIGABYTE Z390 UD, Intel LGA1151/Z390/ATX/M.2/Realtek ALC887/Realtek 8118 Gaming LAN/HDMI/Gaming Motherboard', '../assests/images/stock/16979005775fb59a1e386f5.jpg', 23, 2, 17, '12500.00', '1', '1'),
-(14, 'ARESGAME Power Supply 500W 80+ Bronze Certified PSU', '../assests/images/stock/11697838475fb59a9f714df.jpg', 21, 2, 3, '6050.00', '1', '1'),
+(14, 'ARESGAME Power Supply 500W 80+ Bronze Certified PSU', '../assests/images/stock/11697838475fb59a9f714df.jpg', 21, 2, 14, '6050.00', '1', '1'),
 (15, 'PNY Quadro P620 Graphic Card - 2 GB GDDR5 - Low-Profile - Single Slot Space Required', '../assests/images/stock/12580887025fb59b725f1ad.jpg', 20, 2, 8, '1340.00', '1', '1'),
 (16, 'Thermaltake V200 Tempered Glass RGB Edition 12V MB Sync Capable ATX Mid-Tower Chassis with 3 120mm 12V RGB Fan + 1 Black 120mm Rear Fan Pre-Installed CA-1K8-00M1WN-01', '../assests/images/stock/1776517525fb59d4683e0a.jpg', 24, 2, 22, '8730.50', '1', '1'),
 (17, 'Intel Core I5 3570S - 3.1 Ghz - 4 Cores - 4 Threads - 6 Mb Cache - Lga1155 Socket - Oem \"Product Type: Computer Components/Processors\"', '../assests/images/stock/15883469225fc048184d737.jpg', 27, 2, 16, '5150.00', '1', '1'),
-(18, 'Seagate Disco ri­gido externo 6 TB - central para backup ', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 6, '14750.50', '1', '1'),
+(18, 'Seagate Disco ri­gido externo 6 TB - central para backup ', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 19, '14750.50', '1', '1'),
 (19, 'Laptop para jogos Acer Nitro 5, 9ª geração Intel Core i7-9750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 16GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN515-54-728C', '../assests/images/stock/17672098385ff388ae809bb.jpg', 17, 1, 17, '85200.00', '1', '1'),
 (24, 'Sony ', '../assests/images/stock/113770375601264a59ebea.jpg', 29, 3, 50, '4595.50', '1', '1'),
-(25, 'Bose', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 25, '6500.00', '1', '1'),
+(25, 'Bose', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 24, '6500.00', '1', '1'),
 (26, 'Gaming Laptop Acer Nitro 5, 7ª geração Intel Core i5-5750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 8GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN516-54-348C', '../assests/images/stock/1860861486072dde24f8f4.jpg', 17, 1, 13, '76000.00', '1', '1'),
-(27, 'Dell Latitude 9510 15\" 2 in 1 Notebook - Intel Core i5 i5-10310U 1.7GHz', '../assests/images/stock/85166466081924fc0294.jpg', 3, 1, 5, '175000.00', '1', '1');
+(27, 'Dell Latitude 9510 15\" 2 in 1 Notebook - Intel Core i7-10310U 1.7GHz', '../assests/images/stock/85166466081924fc0294.jpg', 3, 1, 10, '175000.00', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -477,14 +492,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_image`, `type`, `permittion`, `active`, `status`) VALUES
-(1, 'Admin1', 'user11', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, '1', '1'),
+(1, 'Admin1', 'user1', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, '1', '1'),
 (2, 'John', 'Chirindza', 'johnchirindza@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john2.png', 1, 2, '1', '1'),
 (3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/9773099666082b87f92f56.jpg', 1, 3, '1', '1'),
 (4, 'Armando', 'Cossa', 'armandocossa@live.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
 (5, 'client', 'user', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (7, 'cscs ', 'cscs', 'cscs@cscs.cscs', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
-(8, 'asd asd', 'dsa', 'asd@asd.asd', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(8, 'asd asd', 'dsa', 'asd@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (9, 'admin2', 'user2', 'admin@pconly.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (10, 'dsa', 'dsas', 'dsa@das.dsa', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '2', '1'),
 (11, 'rew', 'ewq', 'qwe@eqw.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '2', '2'),
@@ -494,7 +509,12 @@ INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_im
 (15, 'ffgdf', 'fgfgas', 'sdfsdf@sad.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (16, 'asd', 'asd', 'asd1@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (17, 'fdsa', 'fds', 'fsd@fds.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
-(18, 'asdas', 'asdas', 'asda@sadsd.cppm', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1');
+(18, 'asdas', 'asdas', 'asda@sadsd.cppm', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(19, 'Dddd', 'ssd', 'dddssd@dmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(20, 'lkmlk', 'lknlk', 'sdf@gfdg.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(21, 'hjvhj', 'sdfsdf', 'sdfsdf@dmaasdil.com', '51d3ab6534b38f81ff65ec3a602d5b10', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(22, 'ytuytuy', 'dfsdf', 'dfdfsd@fsdf.cpom', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(23, 'Gustavo', 'Tome', 'gtome@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1');
 
 --
 -- Indexes for dumped tables
@@ -592,13 +612,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -616,13 +636,13 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=418;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -646,7 +666,7 @@ ALTER TABLE `sub_categories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
