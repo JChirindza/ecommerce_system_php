@@ -49,6 +49,7 @@ if($_POST) {
 				// set session
 				$_SESSION['userId'] = $user_id;
 				$_SESSION['userType'] = $user_type;
+				$_SESSION['lang'] = $lang;
 
 				if ($_SESSION['userType'] == 1) {
 					header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
