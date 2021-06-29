@@ -1,4 +1,9 @@
 <?php 
+$lang = "en";
+if (isset($_GET['lang'])) {
+	$lang = $_GET['lang'];
+}
+require_once 'includes/Language/lang.' . $lang . '.php';
 require_once 'php_action/db_connect.php';
 
 session_start();
@@ -78,8 +83,20 @@ if($_POST) {
 	<script type="text/javascript" src="assests/font-awesome/js/all.min.js"></script>
 	<!-- custom css -->
 	<link rel="stylesheet" href="custom/css/style.css">
+	<style type="text/css">
+	.language-link a { color: gray;}
+</style>
 </head>
 <body>
+	<div class="border d-flex justify-content-end pr-4">
+		<div><i class="fas fa-globe mr-4 text-secondary"></i></div>
+		<div class="language-link mr-4">
+			<a class="language-link-item" href="./sign-in.php?lang=en" <?php if($lang == 'en'){ ?> style="color: #1b00ff; font-weight: bold;" <?php } ?> >En
+			</a> | 
+			<a class="language-link-item" href="./sign-in.php?lang=pt" <?php if($lang == 'pt'){ ?> style="color: #1b00ff; font-weight: bold;" <?php } ?> >Pt
+			</a>
+		</div>
+	</div>
 	<div class="container">
 		<div class="row vertical ">
 			<div class="col-md-4 col-md-offset-4 m-auto">
@@ -104,28 +121,28 @@ if($_POST) {
 							<fieldset>
 								<div class="form-group">
 									<div class="col-sm-12">
-										<input type="email" class="form-control" id="email" name="email" placeholder="Email" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required />
+										<input type="email" class="form-control" id="email" name="email" placeholder="<?php echo $language['email']; ?>" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required />
 									</div> 
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12">
-										<input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required/>
+										<input type="password" class="form-control" id="password" name="password" placeholder="<?php echo $language['password']; ?>" autocomplete="off" required/>
 									</div>
 								</div>								
 								<div class="form-group">
 									<div class="col-sm-offset-0 col-sm-12">
-										<button type="submit" class="btn btn-success btn-block"> <i class="glyphicon glyphicon-log-in"></i> Entrar</button>
-										<a href="esqueceuSenha.php" id="esqueceuSenha" class="font-weight-light">Forgot password?</a>
+										<button type="submit" class="btn btn-success btn-block"> <i class="fas fa-sign-in-alt"></i> <?php echo $language['sign-in']; ?></button>
+										<a href="#" id="forgot-password" class="font-weight-light"> <?php echo $language['forgot-password']; ?>?</a>
 									</div>
 								</div>
 							</fieldset>
 							<hr>
 							<div class="form-group">
 								<div class="col-sm-offset-0 col-sm-12">
-									<a href="sign-up.php" class="btn btn-primary btn-block" id="addUserModalBtn"> <i class="fas fa-sign-in-alt"></i> Create new Account</a>
+									<a href="sign-up.php" class="btn btn-primary btn-block" id="addUserModalBtn"> <i class="fas fa-sign-in-alt"></i> <?php echo $language['create-new-account']; ?></a>
 								</div>
 								<div class="col-sm-12 text-center">
-									<a href="index.php" id="back" class="font-weight-light"><i class="fas fa-arrow-left"></i> Back</a>
+									<a href="index.php" id="back" class="font-weight-light"><i class="fas fa-arrow-left"></i> <?php echo $language['back']; ?></a>
 								</div>
 							</div>
 						</form>
