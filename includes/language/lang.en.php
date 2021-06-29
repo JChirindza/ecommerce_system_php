@@ -8,6 +8,14 @@ $language['create-new-account'] = 'Create new account';
 $language['back'] = 'back';
 $language['sign-in'] = 'Sign-in';
 
+// Create Account
+$language['create-account'] = 'Create Account';
+// From Dashboard - name and surname | Login -> email, password, login, forgot-password
+$language['confirm-password'] = 'Confirm password';
+$language['register-account'] = 'Register Account';
+$language['already-have-account'] = 'Already have account';
+$language['create-account-info-msg'] = 'By creating an account you will be able to shop faster, be up to date on an order\'s status, and keep track of the orders you have previously made';
+
 // Sidebar
 $language['brands'] = 'Brands';
 $language['categories'] = 'Categories';
@@ -29,6 +37,7 @@ $language['orders'] = 'Orders';
 $language['users-orders'] = 'Users orders';
 $language['employees'] = 'Employees';
 $language['clients'] = 'Clients';
+$language['users-req'] = 'Users requests';
 $language['name'] = 'Name';
 $language['surname'] = 'Surname';
 $language['type'] = 'Type';

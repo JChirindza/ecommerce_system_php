@@ -107,7 +107,7 @@ if($_POST) {
 				</div>
 				<div class="card">
 					<div class="card-header text-center bg-white">
-						<h4>Sign-in</h4>
+						<h4><?php echo $language['login'] ?></h4>
 					</div>
 					<div class="card-body">
 						<div class="messages">

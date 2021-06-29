@@ -1,7 +1,7 @@
 <?php require_once 'php_action/core.php'; ?>
 <?php  
 // Multi-lingual
-$lang = "en";
+$lang = $_SESSION['lang'];
 if (isset($_GET['lang'])) {
 	$lang = $_GET['lang'];
 }

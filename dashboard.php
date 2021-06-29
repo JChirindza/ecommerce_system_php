@@ -255,7 +255,7 @@ $connect->close();
 
 <div class="col-12 pt-2 mb-4 p-0">
 	<div class="card">
-		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-orders']; ?> <label class="badge badge-secondary"><?php echo $language['clients']; ?></label></div>
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-req']; ?> <label class="badge badge-secondary"><?php echo $language['clients']; ?></label></div>
 		<div class="card-body">
 			<table class="table table-responsive table-hover" id="clientWiseOrderTable">
 				<thead>

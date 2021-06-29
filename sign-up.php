@@ -1,6 +1,12 @@
 <?php 
 require_once 'php_action/db_connect.php';
 
+$lang = "en";
+if (isset($_GET['lang'])) {
+    $lang = $_GET['lang'];
+}
+require_once 'includes/Language/lang.' . $lang . '.php';
+
 session_start();
 
 if(isset($_SESSION['userId'])) {
@@ -83,7 +89,7 @@ if($_POST) {
                 </div>
                 <div class="card">
                     <div class="card-header text-center bg-white">
-                        <h4 class="h4 text-gray-900">Create Account</h4>
+                        <h4 class="h4 text-gray-900"><?php echo $language['create-account'] ?></h4>
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal" id="submitUserForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
@@ -104,45 +110,45 @@ if($_POST) {
                                 <form class="user">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control" id="name" placeholder="Name" name="name" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="name" placeholder="<?php echo $language['name'] ?>" name="name" autocomplete="off" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="surname" placeholder="Surname" name="surname" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="surname" placeholder="<?php echo $language['surname'] ?>" name="surname" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="uemail" placeholder="Email" name="uemail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
+                                        <input type="text" class="form-control" id="uemail" placeholder="<?php echo $language['email'] ?>" name="uemail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="password" class="form-control form-control-user" name="upassword" id="upassword" placeholder="Password" required>
+                                            <input type="password" class="form-control form-control-user" name="upassword" id="upassword" placeholder="<?php echo $language['password'] ?>" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="password" class="form-control form-control-user" name="cpassword" id="cpassword" placeholder="Confirm password" required>
+                                            <input type="password" class="form-control form-control-user" name="cpassword" id="cpassword" placeholder="<?php echo $language['confirm-password'] ?>" required>
                                         </div>
                                     </div>
-                                    <button type="submit" id="createUserBtn" class="btn btn-success btn-user btn-block" data-loading-text="Loading...">Register Account</button>
+                                    <button type="submit" id="createUserBtn" class="btn btn-success btn-user btn-block" data-loading-text="Loading..."><?php echo $language['register-account'] ?></button>
                                 </form>
                                 <hr>
                                 
                                 <div class="row mt-4">
                                     <div class="col-sm-12 text-center">
                                         <a href="sign-in.php" id="back" class="font-weight-light">
-                                            <label class="text-muted">Already have account?</label>
+                                            <label class="text-muted"><?php echo $language['already-have-account'] ?>?</label>
                                             <i class="fas fa-sign-in-alt"></i> 
                                             Login
                                         </a>
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <a href="forgot-password.html">Forgot your password?</a>
+                                    <a href="#"><?php echo $language['forgot-password'] ?>?</a>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="text-center p-4">
-                    <label class="text-muted"><i class="fas fa-info-circle"></i> By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</label>
+                    <label class="text-muted"><i class="fas fa-info-circle"></i> <?php echo $language['create-account-info-msg'] ?>.</label>
 
                 </div>  
             </div>
