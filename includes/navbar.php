@@ -1,4 +1,12 @@
 <?php require_once 'php_action/core.php'; ?>
+<?php  
+// Multi-lingual
+$lang = "en";
+if (isset($_GET['lang'])) {
+	$lang = $_GET['lang'];
+}
+require_once 'includes/Language/lang.' . $lang . '.php';
+?>
 <?php 
 // Get username
 if (isset($_SESSION['userId'])) {

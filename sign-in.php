@@ -22,6 +22,7 @@ if($_POST) {
 
 	$email = $_POST['email'];
 	$password = $_POST['password'];
+	$lang = $_POST['lang'];
 
 	if(empty($username) || empty($password)) {
 		if($username == "") {
@@ -146,6 +147,7 @@ if($_POST) {
 									<a href="index.php" id="back" class="font-weight-light"><i class="fas fa-arrow-left"></i> <?php echo $language['back']; ?></a>
 								</div>
 							</div>
+							<input type="hidden" name="lang" id="lang" value="<?php echo $lang; ?>">
 						</form>
 					</div>
 				</div>
