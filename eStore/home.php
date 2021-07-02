@@ -5,7 +5,7 @@
 
 		<div class="row mt-2 mt-md-0 mt-lg-0">
 			<div class="col-sm-4 col-md-3 col-lg-3 bg-white p-3">
-				<h4 class=""><i class="fas fa-list"></i> Categories</h4>
+				<h4 class=""><i class="fas fa-list"></i> <?php echo $language['categories'] ?></h4>
 				<div class="list-group list-group-flush">
 					<?php  
 					$sql = "SELECT categories_id, categories_name FROM categories WHERE categories_active = 1 LIMIT 3";
@@ -26,7 +26,7 @@
 					</div>
 					<?php if (!isset($_SESSION['userId'])){ ?>
 						<div class="d-flex justify-content-center mt-4">
-							<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
+							<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="<?php echo $language['Sig-in-f-a-better-experience'] ?>."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a>
 						</div>
 					<?php } ?>
 				</div>
@@ -83,14 +83,14 @@
 				</style>
 
 				<div class="shopByCategory col-sm-3 col-md-3 col-lg-3 bg-white pt-3 d-none d-md-inline d-lg-inline">
-					<h4><i class="fas fa-list"></i> Shop by category</h4>
+					<h4><i class="fas fa-list"></i> <?php echo $language['shop-by-categ'] ?></h4>
 					<div class="row col-12 m-auto d-flex justify-content-center">
 						<div class="row col-12">
-							<a href="productFilters.php?category_id=1" data-toggle="tooltip" title="Computers" class="computers col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/1860861486072dde24f8f4.jpg"></a>
-							<a href="productFilters.php?category_id=2" data-toggle="tooltip" title="Hardware and network parts" class="hardware col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/16979005775fb59a1e386f5.jpg"></a>
+							<a href="productFilters.php?category_id=1" data-toggle="tooltip" title="<?php echo $language['computers'] ?>" class="computers col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/1860861486072dde24f8f4.jpg"></a>
+							<a href="productFilters.php?category_id=2" data-toggle="tooltip" title="<?php echo $language['hardware-and-network-parts'] ?>" class="hardware col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/16979005775fb59a1e386f5.jpg"></a>
 						
-							<a href="productFilters.php?category_id=3" data-toggle="tooltip" title="Computer components" class="components col-5 my-1 mx-2  d-flex justify-content-center"><img src="../assests/images/stock/5229306055fb5961fbe84e.jpg"></a>
-							<a href="productFilters.php" data-toggle="tooltip" title="Featured categories" class="featured col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/15883469225fc048184d737.jpg"></a>
+							<a href="productFilters.php?category_id=3" data-toggle="tooltip" title="<?php echo $language['computer-components'] ?>" class="components col-5 my-1 mx-2  d-flex justify-content-center"><img src="../assests/images/stock/5229306055fb5961fbe84e.jpg"></a>
+							<a href="productFilters.php" data-toggle="tooltip" title="<?php echo $language['featured-categories'] ?>" class="featured col-5 my-1 mx-2 d-flex justify-content-center"><img src="../assests/images/stock/15883469225fc048184d737.jpg"></a>
 						</div>
 					</div>
 				</div>
@@ -149,7 +149,7 @@
 							</div>
 						</div>
 						<div class="col-sm-12 view-more">
-							<a href="productFilters.php?category_id=<?php echo $categoryData['categories_id']; ?>"><i class="fas fa-filter"></i> + View more</a>
+							<a href="productFilters.php?category_id=<?php echo $categoryData['categories_id']; ?>"><i class="fas fa-filter"></i> + <?php echo $language['view-more'] ?></a>
 						</div>
 					</div>
 					<?php  

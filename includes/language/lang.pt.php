@@ -41,6 +41,11 @@ $language['contact'] = 'Contacto';
 // Home
 $language['shop-by-categ'] = 'Comprar por categoria';
 $language['view-more'] = 'Ver mais';
+$language['Sig-in-f-a-better-experience'] = 'Autentique-se para uma melhor experiencia';
+$language['computers'] = 'Computadores';
+$language['hardware-and-network-parts'] = 'Hardware e preças de redes';
+$language['computer-components'] = 'Componentes de computadores';
+$language['featured-categories'] = 'Mistura de categorias';
 
 // Sidebar
 $language['brands'] = 'Marcas';
