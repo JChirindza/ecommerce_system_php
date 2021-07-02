@@ -1,4 +1,7 @@
 <?php
+// System in geral
+$language['no-data-found'] = 'Nenhum dado encontrado';
+
 // Login
 $language['login'] = 'Autenticação';
 $language['email'] = 'E-mail';
@@ -37,7 +40,6 @@ $language['store-location'] = 'Localização da Loja';
 $language['delivery-locations'] = 'Locais de entrega';
 $language['contact'] = 'Contacto';
 
-
 // Home
 $language['shop-by-categ'] = 'Comprar por categoria';
 $language['view-more'] = 'Ver mais';
@@ -46,6 +48,20 @@ $language['computers'] = 'Computadores';
 $language['hardware-and-network-parts'] = 'Hardware e preças de redes';
 $language['computer-components'] = 'Componentes de computadores';
 $language['featured-categories'] = 'Mistura de categorias';
+
+// Filters
+$language['filters'] = 'Filtros';
+$language['price'] = 'Preço';
+$language['show'] = 'Mostrar';
+$language['sort-by'] = 'Sortear por';
+$language['default'] = 'Padrão';
+$language['low-high'] = 'Preço (Baixo &gt; Alto)';
+$language['high-low'] = 'Preço (Alto &gt; Baixa)';
+$language['previous'] = 'Anterior';
+$language['next'] = 'Proximo';
+$language['goto'] = 'Ir para';
+$language['next-page'] = 'Proxima Pagina';
+$language['previous-page'] = 'Pagina Anterior';
 
 // Sidebar
 $language['brands'] = 'Marcas';

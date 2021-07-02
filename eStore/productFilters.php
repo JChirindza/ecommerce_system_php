@@ -17,15 +17,15 @@
 
 		<div class="m-0 p-0">
 			<ol class="breadcrumb bg-transparent m-0">
-				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
-				<li class="breadcrumb-item active">Filters</li>
+				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
+				<li class="breadcrumb-item active"><?php echo $language['filters'] ?></li>
 			</ol>
 		</div>
 
 		<div class="row bg-white mt-2 mt-md-0 mt-lg-0">      	
 			<div class="col-md-2 border-right p-3  ">                				
 				<div class="list-group filterByRate">
-					<h4>Price</h4>
+					<h4><?php echo $language['price'] ?></h4>
 					<?php 
 
 					$sql = "SELECT Min(rate) as minPrice, Max(rate) as maxPrice FROM product WHERE active = 1";
@@ -48,7 +48,7 @@
 				</div>	
 
 				<div class="list-group mt-4 border-top filterByCategories">
-					<h4 class="mt-4">Categories</h4>
+					<h4 class="mt-4"><?php echo $language['categories'] ?></h4>
 					<div class="col-12 p-0">
 
 						<div style="height: auto; max-height: 200px; overflow-y: auto; overflow-x: hidden; ">
@@ -76,7 +76,7 @@
 				</div>
 
 				<div class="list-group mt-4 border-top">
-					<h4 class="mt-4">Brand</h4>
+					<h4 class="mt-4"><?php echo $language['brands'] ?></h4>
 					<div style="height: auto; max-height: 280px; overflow-y: auto; overflow-x: hidden;">
 						<?php
 
@@ -115,14 +115,14 @@
 
 				<?php if (!isset($_SESSION['userId'])){ ?>
 					<div class="d-flex justify-content-center mt-5">
-						<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
+						<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a>
 					</div>
 				<?php } ?>
 			</div>
 
 			<div class="col-sm-12 col-md-10 col-lg-10">
 				<div class="row p-2 justify-content-end">
-					<div class="limit ">Show:
+					<div class="limit "><?php echo $language['show'] ?>:
 						<select id="product_limit">
 							<option value="8">8</option>
 							<option value="12">12</option>
@@ -130,13 +130,13 @@
 							<option value="28">28</option>
 						</select>
 					</div>
-					<div class="sort pl-4">Sort By:
+					<div class="sort pl-4"><?php echo $language['sort-by'] ?>:
 						<select id="product_sort">
-							<option value="1">Default</option>
-							<option value="2">Name (A - Z)</option>
-							<option value="3">Name (Z - A)</option>
-							<option value="4">Price (Low &gt; High)</option>
-							<option value="5">Price (High &gt; Low)</option>
+							<option value="1"><?php echo $language['default'] ?></option>
+							<option value="2"><?php echo $language['name'] ?> (A - Z)</option>
+							<option value="3"><?php echo $language['name'] ?> (Z - A)</option>
+							<option value="4"><?php echo $language['low-high'] ?></option>
+							<option value="5"><?php echo $language['high-low'] ?></option>
 						</select>
 					</div>
 				</div>

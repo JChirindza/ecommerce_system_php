@@ -1,4 +1,7 @@
 <?php
+// System in geral
+$language['no-data-found'] = 'No Data Found';
+
 // Login
 $language['login'] = 'Login';
 $language['email'] = 'Email';
@@ -45,6 +48,18 @@ $language['computers'] = 'Computers';
 $language['hardware-and-network-parts'] = 'Hardware and network parts';
 $language['computer-components'] = 'Computer components';
 $language['featured-categories'] = 'Featured categories';
+
+// Filters
+$language['filters'] = 'Filters';
+$language['price'] = 'Price';
+$language['show'] = 'Show';
+$language['sort-by'] = 'Sort By';
+$language['default'] = 'Defualt';
+$language['low-high'] = 'Price (Low &gt; High)';
+$language['high-low'] = 'Price (High &gt; Low)';
+$language['previous'] = 'Previous';
+$language['next'] = 'Next';
+$language['goto'] = 'Go to';
 
 // Sidebar
 $language['brands'] = 'Brands';

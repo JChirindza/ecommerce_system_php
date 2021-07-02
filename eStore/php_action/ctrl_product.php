@@ -70,6 +70,13 @@ function filterProducts(){
 	require_once 'db_connect.php';
 	require_once 'ctrl_pagination.php';
 
+	// Multi-lingual
+	$lang = 'pt';
+	if (isset($_GET['lang'])) {
+		$lang = $_GET['lang'];
+	}
+	require_once '../../includes/language/lang.'.$lang.'.php';
+
 	if(isset($_POST["action"])) {
 
 		$sql = "SELECT * FROM product WHERE  active = '1'";
@@ -174,7 +181,7 @@ function filterProducts(){
 						
 						if (($row > 1) && ($pn > 1)) {
 							
-							$output .= '<a class="previous-page" id="prev-page" href="'.$queryString.'category_id='.$categ_id.'&page='.(($pn-1)).' " title="Previous Page"><span>&#10094; Previous</span></a>';
+							$output .= '<a class="previous-page" id="prev-page" href="'.$queryString.'category_id='.$categ_id.'&page='.(($pn-1)).' " title="'.$language['previous-page'].'"><span>&#10094; '.$language['previous'].'</span></a>';
 						
 						}
 						if (($pn - 1) > 1) {
@@ -211,7 +218,7 @@ function filterProducts(){
 							$output .= '<a href="productFilters.php?category_id='. $categ_id .'&page='. $totalPages .' "><div class="'. $class .'">'. $totalPages .'</div></a>';
 						}
 						if (($row > 1) && ($pn < $totalPages)) {
-							$output .= '<a class="next" id="next-page" href="'.$queryString.'category_id='. $categ_id .'&page='. (($pn+1)).' " title="Next Page"><span>Next &#10095;</span></a> ';
+							$output .= '<a class="next" id="next-page" href="'.$queryString.'category_id='. $categ_id .'&page='. (($pn+1)).' " title="'.$language['next-page'].'"><span>'.$language['next'].' &#10095;</span></a> ';
 						}
 
 					$output .= '
@@ -220,7 +227,7 @@ function filterProducts(){
 					<!-- Go to page -->
 					<div class="goto-page col-3 m-auto d-flex justify-content-end">
 						<form action="" method="GET" onsubmit="return pageValidation()" class="m-auto">
-							<input type="submit" class="goto-button" value="Go to"> 
+							<input type="submit" class="goto-button" value="'.$language['goto'].'"> 
 							<input type="text" class="enter-page-no" name="page" min="1" id="page-no" style="width: 42px;"> 
 							<input type="hidden" id="total-page" value="'. $totalPages.'">
 						</form>
@@ -229,7 +236,7 @@ function filterProducts(){
 			';
 		}else{
 			$output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
-			<h5 class="p-5 text-muted">No Data Found</h5></div>';
+			<h5 class="p-5 text-muted">'.$language['no-data-found'].'</h5></div>';
 		}
 		echo $output;
 	}
