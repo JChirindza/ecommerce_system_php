@@ -90,7 +90,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 						<?php 
 					}else{ ?>
 						<li class="nav-item border-primary navLogin pl-4">
-							<a class="nav-link text-white border btn pl-4 pr-4 d-flex justify-content-center" href="../sign-in.php" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock fa-lg mr-2"></i> <?php echo $language['sign-in'] ?></a>
+							<a class="nav-link text-white border btn pl-4 pr-4 d-flex justify-content-center" href="../sign-in.php"><i class="fas fa-unlock fa-lg mr-2"></i> <?php echo $language['sign-in'] ?></a>
 						</li>
 						<?php
 					} ?>
