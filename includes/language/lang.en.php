@@ -37,6 +37,10 @@ $language['store-location'] = 'Store Location';
 $language['delivery-locations'] = 'Delivery locations';
 $language['contact'] = 'Contact';
 
+// Home
+$language['shop-by-categ'] = 'Shop by category';
+$language['view-more'] = 'View more';
+
 // Sidebar
 $language['brands'] = 'Brands';
 $language['categories'] = 'Categories';

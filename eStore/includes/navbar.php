@@ -1,3 +1,12 @@
+<?php  
+// Multi-lingual
+$lang = 'en';
+if (isset($_GET['lang'])) {
+	$lang = $_GET['lang'];
+}
+require_once '../includes/language/lang.pt.php';
+?>
+
 <?php 
 require_once 'php_action/db_connect.php';
 
@@ -55,7 +64,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	</div>
 	<div class="col-sm-6 col-md-4 col-lg-6">
 		<div class="input-group col-12 m-auto">
-			<input type="text" class="col-10 rounded-left border-0" id="myInput" placeholder="Search..." name="search">
+			<input type="text" class="col-10 rounded-left border-0" id="myInput" placeholder="<?php echo $language['search'] ?>..." name="search">
 			<div class="col-2 p-0 input-group-append">
 				<button type="button" class="btn btn-primary"><i class="fas fa-search"></i></button>
 			</div>
@@ -81,7 +90,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 						<?php 
 					}else{ ?>
 						<li class="nav-item border-primary navLogin pl-4">
-							<a class="nav-link text-white border btn pl-4 pr-4 d-flex justify-content-center" href="../sign-in.php" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock fa-lg mr-2"></i> Login</a>
+							<a class="nav-link text-white border btn pl-4 pr-4 d-flex justify-content-center" href="../sign-in.php" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock fa-lg mr-2"></i> <?php echo $language['sign-in'] ?></a>
 						</li>
 						<?php
 					} ?>
@@ -97,11 +106,11 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 										<img class="img-profile rounded-circle border border-info" id="getUserImageNav"  style="width: 35px; height: 35px;">
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-										<div class="dropdown-header disabled text-center p-0 m-0 text-gray">Hello, <?php echo $username; ?></div>
+										<div class="dropdown-header disabled text-center p-0 m-0 text-gray"><?php echo $language['hello'] ?>, <?php echo $username; ?></div>
 										<div class="dropdown-divider my-0 py-0"></div>
-										<a id="topNavSetting" class="dropdown-item" href="setting.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Settings</a>
+										<a id="topNavSetting" class="dropdown-item" href="setting.php"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i><?php echo $language['settings'] ?></a>
 										<div class="dropdown-divider my-0 py-0"></div>
-										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</a>
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i><?php echo $language['sign-out'] ?></a>
 									</div>
 								</li>
 							</ul>
@@ -120,29 +129,20 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Do you really want to logout?</h5>
+				<h5 class="modal-title" id="exampleModalLabel"><?php echo $language['do-you-r-w-to-exit'] ?>?</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">Select <label class="text-muted"><i class="fas fa-sign-out-alt"></i> Logout </label> if you want to end the session.</div>
+			<div class="modal-body"><?php echo $language['select'] ?> <label class="text-muted"><i class="fas fa-sign-out-alt"></i> <?php echo $language['sign-out'] ?> </label> <?php echo $language['if-y-w-end-session'] ?>.</div>
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-times"></i></button>
-				<a class="btn btn-primary" href="../sign-out.php"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+				<a class="btn btn-primary" href="../sign-out.php"><i class="fas fa-sign-out-alt mr-2"></i><?php echo $language['sign-out'] ?></a>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Login Modal-->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-body">
-			</div>
-		</div>
-	</div>
-</div>
 <script type="text/javascript">
 	var userid = <?php echo $userID; ?>;
 	if(userid) {
