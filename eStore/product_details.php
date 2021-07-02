@@ -5,14 +5,14 @@
 
 		<div class="m-0 p-0">
 			<ol class="breadcrumb bg-transparent m-0">
-				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
-				<li class="breadcrumb-item active">Details</li>
+				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
+				<li class="breadcrumb-item active"><?php echo $language['details'] ?></li>
 			</ol>
 		</div>
 		
 		<div class="row mt-2 mt-md-0 mt-lg-0">
 			<div class="col-sm-12 bg-white p-3 productDetails">
-				<h4><i class="fas fa-list"></i> Product details </h4>
+				<h4><i class="fas fa-list"></i> <?php echo $language['prod-details'] ?> </h4>
 
 				<!-- Product Details -->
 				<?php  
@@ -68,7 +68,7 @@
 									<div id="add-to-cart-messages_<?php echo $product_id; ?>"></div>
 									<div class="row">
 										<div class="col-md-6 col-lg-6">
-											<div class="product-brand-details">Marca <?php echo $result2['brand_name']; ?> </div>
+											<div class="product-brand-details"><?php echo $language['brand'].' '.$result2['brand_name']; ?> </div>
 
 											<div class="product-stars-details">
 												<h6>
@@ -88,10 +88,10 @@
 
 										<div class="col-md-6 col-lg-6 mt-4">
 											<div class="form-group col-12 m-0 p-0">
-												<label for="quantity" class="col-sm-4 control-label">Quantity: </label>
+												<label for="quantity" class="col-sm-4 control-label"><?php echo $language['quantity'] ?>: </label>
 												<div class="col-sm-8">
-													<input type="number" class="form-control font-weight-bold" id="quantity" placeholder="Quantity" name="quantity" autocomplete="off" min="1" max="<?php echo $row['quantity']; ?>" value="1">
-													<label class="text-muted font-weight-light">Available: <?php echo $row['quantity']; ?></label>
+													<input type="number" class="form-control font-weight-bold" id="quantity" placeholder="<?php echo $language['quantity'] ?>" name="quantity" autocomplete="off" min="1" max="<?php echo $row['quantity']; ?>" value="1">
+													<label class="text-muted font-weight-light"><?php echo $language['available'] ?>: <?php echo $row['quantity']; ?></label>
 												</div>
 											</div>
 										</div>
@@ -99,7 +99,7 @@
 
 									<div class="col-md-5 p-0">
 										<div class="cart mt-4">
-											<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $product_id; ?>);" data-loading-text="Loading..." autocomplete="off" title="Add to cart"><i class="fas fa-cart-arrow-down"></i>
+											<a class="btn btn-sm add-to-cart" id="addToCartBtn" onclick="addProductToCart(<?php echo $product_id; ?>);" data-loading-text="Loading..." autocomplete="off" title="Adicionar ao carrinho"><i class="fas fa-cart-arrow-down"></i>
 											</a>
 										</div>
 									</div>
@@ -111,7 +111,7 @@
 					}
 				}else {
 					echo $output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
-					<h5 class="p-5 text-muted">No Data Found</h5></div>
+					<h5 class="p-5 text-muted">'.$language['no-data-found'].'</h5></div>
 					';
 				}
 				?>
@@ -120,14 +120,14 @@
 		
 		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-md-6 col-lg-6 bg-white p-3 technicalDetails">
-				<h4><i class="fas fa-info-circle"></i> Technical details </h4>
+				<h4><i class="fas fa-info-circle"></i> <?php echo $language['technical-details'] ?> </h4>
 				<div class="table-responsive">
 					<table class="table" id="productDetailsTable">
 						<thead class="bg-light border">
 							<tr>							
 								<th width="5%">#</th>
-								<th width="45%" class="text-center">Detail</th>
-								<th class="text-center">Description</th>
+								<th width="45%" class="text-center"><?php echo $language['details'] ?></th>
+								<th class="text-center"><?php echo $language['description'] ?></th>
 							</tr>
 						</thead>
 						<tbody class="border">
@@ -154,7 +154,7 @@
 								?>
 								<tr class="text-center">
 									<td></td>
-									<td width="100%">No Data Found.</td>
+									<td width="100%"><?php echo $language['no-data-found'] ?>.</td>
 									<td></td>
 								</tr>
 								<!-- fim do IF -->
@@ -165,7 +165,7 @@
 			</div>
 
 			<div class="col-md-6 col-lg-6 bg-white p-3 productDesctiption">
-				<h4><i class="fas fa-info-circle"></i> Product description </h4>
+				<h4><i class="fas fa-info-circle"></i> <?php echo $language['product-description'] ?> </h4>
 				<div class="row product_description m-2">
 					<li>1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
@@ -187,7 +187,7 @@
 
 		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-12 bg-white p-3 relatedProducts">
-				<h4><i class="fas fa-network-wired"></i> Related products </h4>
+				<h4><i class="fas fa-network-wired"></i> <?php echo $language['related-products'] ?> </h4>
 
 				<!-- Produtos Relacionados -->
 				<div class="row related_products"></div>
@@ -195,7 +195,7 @@
 		</div>
 		<div class="row mt-2 mt-md-3 mt-lg-4">
 			<div class="col-sm-12 bg-white p-3 compareSimilars">
-				<h4><i class="fas fa-network-wired"></i> Compare with similar </h4>
+				<h4><i class="fas fa-network-wired"></i> <?php echo $language['compare-w-similar'] ?> </h4>
 
 				<!-- Compare with Similar -->
 				<div class="row compare_similar"></div>
@@ -282,7 +282,7 @@
 							}else{
 								?>
 								<tr class="text-center">
-									<td width="100%">Nothing to compare... No Similar products found.</td>
+									<td width="100%"><?php echo $language['nothing-to-compare-no-similar-prod-found'] ?>.</td>
 								</tr>
 								<!-- fim do IF -->
 							<?php } ?>

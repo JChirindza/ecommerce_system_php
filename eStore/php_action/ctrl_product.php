@@ -23,6 +23,16 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 function fetchRelated(){
 	require_once 'db_connect.php';
 
+	// Multi-lingual
+	$lang = 'en';
+	if (isset($_SESSION['lang'])) {
+		$lang = $_SESSION['lang'];
+	}
+	if (isset($_GET['lang'])) {
+		$lang = $_GET['lang'];
+	}
+	require_once '../../includes/language/lang.'.$lang.'.php';
+
 	if(isset($_POST["product_id"])) {
 
 		$product_id = $_POST['product_id'];
@@ -50,7 +60,7 @@ function fetchRelated(){
 				<div class="product-img">
 				<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 100px; " >
 				</div>
-				<div class="product-brand" style= "text-align: center;">Marca '. $result2['brand_name'] .' </div>
+				<div class="product-brand" style= "text-align: center;">'.$language['brand'].' '. $result2['brand_name'] .' </div>
 
 				<input type="hidden" name="product_id" id="product_id" value="'. $row['product_id'] .'" />
 				</div>
@@ -71,7 +81,10 @@ function filterProducts(){
 	require_once 'ctrl_pagination.php';
 
 	// Multi-lingual
-	$lang = 'pt';
+	$lang = 'en';
+	if (isset($_SESSION['lang'])) {
+		$lang = $_SESSION['lang'];
+	}
 	if (isset($_GET['lang'])) {
 		$lang = $_GET['lang'];
 	}
@@ -151,7 +164,7 @@ function filterProducts(){
 							<div class="col-md-12 product-img" style="display: flex; justify-content: center; align-items: center;">
 							<img src="../src/'. $row['product_image'] .'" class="img-fluid" style="height: 200px; " >
 							</div>
-							<div class="product-brand">Brand '. $result2['brand_name'] .' </div>
+							<div class="product-brand">'.$language['brand'].' '. $result2['brand_name'] .' </div>
 							<div class="product-name card-body">
 							<p align="center"><strong><a href="product_details.php?product_id='. $row['product_id'] .'" class="" data-toggle="tooltip" title="'. $row['product_name'] .'">'. $row['product_name'] .'</a></strong></p>
 							</div>

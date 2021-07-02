@@ -63,6 +63,22 @@ $language['goto'] = 'Ir para';
 $language['next-page'] = 'Proxima Pagina';
 $language['previous-page'] = 'Pagina Anterior';
 
+// Product details
+$language['details'] = 'Detalhes';
+$language['prod-details'] = 'Detalhes do produto';
+$language['quantity'] = 'Quantidade';
+$language['available'] = 'Disponivel';
+$language['add-to-cart'] = 'Adicionar ao carrinho';
+$language['technical-details'] = 'Detalhes tecnicos';
+$language['Detail'] = 'Detalhes';
+$language['description'] = 'Descricão';
+$language['product-description'] = 'Descricão do produto';
+$language['related-products'] = 'Productos relacionados';
+$language['compare-w-similar'] = 'Compare com similares';
+$language['paid'] = 'Pago';
+$language['not-paid'] = 'Nao foi pago';
+$language['nothing-to-compare-no-similar-prod-found'] = 'Nada para comparar... Nenhum produto similar encontrado';
+
 // Sidebar
 $language['brands'] = 'Marcas';
 $language['categories'] = 'Categorias';

@@ -9,7 +9,7 @@ $language['password'] = 'Password';
 $language['forgot-password'] = 'Forgot password';
 $language['create-new-account'] = 'Create new account';
 $language['back'] = 'back';
-$language['sign-in'] = 'Sign-in';
+$language['sign-in'] = 'Sign˗in';
 
 // Create Account
 $language['create-account'] = 'Create Account';
@@ -60,6 +60,24 @@ $language['high-low'] = 'Price (High &gt; Low)';
 $language['previous'] = 'Previous';
 $language['next'] = 'Next';
 $language['goto'] = 'Go to';
+$language['next-page'] = 'Next Page';
+$language['previous-page'] = 'Previous Page';
+
+// Product details
+$language['details'] = 'Details';
+$language['prod-details'] = 'Product details';
+$language['quantity'] = 'Quantity';
+$language['available'] = 'Available';
+$language['add-to-cart'] = 'Add to cart';
+$language['technical-details'] = 'Technical details';
+$language['Detail'] = 'Detail';
+$language['description'] = 'Description';
+$language['product-description'] = 'Product description';
+$language['related-products'] = 'Related products';
+$language['compare-w-similar'] = 'Compare with similar';
+$language['paid'] = 'Paid';
+$language['not-paid'] = 'Not paid';
+$language['nothing-to-compare-no-similar-prod-found'] = 'Nothing to compare... No Similar products found';
 
 // Sidebar
 $language['brands'] = 'Brands';
