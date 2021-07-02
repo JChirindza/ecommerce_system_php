@@ -21,10 +21,10 @@
                          </div>
                          <ul class="menu-main">
                               <li>
-                                   <a href="home.php">Home</a>
+                                   <a href="home.php"><?php echo $language['home'] ?></a>
                               </li>
                               <li class="menu-item-has-children">
-                                   <a href="#">Categories <i class="fa fa-angle-down"></i></a>
+                                   <a href="#"><?php echo $language['categories'] ?> <i class="fa fa-angle-down"></i></a>
                                    <div class="sub-menu mega-menu mega-menu-column-4">
                                         <?php  
                                         // Visualiza categorias activas com pelomenos um produto activo e relacionado a categoria
@@ -55,7 +55,7 @@
                                    </div>
                               </li>
                               <li class="menu-item-has-children">
-                                   <a href="#">Pages <i class="fas fa-angle-down"></i></a>
+                                   <a href="#"><?php echo $language['pages'] ?> <i class="fas fa-angle-down"></i></a>
                                    <div class="sub-menu single-column-menu">
                                         <ul>
                                              <?php if (isset($_SESSION['userId'])){ ?>
@@ -64,13 +64,13 @@
                                                   <li><a href="../sign-in.php">Login</a></li>
                                                   <li><a href="../sign-up.php">Register</a></li>
                                              <?php } ?>
-                                             <li><a href="#">Store Location</a></li>
-                                             <li><a href="#">Delivery Locations</a></li>
+                                             <li><a href="#"><?php echo $language['store-location'] ?></a></li>
+                                             <li><a href="#"><?php echo $language['delivery-locations'] ?></a></li>
                                         </ul>
                                    </div>
                               </li>
                               <li>
-                                   <a href="#">Contact</a>
+                                   <a href="#"><?php echo $language['contact'] ?></a>
                               </li>
                          </ul>
                     </nav>

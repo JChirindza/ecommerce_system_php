@@ -35,7 +35,7 @@ $language['home'] = 'Pagina Inicial';
 $language['pages'] = 'Paginas';
 $language['store-location'] = 'Localização da Loja';
 $language['delivery-locations'] = 'Locais de entrega';
-$language['contact'] = 'Contato';
+$language['contact'] = 'Contacto';
 
 
 // Home
