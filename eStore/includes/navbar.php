@@ -1,10 +1,13 @@
 <?php  
 // Multi-lingual
 $lang = 'en';
+if (isset($_SESSION['lang'])) {
+	$lang = $_SESSION['lang'];
+}
 if (isset($_GET['lang'])) {
 	$lang = $_GET['lang'];
 }
-require_once '../includes/language/lang.pt.php';
+require_once '../includes/language/lang.'.$lang.'.php';
 ?>
 
 <?php 
@@ -90,7 +93,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 						<?php 
 					}else{ ?>
 						<li class="nav-item border-primary navLogin pl-4">
-							<a class="nav-link text-white border btn pl-4 pr-4 d-flex justify-content-center" href="../sign-in.php"><i class="fas fa-unlock fa-lg mr-2"></i> <?php echo $language['sign-in'] ?></a>
+							<a class="nav-link text-white border btn pl-4 pr-4 d-flex justify-content-center" href="../sign-in.php"><i class="fas fa-unlock fa-lg mr-2"></i> <?php echo $language['sign-in']; ?></a>
 						</li>
 						<?php
 					} ?>

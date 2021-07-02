@@ -122,7 +122,7 @@
 														<img src="../src/<?php echo $productData['product_image']; ?>" class="img-fluid" style="height: 200px; " >
 													</div>
 													<div id="add-to-cart-messages_<?php echo $productData['product_id'] ?>"></div>
-													<div class="product-brand">Brand <?php echo $productData['brand_name']; ?> </div>
+													<div class="product-brand"> <?php echo $language['brand'].' '.$productData['brand_name']; ?> </div>
 													<div class="product-name card-body">
 														<p align="center"><strong><a href="product_details.php?product_id=<?php echo $productData['product_id']; ?>" class="" data-toggle="tooltip" title="<?php echo $productData['product_name']; ?>"><?php echo $productData['product_name']; ?></a></strong></p>
 													</div>
