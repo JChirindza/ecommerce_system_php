@@ -136,7 +136,7 @@ if($_POST) {
                                         <a href="sign-in.php" id="back" class="font-weight-light">
                                             <label class="text-muted"><?php echo $language['already-have-account'] ?>?</label>
                                             <i class="fas fa-sign-in-alt"></i> 
-                                            Login
+                                            <?php echo $language['sign-in'] ?>
                                         </a>
                                     </div>
                                 </div>
