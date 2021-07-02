@@ -16,6 +16,27 @@ $language['register-account'] = 'Register Account';
 $language['already-have-account'] = 'Already have account';
 $language['create-account-info-msg'] = 'By creating an account you will be able to shop faster, be up to date on an order\'s status, and keep track of the orders you have previously made';
 
+// Navbar - management & store
+$language['search'] = 'Search';
+$language['hello'] = 'Hello';
+$language['settings'] = 'Settings';
+$language['sign-out'] = 'Sign-out';
+$language['do-you-r-w-to-exit'] = 'Do you really want exit';
+$language['if-y-w-end-session'] = 'if you want to end the session';
+$language['do-y-r-w-change-this-user'] = 'Do you really want to change this user';
+$language['select'] = 'Select';
+$language['change'] = 'Change';
+$language['if-y-w-end-session-and-sign-in-w-o-user'] = 'if you want to end this session and sign-in with other user';
+$language['change-user'] = 'Change user';
+
+// Navbar 2 - store
+$language['brand'] = 'Brand';
+$language['home'] = 'Home';
+$language['pages'] = 'Pages';
+$language['store-location'] = 'Store Location';
+$language['delivery-locations'] = 'Delivery locations';
+$language['contact'] = 'Contact';
+
 // Sidebar
 $language['brands'] = 'Brands';
 $language['categories'] = 'Categories';
