@@ -1,4 +1,8 @@
 <?php  
+require_once 'php_action/db_connect.php';
+
+session_start();
+
 // Multi-lingual
 $lang = 'en';
 if (isset($_SESSION['lang'])) {
@@ -8,12 +12,6 @@ if (isset($_GET['lang'])) {
 	$lang = $_GET['lang'];
 }
 require_once '../includes/language/lang.'.$lang.'.php';
-?>
-
-<?php 
-require_once 'php_action/db_connect.php';
-
-session_start();
 
 if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	if($_SESSION['userType'] == 1) {
