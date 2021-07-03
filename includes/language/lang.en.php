@@ -79,6 +79,21 @@ $language['paid'] = 'Paid';
 $language['not-paid'] = 'Not paid';
 $language['nothing-to-compare-no-similar-prod-found'] = 'Nothing to compare... No Similar products found';
 
+// Settings
+$language['setting'] = 'Setting';
+$language['edit-profile'] = 'Edit profile';
+$language['edit-photo'] = 'Edit photo';
+$language['edit-user-name'] = 'Edit user name';
+$language['edit-email'] = 'Edit email';
+$language['edit-password'] = 'Edit password';
+$language['user-image'] = 'User image';
+$language['select-photo'] = 'Select photo';
+$language['cancel'] = 'Cancel';
+$language['browse'] = 'Browse';
+$language['save-changes'] = 'Save Changes';
+$language['current-pass'] = 'Current password';
+$language['new-pass'] = 'New password';
+
 // Sidebar
 $language['brands'] = 'Brands';
 $language['categories'] = 'Categories';

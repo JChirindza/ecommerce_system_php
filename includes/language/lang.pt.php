@@ -76,8 +76,22 @@ $language['product-description'] = 'Descricão do produto';
 $language['related-products'] = 'Productos relacionados';
 $language['compare-w-similar'] = 'Compare com similares';
 $language['paid'] = 'Pago';
-$language['not-paid'] = 'Nao foi pago';
+$language['not-paid'] = 'Não foi pago';
 $language['nothing-to-compare-no-similar-prod-found'] = 'Nada para comparar... Nenhum produto similar encontrado';
+
+// Settings
+$language['edit-profile'] = 'Alterar perfil';
+$language['edit-photo'] = 'Alterar foto';
+$language['edit-user-name'] = 'Alterar nome do usuário';
+$language['edit-email'] = 'Alterar e-mail';
+$language['edit-password'] = 'Alterar senha';
+$language['user-image'] = 'Imagem do usuário';
+$language['select-photo'] = 'Seleccionar foto';
+$language['cancel'] = 'Cancelar';
+$language['browse'] = 'Buscar';
+$language['save-changes'] = 'Salvar Alteracões';
+$language['current-pass'] = 'Senha atual';
+$language['new-pass'] = 'Nova senha';
 
 // Sidebar
 $language['brands'] = 'Marcas';
