@@ -1,6 +1,6 @@
 <?php if (!isset($_SESSION['userId'])){ ?>
 	<div class="d-flex justify-content-center m-4">
-		<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
+		<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a>
 	</div>
 <?php } ?>
 <footer class="sticky-footer bg-white mt-1" style="margin-bottom: auto!important;">
