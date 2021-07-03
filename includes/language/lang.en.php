@@ -185,4 +185,11 @@ $language['add-subcategory'] = 'Add subcategory';
 $language['subcateg-name'] = 'Subcategory name';
 $language['remove-subcategory'] = 'Remove Subcategory';
 $language['manage'] = 'Manage';
+
+// Brands
+$language['add-brand'] = 'Add brand';
+$language['manage-brands'] = 'Manage Brands';
+$language['brand-name'] = 'Brand name';
+$language['edit-brand'] = 'Edit brand';
+$language['remove-brand'] = 'Remove brand';
 ?>
