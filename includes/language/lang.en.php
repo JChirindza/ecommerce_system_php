@@ -94,6 +94,27 @@ $language['save-changes'] = 'Save Changes';
 $language['current-pass'] = 'Current password';
 $language['new-pass'] = 'New password';
 
+// Cart
+$language['carts'] = 'Carts';
+$language['cart-items'] = 'Cart items';
+$language['checkout'] = 'Checkout';
+$language['finalize'] = 'Finalize';
+$language['manage-carts'] = 'Manage Carts';
+$language['created-on'] = 'Created on';
+$language['total-items'] = 'Total items';
+$language['payment-status'] = 'Payment status';
+$language['option'] = 'Option';
+$language['remove-cart'] = 'Remove cart';
+$language['do-y-really-w-to-remove'] = 'Do you really want to remove';
+$language['remove-cart-item'] = 'Remove Cart Item';
+
+// Cart items
+$language['manage-cart-items'] = 'Manage Cart Items';
+$language['image'] = 'Image';
+$language['product-name'] = 'Product name';
+$language['remove'] = 'Remove';
+$language['continue-shopping'] = 'Continue Shopping';
+
 // Sidebar
 $language['brands'] = 'Brands';
 $language['categories'] = 'Categories';

@@ -4,12 +4,15 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	<div class="p-4">
 		<div class="alert alert-warning" role="alert">
 			<i class="fas fa-exclamation-triangle"></i>
-			Nao tem permissao para aceder a esta pagina.
-		</div>
-		<div class="d-flex justify-content-center mt-5">
-			<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> Login</a>
+			<?php echo $language['access-403'] ?>.
 		</div>
 	</div>
+	<div class="d-flex justify-content-center mt-5">
+		
+
+		<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a></a>
+	</div>
+</div>
 	<?php
 	die();
 }
@@ -19,10 +22,10 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 
 		<div class="m-0 p-0">
 			<ol class="breadcrumb bg-transparent m-0">
-				<li class="breadcrumb-item"><a href="home.php">Home</a></li>
-				<li class="breadcrumb-item"><a href="cart.php?c=carts">Carts</a></li>
+				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
+				<li class="breadcrumb-item"><a href="cart.php?c=carts"><?php echo $language['carts'] ?></a></li>
 				<?php if($_GET['c'] == 'cartItems') { ?>
-					<li class="breadcrumb-item active">Cart items</li>
+					<li class="breadcrumb-item active"><?php echo $language['cart-items'] ?></li>
 				<?php } ?>
 			</ol>
 		</div>
@@ -33,15 +36,15 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 					<div class="process-wrap mt-4">
 						<div class="process text-center">
 							<p><span>01</span></p>
-							<label>Cart items</label>
+							<label><?php echo $language['cart-items'] ?></label>
 						</div>
 						<div class="process text-center">
 							<p><span>02</span></p>
-							<label>Checkout</label>
+							<label><?php echo $language['checkout'] ?></label>
 						</div>
 						<div class="process text-center">
 							<p><span>03</span></p>
-							<label>Finalize</label>
+							<label><?php echo $language['finalize'] ?></label>
 						</div>
 					</div>
 				</div>
@@ -52,15 +55,15 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 					<div class="process-wrap mt-4">
 						<div class="process text-center active">
 							<p><span><i class="fas fa-check"></i></span></p>
-							<label>Cart items</label>
+							<label><?php echo $language['cart-items'] ?></label>
 						</div>
 						<div class="process text-center">
 							<p class="next"><span>02</span></p>
-							<label>Checkout</label>
+							<label><?php echo $language['checkout'] ?></label>
 						</div>
 						<div class="process text-center">
 							<p><span>03</span></p>
-							<label>Finalize</label>
+							<label><?php echo $language['finalize'] ?></label>
 						</div>
 					</div>
 				</div>
@@ -75,9 +78,9 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 				<div class="card">
 					<div class="card-header bg-white d-sm-flex align-items-center justify-content-between">
 						<?php if($_GET['c'] == 'carts') { // manage carts ?>
-							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> Manage Carts</h6>
+							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-carts'] ?></h6>
 						<?php }elseif($_GET['c'] == 'cartItems'){ ?>
-							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> Manage Cart Items</h6>
+							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-cart-items'] ?></h6>
 						<?php } ?>
 						
 					</div>
@@ -92,10 +95,10 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 									<thead>
 										<tr>		
 											<th style="width:5%;">#</th>
-											<th style="width:20%;">Created on</th>
-											<th style="width:10%">Total Items</th>
-											<th style="width:20%;">Payment Status</th>
-											<th style="width:10%;">Option</th>
+											<th style="width:20%;"><?php echo $language['created-on'] ?></th>
+											<th style="width:10%"><?php echo $language['total-items'] ?></th>
+											<th style="width:20%;"><?php echo $language['payment-status'] ?></th>
+											<th style="width:10%;"><?php echo $language['option'] ?></th>
 										</tr>
 									</thead>
 								</table>
@@ -115,12 +118,12 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 								<table class="table border-bottom" id="manageCartItemTable">
 									<thead>
 										<tr>			
-											<th style="width:10%;">Image</th> 			
-											<th style="width:40%;">Product Name</th>
-											<th style="width:15%;">Price</th>
-											<th style="width:15%;">Quantity</th>			  			
-											<th style="width:15%;">Total</th>			  			
-											<th style="width:5%;">Remove</th>
+											<th style="width:10%;"><?php echo $language['image'] ?></th> 			
+											<th style="width:40%;"><?php echo $language['product-name'] ?></th>
+											<th style="width:15%;"><?php echo $language['price'] ?></th>
+											<th style="width:15%;"><?php echo $language['quantity'] ?></th>			  			
+											<th style="width:15%;"><?php echo $language['total'] ?></th>			  			
+											<th style="width:5%;"><?php echo $language['remove'] ?></th>
 										</tr>
 									</thead>
 								</table>
@@ -132,15 +135,15 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 									<div class="grand-total border pt-3">
 										<p>
 											<span>
-												<strong class="text-muted">Total: </strong>
+												<strong class="text-muted"><?php echo $language['total'] ?>: </strong>
 											</span>
 											<span id="subTotalValue_cartItem" class="font-weight-bold"></span>
 										</p>
 									</div>
 									<div class="">
 										<div class="row">
-											<p><a href="home.php" class="btn btn-primary rounded-0"> Continue Shopping </a></p>
-											<p><a href="checkout.php?i=<?php echo $_GET['i']; ?>" class="btn btn-success rounded-0"> Checkout </a></p>
+											<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
+											<p><a href="checkout.php?i=<?php echo $_GET['i']; ?>" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
 										</div>
 									</div>
 								</div>
@@ -158,17 +161,17 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-trash"></i> Remove Cart</h4>
+				<h4 class="modal-title"><i class="fas fa-trash"></i> <?php echo $language['remove-cart'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="removeCartMessages"></div>
 
-				<p>Do you really want to remove ?</p>
+				<p><?php echo $language['do-y-really-w-to-remove'] ?> ?</p>
 			</div>
 			<div class="modal-footer removeCartFooter">
 				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-danger" id="removeCartBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> Save changes</button>
+				<button type="button" class="btn btn-danger" id="removeCartBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> <?php echo$language['remove'] ?></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -180,17 +183,17 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-trash"></i> Remove Cart Item</h4>
+				<h4 class="modal-title"><i class="fas fa-trash"></i> <?php echo $language['remove-cart-item'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="removeCartItemMessages"></div>
 
-				<p>Do you really want to remove ?</p>
+				<p><?php echo $language['do-y-really-w-to-remove'] ?> ?</p>
 			</div>
 			<div class="modal-footer removeCartItemFooter">
 				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-danger" id="removeCartItemBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> Save changes</button>
+				<button type="button" class="btn btn-danger" id="removeCartItemBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> <?php echo$language['remove'] ?></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

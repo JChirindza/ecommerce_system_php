@@ -93,6 +93,27 @@ $language['save-changes'] = 'Salvar Alteracões';
 $language['current-pass'] = 'Senha atual';
 $language['new-pass'] = 'Nova senha';
 
+// Cart
+$language['carts'] = 'Carrinhos';
+$language['cart-items'] = 'Itens de carrinho';
+$language['checkout'] = 'Verificar';
+$language['finalize'] = 'Finalizar';
+$language['manage-carts'] = 'Gerir carrinhos';
+$language['created-on'] = 'Criado aos';
+$language['total-items'] = 'Total de itens';
+$language['payment-status'] = 'Estado de pagamento';
+$language['option'] = 'Opções';
+$language['remove-cart'] = 'Remover carrinho';
+$language['do-y-really-w-to-remove'] = 'Deseja realmente remover';
+$language['remove-cart-item'] = 'Remover Item de Carrinho';
+
+// Cart items
+$language['manage-cart-items'] = 'Gerir Itens de Carrinho';
+$language['image'] = 'Imagem';
+$language['product-name'] = 'Nome do producto';
+$language['remove'] = 'Remover';
+$language['continue-shopping'] = 'Continuar a comprar';
+
 // Sidebar
 $language['brands'] = 'Marcas';
 $language['categories'] = 'Categorias';
