@@ -114,6 +114,12 @@ $language['product-name'] = 'Nome do producto';
 $language['remove'] = 'Remover';
 $language['continue-shopping'] = 'Continuar a comprar';
 
+// Checkout
+$language['selected-items'] = 'Itens selecionados';
+$language['payment-options'] = 'Opções de pagamento';
+$language['choose-one-of-the-following-opt-to-finalize'] = 'Escolha uma das seguintes opções para finalizar';
+$language['back-to-cart'] = 'Voltar ao carrinho';
+
 // Sidebar
 $language['brands'] = 'Marcas';
 $language['categories'] = 'Categorias';
