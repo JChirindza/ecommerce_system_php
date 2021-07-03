@@ -1,6 +1,9 @@
 <?php
 // System in geral
 $language['no-data-found'] = 'No Data Found';
+$language['available'] = 'Available';
+$language['not-available'] = 'Not Available';
+$language['loading'] = 'Loading';
 
 // Login
 $language['login'] = 'Login';
@@ -63,11 +66,10 @@ $language['goto'] = 'Go to';
 $language['next-page'] = 'Next Page';
 $language['previous-page'] = 'Previous Page';
 
-// Product details
+// Product_details
 $language['details'] = 'Details';
 $language['prod-details'] = 'Product details';
 $language['quantity'] = 'Quantity';
-$language['available'] = 'Available';
 $language['add-to-cart'] = 'Add to cart';
 $language['technical-details'] = 'Technical details';
 $language['Detail'] = 'Detail';
@@ -153,4 +155,17 @@ $language['status'] = 'Status';
 $language['total-revenue'] = 'Total Revenue';
 $language['active'] = 'Active';
 $language['inactive'] = 'Inactive'; 
+
+// Users
+$language['add-users'] = 'Add users';
+$language['add-user'] = 'Add user';
+$language['total-users'] = 'Total Users';
+$language['manage-users'] = 'Manage Users';
+$language['photo'] = 'Photo';
+$language['edit-user'] = 'Edit user';
+$language['first-name'] = 'First name';
+$language['user-type'] = 'User type';
+$language['remove-user'] = 'Remove User';
+$language['options'] = 'Options';
+$language['change-information'] = 'Change Information';
 ?>

@@ -152,4 +152,17 @@ $language['status'] = 'Estado';
 $language['total-revenue'] = 'Total Ganho';
 $language['active'] = 'Ativo';
 $language['inactive'] = 'Inativo';
+
+// Users
+$language['add-users'] = 'Adicionar usuários';
+$language['add-user'] = 'Adicionar usuário';
+$language['total-users'] = 'Total de usuários';
+$language['manage-users'] = 'Gerir usuários';
+$language['photo'] = 'Foto';
+$language['edit-user'] = 'Edit user';
+$language['first-name'] = 'Primeiro nome';
+$language['user-type'] = 'Tipo de usuário';
+$language['remove-user'] = 'Remover usuário';
+$language['options'] = 'Opções';
+$language['change-information'] = 'Alterar informação';
 ?>
