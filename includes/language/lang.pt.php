@@ -72,7 +72,7 @@ $language['prod-details'] = 'Detalhes do produto';
 $language['quantity'] = 'Quantidade';
 $language['add-to-cart'] = 'Adicionar ao carrinho';
 $language['technical-details'] = 'Detalhes tecnicos';
-$language['Detail'] = 'Detalhes';
+$language['detail'] = 'Detalhes';
 $language['description'] = 'Descricão';
 $language['product-description'] = 'Descricão do produto';
 $language['related-products'] = 'Productos relacionados';
@@ -171,7 +171,7 @@ $language['change-information'] = 'Alterar informação';
 
 // Categories
 $language['add-category'] = 'Adicionar categoria';
-$language['manage-categories'] = 'Gerir Categorias';
+$language['manage-categories'] = 'Gerir categorias';
 $language['categ-name'] = 'Nome da categoria';
 $language['subcategories'] = 'Subcategoria';
 $language['category-details'] = 'Detalhes da categoria';
@@ -192,4 +192,22 @@ $language['manage-brands'] = 'Gerir marcas';
 $language['brand-name'] = 'Nome da marca';
 $language['edit-brand'] = 'Alterar marca';
 $language['remove-brand'] = 'Remover marca';
+
+// product
+$language['add-product'] = 'Adicionar producto';
+$language['manage-products'] = 'Gerir productos';
+$language['product-image'] = 'Image producto ';
+$language['edit-product'] = 'Alterar producto';
+$language['remove-product'] = 'Remover producto';
+$language['product'] = 'Producto';
+$language['information'] = 'Informação';
+$language['product-information'] = 'Informação do produto';
+$language['available-quantity'] = 'Quantidade disponivel';
+$language['add-details'] = 'Adicionar detalhes';
+$language['add-product-details'] = 'Adicionar detalhes do producto';
+$language['detail-description'] = 'Descricão do detalhe';
+$language['edit-product-details'] = 'Alterar detalhe do producto';
+$language['remove-product-detail'] = 'Remover detalhe do product';
+$language['product-detail'] = 'Detalhe do producto';
+$language['category'] = 'Categoria';
 ?>
