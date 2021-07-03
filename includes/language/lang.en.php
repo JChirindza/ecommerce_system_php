@@ -168,4 +168,21 @@ $language['user-type'] = 'User type';
 $language['remove-user'] = 'Remove User';
 $language['options'] = 'Options';
 $language['change-information'] = 'Change Information';
+
+// Categories
+$language['add-category'] = 'Add category';
+$language['manage-categories'] = 'Manage categories';
+$language['categ-name'] = 'Category name';
+$language['subcategories'] = 'Subcategories';
+$language['category-details'] = 'Category details';
+$language['edit-category'] = 'Edit category';
+$language['edit-subcategory'] = 'Edit subcategory';
+$language['remove-category'] = 'Remove category';
+$language['show-related-products'] = 'Show related products';
+$language['hide-related-products'] = 'Hide related products';
+$language['change-data'] = 'Change data';
+$language['add-subcategory'] = 'Add subcategory';
+$language['subcateg-name'] = 'Subcategory name';
+$language['remove-subcategory'] = 'Remove Subcategory';
+$language['manage'] = 'Manage';
 ?>

@@ -10,20 +10,20 @@ $categoryResult = $query->fetch_assoc();
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header bg-white">
-				<h6 class="m-0 font-weight-bold">Category details </h6>
+				<h6 class="m-0 font-weight-bold"><?php echo $language['category-details'] ?> </h6>
 			</div>
 			
 			<div class="card-body ">
 				<div class="form-group row">
 					<div class="form-group col-md-6 col-lg-6">
-						<label for="quantity" class="col-12 control-label">Category name: </label>
+						<label for="quantity" class="col-12 control-label"><?php echo $language['categ-name'] ?>: </label>
 						<div class="col-12">
 							<input type="text" readonly class="form-control border-0" id="quantity" name="quantity" autocomplete="off" value="<?php echo $categoryResult['categories_name']; ?>">
 						</div>
 					</div> <!-- /form-group-->	        	 
 
 					<div class="form-group col-md-6 col-lg-6 pt-4 pt-md-0 pt-lg-0">
-						<label for="rate" class="col-12 control-label">Status: </label>
+						<label for="rate" class="col-12 control-label"><?php echo $language['status'] ?>: </label>
 						<div class="col-12">
 							<?php $active = $categoryResult['categories_active']; ?>
 
@@ -38,9 +38,9 @@ $categoryResult = $query->fetch_assoc();
 
 				<div class="form-group row mb-0">
 					<div class="form-group col-12">
-						<label class="col-12 control-label mb-0">Related products: </label>
+						<label class="col-12 control-label mb-0"><?php echo $language['related-products'] ?>: </label>
 						<hr class="mb-0">
-						<div class="view-more m-0 p-0" id="view-more" data-toggle="tooltip" title="Show related products" style="cursor: pointer;">
+						<div class="view-more m-0 p-0" id="view-more" data-toggle="tooltip" title="<?php echo $language['show-related-products'] ?>" style="cursor: pointer;">
 							<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-down"></i></label>
 						</div>
 
@@ -78,13 +78,13 @@ $categoryResult = $query->fetch_assoc();
 									}
 								} else {
 									$output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
-									<h5 class="p-5 text-muted">No Data Found</h5></div>';
+									<h5 class="p-5 text-muted">'.$language['no-data-found'].'</h5></div>';
 								}
 								echo $output;
 								?>
 							</div>
 
-							<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="Hide related Subcategory" style="cursor: pointer;">
+							<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="<?php echo $language['hide-related-products'] ?>" style="cursor: pointer;">
 								<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
 							</div>
 						</div>
@@ -111,7 +111,7 @@ $categoryResult = $query->fetch_assoc();
 					</div> <!-- /form-group-->	        	 
 				</div>
 
-				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editCategoriesModalBtn" data-target="#editCategoriesModal" onclick="editCategories('<?php echo $categoryResult['categories_id']; ?>')"> <i class="fas fa-edit"></i>Alterar dados</button>
+				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editCategoriesModalBtn" data-target="#editCategoriesModal" onclick="editCategories('<?php echo $categoryResult['categories_id']; ?>')"> <i class="fas fa-edit"></i><?php echo $language['change-data'] ?></button>
 			</div> 
 		</div>
 	</div> <!-- /col-md-12 -->
@@ -122,11 +122,11 @@ $categoryResult = $query->fetch_assoc();
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header bg-white">
-				<h6 class="m-0 font-weight-bold"> Subcategories </h6>
+				<h6 class="m-0 font-weight-bold"> <?php echo $language['subcategories'] ?> </h6>
 			</div>
 			
 			<div class="card-body ">
-				<button class="btn btn-primary btn-sm m-0" data-toggle="modal" id="addSubcategoryModalBtn" data-target="#addSubcategoryModal"> <i class="fas fa-plus"></i> Add subcategory </button>
+				<button class="btn btn-primary btn-sm m-0" data-toggle="modal" id="addSubcategoryModalBtn" data-target="#addSubcategoryModal"> <i class="fas fa-plus"></i> <?php echo $language['add-subcategory'] ?> </button>
 				<hr>
 				<div class="remove-messages"></div>
 
@@ -135,9 +135,9 @@ $categoryResult = $query->fetch_assoc();
 						<thead>
 							<tr>							
 								<th width="5%">#</th>
-								<th width="50%">Subcategory name</th>
-								<th width="20%">Status</th>
-								<th width="10%">Option</th>
+								<th width="50%"><?php echo $language['subcateg-name'] ?></th>
+								<th width="20%"><?php echo $language['status'] ?></th>
+								<th width="10%"><?php echo $language['options'] ?></th>
 							</tr>
 						</thead>
 					</table>
@@ -153,7 +153,7 @@ $categoryResult = $query->fetch_assoc();
 		<div class="modal-content">
 
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fa fa-plus"></i> Add subcategory</h4>
+				<h4 class="modal-title"><i class="fa fa-plus"></i> <?php echo $language['add-subcategory'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 
@@ -163,25 +163,25 @@ $categoryResult = $query->fetch_assoc();
 					<div id="add-subcategory-messages"></div>
 
 					<div class="form-group">
-						<label for="subcategoryName" class="col-sm-4 control-label"> Subcategory Name: </label>
+						<label for="subcategoryName" class="col-sm-4 control-label"> <?php echo $language['subcateg-name'] ?>: </label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="subcategoryName" placeholder="Sub category" name="subcategoryName" autocomplete="off">
+							<input type="text" class="form-control" id="subcategoryName" placeholder="<?php echo $language['subcateg-name'] ?>" name="subcategoryName" autocomplete="off">
 						</div>
 					</div> <!-- /form-group-->	    
 
 					<div class="form-group">
-						<label for="subcategoryStatus" class="col-sm-4 control-label">Status: </label>
+						<label for="subcategoryStatus" class="col-sm-4 control-label"><?php echo $language['status'] ?>: </label>
 						<div class="col-sm-8">
 							<select class="form-control" id="subcategoryStatus" name="subcategoryStatus">
-								<option value="">~~SELECT~~</option>
-								<option value="1">Available</option>
-								<option value="2">Not Available</option>
+								<option value="">~~<?php echo $language['select'] ?>~~</option>
+								<option value="1"><?php echo $language['available'] ?></option>
+								<option value="2"><?php echo $language['not-available'] ?></option>
 							</select>
 						</div>
 					</div> <!-- /form-group-->
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-success" id="createSubcategoryBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> Save Changes</button>
+							<button type="submit" class="btn btn-success" id="createSubcategoryBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 						</div>
 					</div>	
 					<input type="hidden" name="categoryId" id="categoryId" value="<?php echo $categoryResult['categories_id']; ?>">
@@ -203,7 +203,7 @@ $categoryResult = $query->fetch_assoc();
 		<div class="modal-content">
 			
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fa fa-edit"></i> Edit Subcategory</h4>
+				<h4 class="modal-title"><i class="fa fa-edit"></i> <?php echo $language['edit-subcategory'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 
@@ -211,32 +211,32 @@ $categoryResult = $query->fetch_assoc();
 
 				<div class="div-loading">
 					<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-					<span class="sr-only">Loading...</span>
+					<span class="sr-only"><?php echo $language['loading'] ?>...</span>
 				</div>
 
 				<div class="div-result">
 					<form class="form-horizontal" id="editSubcategoryForm" action="php_action/ctrl_subcategory.php?action=update" method="POST">				    
 						<div id="edit-subcategory-messages"></div>
 						<div class="form-group">
-							<label for="editSubcategoryName" class="col-sm-4 control-label">Subcategory name: </label>
+							<label for="editSubcategoryName" class="col-sm-4 control-label"><?php echo $language['subcateg-name'] ?>: </label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="editSubcategoryName" placeholder="Product detail" name="editSubcategoryName" autocomplete="off">
+								<input type="text" class="form-control" id="editSubcategoryName" placeholder="<?php echo $language['subcateg-name'] ?>" name="editSubcategoryName" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->
 
 						<div class="form-group">
-							<label for="editSubcategoryStatus" class="col-sm-4 control-label">Status: </label>
+							<label for="editSubcategoryStatus" class="col-sm-4 control-label"><?php echo $language['status'] ?>: </label>
 							<div class="col-sm-8">
 								<select class="form-control" id="editSubcategoryStatus" name="editSubcategoryStatus">
-									<option value="">~~SELECT~~</option>
-									<option value="1">Available</option>
-									<option value="2">Not Available</option>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
+									<option value="1"><?php echo $language['available'] ?></option>
+									<option value="2"><?php echo $language['not-available'] ?></option>
 								</select>
 							</div>
 						</div> <!-- /form-group-->	         	        
 
 						<div class="editSubcategoryFooter m-3">
-							<button type="submit" class="btn btn-success" id="editSubcategoryBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> Save Changes</button>
+							<button type="submit" class="btn btn-success" id="editSubcategoryBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 						</div> 	
 					</form>			     
 				</div> <!-- /div-result -->
@@ -255,18 +255,18 @@ $categoryResult = $query->fetch_assoc();
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-trash"></i> Remove Subcategory</h4>
+				<h4 class="modal-title"><i class="fas fa-trash"></i> <?php echo $language['remove-subcategory'] ?></h4>
 				<button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 
 				<div class="removeSubcategoryMessages"></div>
 
-				<p>Do you really want to remove ?</p>
+				<p><?php echo $language['do-y-really-w-to-remove'] ?> ?</p>
 			</div>
 			<div class="modal-footer removeSubcategoryFooter">
 				<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-outline-danger" id="removeSubcategoryBtn" data-loading-text="Loading..."><i class="fas fa-trash "></i> Save changes</button>
+				<button type="button" class="btn btn-outline-danger" id="removeSubcategoryBtn" data-loading-text="Loading..."><i class="fas fa-trash "></i> <?php echo $language['remove'] ?></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

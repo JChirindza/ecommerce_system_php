@@ -1,6 +1,9 @@
 <?php
 // System in geral
 $language['no-data-found'] = 'Nenhum dado encontrado';
+$language['available'] = 'Disponivel';
+$language['not-available'] = 'Indisponivel';
+$language['loading'] = 'Loading';
 
 // Login
 $language['login'] = 'Autenticação';
@@ -22,7 +25,7 @@ $language['create-account-info-msg'] = 'Criando uma conta voce estará apto a co
 // Navbar - management & store
 $language['search'] = 'Procurar';
 $language['hello'] = 'olá';
-$language['settings'] = 'Configuracões';
+$language['settings'] = 'Configurações';
 $language['sign-out'] = 'Sair';
 $language['do-you-r-w-to-exit'] = 'Voce deseja realmente sair.';
 $language['if-y-w-end-session'] = 'se deseja terminar a sessão';
@@ -67,7 +70,6 @@ $language['previous-page'] = 'Pagina Anterior';
 $language['details'] = 'Detalhes';
 $language['prod-details'] = 'Detalhes do produto';
 $language['quantity'] = 'Quantidade';
-$language['available'] = 'Disponivel';
 $language['add-to-cart'] = 'Adicionar ao carrinho';
 $language['technical-details'] = 'Detalhes tecnicos';
 $language['Detail'] = 'Detalhes';
@@ -80,6 +82,7 @@ $language['not-paid'] = 'Não foi pago';
 $language['nothing-to-compare-no-similar-prod-found'] = 'Nada para comparar... Nenhum produto similar encontrado';
 
 // Settings
+$language['setting'] = 'Configuração';
 $language['edit-profile'] = 'Alterar perfil';
 $language['edit-photo'] = 'Alterar foto';
 $language['edit-user-name'] = 'Alterar nome do usuário';
@@ -89,7 +92,7 @@ $language['user-image'] = 'Imagem do usuário';
 $language['select-photo'] = 'Seleccionar foto';
 $language['cancel'] = 'Cancelar';
 $language['browse'] = 'Buscar';
-$language['save-changes'] = 'Salvar Alteracões';
+$language['save-changes'] = 'Salvar Alterações';
 $language['current-pass'] = 'Senha atual';
 $language['new-pass'] = 'Nova senha';
 
@@ -159,10 +162,27 @@ $language['add-user'] = 'Adicionar usuário';
 $language['total-users'] = 'Total de usuários';
 $language['manage-users'] = 'Gerir usuários';
 $language['photo'] = 'Foto';
-$language['edit-user'] = 'Edit user';
+$language['edit-user'] = 'Alterar usuário';
 $language['first-name'] = 'Primeiro nome';
 $language['user-type'] = 'Tipo de usuário';
 $language['remove-user'] = 'Remover usuário';
 $language['options'] = 'Opções';
 $language['change-information'] = 'Alterar informação';
+
+// Categories
+$language['add-category'] = 'Adicionar categoria';
+$language['manage-categories'] = 'Gerir Categorias';
+$language['categ-name'] = 'Nome da categoria';
+$language['subcategories'] = 'Subcategoria';
+$language['category-details'] = 'Detalhes da categoria';
+$language['edit-category'] = 'Alterar categoria';
+$language['edit-subcategory'] = 'Alterar subcategoria';
+$language['remove-category'] = 'Remover categoria';
+$language['show-related-products'] = 'Mostrar productos relacionados';
+$language['hide-related-products'] = 'Ocultar productos relacionados';
+$language['change-data'] = 'Alterar dados';
+$language['add-subcategory'] = 'Adicionar subcategoria';
+$language['subcateg-name'] = 'Nome da subcategoria';
+$language['remove-subcategory'] = 'Remover Subcategoria';
+$language['manage'] = 'Gerir';
 ?>
