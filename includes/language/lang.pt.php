@@ -41,7 +41,7 @@ $language['home'] = 'Pagina Inicial';
 $language['pages'] = 'Paginas';
 $language['store-location'] = 'Localização da Loja';
 $language['delivery-locations'] = 'Locais de entrega';
-$language['contact'] = 'Contacto';
+$language['contact'] = 'Contato';
 
 // Home
 $language['shop-by-categ'] = 'Comprar por categoria';
@@ -75,7 +75,7 @@ $language['technical-details'] = 'Detalhes tecnicos';
 $language['detail'] = 'Detalhes';
 $language['description'] = 'Descricão';
 $language['product-description'] = 'Descricão do produto';
-$language['related-products'] = 'Productos relacionados';
+$language['related-products'] = 'Produtos relacionados';
 $language['compare-w-similar'] = 'Compare com similares';
 $language['paid'] = 'Pago';
 $language['not-paid'] = 'Não foi pago';
@@ -113,7 +113,7 @@ $language['remove-cart-item'] = 'Remover Item de Carrinho';
 // Cart items
 $language['manage-cart-items'] = 'Gerir Itens de Carrinho';
 $language['image'] = 'Imagem';
-$language['product-name'] = 'Nome do producto';
+$language['product-name'] = 'Nome do produto';
 $language['remove'] = 'Remover';
 $language['continue-shopping'] = 'Continuar a comprar';
 
@@ -178,8 +178,8 @@ $language['category-details'] = 'Detalhes da categoria';
 $language['edit-category'] = 'Alterar categoria';
 $language['edit-subcategory'] = 'Alterar subcategoria';
 $language['remove-category'] = 'Remover categoria';
-$language['show-related-products'] = 'Mostrar productos relacionados';
-$language['hide-related-products'] = 'Ocultar productos relacionados';
+$language['show-related-products'] = 'Mostrar produtos relacionados';
+$language['hide-related-products'] = 'Ocultar produtos relacionados';
 $language['change-data'] = 'Alterar dados';
 $language['add-subcategory'] = 'Adicionar subcategoria';
 $language['subcateg-name'] = 'Nome da subcategoria';
@@ -194,21 +194,21 @@ $language['edit-brand'] = 'Alterar marca';
 $language['remove-brand'] = 'Remover marca';
 
 // product
-$language['add-product'] = 'Adicionar producto';
-$language['manage-products'] = 'Gerir productos';
-$language['product-image'] = 'Image producto ';
-$language['edit-product'] = 'Alterar producto';
-$language['remove-product'] = 'Remover producto';
-$language['product'] = 'Producto';
+$language['add-product'] = 'Adicionar produto';
+$language['manage-products'] = 'Gerir produtos';
+$language['product-image'] = 'Image produto ';
+$language['edit-product'] = 'Alterar produto';
+$language['remove-product'] = 'Remover produto';
+$language['product'] = 'Produto';
 $language['information'] = 'Informação';
 $language['product-information'] = 'Informação do produto';
 $language['available-quantity'] = 'Quantidade disponivel';
 $language['add-details'] = 'Adicionar detalhes';
-$language['add-product-details'] = 'Adicionar detalhes do producto';
+$language['add-product-details'] = 'Adicionar detalhes do produto';
 $language['detail-description'] = 'Descricão do detalhe';
-$language['edit-product-details'] = 'Alterar detalhe do producto';
-$language['remove-product-detail'] = 'Remover detalhe do producto';
-$language['product-detail'] = 'Detalhe do producto';
+$language['edit-product-details'] = 'Alterar detalhe do produto';
+$language['remove-product-detail'] = 'Remover detalhe do produto';
+$language['product-detail'] = 'Detalhe do produto';
 $language['category'] = 'Categoria';
 
 // Orders
@@ -232,7 +232,7 @@ $language['payment-type'] = 'Tipo de pagemento';
 $language['paid-amount'] = 'Quantia paga';
 $language['due-amount'] = 'Valor devido';
 $language['clear'] = 'Limpar';
-$language['client-contact'] = 'Contacto do cliente';
+$language['client-contact'] = 'Contato do cliente';
 $language['client-number'] = 'Numero do cliente';
 $language['cheque'] = 'cheque';
 $language['cash'] = 'Dinheiro';
