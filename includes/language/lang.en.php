@@ -81,7 +81,7 @@ $language['paid'] = 'Paid';
 $language['not-paid'] = 'Not paid';
 $language['nothing-to-compare-no-similar-prod-found'] = 'Nothing to compare... No Similar products found';
 
-// Settings
+// Settings/profile
 $language['setting'] = 'Setting';
 $language['edit-profile'] = 'Edit profile';
 $language['edit-photo'] = 'Edit photo';
@@ -210,4 +210,39 @@ $language['edit-product-details'] = 'Edit product details';
 $language['remove-product-detail'] = 'Remove product detail';
 $language['product-detail'] = 'Product detail';
 $language['category'] = 'category';
+
+// Orders
+$language['add-order'] = 'Add Order';
+$language['manage-orders'] = 'Manage orders';
+$language['order-date'] = 'Order date';
+$language['client-name'] = 'Client name';
+$language['edit-order'] = 'Edit order';
+$language['remove-order'] = 'Remove order';
+$language['total-order-items'] = 'Total order items';
+$language['payment-place'] = 'Payment place';
+$language['edit'] = 'Edit';
+$language['print'] = 'Print';
+$language['add-field'] = 'Add field';
+$language['sub-amount'] = 'Sub Amount';
+$language['vat'] = 'VAT';
+$language['total-amount'] = 'Total Amount';
+$language['discount'] = 'Discount';
+$language['grand-total'] = 'Grand total';
+$language['payment-type'] = 'Payment type';
+$language['paid-amount'] = 'Paid Amount';
+$language['due-amount'] = 'Due Amount';
+$language['clear'] = 'Clear';
+$language['client-contact'] = 'Client contact';
+$language['client-number'] = 'Client number';
+$language['cheque'] = 'cheque';
+$language['cash'] = 'Cash';
+$language['credit-card'] = 'Credit card';
+$language['full-payment'] = 'Full payment';
+$language['advance-payment'] = 'Advance payment';
+$language['no-payment'] = 'No payment';
+$language['in-store'] = 'In store';
+$language['online'] = 'Online';
+$language['edit-payment'] = 'Edit payment';
+
+// 
 ?>
