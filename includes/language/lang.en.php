@@ -244,5 +244,14 @@ $language['in-store'] = 'In store';
 $language['online'] = 'Online';
 $language['edit-payment'] = 'Edit payment';
 
-// 
+// Reports
+$language['reports'] = 'Reports';
+$language['total-orders'] = 'Total orders';
+$language['most-requested'] = 'Most requested';
+$language['orders-reports'] = 'Orders report';
+$language['start-date'] = 'Start Date';
+$language['end-date'] = 'End Date';
+$language['total-purchases'] = 'Total purchases';
+$language['most-bought'] = 'Most bought';
+$language['generate-report'] = 'Generate report';
 ?>

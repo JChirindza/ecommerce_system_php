@@ -33,7 +33,7 @@ $language['do-y-r-w-change-this-user'] = 'Deseja realmente mudar de Usuário';
 $language['select'] = 'Seleccione';
 $language['change'] = 'Mudar';
 $language['if-y-w-end-session-and-sign-in-w-o-user'] = 'se deseja terminar esta sessao e entrar como outro Usuário';
-$language['change-user'] = 'Trocar Usuário';
+$language['change-user'] = 'Trocar usuário';
 
 // Navbar 2 - store
 $language['brand'] = 'Marca';
@@ -243,4 +243,14 @@ $language['no-payment'] = 'Sem pagamento';
 $language['in-store'] = 'Na loja';
 $language['online'] = 'Online';
 $language['edit-payment'] = 'Alterar pagamento';
+
+// Reports
+$language['most-requested'] = 'Mais requisitados';
+$language['total-orders'] = 'Total de pedidos';
+$language['orders-report'] = 'Relatório de pedidos';
+$language['start-date'] = 'Data de inicio';
+$language['end-date'] = 'Data de termino';
+$language['total-purchases'] = 'Total de compras';
+$language['most-bought'] = 'Mais comprados';
+$language['generate-report'] = 'Generar relatório';
 ?>
