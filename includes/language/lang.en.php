@@ -39,7 +39,7 @@ $language['change-user'] = 'Change user';
 $language['brand'] = 'Brand';
 $language['home'] = 'Home';
 $language['pages'] = 'Pages';
-$language['store-location'] = 'Store Location';
+$language['store-location'] = 'Store location';
 $language['delivery-locations'] = 'Delivery locations';
 $language['contact'] = 'Contact';
 
@@ -92,7 +92,7 @@ $language['user-image'] = 'User image';
 $language['select-photo'] = 'Select photo';
 $language['cancel'] = 'Cancel';
 $language['browse'] = 'Browse';
-$language['save-changes'] = 'Save Changes';
+$language['save-changes'] = 'Save changes';
 $language['current-pass'] = 'Current password';
 $language['new-pass'] = 'New password';
 
@@ -108,14 +108,14 @@ $language['payment-status'] = 'Payment status';
 $language['option'] = 'Option';
 $language['remove-cart'] = 'Remove cart';
 $language['do-y-really-w-to-remove'] = 'Do you really want to remove';
-$language['remove-cart-item'] = 'Remove Cart Item';
+$language['remove-cart-item'] = 'Remove cart item';
 
 // Cart items
-$language['manage-cart-items'] = 'Manage Cart Items';
+$language['manage-cart-items'] = 'Manage cart items';
 $language['image'] = 'Image';
 $language['product-name'] = 'Product name';
 $language['remove'] = 'Remove';
-$language['continue-shopping'] = 'Continue Shopping';
+$language['continue-shopping'] = 'Continue shopping';
 
 // Checkout
 $language['selected-items'] = 'Selected items';
@@ -134,7 +134,7 @@ $language['access-403'] = 'Access denied. You don\'t have permission to access t
 
 // Dashboard
 $language['dashboard'] = 'Dashboard';
-$language['manage-orders'] = 'Manage Orders';
+$language['manage-orders'] = 'Manage prders';
 $language['earnings'] = 'Earnings';
 $language['total'] = 'Total';
 $language['pending-req'] = 'Pending requests';
@@ -152,22 +152,22 @@ $language['admin'] = 'Administrator';
 $language['manager'] = 'Manager';
 $language['vendor'] = 'Vendor';
 $language['status'] = 'Status';
-$language['total-revenue'] = 'Total Revenue';
+$language['total-revenue'] = 'Total revenue';
 $language['active'] = 'Active';
 $language['inactive'] = 'Inactive'; 
 
 // Users
 $language['add-users'] = 'Add users';
 $language['add-user'] = 'Add user';
-$language['total-users'] = 'Total Users';
-$language['manage-users'] = 'Manage Users';
+$language['total-users'] = 'Total users';
+$language['manage-users'] = 'Manage users';
 $language['photo'] = 'Photo';
 $language['edit-user'] = 'Edit user';
 $language['first-name'] = 'First name';
 $language['user-type'] = 'User type';
 $language['remove-user'] = 'Remove User';
 $language['options'] = 'Options';
-$language['change-information'] = 'Change Information';
+$language['change-information'] = 'Change information';
 
 // Categories
 $language['add-category'] = 'Add category';
@@ -212,7 +212,7 @@ $language['product-detail'] = 'Product detail';
 $language['category'] = 'category';
 
 // Orders
-$language['add-order'] = 'Add Order';
+$language['add-order'] = 'Add order';
 $language['manage-orders'] = 'Manage orders';
 $language['order-date'] = 'Order date';
 $language['client-name'] = 'Client name';
@@ -223,13 +223,13 @@ $language['payment-place'] = 'Payment place';
 $language['edit'] = 'Edit';
 $language['print'] = 'Print';
 $language['add-field'] = 'Add field';
-$language['sub-amount'] = 'Sub Amount';
+$language['sub-amount'] = 'Sub amount';
 $language['vat'] = 'VAT';
-$language['total-amount'] = 'Total Amount';
+$language['total-amount'] = 'Total amount';
 $language['discount'] = 'Discount';
 $language['grand-total'] = 'Grand total';
 $language['payment-type'] = 'Payment type';
-$language['paid-amount'] = 'Paid Amount';
+$language['paid-amount'] = 'Paid amount';
 $language['due-amount'] = 'Due Amount';
 $language['clear'] = 'Clear';
 $language['client-contact'] = 'Client contact';
@@ -245,12 +245,11 @@ $language['online'] = 'Online';
 $language['edit-payment'] = 'Edit payment';
 
 // Reports
-$language['reports'] = 'Reports';
 $language['total-orders'] = 'Total orders';
 $language['most-requested'] = 'Most requested';
 $language['orders-reports'] = 'Orders report';
-$language['start-date'] = 'Start Date';
-$language['end-date'] = 'End Date';
+$language['start-date'] = 'Start date';
+$language['end-date'] = 'End date';
 $language['total-purchases'] = 'Total purchases';
 $language['most-bought'] = 'Most bought';
 $language['generate-report'] = 'Generate report';

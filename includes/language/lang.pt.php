@@ -18,7 +18,7 @@ $language['sign-in'] = 'Entrar';
 $language['create-account'] = 'Criar conta';
 // From Dashboard - name and surname | Login -> email, password, login, forgot-password
 $language['confirm-password'] = 'Confirmar senha';
-$language['register-account'] = 'Registrar Conta';
+$language['register-account'] = 'Registrar conta';
 $language['already-have-account'] = 'Já possui uma conta';
 $language['create-account-info-msg'] = 'Criando uma conta voce estará apto a comprar rapidamente, estará atualizado sobre o estado de qualquer pedido e fazer o acompanhamento de todos os pedidos que já tenha feito';
 
@@ -137,7 +137,7 @@ $language['dashboard'] = 'Página Inicial';
 $language['manage-orders'] = 'Gerir pedidos';
 $language['earnings'] = 'Ganhos';
 $language['total'] = 'Total';
-$language['pending-req'] = 'Solicitações Pendentes';
+$language['pending-req'] = 'Solicitações pendentes';
 $language['products'] = 'Produtos';
 $language['low-stock'] = 'Baixo estoque';
 $language['orders'] = 'Pedidos';
@@ -196,7 +196,7 @@ $language['remove-brand'] = 'Remover marca';
 // product
 $language['add-product'] = 'Adicionar produto';
 $language['manage-products'] = 'Gerir produtos';
-$language['product-image'] = 'Image produto ';
+$language['product-image'] = 'Imagem do produto ';
 $language['edit-product'] = 'Alterar produto';
 $language['remove-product'] = 'Remover produto';
 $language['product'] = 'Produto';
