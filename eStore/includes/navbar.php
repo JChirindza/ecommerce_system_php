@@ -8,6 +8,9 @@ $lang = 'en';
 if (isset($_SESSION['lang'])) {
 	$lang = $_SESSION['lang'];
 }
+if (isset($_COOKIE['lang'])) {
+	$lang = $_COOKIE['lang'];
+}
 if (isset($_GET['lang'])) {
 	$lang = $_GET['lang'];
 }
