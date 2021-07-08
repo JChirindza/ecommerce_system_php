@@ -24,26 +24,26 @@ $result = $query->fetch_assoc();
 		<i class="fas fa-align-left"></i>
 	</button>
 	<ol class="breadcrumb bg-transparent mb-0">
-	    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-	    <li class="breadcrumb-item active">Orders</li>
+	    <li class="breadcrumb-item"><a href="dashboard.php"><?php echo $language['dashboard'] ?></a></li>
+	    <li class="breadcrumb-item active"><?php echo $language['orders'] ?></li>
 	    <li class="breadcrumb-item active" aria-current="page">
-	    	<?php if($_GET['p'] == 'add') { ?>
-				Add Order
-			<?php } else if($_GET['p'] == 'manord') { ?>
-				Manage Order
-			<?php } else if($_GET['p'] == 'editOrd') { ?>
-				Edit Order
-			<?php } // /else manage order ?>
+	    	<?php if($_GET['p'] == 'add') {  
+	    		echo $language['add-order'];
+			} else if($_GET['p'] == 'manord') {
+				echo $language['manage-orders'];	
+			} else if($_GET['p'] == 'editOrd') {
+				echo $language['edit-order'];
+			} // /else manage order ?>
 		</li>
   	</ol>
 </div>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Orders</h1>
+	<h1 class="pageTitle"><?php echo $language['orders'] ?></h1>
 	<?php if($_GET['p'] == 'manord') { ?>
-		<a type="button" class="btn-primary btn-sm" href="orders.php?p=add"><i class="fas fa-cart-plus"></i> Add Order </a>
+		<a type="button" class="btn-primary btn-sm" href="orders.php?p=add"><i class="fas fa-cart-plus"></i> <?php echo $language['add-order'] ?> </a>
 	<?php } else { ?>
-		<a type="button" class="btn-primary btn-sm" href="orders.php?p=manord"><i class="fas fa-cart-arrow-down"></i> Manage Orders </a>
+		<a type="button" class="btn-primary btn-sm" href="orders.php?p=manord"><i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-orders'] ?> </a>
 	<?php } ?>
 </div>
 <style type="text/css">
@@ -58,11 +58,11 @@ $result = $query->fetch_assoc();
 	<div class="card-header bg-white">
 
 		<?php if($_GET['p'] == 'add') { ?>
-			<i class="fas fa-cart-plus"></i>	Add Orders
+			<i class="fas fa-cart-plus"></i> <?php echo $language['add-order'] ?>
 		<?php } else if($_GET['p'] == 'manord') { ?>
-			<i class="fas fa-cart-arrow-down"></i> Manage Orders
+			<i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-orders'] ?>
 		<?php } else if($_GET['p'] == 'editOrd') { ?>
-			<i class="fas fa-edit"></i> Edit Orders
+			<i class="fas fa-edit"></i> <?php echo $language['edit-order'] ?>
 		<?php } ?>
 
 	</div>
@@ -76,28 +76,28 @@ $result = $query->fetch_assoc();
 					<div class="col-md-6">
 						<div class="form-group">
 							
-							<label for="clientName" class="col-sm-3 control-label">Client Name:</label>
+							<label for="clientName" class="col-sm control-label"><?php echo $language['client-name'] ?>:</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" required/>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-3 control-label">Client Contact:</label>
+							<label for="clientContact" class="col-sm control-label"><?php echo $language['client-contact'] ?>:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" required/>
+								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="<?php echo $language['client-number'] ?>" autocomplete="off" required/>
 							</div>
 						</div> <!--/form-group-->
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="orderDate" class="col-sm-3 control-label">Seller:</label>
+							<label for="orderDate" class="col-sm-3 control-label"><?php echo $language['vendor'] ?>:</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" disabled id="userName" name="userName" value="<?php echo $result['name'] ." ".  $result['surname']; ?>" autocomplete="off" required />
 								<input type="hidden" name="systemUserId" id="systemUserId" value="<?php echo $result['user_id']; ?>">
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
-							<label for="orderDate" class="col-sm-3 control-label">Order Date:</label>
+							<label for="orderDate" class="col-sm-3 control-label"><?php echo $language['order-date'] ?>:</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" disabled id="orderDate" name="orderDate" autocomplete="off" value="<?php echo date('d-m-Y')."          ". date('H:i:s') ?>"/>
 							</div>
@@ -109,11 +109,11 @@ $result = $query->fetch_assoc();
 					<table class="table" id="productTable">
 						<thead>
 							<tr>			  			
-								<th style="width:40%;">Product</th>
-								<th style="width:15%;">Rate</th>
-								<th style="width:10%;">Available</th>			  			
-								<th style="width:10%;">Quantity</th>			  			
-								<th style="width:15%;">Total</th>			  			
+								<th style="width:40%;"><?php echo $language['product'] ?></th>
+								<th style="width:15%;"><?php echo $language['price'] ?></th>
+								<th style="width:10%;"><?php echo $language['available'] ?></th>			  			
+								<th style="width:10%;"><?php echo $language['quantity'] ?></th>			  			
+								<th style="width:15%;"><?php echo $language['total'] ?></th>			  			
 								<th style="width:5%;"></th>
 							</tr>
 						</thead>
@@ -125,7 +125,7 @@ $result = $query->fetch_assoc();
 									<td style="margin-left:20px;">
 										<div class="form-group">
 											<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" required>
-												<option value="">~~SELECT~~</option>
+												<option value="">~~<?php echo $language['select'] ?>~~</option>
 												<?php
 												$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
 												$productData = $connect->query($productSql);
@@ -167,39 +167,39 @@ $result = $query->fetch_assoc();
 					</table>
 				</div>
 
-				<button type="button" class="btn btn-primary btn-sm ml-3 mb-4" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="fas fa-plus"></i> Add Field </button>
+				<button type="button" class="btn btn-primary btn-sm ml-3 mb-4" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="fas fa-plus"></i> <?php echo $language['add-field'] ?> </button>
 
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="subTotal" class="col-sm-4 control-label">Sub Amount:</label>
+							<label for="subTotal" class="col-sm-4 control-label"><?php echo $language['sub-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="subTotal" name="subTotal" disabled="true" />
 								<input type="hidden" class="form-control" id="subTotalValue" name="subTotalValue" />
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst">VAT 17%:</label>
+							<label for="vat" class="col-sm-4 control-label gst"><?php echo $language['vat'] ?> 17%:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="vat" name="gstn" readonly="true" />
 								<input type="hidden" class="form-control" id="vatValue" name="vatValue" />
 							</div>
 						</div>				  
 						<div class="form-group">
-							<label for="totalAmount" class="col-sm-4 control-label">Total Amount:</label>
+							<label for="totalAmount" class="col-sm-4 control-label"><?php echo $language['total-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled="true"/>
 								<input type="hidden" class="form-control" id="totalAmountValue" name="totalAmountValue" />
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="discount" class="col-sm-4 control-label">Discount:</label>
+							<label for="discount" class="col-sm-4 control-label"><?php echo $language['discount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" required/>
 							</div>
 						</div> <!--/form-group-->	
 						<div class="form-group">
-							<label for="grandTotal" class="col-sm-4 control-label "><strong>Grand Total:</strong></label>
+							<label for="grandTotal" class="col-sm-4 control-label "><strong><?php echo $language['grand-total'] ?>:</strong></label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control form-control-lg border-success " id="grandTotal" name="grandTotal" disabled="true" />
 								<input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" />
@@ -210,24 +210,24 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Type:</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentType" id="paymentType" required>
-									<option value="">~~SELECT~~</option>
-									<option value="1" disabled>Cheque</option>
-									<option value="2">Cash</option>
-									<option value="3">Credit Card</option>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
+									<option value="1" disabled><?php echo $language['cheque'] ?></option>
+									<option value="2"><?php echo $language['cash'] ?></option>
+									<option value="3"><?php echo $language['credit-card'] ?></option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
-							<label for="paid" class="col-sm-4 control-label"><strong>Paid Amount:</strong></label>
+							<label for="paid" class="col-sm-4 control-label"><strong><?php echo $language['paid-amount'] ?>:</strong></label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control form-control-lg border-success" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" required/>
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="due" class="col-sm-4 control-label">Due Amount:</label>
+							<label for="due" class="col-sm-4 control-label"><?php echo $language['due-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="due" name="due" disabled="true" />
 								<input type="hidden" class="form-control" id="dueValue" name="dueValue" />
@@ -235,22 +235,22 @@ $result = $query->fetch_assoc();
 						</div> <!--/form-group-->		
 
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Status:</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
-									<option value="">~~SELECT~~</option>
-									<option value="1">Full Payment</option>
-									<option value="2">Advance Payment</option>
-									<option value="3">No Payment</option>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
+									<option value="1"><?php echo $language['full-payment'] ?></option>
+									<option value="2"><?php echo $language['advance-payment'] ?></option>
+									<option value="3"><?php echo $language['no-payment'] ?></option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Place:</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-place'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentPlace" id="paymentPlace">
-									<option value="1" selected="true">Na Loja</option>
-									<option value="2" disabled>Online</option>
+									<option value="1" selected="true"><?php echo $language['in-store'] ?></option>
+									<option value="2" disabled><?php echo $language['online'] ?></option>
 								</select>
 							</div>
 						</div> <!--/form-group-->							  
@@ -259,8 +259,8 @@ $result = $query->fetch_assoc();
 
 				<div class="form-group submitButtonFooter">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="reset" class="btn btn-secondary" onclick="resetOrderForm()"><i class="fas fa-eraser"></i> Limpar</button>
-						<button type="submit" id="createOrderBtn" data-loading-text="Loading..." class="btn btn-success"><i class="fas fa-save"></i> Save Changes</button>
+						<button type="reset" class="btn btn-secondary" onclick="resetOrderForm()"><i class="fas fa-eraser"></i> <?php echo $language['clear'] ?></button>
+						<button type="submit" id="createOrderBtn" data-loading-text="Loading..." class="btn btn-success"><i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 					</div>
 				</div>
 			</form>
@@ -272,13 +272,13 @@ $result = $query->fetch_assoc();
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Order Date</th>
-							<th>Client Name</th>
-							<th>Contact</th>
-							<th>Total Order Item</th>
-							<th>Payment Place</th>
-							<th>Payment Status</th>
-							<th>Option</th>
+							<th><?php echo $language['order-date'] ?></th>
+							<th><?php echo $language['client-name'] ?></th>
+							<th><?php echo $language['contact'] ?></th>
+							<th><?php echo $language['total-order-items'] ?></th>
+							<th><?php echo $language['payment-place'] ?></th>
+							<th><?php echo $language['payment-status'] ?></th>
+							<th><?php echo $language['options'] ?></th>
 						</tr>
 					</thead>
 				</table>
@@ -304,21 +304,21 @@ $result = $query->fetch_assoc();
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="clientName" class="col-sm-3 control-label">Client Name:</label>
+							<label for="clientName" class="col-sm control-label"><?php echo $language['client-name'] ?>:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" value="<?php echo $data[2] ?>" required/>
+								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="<?php echo $language['client-name'] ?>" autocomplete="off" value="<?php echo $data[2] ?>" required/>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-3 control-label">Client Contact:</label>
+							<label for="clientContact" class="col-sm control-label">Client Contact:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Contact Number" autocomplete="off" value="<?php echo $data[3] ?>" required/>
+								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="<?php echo $language['client-number'] ?>" autocomplete="off" value="<?php echo $data[3] ?>" required/>
 							</div>
 						</div> <!--/form-group-->	
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="orderDate" class="col-sm-3 control-label">Order Date:</label>
+							<label for="orderDate" class="col-sm control-label"><?php echo $language['order-date'] ?>:</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="orderDate" name="orderDate" disabled="true" autocomplete="off" value="<?php echo $data[1] ?>" />
 							</div>
@@ -330,11 +330,11 @@ $result = $query->fetch_assoc();
 					<table class="table" id="productTable">
 						<thead>
 							<tr>			  			
-								<th style="width:45%;">Product</th>
-								<th style="width:15%;">Rate</th>
-								<th style="width:10%;">Available</th>			  			
-								<th style="width:10%;">Quantity</th>			  			
-								<th style="width:15%;">Total</th>			  			
+								<th style="width:45%;"><?php echo $language['product'] ?></th>
+								<th style="width:15%;"><?php echo $language['price'] ?></th>
+								<th style="width:10%;"><?php echo $language['available'] ?></th>			  			
+								<th style="width:10%;"><?php echo $language['quantity'] ?></th>			  			
+								<th style="width:15%;"><?php echo $language['total'] ?></th>			  			
 								<th style="width:5%;"></th>
 							</tr>
 						</thead>
@@ -356,7 +356,7 @@ $result = $query->fetch_assoc();
 			  					<div class="form-group">
 
 			  						<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" required>
-			  							<option value="">~~SELECT~~</option>
+			  							<option value="">~~<?php echo $language['select'] ?>~~</option>
 			  							<?php
 			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
 			  							$productData = $connect->query($productSql);
@@ -421,38 +421,38 @@ $result = $query->fetch_assoc();
 				  	</tbody>			  	
 				  </table>
 				</div>
-				<button type="button" class="btn btn-primary btn-sm ml-3 mb-4" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="fas fa-plus"></i> Adicionar linha</button>
+				<button type="button" class="btn btn-primary btn-sm ml-3 mb-4" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="fas fa-plus"></i> <?php echo $language['add-field'] ?></button>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="subTotal" class="col-sm-4 control-label">Sub Amount</label>
+							<label for="subTotal" class="col-sm-4 control-label"><?php echo $language['sub-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="subTotal" name="subTotal" disabled="true" value="<?php echo $data[4] ?>" />
 								<input type="hidden" class="form-control" id="subTotalValue" name="subTotalValue" value="<?php echo $data[4] ?>" />
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo " *IVA 17%";} else echo "IVA 17%"; ?></label>
+							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo " *IVA 17%";} else echo "IVA 17%"; ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="vat" name="vat" disabled="true" value="<?php echo $data[5] ?>"  />
 								<input type="hidden" class="form-control" id="vatValue" name="vatValue" value="<?php echo $data[5] ?>"  />
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="totalAmount" class="col-sm-4 control-label">Total Amount</label>
+							<label for="totalAmount" class="col-sm-4 control-label"><?php echo $language['total-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled="true" value="<?php echo $data[6] ?>" />
 								<input type="hidden" class="form-control" id="totalAmountValue" name="totalAmountValue" value="<?php echo $data[6] ?>"  />
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="discount" class="col-sm-4 control-label">Discount:</label>
+							<label for="discount" class="col-sm-4 control-label"><?php echo $language['discount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="number" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" value="<?php echo $data[7] ?>" required/>
 							</div>
 						</div> <!--/form-group-->	
 						<div class="form-group">
-							<label for="grandTotal" class="col-sm-4 control-label">Grand Total:</label>
+							<label for="grandTotal" class="col-sm-4 control-label"><?php echo $language['grand-total'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control form-control-lg border-success" id="grandTotal" name="grandTotal" disabled="true" value="<?php echo $data[8] ?>"  />
 								<input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" value="<?php echo $data[8] ?>"  />
@@ -470,23 +470,23 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="paid" class="col-sm-4 control-label">Paid Amount:</label>
+							<label for="paid" class="col-sm-4 control-label"><?php echo $language['paid-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="number" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" value="<?php echo $data[9] ?>"  required/>
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="due" class="col-sm-4 control-label">Due Amount:</label>
+							<label for="due" class="col-sm-4 control-label"><?php echo $language['due-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="due" name="due" disabled="true" value="<?php echo $data[10] ?>"  />
 								<input type="hidden" class="form-control" id="dueValue" name="dueValue" value="<?php echo $data[10] ?>"  required/>
 							</div>
 						</div> <!--/form-group-->		
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Type</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-type'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentType" id="paymentType" required>
-									<option value="">~~SELECT~~</option>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
 									<option value="1" disabled <?php if($data[11] == 1) {
 										echo "selected";
 									} ?> >Cheque</option>
@@ -500,33 +500,33 @@ $result = $query->fetch_assoc();
 							</div>
 						</div> <!--/form-group-->							  
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Status:</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
-									<option value="">~~SELECT~~</option>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
 									<option value="1" <?php if($data[12] == 1) {
 										echo "selected";
-									} ?>  >Full Payment</option>
+									} ?>  ><?php echo $language['full-payment'] ?></option>
 									<option value="2" <?php if($data[12] == 2) {
 										echo "selected";
-									} ?> >Advance Payment</option>
+									} ?> ><?php echo $language['advance-payment'] ?></option>
 									<option value="3" <?php if($data[10] == 3) {
 										echo "selected";
-									} ?> >No Payment</option>
+									} ?> ><?php echo $language['no-payment'] ?></option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label">Payment Place</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-place'] ?>:</label>
 							<div class="col-sm-5">
 								<select class="form-control" name="paymentPlace" id="paymentPlace">
-									<option value="">~~SELECT~~</option>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
 									<option value="1" <?php if($data[13] == 1) {
 										echo "selected";
-									}else { echo "disabled"; } ?>  >Na loja</option>
+									}else { echo "disabled"; } ?>  ><?php echo $language['in-store'] ?></option>
 									<option value="2" <?php if($data[13] == 2) {
 										echo "selected";
-									}else { echo "disabled"; } ?> >Online</option>
+									}else { echo "disabled"; } ?> ><?php echo $language['online'] ?></option>
 								</select>
 							</div>
 						</div>							  
@@ -535,11 +535,9 @@ $result = $query->fetch_assoc();
 
 				<div class="form-group editButtonFooter">
 					<div class="col-sm-offset-2 col-sm-10">
-
 						<input type="hidden" name="orderId" id="orderId" value="<?php echo $_GET['i']; ?>" />
 
-						<button type="submit" id="editOrderBtn" data-loading-text="Loading..." class="btn btn-success"><i class="fas fa-save"></i> Save Changes</button>
-
+						<button type="submit" id="editOrderBtn" data-loading-text="Loading..." class="btn btn-success"><i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 					</div>
 				</div>
 			</form>
@@ -553,7 +551,7 @@ $result = $query->fetch_assoc();
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-edit"></i> Edit Payment</h4>
+				<h4 class="modal-title"><i class="fas fa-edit"></i> <?php echo $language['edit-payment'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>      
 
@@ -563,36 +561,36 @@ $result = $query->fetch_assoc();
 
 
 				<div class="form-group">
-					<label for="due" class="col-sm-3 control-label">Due Amount</label>
+					<label for="due" class="col-sm-3 control-label"><?php echo $language['due-amount'] ?>:</label>
 					<div class="col-sm-9">
 						<input type="text" class="form-control" id="due" name="due" disabled="true" />					
 					</div>
 				</div> <!--/form-group-->		
 				<div class="form-group">
-					<label for="payAmount" class="col-sm-3 control-label">Pay Amount</label>
+					<label for="payAmount" class="col-sm-3 control-label">Pay Amount:</label>
 					<div class="col-sm-9">
 						<input type="text" class="form-control" id="payAmount" name="payAmount" required/>					      
 					</div>
 				</div> <!--/form-group-->		
 				<div class="form-group">
-					<label for="clientContact" class="col-sm-3 control-label">Tipo de pagamento:</label>
+					<label for="clientContact" class="col-sm-3 control-label"><?php echo $language['payment-type'] ?>:</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="paymentType" id="paymentType" required>
-							<option value="">~~SELECT~~</option>
-							<option value="1" disabled>Cheque</option>
-							<option value="2">Cash</option>
-							<option value="3">Credit card</option>
+							<option value="">~~<?php echo $language['select'] ?>~~</option>
+							<option value="1" disabled><?php echo $language['cheque'] ?></option>
+							<option value="2"><?php echo $language['cash'] ?></option>
+							<option value="3"><?php echo $language['credit-card'] ?></option>
 						</select>
 					</div>
 				</div> <!--/form-group-->							  
 				<div class="form-group">
-					<label for="clientContact" class="col-sm-3 control-label">Payment Status</label>
+					<label for="clientContact" class="col-sm-3 control-label"><?php echo $language['payment-status'] ?>:</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="paymentStatus" id="paymentStatus" required>
-							<option value="">~~SELECT~~</option>
-							<option value="1">Full Payment</option>
-							<option value="2">Advance Payment</option>
-							<option value="3">No Payment</option>
+							<option value="">~~<?php echo $language['select'] ?>~~</option>
+							<option value="1"><?php echo $language['full-payment'] ?></option>
+							<option value="2"><?php echo $language['advance-payment'] ?></option>
+							<option value="3"><?php echo $language['no-payment'] ?></option>
 						</select>
 					</div>
 				</div> <!--/form-group-->							  				  
@@ -600,7 +598,7 @@ $result = $query->fetch_assoc();
 			</div> <!--/modal-body-->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-success" id="updatePaymentOrderBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> Save changes</button>	
+				<button type="button" class="btn btn-success" id="updatePaymentOrderBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>	
 			</div>           
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -612,17 +610,17 @@ $result = $query->fetch_assoc();
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-trash"></i> Remove Order</h4>
+				<h4 class="modal-title"><i class="fas fa-trash"></i> <?php echo $language['remove-order'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<div class="removeOrderMessages"></div>
 
-				<p>Do you really want to remove ?</p>
+				<p><?php echo $language['do-y-really-w-to-remove'] ?> ?</p>
 			</div>
 			<div class="modal-footer removeProductFooter">
 				<button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-danger" id="removeOrderBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> Save changes</button>
+				<button type="button" class="btn btn-danger" id="removeOrderBtn" data-loading-text="Loading..."> <i class="fas fa-trash"></i> <?php echo $language['remove'] ?></button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

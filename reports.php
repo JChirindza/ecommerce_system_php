@@ -28,7 +28,7 @@ $connect->close();
 ?>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle">Reports</h1>
+	<h1 class="pageTitle"><?php echo $language['reports'] ?></h1>
 </div>
 
 <div class="row">
@@ -40,7 +40,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#"  class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Total orders</label>
+								<label><?php echo $language['total-orders'] ?></label>
 								<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
 							</div>
 						</a>
@@ -52,7 +52,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Most requested</label>
+								<label><?php echo $language['most-requested'] ?></label>
 								<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
 							</div>
 						</a>
@@ -63,25 +63,25 @@ $connect->close();
 		<div class="card shadow-sm">
 
 			<div class="card-header">
-				<i class="fas fa-chart-area"></i> Order report
+				<i class="fas fa-chart-area"></i> <?php echo $language['orders-report'] ?>
 			</div>
 			<div class="card-body">
 				<form class="form-horizontal" action="php_action/ctrl_report.php?action=genOrderReport" method="post" id="getOrderReportForm">
 					<div class="form-group">
-						<label for="startDate" class="col-sm-4 control-label">Start Date</label>
+						<label for="startDate" class="col-sm-4 control-label"><?php echo $language['start-date'] ?></label>
 						<div class="col-sm">
 							<input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date" required/>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="endDate" class="col-sm-4 control-label">End Date</label>
+						<label for="endDate" class="col-sm-4 control-label"><?php echo $language['end-date'] ?></label>
 						<div class="col-sm">
 							<input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date" required/>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-success" id="generateReportBtn"> <i class="fas fa-print"></i> Generate Report</button>
+							<button type="submit" class="btn btn-success" id="generateReportBtn"> <i class="fas fa-print"></i> <?php echo $language['generate-report'] ?></button>
 						</div>
 					</div>
 				</form>
@@ -98,7 +98,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#"  class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Total purchases</label>
+								<label><?php echo $language['total-purchases'] ?></label>
 								<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
 							</div>
 						</a>
@@ -110,7 +110,7 @@ $connect->close();
 					<div class="card-body">
 						<a href="#" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
-								<label>Most bought</label>
+								<label><?php echo $language['most-bought'] ?></label>
 								<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
 							</div>
 						</a>

@@ -1,12 +1,19 @@
 <?php 
-$lang = "en";
+session_start();
+
+// Multi-lingual
+$lang = 'en';
+if (isset($_SESSION['lang'])) {
+	$lang = $_SESSION['lang'];
+}
+if (isset($_COOKIE['lang'])) {
+	$lang = $_COOKIE['lang'];
+}
 if (isset($_GET['lang'])) {
 	$lang = $_GET['lang'];
 }
 require_once 'includes/Language/lang.' . $lang . '.php';
 require_once 'php_action/db_connect.php';
-
-session_start();
 
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
@@ -51,6 +58,10 @@ if($_POST) {
 				$_SESSION['userId'] = $user_id;
 				$_SESSION['userType'] = $user_type;
 				$_SESSION['lang'] = $lang;
+
+				$cookie_name = "lang";
+				$cookie_value = $lang;
+				setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 
 				if ($_SESSION['userType'] == 1) {
 					header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
