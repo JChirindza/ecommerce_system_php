@@ -16,7 +16,6 @@ if($_POST) {
 
 	$email = Sys_Secure($_POST['email']);
 	$password = Sys_Secure($_POST['password']);
-	$lang = Sys_Secure($_POST['lang']);
 
 	if(empty($email) || empty($password)) {
 		if($email == "") {
@@ -44,19 +43,10 @@ if($_POST) {
 				// set session
 				$_SESSION['userId'] = $user_id;
 				$_SESSION['userType'] = $user_type;
-				$_SESSION['lang'] = $lang;
 
-				$cookie_name = "lang";
-				$cookie_value = $lang;
-				setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-
-				if ($_SESSION['userType'] == 1) {
-					header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
-				}else{
-					header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php');	
-				}
+				header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+                exit();
 			} else{
-				
 				$errors[] = "Incorrect Email/password combination";
 			} // /else
 		} else {		
@@ -83,11 +73,8 @@ if($_POST) {
 	<script type="text/javascript" src="assests/font-awesome/js/all.min.js"></script>
 	<!-- custom css -->
 	<link rel="stylesheet" href="custom/css/style.css">
-	<style type="text/css">
-	.language-link a { color: gray;}
-</style>
 </head>
-<body>
+<body class="bg-light">
 	<div class="border d-flex justify-content-end pr-4">
 		<div><i class="fas fa-globe mr-4 text-secondary"></i></div>
 		<div class="language-link mr-4">
@@ -117,7 +104,7 @@ if($_POST) {
 								}
 							} ?>
 						</div>
-						<form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="loginForm">
+						<form class="form-horizontal" action="<?php echo Sys_Secure($_SERVER["PHP_SELF"]);?>" method="post" id="loginForm">
 							<fieldset>
 								<div class="form-group">
 									<div class="col-sm-12">
@@ -145,7 +132,6 @@ if($_POST) {
 									<a href="index.php" id="back" class="font-weight-light"><i class="fas fa-arrow-left"></i> <?php echo $language['back']; ?></a>
 								</div>
 							</div>
-							<input type="hidden" name="lang" id="lang" value="<?php echo $lang; ?>">
 						</form>
 					</div>
 				</div>
