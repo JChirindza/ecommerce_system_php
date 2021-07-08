@@ -1,19 +1,19 @@
 <?php 
-session_start();
+require_once 'php_action/core.php';
 
 // Multi-lingual
 $lang = 'en';
 if (isset($_SESSION['lang'])) {
-	$lang = $_SESSION['lang'];
+	$lang = Sys_Secure($_SESSION['lang']);
 }
 if (isset($_COOKIE['lang'])) {
-	$lang = $_COOKIE['lang'];
+	$lang = Sys_Secure($_COOKIE['lang']);
 }
 if (isset($_GET['lang'])) {
-	$lang = $_GET['lang'];
+	$lang = Sys_Secure($_GET['lang']);
 }
 require_once 'includes/Language/lang.' . $lang . '.php';
-require_once 'php_action/db_connect.php';
+
 
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
@@ -27,12 +27,12 @@ $errors = array();
 
 if($_POST) {		
 
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$lang = $_POST['lang'];
+	$email = Sys_Secure($_POST['email']);
+	$password = Sys_Secure($_POST['password']);
+	$lang = Sys_Secure($_POST['lang']);
 
-	if(empty($username) || empty($password)) {
-		if($username == "") {
+	if(empty($email) || empty($password)) {
+		if($email == "") {
 			$errors[] = "Email is required";
 		} 
 
@@ -40,7 +40,7 @@ if($_POST) {
 			$errors[] = "Password is required";
 		}
 	} else {
-		$sql = "SELECT * FROM users WHERE email = '$email' and active != 2";
+		$sql = "SELECT * FROM users WHERE email = '$email' AND active != 2";
 		$result = $connect->query($sql);
 
 		if($result->num_rows == 1) {

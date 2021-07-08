@@ -1,19 +1,19 @@
 <?php 
-require_once 'php_action/db_connect.php';
+require_once 'php_action/core.php';
 
 $lang = "en";
 if (isset($_GET['lang'])) {
-    $lang = $_GET['lang'];
+    $lang = Sys_Secure($_GET['lang']);
 }
 require_once 'includes/Language/lang.' . $lang . '.php';
-
-session_start();
 
 if(isset($_SESSION['userId'])) {
     if ($_SESSION['userType'] == 1) {
         header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php'); 
+        exit();
     }else{
         header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+        exit();
     }
 }
 
@@ -21,10 +21,10 @@ $errors = array();
 
 if($_POST) {    
 
-    $name       = $_POST['name'];
-    $surname    = $_POST['surname'];
-    $uemail     = strtolower($_POST['uemail']);
-    $upassword  = $_POST['upassword'];
+    $name       = Sys_Secure($_POST['name']);
+    $surname    = Sys_Secure($_POST['surname']);
+    $uemail     = Sys_Secure(strtolower($_POST['uemail']), 0);
+    $upassword  = Sys_Secure($_POST['upassword'], 0);
     $cpassword  = $_POST['cpassword'];
     $url        = '../assests/images/photo_default.png';
     
@@ -50,7 +50,7 @@ if($_POST) {
                 $errors[] = "Successfully Added"; 
 
                 header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
-
+                exit();
             } else {
                 $errors[] = "Error while adding the members";
             }
@@ -92,7 +92,7 @@ if($_POST) {
                         <h4 class="h4 text-gray-900"><?php echo $language['create-account'] ?></h4>
                     </div>
                     <div class="card-body">
-                        <form class="form-horizontal" id="submitUserForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
+                        <form class="form-horizontal" id="submitUserForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
 
                             <!-- <div id="add-user-messages"></div> -->
 
