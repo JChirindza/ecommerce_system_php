@@ -119,7 +119,7 @@ if($_POST) {
 								}
 							} ?>
 						</div>
-						<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
+						<form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" id="loginForm">
 							<fieldset>
 								<div class="form-group">
 									<div class="col-sm-12">
