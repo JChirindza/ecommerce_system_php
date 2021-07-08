@@ -26,6 +26,7 @@ html, body{
   background: #555; 
 }
 
+.language-link a { color: gray;}
 
 /* Logo */
 .logo {
