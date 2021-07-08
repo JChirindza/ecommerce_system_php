@@ -1,17 +1,3 @@
-<?php require_once 'php_action/core.php'; ?>
-<?php  
-// Multi-lingual
-if ($_SESSION['lang']) {
-	$lang =$_SESSION['lang'];
-}
-if (isset($_COOKIE['lang'])) {
-	$lang = $_COOKIE['lang'];
-}
-if (isset($_GET['lang'])) {
-	$lang = $_GET['lang'];
-}
-require_once 'includes/Language/lang.' . $lang . '.php';
-?>
 <?php 
 // Get username
 if (isset($_SESSION['userId'])) {
