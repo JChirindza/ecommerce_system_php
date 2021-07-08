@@ -1,6 +1,6 @@
 
 <?php 
-$categoryId = $_GET['i'];
+$categoryId = Sys_Secure($_GET['i']);
 
 $sql = "SELECT categories_id, categories_name, categories_active FROM categories WHERE categories_status = 1 AND categories_id = {$categoryId}";
 $query = $connect->query($sql);
