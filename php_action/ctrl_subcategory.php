@@ -1,10 +1,10 @@
 <?php  
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createSubcategory();
@@ -32,15 +32,16 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function createSubcategory(){
-	require_once 'core.php';
+
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$categoryId = $_POST['categoryId'];
-		$subcategoryName = $_POST['subcategoryName'];
-		$subcategoryStatus = $_POST['subcategoryStatus']; 
+		$categoryId = Sys_Secure($_POST['categoryId']);
+		$subcategoryName = Sys_Secure($_POST['subcategoryName']);
+		$subcategoryStatus = Sys_Secure($_POST['subcategoryStatus']); 
 
 		$sql = "INSERT INTO sub_categories (categories_id, sub_category_name, active, status) VALUES ('$categoryId', '$subcategoryName', '$subcategoryStatus', 1)";
 
@@ -61,9 +62,10 @@ function createSubcategory(){
  * 
  * */
 function fetchSubcategories(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$category_id = $_GET['categories_id'];
+	$category_id = Sys_Secure($_GET['categories_id']);
 
 	$sql = "SELECT sub_categories.sub_category_id, sub_categories.sub_category_name, sub_categories.active FROM sub_categories INNER JOIN categories ON sub_categories.categories_id = categories.categories_id WHERE sub_categories.status = 1 AND categories.categories_id = {$category_id} ORDER BY sub_categories.sub_category_id DESC";
 
@@ -115,15 +117,16 @@ function fetchSubcategories(){
  * 
  * */
 function editSubcategory(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {
 
-		$subcategoryId 	= $_POST['subcategoryId'];
-		$subcategoryName 		= $_POST['editSubcategoryName']; 
-		$subcateogryStatus 		= $_POST['editSubcategoryStatus'];
+		$subcategoryId 		= Sys_Secure($_POST['subcategoryId']);
+		$subcategoryName 	= Sys_Secure($_POST['editSubcategoryName']); 
+		$subcateogryStatus 	= Sys_Secure($_POST['editSubcategoryStatus']);
 
 		$sql = "UPDATE sub_categories SET sub_category_name = '$subcategoryName', active = '$subcateogryStatus', status = 1 WHERE sub_category_id = $subcategoryId";
 
@@ -146,11 +149,12 @@ function editSubcategory(){
  * 
  * */
 function removeSubcategory(){
-	require_once 'core.php';
+	
+	global $connect;
 	
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$subcategoryId = $_POST['subcategoryId'];
+	$subcategoryId = Sys_Secure($_POST['subcategoryId']);
 
 	if($subcategoryId) { 
 
@@ -175,9 +179,10 @@ function removeSubcategory(){
  * 
  * */
 function fetchSelectedSubcategory(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$subcategoryId = $_POST['subcategoryId'];
+	$subcategoryId = Sys_Secure($_POST['subcategoryId']);
 
 	$sql = "SELECT sub_category_id, sub_category_name, active FROM sub_categories WHERE sub_category_id = {$subcategoryId}";
 	$result = $connect->query($sql);

@@ -1,11 +1,10 @@
 <?php 	
-
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createBrand();
@@ -33,14 +32,15 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  **/
 function createBrand(){
-	require_once 'core.php';
 	
+	global $connect;
+
 	$valid['success'] = array('success' => false, 'messages' => array());
 	
 	if($_POST) {	
 
-		$brandName = $_POST['brandName'];
-		$brandStatus = $_POST['brandStatus']; 
+		$brandName 		= Sys_Secure($_POST['brandName']);
+		$brandStatus 	= Sys_Secure($_POST['brandStatus']); 
 
 		$sql = "INSERT INTO brands (brand_name, brand_active, brand_status) VALUES ('$brandName', '$brandStatus', 1)";
 
@@ -62,7 +62,8 @@ function createBrand(){
  * 
  **/
 function fetchBrand(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -109,15 +110,16 @@ function fetchBrand(){
  * 
  **/
 function editBrand(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$brandName = $_POST['editBrandName'];
-		$brandStatus = $_POST['editBrandStatus']; 
-		$brandId = $_POST['brandId'];
+		$brandName 		= Sys_Secure($_POST['editBrandName']);
+		$brandStatus 	= Sys_Secure($_POST['editBrandStatus']); 
+		$brandId 		= Sys_Secure($_POST['brandId']);
 
 		$sql = "UPDATE brands SET brand_name = '$brandName', brand_active = '$brandStatus' WHERE brand_id = '$brandId'";
 
@@ -139,11 +141,12 @@ function editBrand(){
  * 
  **/
 function removeBrand(){
-	require_once 'core.php';
+
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$brandId = $_POST['brandId'];
+	$brandId = Sys_Secure($_POST['brandId']);
 
 	if($brandId) { 
 
@@ -168,9 +171,10 @@ function removeBrand(){
  * 
  * */
 function fetchSelectedBrand(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$brandId = $_POST['brandId'];
+	$brandId = Sys_Secure($_POST['brandId']);
 
 	$sql = "SELECT * FROM brands WHERE brand_id = $brandId";
 	$result = $connect->query($sql);

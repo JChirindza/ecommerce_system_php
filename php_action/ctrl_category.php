@@ -1,10 +1,10 @@
 <?php  
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createCategory();
@@ -33,14 +33,15 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function createCategory(){
-	require_once 'core.php';
+
+	global $connect;	
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$categoriesName = $_POST['categoriesName'];
-		$categoriesStatus = $_POST['categoriesStatus']; 
+		$categoriesName 	= Sys_Secure($_POST['categoriesName']);
+		$categoriesStatus 	= Sys_Secure($_POST['categoriesStatus']); 
 
 		$sql = "INSERT INTO categories (categories_name, categories_active, categories_status) 
 		VALUES ('$categoriesName', '$categoriesStatus', 1)";
@@ -64,7 +65,8 @@ function createCategory(){
  * 
  **/
 function fetchCategories(){
-	require_once 'core.php';
+
+	global $connect;
 
 	$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1";
 	$result = $connect->query($sql);
@@ -124,15 +126,16 @@ function fetchCategories(){
  * 
  * */
 function editCategory(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$brandName = $_POST['editCategoriesName'];
-		$brandStatus = $_POST['editCategoriesStatus']; 
-		$categoriesId = $_POST['editCategoriesId'];
+		$brandName = Sys_Secure($_POST['editCategoriesName']);
+		$brandStatus = Sys_Secure($_POST['editCategoriesStatus']); 
+		$categoriesId = Sys_Secure($_POST['editCategoriesId']);
 
 		$sql = "UPDATE categories SET categories_name = '$brandName', categories_active = '$brandStatus' WHERE categories_id = '$categoriesId'";
 
@@ -153,11 +156,12 @@ function editCategory(){
  * 
  * */
 function removeCategory(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$categoriesId = $_POST['categoriesId'];
+	$categoriesId = Sys_Secure($_POST['categoriesId']);
 
 	if($categoriesId) { 
 
@@ -182,7 +186,7 @@ function removeCategory(){
 function fetchSelectedCategory(){
 	require_once 'core.php';
 
-	$categoriesId = $_POST['categoriesId'];
+	$categoriesId = Sys_Secure($_POST['categoriesId']);
 
 	$sql = "SELECT * FROM categories WHERE categories_id = $categoriesId";
 	$result = $connect->query($sql);

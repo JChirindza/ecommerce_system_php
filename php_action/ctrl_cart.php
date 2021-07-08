@@ -1,10 +1,10 @@
 <?php
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'read':
 		fetchCarts();
@@ -26,7 +26,8 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function fetchCarts(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$sql = "SELECT c.cart_id, c.payment_status, c.cart_date, c.user_id, 
 	u.name, u.surname, u.user_image FROM cart AS c
@@ -93,7 +94,7 @@ function fetchCarts(){
 function fetchCartItems(){
 	require_once 'core.php';
 	
-	$cartId = $_GET['cartId'];
+	$cartId = Sys_Secure($_GET['cartId']);
 
 	$sql = "SELECT cart_item_id, product_id, quantity FROM cart_item WHERE cart_id = {$cartId} AND status = 1";
 	$result = $connect->query($sql);

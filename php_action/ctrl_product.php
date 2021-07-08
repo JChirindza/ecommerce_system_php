@@ -1,9 +1,10 @@
 <?php  
+require_once 'php_action/core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createProduct();
@@ -36,18 +37,19 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function createProduct(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$productName 		= $_POST['productName'];
-		$quantity 			= $_POST['quantity'];
-		$rate 					= $_POST['rate'];
-		$brandName 			= $_POST['brandName'];
-		$categoryName 	= $_POST['categoryName'];
-		$productStatus 	= $_POST['productStatus'];
+		$productName 	= Sys_Secure($_POST['productName']);
+		$quantity 		= Sys_Secure($_POST['quantity']);
+		$rate 			= Sys_Secure($_POST['rate']);
+		$brandName 		= Sys_Secure($_POST['brandName']);
+		$categoryName 	= Sys_Secure($_POST['categoryName']);
+		$productStatus 	= Sys_Secure($_POST['productStatus']);
 
 		$type = explode('.', $_FILES['productImage']['name']);
 		$type = $type[count($type)-1];		
@@ -82,7 +84,8 @@ function createProduct(){
  * 
  * */
 function fetchProduct(){
-	require_once 'core.php';
+
+	global $connect;
 
 	$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
 	product.categories_id, product.quantity, product.rate, product.active, product.status, 
@@ -154,18 +157,19 @@ function fetchProduct(){
  * 
  * */
 function editProduct(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {
-		$productId = $_POST['productId'];
-		$productName 		= $_POST['editProductName']; 
-		$quantity 			= $_POST['editQuantity'];
-		$rate 					= $_POST['editRate'];
-		$brandName 			= $_POST['editBrandName'];
-		$categoryName 	= $_POST['editCategoryName'];
-		$productStatus 	= $_POST['editProductStatus'];
+		$productId 		= Sys_Secure($_POST['productId']);
+		$productName 	= Sys_Secure($_POST['editProductName']); 
+		$quantity 		= Sys_Secure($_POST['editQuantity']);
+		$rate 			= Sys_Secure($_POST['editRate']);
+		$brandName 		= Sys_Secure($_POST['editBrandName']);
+		$categoryName 	= Sys_Secure($_POST['editCategoryName']);
+		$productStatus 	= Sys_Secure($_POST['editProductStatus']);
 
 
 		$sql = "UPDATE product SET product_name = '$productName', brand_id = '$brandName', categories_id = '$categoryName', quantity = '$quantity', rate = '$rate', active = '$productStatus', status = 1 WHERE product_id = $productId ";
@@ -187,12 +191,13 @@ function editProduct(){
  * 
  * */
 function editProductImage(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {		
-		$productId = $_POST['productId'];
+		$productId = Sys_Secure($_POST['productId']);
 
 		$type = explode('.', $_FILES['editProductImage']['name']);
 		$type = $type[count($type)-1];		
@@ -225,11 +230,12 @@ function editProductImage(){
  * 
  * */
 function removeProduct(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$productId = $_POST['productId'];
+	$productId = Sys_Secure($_POST['productId']);
 
 	if($productId) { 
 
@@ -252,9 +258,10 @@ function removeProduct(){
  * 
  * */
 function fetchSelectedProduct(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$productId = $_POST['productId'];
+	$productId = Sys_Secure($_POST['productId']);
 
 	$sql = "SELECT product_id, product_name, product_image, brand_id, categories_id, quantity, rate, active, status FROM product WHERE product_id = $productId";
 	$result = $connect->query($sql);
@@ -271,9 +278,10 @@ function fetchSelectedProduct(){
  * 
  * */
 function fetchProductImageUrl(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$productId = $_GET['i'];
+	$productId = Sys_Secure($_GET['i']);
 
 	$sql = "SELECT product_image FROM product WHERE product_id = {$productId}";
 	$data = $connect->query($sql);

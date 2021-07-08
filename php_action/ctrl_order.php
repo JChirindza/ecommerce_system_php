@@ -1,10 +1,10 @@
 <?php  
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createOrder();
@@ -48,27 +48,28 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function createOrder(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array(), 'order_id' => '');
 	// print_r($valid);
 	if($_POST) {	
 
 		$orderDate 			= date('Y-m-d H:i:s');	
-		$clientName 		= $_POST['clientName'];
-		$clientContact 		= $_POST['clientContact'];
-		$subTotalValue 		= $_POST['subTotalValue'];
-		$vatValue 			= $_POST['vatValue'];
-		$totalAmountValue   = $_POST['totalAmountValue'];
-		$discount 			= $_POST['discount'];
-		$grandTotalValue 	= $_POST['grandTotalValue'];
-		$paid 				= $_POST['paid'];
-		$dueValue 			= $_POST['dueValue'];
-		$paymentType 		= $_POST['paymentType'];
-		$paymentStatus 		= $_POST['paymentStatus'];
-		$paymentPlace 		= $_POST['paymentPlace'];
-		$gstn 				= $_POST['gstn'];
-		$userid 			= $_SESSION['userId'];
+		$clientName 		= Sys_Secure($_POST['clientName']);
+		$clientContact 		= Sys_Secure($_POST['clientContact']);
+		$subTotalValue 		= Sys_Secure($_POST['subTotalValue']);
+		$vatValue 			= Sys_Secure($_POST['vatValue']);
+		$totalAmountValue   = Sys_Secure($_POST['totalAmountValue']);
+		$discount 			= Sys_Secure($_POST['discount']);
+		$grandTotalValue 	= Sys_Secure($_POST['grandTotalValue']);
+		$paid 				= Sys_Secure($_POST['paid']);
+		$dueValue 			= Sys_Secure($_POST['dueValue']);
+		$paymentType 		= Sys_Secure($_POST['paymentType']);
+		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);
+		$paymentPlace 		= Sys_Secure($_POST['paymentPlace']);
+		$gstn 				= Sys_Secure($_POST['gstn']);
+		$userid 			= Sys_Secure($_SESSION['userId']);
 
 		$sql = "INSERT INTO orders (order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_type, payment_status,payment_place, gstn,order_status,user_id) VALUES ('$orderDate', '$clientName', '$clientContact', '$subTotalValue', '$vatValue', '$totalAmountValue', '$discount', '$grandTotalValue', '$paid', '$dueValue', '$paymentType', '$paymentStatus', '$paymentPlace', '$gstn', 1, '$userid')";
 
@@ -89,22 +90,22 @@ function createOrder(){
 		$orderItemStatus = false;
 
 		for($x = 0; $x < count($_POST['productName']); $x++) {			
-			$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
+			$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".Sys_Secure($_POST['productName'][$x])."";
 			$updateProductQuantityData = $connect->query($updateProductQuantitySql);
 
 			while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
-				$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
+				$updateQuantity[$x] = $updateProductQuantityResult[0] - Sys_Secure($_POST['quantity'][$x]);							
 				// update product table
-				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".$_POST['productName'][$x]."";
+				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".Sys_Secure($_POST['productName'][$x])."";
 				$connect->query($updateProductTable);
 
 				// add into order_item
 				$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status) 
-				VALUES ('$order_id', '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', 1)";
+				VALUES ('$order_id', '".Sys_Secure($_POST['productName'][$x])."', '".Sys_Secure($_POST['quantity'][$x])."', '".Sys_Secure($_POST['rateValue'][$x])."', '".Sys_Secure($_POST['totalValue'][$x])."', 1)";
 
 				$connect->query($orderItemSql);		
 
-				if($x == count($_POST['productName'])) {
+				if($x == count(Sys_Secure($_POST['productName']))) {
 					$orderItemStatus = true;
 				}		
 			} // while	
@@ -123,7 +124,8 @@ function createOrder(){
  * 
  * */
 function fetchOrders(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$sql = "SELECT order_id, order_date, client_name, client_contact, payment_place, payment_status FROM orders WHERE order_status = 1 ORDER BY order_id DESC";
 	$result = $connect->query($sql);
@@ -203,9 +205,10 @@ function fetchOrders(){
  * 
  * */
 function fetchSelectedOrder(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$orderId = $_POST['orderId'];
+	$orderId = Sys_Secure($_POST['orderId']);
 
 	$valid = array('order' => array(), 'order_item' => array());
 
@@ -225,27 +228,28 @@ function fetchSelectedOrder(){
  * 
  * */
 function editOrder(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$orderId 			= $_POST['orderId'];
+		$orderId 			= Sys_Secure($_POST['orderId']);
 		$orderDate 			= date('Y-m-d H:i:s');
-		$clientName 		= $_POST['clientName'];
-		$clientContact 		= $_POST['clientContact'];
-		$subTotalValue 		= $_POST['subTotalValue'];
-		$vatValue 			= $_POST['vatValue'];
-		$totalAmountValue	= $_POST['totalAmountValue'];
-		$discount 			= $_POST['discount'];
-		$grandTotalValue	= $_POST['grandTotalValue'];
-		$paid 				= $_POST['paid'];
-		$dueValue 			= $_POST['dueValue'];
-		$paymentType 		= $_POST['paymentType'];
-		$paymentStatus 		= $_POST['paymentStatus'];
-		$paymentPlace 		= $_POST['paymentPlace'];
-		$userid 			= $_SESSION['userId'];
+		$clientName 		= Sys_Secure($_POST['clientName']);
+		$clientContact 		= Sys_Secure($_POST['clientContact']);
+		$subTotalValue 		= Sys_Secure($_POST['subTotalValue']);
+		$vatValue 			= Sys_Secure($_POST['vatValue']);
+		$totalAmountValue	= Sys_Secure($_POST['totalAmountValue']);
+		$discount 			= Sys_Secure($_POST['discount']);
+		$grandTotalValue	= Sys_Secure($_POST['grandTotalValue']);
+		$paid 				= Sys_Secure($_POST['paid']);
+		$dueValue 			= Sys_Secure($_POST['dueValue']);
+		$paymentType 		= Sys_Secure($_POST['paymentType']);
+		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);
+		$paymentPlace 		= Sys_Secure($_POST['paymentPlace']);
+		$userid 			= Sys_Secure($_SESSION['userId']);
 
 		$sql = "UPDATE orders SET order_date = '$orderDate', client_name = '$clientName', client_contact = '$clientContact', sub_total = '$subTotalValue', vat = '$vatValue', total_amount = '$totalAmountValue', discount = '$discount', grand_total = '$grandTotalValue', paid = '$paid', due = '$dueValue', payment_type = '$paymentType', payment_status = '$paymentStatus', order_status = 1 ,user_id = '$userid',payment_place = '$paymentPlace' WHERE order_id = {$orderId}";	
 		$connect->query($sql);
@@ -254,9 +258,9 @@ function editOrder(){
 
 			$readyToUpdateOrderItem = false;
 			// add the quantity from the order item to product table
-			for($x = 0; $x < count($_POST['productName']); $x++) {		
+			for($x = 0; $x < count(Sys_Secure($_POST['productName'])); $x++) {		
 				//  product table
-				$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
+				$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".Sys_Secure($_POST['productName'][$x])."";
 				$updateProductQuantityData = $connect->query($updateProductQuantitySql);			
 
 				while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
@@ -267,36 +271,36 @@ function editOrder(){
 
 					$editQuantity = $updateProductQuantityResult[0] + $orderItemData[0];							
 
-					$updateQuantitySql = "UPDATE product SET quantity = $editQuantity WHERE product_id = ".$_POST['productName'][$x]."";
+					$updateQuantitySql = "UPDATE product SET quantity = $editQuantity WHERE product_id = ".Sys_Secure($_POST['productName'][$x])."";
 					$connect->query($updateQuantitySql);		
 				} // while	
 				
-				if(count($_POST['productName']) == count($_POST['productName'])) {
+				if(count(Sys_Secure($_POST['productName'])) == count(Sys_Secure($_POST['productName'])) ){
 					$readyToUpdateOrderItem = true;			
 				}
 			} // /for quantity
 
 			// remove the order item data from order item table
-			for($x = 0; $x < count($_POST['productName']); $x++) {			
+			for($x = 0; $x < count(Sys_Secure($_POST['productName'])); $x++) {			
 				$removeOrderSql = "DELETE FROM order_item WHERE order_id = {$orderId}";
 				$connect->query($removeOrderSql);	
 			} // /for quantity
 
 			if($readyToUpdateOrderItem) {
 				// insert the order item data 
-				for($x = 0; $x < count($_POST['productName']); $x++) {			
-					$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
+				for($x = 0; $x < count(Sys_Secure($_POST['productName'])); $x++) {			
+					$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".Sys_Secure($_POST['productName'][$x])."";
 					$updateProductQuantityData = $connect->query($updateProductQuantitySql);
 					
 					while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
-						$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
+						$updateQuantity[$x] = $updateProductQuantityResult[0] - Sys_Secure($_POST['quantity'][$x]);							
 							// update product table
-						$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".$_POST['productName'][$x]."";
+						$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".Sys_Secure($_POST['productName'][$x])."";
 						$connect->query($updateProductTable);
 
 							// add into order_item
 						$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status) 
-						VALUES ({$orderId}, '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', 1)";
+						VALUES ({$orderId}, '".Sys_Secure($_POST['productName'][$x])."', '".Sys_Secure($_POST['quantity'][$x])."', '".Sys_Secure($_POST['rateValue'][$x])."', '".Sys_Secure($_POST['totalValue'][$x])."', 1)";
 
 						$connect->query($orderItemSql);		
 					} // while	
@@ -319,17 +323,18 @@ function editOrder(){
  * 
  * */
 function editPayment(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
-		$orderId 			= $_POST['orderId'];
-		$payAmount 			= $_POST['payAmount']; 
-		$paymentType 		= $_POST['paymentType'];
-		$paymentStatus 		= $_POST['paymentStatus'];  
-		$paidAmount        	= $_POST['paidAmount'];
-		$grandTotal        	= $_POST['grandTotal'];
+		$orderId 			= Sys_Secure($_POST['orderId']);
+		$payAmount 			= Sys_Secure($_POST['payAmount']); 
+		$paymentType 		= Sys_Secure($_POST['paymentType']);
+		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);  
+		$paidAmount        	= Sys_Secure($_POST['paidAmount']);
+		$grandTotal        	= Sys_Secure($_POST['grandTotal']);
 
 		$updatePaidAmount = $payAmount + $paidAmount;
 		$updateDue = $grandTotal - $updatePaidAmount;
@@ -353,11 +358,12 @@ function editPayment(){
  * 
  * */
 function removeOrder(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$orderId = $_POST['orderId'];
+	$orderId = Sys_Secure($_POST['orderId']);
 
 	if($orderId) { 
 		$sql = "UPDATE orders SET order_status = 2 WHERE order_id = {$orderId}";
@@ -381,9 +387,10 @@ function removeOrder(){
  * 
  * */
 function printOrder(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$orderId = $_POST['orderId'];
+	$orderId = Sys_Secure($_POST['orderId']);
 
 	$sql = "SELECT order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_place,gstn FROM orders WHERE order_id = $orderId";
 
@@ -575,16 +582,17 @@ function printOrder(){
  * 
  * */
  function getOrderReport(){
- 	require_once 'core.php';
+ 	
+ 	global $connect;
 
 	if($_POST) {
 
-		$startDate = $_POST['startDate'];
+		$startDate = Sys_Secure($_POST['startDate']);
 		$date = DateTime::createFromFormat('m/d/Y',$startDate);
 		$start_date = $date->format("Y-m-d");
 
 
-		$endDate = $_POST['endDate'];
+		$endDate = Sys_Secure($_POST['endDate']);
 		$format = DateTime::createFromFormat('m/d/Y',$endDate);
 		$end_date = $format->format("Y-m-d");
 
@@ -629,9 +637,10 @@ function printOrder(){
  * 
  * */
 function fetchSelectedProduct(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$productId = $_POST['productId'];
+	$productId = Sys_Secure($_POST['productId']);
 
 	$sql = "SELECT product_id, product_name, product_image, brand_id, categories_id, quantity, rate, active, status FROM product WHERE product_id = $productId";
 	$result = $connect->query($sql);
@@ -649,7 +658,8 @@ function fetchSelectedProduct(){
  * 
  * */
  function fetchProductData(){
- 	require_once 'core.php';
+ 	
+ 	global $connect;
 
  	$sql = "SELECT product_id, product_name FROM product WHERE status = 1 AND active = 1";
  	$result = $connect->query($sql);

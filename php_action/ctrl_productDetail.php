@@ -1,10 +1,10 @@
 <?php  
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createProductDetil();
@@ -32,16 +32,17 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function createProductDetil(){
-	require_once 'core.php';
+
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$product_id = $_POST['productId'];
-		$productDetail = $_POST['productDetail'];
-		$productDetailDescr = $_POST['detailDescription']; 
-		$productDetailStatus = $_POST['productDetailStatus']; 
+		$product_id 		= Sys_Secure($_POST['productId']);
+		$productDetail 		= Sys_Secure(Sys_Secure($_POST['productDetail']);
+		$productDetailDescr = Sys_Secure($_POST['detailDescription']); 
+		$productDetailStatus= Sys_Secure($_POST['productDetailStatus']); 
 
 		$sql = "INSERT INTO product_details (product_id, detail, description, active, status) VALUES ('$product_id', '$productDetail', '$productDetailDescr', '$productDetailStatus', 1)";
 
@@ -62,9 +63,10 @@ function createProductDetil(){
  * 
  * */
 function fetchProductDetils(){
-	require_once 'core.php';
 	
-	$product_id = $_GET['product_id'];
+	global $connect;
+	
+	$product_id = Sys_Secure($_GET['product_id']);
 
 	$sql = "SELECT product_details.id, product_details.detail, product_details.description, product_details.active FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.status = 1 AND product.product_id = {$product_id} ORDER BY product_details.id DESC";
 
@@ -119,16 +121,17 @@ function fetchProductDetils(){
  * 
  * */
 function editProductDetil(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {
 
-		$productDetailId 	= $_POST['productDetailId'];
-		$productDetail 		= $_POST['editProductDetail']; 
-		$detailDescription	= $_POST['editDetailDescription'];
-		$productStatus 		= $_POST['editDetailStatus'];
+		$productDetailId 	= Sys_Secure($_POST['productDetailId']);
+		$productDetail 		= Sys_Secure($_POST['editProductDetail']); 
+		$detailDescription	= Sys_Secure($_POST['editDetailDescription']);
+		$productStatus 		= Sys_Secure($_POST['editDetailStatus']);
 
 		$sql = "UPDATE product_details SET detail = '$productDetail', description = '$detailDescription', active = '$productStatus', status = 1 WHERE id = $productDetailId ";
 
@@ -149,11 +152,12 @@ function editProductDetil(){
  * 
  * */
 function removeProductDetil(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$productDetailId = $_POST['productDetailId'];
+	$productDetailId = Sys_Secure($_POST['productDetailId']);
 
 	if($productDetailId) { 
 
@@ -176,9 +180,10 @@ function removeProductDetil(){
  * 
  * */
 function fetchSelectedProductDetil(){
-	require_once 'core.php';
+	
+	global $connect;
 
-	$productDetailId = $_POST['productDetailId'];
+	$productDetailId = Sys_Secure($_POST['productDetailId']);
 
 	$sql = "SELECT id, detail, description, active, status FROM product_details WHERE id = $productDetailId";
 	$result = $connect->query($sql);
@@ -191,4 +196,5 @@ function fetchSelectedProductDetil(){
 
 	echo json_encode($row);
 }
+
 ?>

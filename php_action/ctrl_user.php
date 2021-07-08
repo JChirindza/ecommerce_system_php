@@ -1,10 +1,10 @@
 <?php  
-
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createUser();
@@ -51,7 +51,8 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function createUser(){
-	require_once 'core.php';
+
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -93,7 +94,8 @@ function createUser(){
  * 
  * */
 function fetchUser(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$sql = "SELECT * FROM users WHERE status = 1 AND type = 1";
 
@@ -156,7 +158,8 @@ function fetchUser(){
  * 
  * */
 function editUser(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -190,7 +193,8 @@ function editUser(){
  * 
  * */
 function removeUser(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -216,7 +220,8 @@ function removeUser(){
  * 
  * */
 function fetchSelectedUser(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$userid = Sys_Secure($_POST['userid']);
 
@@ -236,7 +241,8 @@ function fetchSelectedUser(){
  * 
  * */
 function fetchUserImageUrl(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$userId = Sys_Secure($_GET['i']);
 
@@ -253,7 +259,8 @@ function fetchUserImageUrl(){
  * 
  * */
 function editUserImage(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -295,7 +302,8 @@ function editUserImage(){
  * 
  * */
 function changeUserEmail(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	if($_POST) {
 		$valid['success'] = array('success' => false, 'messages' => array());
@@ -332,7 +340,8 @@ function changeUserEmail(){
  * 
  * */
 function changeUserPassword(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	if($_POST) {
 
@@ -378,7 +387,8 @@ function changeUserPassword(){
  * 
  * */
 function changeUserImage(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -417,7 +427,8 @@ function changeUserImage(){
  * 
  * */
 function changeUsername(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	if($_POST) {
 

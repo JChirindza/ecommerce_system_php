@@ -2,13 +2,7 @@
 
 function Sys_Secure($string, $censored_words = 1, $br = true, $strip = 0) {
     
-    $localhost = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "loja";
-
-    // db connection
-    $connect = new mysqli($localhost, $username, $password, $dbname);
+    global $connect;
 
     $string = trim($string);
     $string = cleanString($string);

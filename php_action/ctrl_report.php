@@ -1,9 +1,10 @@
 <?php  
+require_once 'core.php';
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'genOrderReport':
 		getOrderReport();
@@ -19,20 +20,21 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  * 
  * */
 function getOrderReport(){
-	require_once 'core.php';
+	
+	global $connect;
 
 	if($_POST) {
 
 		// $startDate = $_POST['startDate'];
 		// echo 'Data INICIO: '.$startDate;
 		// $date = DateTime::createFromFormat('Y-m-d',$startDate);
-		$start_date = $_POST['startDate'];
+		$start_date = Sys_Secure($_POST['startDate']);
 
 
 		// $endDate = $_POST['endDate'];
 		// echo 'Data FIM: '.$endDate;
 		// $format = DateTime::createFromFormat('Y-m-d',$endDate);
-		$end_date = $_POST['endDate'];
+		$end_date = Sys_Secure($_POST['endDate']);
 
 		$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
 		$query = $connect->query($sql);
