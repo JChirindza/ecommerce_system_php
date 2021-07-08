@@ -1,4 +1,5 @@
 <?php require_once 'php_action/core.php'; ?>
+<?php require_once 'php_action/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
