@@ -209,7 +209,7 @@ function fetchCartItem(){
 }
 
 function removeCart(){
-	require_once 'core.php';
+	require_once 'db_connect.php';
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
