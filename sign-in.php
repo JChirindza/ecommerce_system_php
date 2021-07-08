@@ -1,20 +1,6 @@
 <?php 
 require_once 'php_action/core.php';
 
-// Multi-lingual
-$lang = 'en';
-if (isset($_SESSION['lang'])) {
-	$lang = Sys_Secure($_SESSION['lang']);
-}
-if (isset($_COOKIE['lang'])) {
-	$lang = Sys_Secure($_COOKIE['lang']);
-}
-if (isset($_GET['lang'])) {
-	$lang = Sys_Secure($_GET['lang']);
-}
-require_once 'includes/Language/lang.' . $lang . '.php';
-
-
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
 		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
