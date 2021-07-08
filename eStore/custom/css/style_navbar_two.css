@@ -127,7 +127,7 @@
 }
 .nav-menu-two .menu > ul > li .sub-menu.mega-menu-column-4 > .list-item .title{
 	font-size: 16px;
-	color:#ea4636;
+	color: #007185;
 	font-weight: 500;
 	line-height: 1;
 }
@@ -145,7 +145,7 @@
 .nav-menu-two .menu > ul > li .sub-menu > ul > li > a:hover,
 .nav-menu-two .item-right a:hover,
 .nav-menu-two .menu > ul > li:hover > a{
-	color:#ea4636;
+	color: #007185;
 }
 /* banner section */
 .banner-section{

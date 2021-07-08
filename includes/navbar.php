@@ -1,7 +1,7 @@
 <?php require_once 'php_action/core.php'; ?>
 <?php  
 // Multi-lingual
-if ($_SESSION['lang'];) {
+if ($_SESSION['lang']) {
 	$lang =$_SESSION['lang'];
 }
 if (isset($_COOKIE['lang'])) {
