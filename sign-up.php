@@ -42,8 +42,6 @@ if($_POST) {
                 $_SESSION['userId'] = $user_id;
                 $_SESSION['userType'] = 2;
 
-                $errors[] = "Successfully Added"; 
-
                 header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
                 exit();
             } else {
@@ -75,7 +73,16 @@ if($_POST) {
     <!-- custom css -->
     <link rel="stylesheet" href="custom/css/style.css">
 </head>
-<body>
+<body class="bg-light">
+    <div class="border d-flex justify-content-end pr-4">
+        <div><i class="fas fa-globe mr-4 text-secondary"></i></div>
+        <div class="language-link mr-4">
+            <a class="language-link-item" href="./sign-up.php?lang=en" <?php if($lang == 'en'){ ?> style="color: #1b00ff; font-weight: bold;" <?php } ?> >En
+            </a> | 
+            <a class="language-link-item" href="./sign-up.php?lang=pt" <?php if($lang == 'pt'){ ?> style="color: #1b00ff; font-weight: bold;" <?php } ?> >Pt
+            </a>
+        </div>
+    </div>
     <div class="container">
         <div class="row vertical ">
             <div class="col-md-6 col-md-offset-4 m-auto">
@@ -87,7 +94,7 @@ if($_POST) {
                         <h4 class="h4 text-gray-900"><?php echo $language['create-account'] ?></h4>
                     </div>
                     <div class="card-body">
-                        <form class="form-horizontal" id="submitUserForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
+                        <form class="form-horizontal" id="submitUserForm" action="<?php echo Sys_Secure($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
 
                             <!-- <div id="add-user-messages"></div> -->
 
@@ -141,11 +148,10 @@ if($_POST) {
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="text-center p-4">
+                </div> 
+                <div class="text-center pt-2">
                     <label class="text-muted"><i class="fas fa-info-circle"></i> <?php echo $language['create-account-info-msg'] ?>.</label>
-
-                </div>  
+                </div>
             </div>
         </div><!-- /row -->
     </div><!-- container -->  
