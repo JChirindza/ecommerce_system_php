@@ -1,5 +1,6 @@
 <?php 
 require_once 'php_action/core.php';
+require_once 'php_action/init.php';
 
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
