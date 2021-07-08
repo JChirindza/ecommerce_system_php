@@ -56,11 +56,11 @@ function createUser(){
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
-		$name 		= $_POST['userName'];
-		$surname 	= $_POST['userSurname'];
-		$uemail 	= $_POST['uemail'];
-		$upassword 	= md5($_POST['upassword']);
-		$permittion	= $_POST['permittion'];
+		$name 		= Sys_Secure($_POST['userName']);
+		$surname 	= Sys_Secure($_POST['userSurname']);
+		$uemail 	= Sys_Secure($_POST['uemail']);
+		$upassword 	= Sys_Secure(md5($_POST['upassword']));
+		$permittion	= Sys_Secure($_POST['permittion']);
 		$url 		= '../assests/images/photo_default.png';
 
 		$sql1 = "SELECT * FROM users WHERE email = '$uemail' ";
@@ -162,12 +162,12 @@ function editUser(){
 
 	if($_POST) {
 
-		$userid 		= $_POST['userid'];
-		$editName 		= $_POST['editName'];
-		$editSurname 	= $_POST['editSurname'];
-		$editemail 		= $_POST['editEmail'];
-		$editPermittion = $_POST['editPermittion'];
-		$userStatus		= $_POST['editUserStatus'];
+		$userid 		= Sys_Secure($_POST['userid']);
+		$editName 		= Sys_Secure($_POST['editName']);
+		$editSurname 	= Sys_Secure($_POST['editSurname']);
+		$editemail 		= Sys_Secure($_POST['editEmail']);
+		$editPermittion = Sys_Secure($_POST['editPermittion']);
+		$userStatus		= Sys_Secure($_POST['editUserStatus']);
 
 		$sql = "UPDATE users SET name = '$editName', surname = '$editSurname', email = '$editemail', permittion = '$editPermittion', active = '$userStatus' WHERE user_id = $userid ";
 
@@ -194,7 +194,7 @@ function removeUser(){
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$userid = $_POST['userid'];
+	$userid = Sys_Secure($_POST['userid']);
 
 	if($userid) {
 		$sql = "UPDATE users SET active = 2, status = 2 WHERE user_id = {$userid}";
@@ -218,7 +218,7 @@ function removeUser(){
 function fetchSelectedUser(){
 	require_once 'core.php';
 
-	$userid = $_POST['userid'];
+	$userid = Sys_Secure($_POST['userid']);
 
 	$sql = "SELECT * FROM users WHERE user_id = $userid";
 	$result = $connect->query($sql);
@@ -238,7 +238,7 @@ function fetchSelectedUser(){
 function fetchUserImageUrl(){
 	require_once 'core.php';
 
-	$userId = $_GET['i'];
+	$userId = Sys_Secure($_GET['i']);
 
 	$sql = "SELECT user_image FROM users WHERE user_id = {$userId}";
 	$data = $connect->query($sql);
@@ -259,7 +259,7 @@ function editUserImage(){
 
 	if($_POST) {		
 
-		$userId = $_POST['userid'];
+		$userId = Sys_Secure($_POST['userid']);
 
 		$type = explode('.', $_FILES['editUserImage']['name']);
 		$type = $type[count($type)-1];		
@@ -300,8 +300,8 @@ function changeUserEmail(){
 	if($_POST) {
 		$valid['success'] = array('success' => false, 'messages' => array());
 
-		$uemail = $_POST['email'];
-		$userId = $_POST['user_id'];
+		$uemail = Sys_Secure($_POST['email']);
+		$userId = Sys_Secure($_POST['user_id']);
 
 		$sql1  = "SELECT * FROM users WHERE email = '$uemail' ";
 		$query = $connect->query($sql1);
@@ -338,10 +338,10 @@ function changeUserPassword(){
 
 		$valid['success'] = array('success' => false, 'messages' => array());
 
-		$currentPassword 	= md5($_POST['password']);
-		$newPassword 		= md5($_POST['npassword']);
-		$conformPassword 	= md5($_POST['cpassword']);
-		$userId 			= $_POST['user_id'];
+		$currentPassword 	= Sys_Secure(md5($_POST['password']));
+		$newPassword 		= Sys_Secure(md5($_POST['npassword']));
+		$conformPassword 	= Sys_Secure(md5($_POST['cpassword']));
+		$userId 			= Sys_Secure($_POST['user_id']);
 
 		$sql ="SELECT * FROM users WHERE user_id = {$userId}";
 		$query = $connect->query($sql);
@@ -384,7 +384,7 @@ function changeUserImage(){
 
 	if(isset($_SESSION['userId'])) {	
 
-		$userId = $_SESSION['userId'];
+		$userId = Sys_Secure($_SESSION['userId']);
 
 		$type = explode('.', $_FILES['editUserImage']['name']);
 		$type = $type[count($type)-1];		
@@ -423,9 +423,9 @@ function changeUsername(){
 
 		$valid['success'] = array('success' => false, 'messages' => array());
 
-		$name 		= $_POST['name'];
-		$surname 	= $_POST['surname'];
-		$userId 	= $_POST['user_id'];
+		$name 		= Sys_Secure($_POST['name']);
+		$surname 	= Sys_Secure($_POST['surname']);
+		$userId 	= Sys_Secure($_POST['user_id']);
 
 		$sql = "UPDATE users SET name = '$name', surname = '$surname' WHERE user_id = {$userId}";
 		if($connect->query($sql) === TRUE) {
