@@ -16,7 +16,7 @@
 
 				<!-- Product Details -->
 				<?php  
-				$product_id = $_GET['product_id'];
+				$product_id = Sys_Secure($_GET['product_id']);
 				$sql = " SELECT * FROM product WHERE product_id = {$product_id} ";
 
 				$result = $connect->query($sql);
@@ -236,7 +236,7 @@
 										while ($related_products = mysqli_fetch_array($result)) { 
 											?>
 											<th width="20%" class="text-center border similarProduct">
-												<a href="product_details.php?product_id='<?php echo $related_products['product_id']; ?>'">
+												<a href="product_details.php?product_id=<?php echo $related_products['product_id']; ?>">
 													<img src="../src/<?php echo $related_products['product_image']; ?>" class="img-fluid" style="height: 100px; " >
 													<div class="product-stars">
 														<h6>
@@ -260,7 +260,7 @@
 						<tbody class="border-left border-bottom">
 							<?php
 							$x = 1;
-							$product_id = $_GET['product_id'];
+							$product_id = Sys_Secure($_GET['product_id']);
 
 							$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id}";
 
