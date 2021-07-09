@@ -24,7 +24,7 @@ $language['create-account-info-msg'] = 'Criando uma conta voce estará apto a co
 
 // Navbar - management & store
 $language['search'] = 'Procurar';
-$language['hello'] = 'olá';
+$language['hello'] = 'Olá';
 $language['settings'] = 'Configurações';
 $language['sign-out'] = 'Sair';
 $language['do-you-r-w-to-exit'] = 'Voce deseja realmente sair.';
@@ -48,7 +48,7 @@ $language['shop-by-categ'] = 'Comprar por categoria';
 $language['view-more'] = 'Ver mais';
 $language['Sig-in-f-a-better-experience'] = 'Autentique-se para uma melhor experiencia';
 $language['computers'] = 'Computadores';
-$language['hardware-and-network-parts'] = 'Hardware e preças de redes';
+$language['hardware-and-network-parts'] = 'Hardware e peças de redes';
 $language['computer-components'] = 'Componentes de computadores';
 $language['featured-categories'] = 'Mistura de categorias';
 
@@ -73,8 +73,8 @@ $language['quantity'] = 'Quantidade';
 $language['add-to-cart'] = 'Adicionar ao carrinho';
 $language['technical-details'] = 'Detalhes tecnicos';
 $language['detail'] = 'Detalhes';
-$language['description'] = 'Descricão';
-$language['product-description'] = 'Descricão do produto';
+$language['description'] = 'Descrição';
+$language['product-description'] = 'Descrição do produto';
 $language['related-products'] = 'Produtos relacionados';
 $language['compare-w-similar'] = 'Compare com similares';
 $language['paid'] = 'Pago';
@@ -205,7 +205,7 @@ $language['product-information'] = 'Informação do produto';
 $language['available-quantity'] = 'Quantidade disponivel';
 $language['add-details'] = 'Adicionar detalhes';
 $language['add-product-details'] = 'Adicionar detalhes do produto';
-$language['detail-description'] = 'Descricão do detalhe';
+$language['detail-description'] = 'Descrição do detalhe';
 $language['edit-product-details'] = 'Alterar detalhe do produto';
 $language['remove-product-detail'] = 'Remover detalhe do produto';
 $language['product-detail'] = 'Detalhe do produto';
