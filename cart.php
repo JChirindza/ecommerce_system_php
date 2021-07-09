@@ -34,7 +34,7 @@
 		<?php } else if($_GET['c'] == 'cartItems') { // cart ?> 
 
 			<?php 
-			$cartId = $_GET['i'];
+			$cartId = Sys_Secure($_GET['i']);
 			$sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
 			$query = $connect->query($sql);
 			$result = $query->fetch_assoc();
