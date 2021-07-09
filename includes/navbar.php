@@ -1,7 +1,7 @@
 <?php 
 // Get username
 if (isset($_SESSION['userId'])) {
-	$userID = $_SESSION['userId'];
+	$userID = Sys_Secure($_SESSION['userId']);
 	$sql = "SELECT * FROM users WHERE user_id = '$userID' ";
 	$result = $connect->query($sql);
 	if($result->num_rows > 0) { 
@@ -81,7 +81,7 @@ if (isset($_SESSION['userId'])) {
 </div>
 
 <script type="text/javascript">
-	var userid = <?php echo $userID; ?>;
+	var userid = <?php if (!empty($userID)) { echo $userID; } ?>;
 	if(userid) {
 		$.ajax({
 			url: 'php_action/ctrl_user.php?action=readSelected',
