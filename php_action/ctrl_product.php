@@ -1,5 +1,5 @@
 <?php  
-require_once 'php_action/core.php';
+require_once 'core.php';
 /**
  *	
  * */
