@@ -1,10 +1,13 @@
 <?php  
+require_once 'db_connect.php';
+require_once '../../php_action/ctrl_functions_general.php';
+session_start();
 
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'addToCart':
 		addToCart();
@@ -38,8 +41,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 function addToCart(){
-	require_once 'db_connect.php';
-	session_start();
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -48,9 +50,9 @@ function addToCart(){
 
 			if (isset($_SESSION['cartId'])) {
 
-				$cartId = $_SESSION['cartId'];
-				$productId = $_POST['productId'];
-				$quantity = 1;
+				$cartId 	= Sys_Secure($_SESSION['cartId']);
+				$productId 	= Sys_Secure($_POST['productId']);
+				$quantity 	= 1;
 
 				// Verifica se o producto ja existe, caso exista aumenta a quantidade.
 				$sql = "SELECT * FROM cart_item WHERE cart_id = $cartId AND product_id = {$productId} LIMIT 1";
@@ -95,10 +97,9 @@ function addToCart(){
 }
 
 function fetchCart(){
-	require_once 'db_connect.php';
-	session_start();
+	global $connect;
 
-	$user_id = $_SESSION['userId'];
+	$user_id = Sys_Secure($_SESSION['userId']);
 	$sql = "SELECT cart_id, payment_status, cart_date FROM cart
 	WHERE user_id = {$user_id} AND status = 1 ORDER BY cart_id DESC";
 
@@ -150,9 +151,9 @@ function fetchCart(){
 }
 
 function fetchCartItem(){
-	require_once 'db_connect.php';
+	global $connect;
 
-	$cartId = $_GET['cartId'];
+	$cartId = Sys_Secure($_GET['cartId']);
 
 	$sql = "SELECT cart_item_id, product_id, quantity FROM cart_item WHERE cart_id = {$cartId} AND status = 1";
 	$result = $connect->query($sql);
@@ -209,11 +210,11 @@ function fetchCartItem(){
 }
 
 function removeCart(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$cartId = $_POST['cartId'];
+	$cartId = Sys_Secure($_POST['cartId']);
 
 	if($cartId) { 
 
@@ -235,11 +236,11 @@ function removeCart(){
 }
 
 function removeCartItem(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$cartItemId = $_POST['cartItemId'];
+	$cartItemId = Sys_Secure($_POST['cartItemId']);
 
 	if($cartItemId) {
 
@@ -259,9 +260,7 @@ function removeCartItem(){
 }
 
 function editItemQuantity(){
-	require_once 'db_connect.php';
-
-	session_start();
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -269,9 +268,9 @@ function editItemQuantity(){
 
 		if (isset($_SESSION['cartId'])) {
 
-			$cartId = $_SESSION['cartId'];
-			$productId = $_POST['productId'];
-			$quantity = $_POST['quantity'];
+			$cartId = Sys_Secure($_SESSION['cartId']);
+			$productId = Sys_Secure($_POST['productId']);
+			$quantity = Sys_Secure($_POST['quantity']);
 			if ($quantity <= 0) { $quantity = 1; } // Para que nao se introduza quantidade negativa ou igual a 0
 
 			// Verifica se o producto ja existe, caso exista aumenta a quantidade.
@@ -308,13 +307,11 @@ function editItemQuantity(){
 }
 
 function getCartItemQuantity(){
-	require_once 'db_connect.php';
-
-	session_start();
+	global $connect;
 
 	if (isset($_SESSION['cartId'])) {
 
-		$cartId = $_SESSION['cartId'];
+		$cartId = Sys_Secure($_SESSION['cartId']);
 		$sql = "SELECT COUNT(*) AS totalQuantiy FROM cart_item WHERE cart_id = {$cartId}";
 		$result = $connect->query($sql);
 
@@ -328,12 +325,10 @@ function getCartItemQuantity(){
 }
 
 function getTotalItemValue(){
-	require_once 'db_connect.php';
-
-	session_start();
+	global $connect;
 
 	if (isset($_SESSION['cartId'])) {
-		$cartId = $_SESSION['cartId'];
+		$cartId = Sys_Secure($_SESSION['cartId']);
 		$sql = "SELECT SUM((p.rate)*(ci.quantity)) AS totalValue FROM product AS p INNER JOIN cart_item AS ci ON ci.product_id = p.product_id WHERE ci.cart_id = {$cartId}";
 		$result = $connect->query($sql);
 

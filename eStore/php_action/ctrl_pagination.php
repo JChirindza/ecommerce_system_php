@@ -1,26 +1,19 @@
 <?php
 class Pagination {
 
-    private $conn;
+    private $connect;
 
     function __construct() {
-        $this->conn = $this->getConnection();
+        $this->connect = $this->getConnection();
     }
 
     public function getConnection() {
-        $localhost = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "loja";
-
-        // db connection
-        $connect = new mysqli($localhost, $username, $password, $dbname);
-        $conn = $connect;
-        return $conn;
+        global $connect;
+        return $connect;
     }
 
     public function select($sql, $paramType = "", $paramArray = array()) {
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->connect->prepare($sql);
 
         if (!empty($paramType) && !empty($paramArray)) {
             $this->bindQueryParams($stmt, $paramType, $paramArray);
@@ -53,7 +46,7 @@ class Pagination {
     }
 
     public function getRecordCount($sql) {
-        $query = $this->conn->query($sql);
+        $query = $this->connect->query($sql);
         $recordCount = $query->num_rows;
 
         return $recordCount;

@@ -1,10 +1,12 @@
 <?php 
-
+require_once 'db_connect.php';
+require_once '../../php_action/ctrl_functions_general.php';
+session_start();
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'readRelated':
 		fetchRelated();
@@ -21,21 +23,29 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 
 
 function fetchRelated(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	// Multi-lingual
 	$lang = 'en';
 	if (isset($_SESSION['lang'])) {
-		$lang = $_SESSION['lang'];
+		$lang = Sys_Secure($_SESSION['lang']);
+	}
+	if (isset($_COOKIE['lang'])) {
+		$lang = Sys_Secure($_COOKIE['lang']);
 	}
 	if (isset($_GET['lang'])) {
-		$lang = $_GET['lang'];
+
+		$lang = Sys_Secure($_GET['lang']);
+
+		$cookie_name = "lang";
+		$cookie_value = $lang;
+	    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 	}
 	require_once '../../includes/language/lang.'.$lang.'.php';
 
 	if(isset($_POST["product_id"])) {
 
-		$product_id = $_POST['product_id'];
+		$product_id = Sys_Secure($_POST['product_id']);
 
 		$sql1 = " SELECT * FROM product WHERE product_id = {$product_id} ";
 		$query1 = $connect->query($sql1);
@@ -77,16 +87,24 @@ function fetchRelated(){
 }
 
 function filterProducts(){
-	require_once 'db_connect.php';
+	global $connect;
 	require_once 'ctrl_pagination.php';
 
 	// Multi-lingual
 	$lang = 'en';
 	if (isset($_SESSION['lang'])) {
-		$lang = $_SESSION['lang'];
+		$lang = Sys_Secure($_SESSION['lang']);
+	}
+	if (isset($_COOKIE['lang'])) {
+		$lang = Sys_Secure($_COOKIE['lang']);
 	}
 	if (isset($_GET['lang'])) {
-		$lang = $_GET['lang'];
+
+		$lang = Sys_Secure($_GET['lang']);
+
+		$cookie_name = "lang";
+		$cookie_value = $lang;
+	    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 	}
 	require_once '../../includes/language/lang.'.$lang.'.php';
 
@@ -95,16 +113,16 @@ function filterProducts(){
 		$sql = "SELECT * FROM product WHERE  active = '1'";
 		// Categories
 		if (isset($_POST['category_id']) && !empty($_POST['category_id'])) {
-			$categories_id = $_POST["category_id"];
+			$categories_id = Sys_Secure($_POST["category_id"]);
 			$sql .= " AND categories_id = {$categories_id} ";
 		}
 		// Price range
 		if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"])) {
-			$sql .= "AND rate BETWEEN '".$_POST["minimum_price"]."' AND '".$_POST["maximum_price"]."'";
+			$sql .= "AND rate BETWEEN '".Sys_Secure($_POST["minimum_price"])."' AND '".Sys_Secure($_POST["maximum_price"])."'";
 		}
 		// brands
 		if(isset($_POST["brand"])) {
-			$brand_filter = implode("','", $_POST["brand"]);
+			$brand_filter = Sys_Secure(implode("','", $_POST["brand"]));
 			$sql .= "AND brand_id IN('".$brand_filter."')";
 		}
 		
@@ -112,7 +130,7 @@ function filterProducts(){
 			$sql .= " ORDER BY RAND() ";
 		}else{
 			// Sort - default 1
-			$sort = $_POST['sort'];
+			$sort = Sys_Secure($_POST['sort']);
 			if($sort == 2) { // A - Z
 				$sql .= "ORDER BY product_name ASC ";
 			}elseif ($sort == 3){ // Z - A
@@ -125,8 +143,7 @@ function filterProducts(){
 		}
 		
 		// Limit of products to show
-		$limits = $_POST['limit'];
-		
+		$limits = Sys_Secure($_POST['limit']);
 		
 		// Class Instance
 		$paginationModel = new Pagination();
@@ -135,7 +152,7 @@ function filterProducts(){
 
 		$pn = 1;
 		if (isset($_POST["page"]) && !empty($_POST['page'])) {
-			$pn = $_POST["page"];
+			$pn = Sys_Secure($_POST["page"]);
 		}
 
 		$totalRecords = $paginationModel->getAllRecords($sql);
