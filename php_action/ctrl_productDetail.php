@@ -40,7 +40,7 @@ function createProductDetil(){
 	if($_POST) {	
 
 		$product_id 		= Sys_Secure($_POST['productId']);
-		$productDetail 		= Sys_Secure(Sys_Secure($_POST['productDetail']);
+		$productDetail 		= Sys_Secure($_POST['productDetail']);
 		$productDetailDescr = Sys_Secure($_POST['detailDescription']); 
 		$productDetailStatus= Sys_Secure($_POST['productDetailStatus']); 
 
