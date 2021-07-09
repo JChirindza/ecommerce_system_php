@@ -1,28 +1,11 @@
 <?php  
-require_once 'php_action/db_connect.php';
-
-session_start();
-
-// Multi-lingual
-$lang = 'en';
-if (isset($_SESSION['lang'])) {
-	$lang = $_SESSION['lang'];
-}
-if (isset($_COOKIE['lang'])) {
-	$lang = $_COOKIE['lang'];
-}
-if (isset($_GET['lang'])) {
-	$lang = $_GET['lang'];
-}
-require_once '../includes/language/lang.'.$lang.'.php';
-
 if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	if($_SESSION['userType'] == 1) {
 		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');
 	}
 
 	// Get username
-	$userID = $_SESSION['userId'];
+	$userID = Sys_Secure($_SESSION['userId']);
 	$sql = "SELECT * FROM users WHERE user_id = '$userID' ";
 	$result = $connect->query($sql);
 	if($result->num_rows > 0) { 
@@ -52,7 +35,8 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 	}// if num_rows
 	
 	if (isset($_SESSION['cartId'])) {
-		$countItemSql = "SELECT * FROM cart_item WHERE cart_id = {$_SESSION['cartId']}";
+		$cartId = Sys_Secure($_SESSION['cartId']);
+		$countItemSql = "SELECT * FROM cart_item WHERE cart_id = {$cartId}";
 		$itemCountResult = $connect->query($countItemSql);
 		$itemCountRow = $itemCountResult->num_rows;
 	}
