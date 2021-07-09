@@ -1,10 +1,12 @@
 <?php  
-
+require_once 'db_connect.php';
+require_once '../../php_action/ctrl_functions_general.php';
+session_start();
 /**
  *	
  * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = $_GET['action'];
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'readSelected':
 		fetchSelectedUser();
@@ -32,11 +34,11 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 function fetchSelectedUser(){
-	require_once 'db_connect.php';
+	global $connect;
 
-	$userid = $_POST['userid'];
+	$userid = Sys_Secure($_POST['userid']);
 
-	$sql = "SELECT * FROM users WHERE user_id = $userid";
+	$sql 	= "SELECT * FROM users WHERE user_id = $userid";
 	$result = $connect->query($sql);
 
 	if($result->num_rows > 0) { 
@@ -49,12 +51,12 @@ function fetchSelectedUser(){
 }
 
 function fetchUserImageUrl(){
-	require_once 'db_connect.php';
+	global $connect;
 
-	$userId = $_GET['i'];
+	$userId = Sys_Secure($_GET['i']);
 
-	$sql = "SELECT user_image FROM users WHERE user_id = {$userId}";
-	$data = $connect->query($sql);
+	$sql 	= "SELECT user_image FROM users WHERE user_id = {$userId}";
+	$data 	= $connect->query($sql);
 	$result = $data->fetch_row();
 
 	$connect->close();
@@ -63,18 +65,18 @@ function fetchUserImageUrl(){
 }
 
 function changeUserEmail(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	if($_POST) {
 
 		$valid['success'] = array('success' => false, 'messages' => array());
 
-		$uemail = $_POST['email'];
-		$userId = $_POST['user_id'];
+		$uemail = Sys_Secure($_POST['email']);
+		$userId = Sys_Secure($_POST['user_id']);
 
-		$sql1 = "SELECT * FROM users WHERE email = '$uemail' ";
-		$query = $connect->query($sql1);
-		$count = $query->num_rows;
+		$sql1 	= "SELECT * FROM users WHERE email = '$uemail' ";
+		$query 	= $connect->query($sql1);
+		$count 	= $query->num_rows;
 
 		if ($count == 0) {
 
@@ -99,18 +101,18 @@ function changeUserEmail(){
 }
 
 function changeUserPassword(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	if($_POST) {
 
-		$valid['success'] = array('success' => false, 'messages' => array());
+		$valid['success'] 	= array('success' => false, 'messages' => array());
 
-		$currentPassword = md5($_POST['password']);
-		$newPassword = md5($_POST['npassword']);
-		$conformPassword = md5($_POST['cpassword']);
-		$userId = $_POST['user_id'];
+		$currentPassword 	= md5(Sys_Secure($_POST['password']));
+		$newPassword 		= md5(Sys_Secure($_POST['npassword']));
+		$conformPassword 	= md5(Sys_Secure($_POST['cpassword']));
+		$userId 			= Sys_Secure($_POST['user_id']);
 
-		$sql ="SELECT * FROM users WHERE user_id = {$userId}";
+		$sql = "SELECT * FROM users WHERE user_id = {$userId}";
 		$query = $connect->query($sql);
 		$result = $query->fetch_assoc();
 
@@ -145,13 +147,13 @@ function changeUserPassword(){
 }
 
 function changeUserImage(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if(isset($_SESSION['userId'])) {	
 
-		$userId = $_SESSION['userId'];
+		$userId = Sys_Secure($_SESSION['userId']);
 
 		$type = explode('.', $_FILES['editUserImage']['name']);
 		$type = $type[count($type)-1];		
@@ -181,15 +183,15 @@ function changeUserImage(){
 }
 
 function changeUsername(){
-	require_once 'db_connect.php';
+	global $connect;
 
 	if($_POST) {
 
 		$valid['success'] = array('success' => false, 'messages' => array());
 
-		$name 		= $_POST['name'];
-		$surname 	= $_POST['surname'];
-		$userId 	= $_POST['user_id'];
+		$name 		= Sys_Secure($_POST['name']);
+		$surname 	= Sys_Secure($_POST['surname']);
+		$userId 	= Sys_Secure($_POST['user_id']);
 
 		$sql = "UPDATE users SET name = '$name', surname = '$surname' WHERE user_id = {$userId}";
 		if($connect->query($sql) === TRUE) {
