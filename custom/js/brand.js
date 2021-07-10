@@ -6,8 +6,8 @@ $(document).ready(function() {
 	
 	// manage brand table
 	manageBrandTable = $("#manageBrandTable").DataTable({
-		'ajax': 'php_action/fetchBrand.php',
-		'order': []		
+		'ajax': 'php_action/ctrl_brand.php?action=read',
+		'order': []
 	});
 
 	// submit brand form function
@@ -60,18 +60,18 @@ $(document).ready(function() {
 						manageBrandTable.ajax.reload(null, false);						
 
   	  			// reset the form text
-						$("#submitBrandForm")[0].reset();
+  	  			$("#submitBrandForm")[0].reset();
 						// remove the error text
 						$(".text-danger").remove();
 						// remove the form error
 						$('.form-group').removeClass('has-error').removeClass('has-success');
-  	  			
-  	  			$('#add-brand-messages').html('<div class="alert alert-success">'+
-            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-          '</div>');
 
-  	  			$(".alert-success").delay(500).show(10, function() {
+						$('#add-brand-messages').html('<div class="alert alert-success">'+
+							'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+							'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+							'</div>');
+
+						$(".alert-success").delay(500).show(10, function() {
 							$(this).delay(3000).hide(10, function() {
 								$(this).remove();
 							});
@@ -105,7 +105,7 @@ function editBrands(brandId = null) {
 		$('.editBrandFooter').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedBrand.php',
+			url: 'php_action/ctrl_brand.php?action=readSelected',
 			type: 'post',
 			data: {brandId : brandId},
 			dataType: 'json',
@@ -180,19 +180,19 @@ function editBrands(brandId = null) {
 									$(".text-danger").remove();
 									// remove the form error
 									$('.form-group').removeClass('has-error').removeClass('has-success');
-			  	  			
-			  	  			$('#edit-brand-messages').html('<div class="alert alert-success">'+
-			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-			            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-			          '</div>');
 
-			  	  			$(".alert-success").delay(500).show(10, function() {
+									$('#edit-brand-messages').html('<div class="alert alert-success">'+
+										'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+										'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+										'</div>');
+
+									$(".alert-success").delay(500).show(10, function() {
 										$(this).delay(3000).hide(10, function() {
 											$(this).remove();
 										});
 									}); // /.alert
 								} // /if
-									
+
 							}// /success
 						});	 // /ajax												
 					} // /if
@@ -212,7 +212,7 @@ function removeBrands(brandId = null) {
 	if(brandId) {
 		$('#removeBrandId').remove();
 		$.ajax({
-			url: 'php_action/fetchSelectedBrand.php',
+			url: 'php_action/ctrl_brand.php?action=readSelected',
 			type: 'post',
 			data: {brandId : brandId},
 			dataType: 'json',
@@ -225,7 +225,7 @@ function removeBrands(brandId = null) {
 					$("#removeBrandBtn").button('loading');
 
 					$.ajax({
-						url: 'php_action/removeBrand.php',
+						url: 'php_action/ctrl_brand.php?action=delete',
 						type: 'post',
 						data: {brandId : brandId},
 						dataType: 'json',
@@ -242,14 +242,14 @@ function removeBrands(brandId = null) {
 								manageBrandTable.ajax.reload(null, false);
 								
 								$('.remove-messages').html('<div class="alert alert-success">'+
-			            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-			            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-			          '</div>');
+									'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+									'<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
+									'</div>');
 
-			  	  			$(".alert-success").delay(500).show(10, function() {
-										$(this).delay(3000).hide(10, function() {
-											$(this).remove();
-										});
+								$(".alert-success").delay(500).show(10, function() {
+									$(this).delay(3000).hide(10, function() {
+										$(this).remove();
+									});
 									}); // /.alert
 							} else {
 

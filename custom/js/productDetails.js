@@ -9,7 +9,7 @@ $(document).ready(function() {
 	// manage product details data table
 	manageProductDetailsTable = $('#manageProductDetailsTable').DataTable({
 		"ajax": {
-			"url": 'php_action/fetchProductDetails.php',
+			"url": 'php_action/ctrl_productDetail.php?action=read',
 			"data":{
 				"product_id": product_id
 			}
@@ -149,7 +149,7 @@ function editProductDetail(productDetailId = null) {
 		$('.div-result').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedProductDetail.php',
+			url: 'php_action/ctrl_productDetail.php?action=readSelected',
 			type: 'post',
 			data: {productDetailId: productDetailId},
 			dataType: 'json',
@@ -279,7 +279,7 @@ function removeProductDetail(productDetailId = null) {
 			// loading remove button
 			$("#removeProductDetailBtn").button('loading');
 			$.ajax({
-				url: 'php_action/removeProductDetail.php',
+				url: 'php_action/ctrl_productDetail.php?action=delete',
 				type: 'post',
 				data: {productDetailId: productDetailId},
 				dataType: 'json',

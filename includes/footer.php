@@ -5,7 +5,7 @@
       	<footer class="sticky-footer bg-white " style="margin-bottom: auto!important;">
       		<div class="container my-auto ">
       			<div class="copyright text-center my-auto">
-      				<span>Copyright <i class="fas fa-copyright"></i> Sitema de Vendas e Controle de Stock 2020 - <?php echo $anoAtual = date('Y'); ?></span>
+      				<span>Copyright <i class="fas fa-copyright"></i> ComputersOnly | 2020 - <?php echo $anoAtual = date('Y'); ?></span>
       			</div>
       		</div>
       	</footer>

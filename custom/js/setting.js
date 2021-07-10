@@ -255,7 +255,7 @@ $(document).ready(function() {
 			$('.div-result').addClass('div-hide');
 
 			$.ajax({
-				url: 'php_action/fetchSelectedUser.php',
+				url: 'php_action/ctrl_user.php?action=readSelected',
 				type: 'post',
 				data: {"userid": userid},
 				dataType: 'json',
@@ -266,8 +266,8 @@ $(document).ready(function() {
 					// modal div
 					$('.div-result').removeClass('div-hide');		
 
-					$("#getUserImage").attr('src', 'users/'+response.user_image);
-
+					// $("#getUserImage").attr('src', 'users/'+response.user_image);
+					setUserImage(userid);	
 					$("#editUserImage").fileinput({		      
 					});		
 
@@ -324,20 +324,13 @@ $(document).ready(function() {
 											$(this).delay(3000).hide(10, function() {
 												$(this).remove();
 											});
+											setUserImage(userid);
 										}); // /.alert
 
 							          	// reload the manage student table
 							          	manageUserTable.ajax.reload(null, true);
 
 							          	$(".fileinput-remove-button").click();
-
-							          	$.ajax({
-							          		url: 'php_action/fetchUserImageUrl.php?i='+userid,
-							          		type: 'post',
-							          		success:function(response) {
-							          			$("#getUserImage").attr('src', response);		
-							          		}
-							          	});																		
 
 										// remove text-error 
 										$(".text-danger").remove();
@@ -358,3 +351,37 @@ $(document).ready(function() {
 		}
 	// }); // /update the product image
 }); // /document
+
+function setUserImage(userid = null){
+
+	if(userid) {
+		// remove text-error 
+		$(".text-danger").remove();
+		// remove from-group error
+		$(".form-group").removeClass('has-error').removeClass('has-success');
+		// modal spinner
+		$('.div-loading').removeClass('div-hide');
+		// modal div
+		$('.div-result').addClass('div-hide');
+
+		$.ajax({
+			url: 'php_action/ctrl_user.php?action=readSelected',
+			type: 'post',
+			data: {"userid": userid},
+			dataType: 'json',
+			success:function(response) {		
+			// alert(response.product_image);
+				// modal spinner
+				$('.div-loading').addClass('div-hide');
+				// modal div
+				$('.div-result').removeClass('div-hide');		
+
+				$("#getUserImage").attr('src', 'users/'+response.user_image);
+				$("#getUserImageNav").attr('src', 'users/'+response.user_image);
+			} // /success function
+		}); // /ajax to fetch product image
+
+		// reset the form text
+		$("#updateUserImageForm")[0].reset();
+	}
+}

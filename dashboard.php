@@ -2,7 +2,7 @@
 
 <?php
 
-$user_id = $_SESSION['userId'];
+$user_id = Sys_Secure($_SESSION['userId']);
 $sql = "SELECT * FROM users WHERE user_id = {$user_id}";
 $query = $connect->query($sql);
 $result = $query->fetch_assoc();
@@ -77,8 +77,8 @@ $connect->close();
 <link rel="stylesheet" href="assests/plugins/fullcalendar/fullcalendar.print.css" media="print">
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="text-muted">Dashboard</h1>
-	<a href="pedidos.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-plus fa-sm text-white-50"></i> Gerir pedidos</a>
+	<h1 class="text-muted"><?php echo $language['dashboard']; ?></h1>
+	<a href="orders.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-cogs fa-sm text-white-50"></i> <?php echo $language['manage-orders']; ?></a>
 </div>
 
 <?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
@@ -90,7 +90,7 @@ $connect->close();
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Total)</div>
+							<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?php echo $language['earnings']; ?> (<?php echo $language['total']; ?>)</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($totalRevenue) {
 								echo number_format($totalRevenue,2,",",".");
 							} else {
@@ -111,7 +111,7 @@ $connect->close();
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings ( <label class="text-muted"><?php echo date('Y'); ?></label> )</div>
+							<div class="text-xs font-weight-bold text-success text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('Y'); ?></label> )</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisYearRevenue) {
 								echo number_format($thisYearRevenue,2,",",".");
 							}else{
@@ -132,7 +132,7 @@ $connect->close();
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Earnings ( <label class="text-muted"><?php echo date('M-Y'); ?></label> )</div>
+							<div class="text-xs font-weight-bold text-info text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('M-Y'); ?></label> )</div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisMonthRevenue) {
 								echo number_format($thisMonthRevenue,2,",",".");
 							}else{
@@ -153,7 +153,7 @@ $connect->close();
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
+							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><?php echo $language['pending-req']; ?></div>
 							<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
 						</div>
 						<div class="col-auto">
@@ -170,27 +170,25 @@ $connect->close();
 
 	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
 		<div class="col-md-4 pt-2 mb-4">
-			<a href="produto.php?p=manprod" class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
+			<a href="products.php?p=manprod" class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 				<div class="card card-success">
 					<div class="card-body">
-
 						<div class="d-sm-flex align-items-center justify-content-between">
-							<label>Total Products</label>
+							<label><?php echo $language['total']; ?> <?php echo $language['products']; ?></label>
 							<span class="badge-secondary badge-pill"><?php echo $countProduct; ?></span>	
 						</div>
-
 					</div> 
 				</div> 
 			</a>
 		</div> <!--/col-md-4-->
 
 		<div class="col-md-4 pt-2 mb-4">
-			<a href="produto.php?p=manprod" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
+			<a href="products.php?p=manprod" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 				<div class="card card-danger">
 					<div class="card-body">
 
 						<div class="d-sm-flex align-items-center justify-content-between">
-							<label>Low Stock</label>
+							<label><?php echo $language['low-stock']; ?></label>
 							<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
 						</div>
 
@@ -202,11 +200,11 @@ $connect->close();
 
 	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
 		<div class="col-md-4 pt-2 mb-4">
-			<a href="pedidos.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
+			<a href="orders.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
 				<div class="card">
 					<div class="card-body">
 						<div class="d-sm-flex align-items-center justify-content-between">
-							<label>Total orders</label>
+							<label><?php echo $language['total']; ?> <?php echo $language['orders']; ?></label>
 							<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
 						</div>
 					</div> 
@@ -219,15 +217,15 @@ $connect->close();
 <?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
 	<div class="col-12 pt-2 mb-4 p-0">
 		<div class="card">
-			<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> Users orders <label class="badge badge-secondary">Funcionario</label></div>
+			<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-orders']; ?> <label class="badge badge-secondary"><?php echo $language['employees']; ?></label></div>
 			<div class="card-body">
 				<table class="table table-responsive table-hover" id="userWiseOrderTable">
 					<thead>
 						<tr>			  			
-							<th style="width:25%;">Name</th>
-							<th style="width:25%;">Surname</th>
-							<th style="width:25%;">Email</th>
-							<th style="width:10%;">Type</th>
+							<th style="width:25%;"><?php echo $language['name']; ?></th>
+							<th style="width:25%;"><?php echo $language['surname']; ?></th>
+							<th style="width:25%;"><?php echo $language['email']; ?></th>
+							<th style="width:10%;"><?php echo $language['type']; ?></th>
 							<th style="width:15%;">Total</th>
 						</tr>
 					</thead>
@@ -238,11 +236,11 @@ $connect->close();
 								<td><?php echo $orderResult['surname']?></td>
 								<td><?php echo $orderResult['email']?></td>
 								<td><?php if($orderResult['permittion'] == 1){ ?>
-									<label class="badge badge-success">Administrador</label>
+									<label class="badge badge-success"><?php echo $language['admin']; ?></label>
 								<?php }elseif ($orderResult['permittion'] == 2) { ?>
-									<label class="badge badge-primary">Gestor</label>
+									<label class="badge badge-primary"><?php echo $language['manager']; ?></label>
 								<?php }elseif ($orderResult['permittion'] == 3) { ?>
-									<label class="badge badge-info">Vendedor</label>
+									<label class="badge badge-info"><?php echo $language['vendor']; ?></label>
 								<?php } ?>
 							</td>
 							<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
@@ -257,15 +255,15 @@ $connect->close();
 
 <div class="col-12 pt-2 mb-4 p-0">
 	<div class="card">
-		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> Users orders <label class="badge badge-secondary">Clients</label></div>
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-req']; ?> <label class="badge badge-secondary"><?php echo $language['clients']; ?></label></div>
 		<div class="card-body">
 			<table class="table table-responsive table-hover" id="clientWiseOrderTable">
 				<thead>
 					<tr>			  			
-						<th style="width:25%;">Name</th>
-						<th style="width:25%;">Surname</th>
-						<th style="width:25%;">Email</th>
-						<th style="width:25%;">Status</th>
+						<th style="width:25%;"><?php echo $language['name']; ?></th>
+						<th style="width:25%;"><?php echo $language['surname']; ?></th>
+						<th style="width:25%;"><?php echo $language['email']; ?></th>
+						<th style="width:25%;"><?php echo $language['status']; ?></th>
 						<th style="width:25%;">Total</th>
 					</tr>
 				</thead>
@@ -276,9 +274,9 @@ $connect->close();
 							<td><?php echo $orderResult['surname']?></td>
 							<td><?php echo $orderResult['email']?></td>
 							<td><?php if($orderResult['active'] == 1){ ?>
-								<label class="badge badge-success">Active</label>
+								<label class="badge badge-success"><?php echo $language['active']; ?></label>
 							<?php }elseif ($orderResult['active'] == 2) { ?>
-								<label class="badge badge-secondary">Inactive</label>
+								<label class="badge badge-secondary"><?php echo $language['inactive']; ?></label>
 							<?php } ?>
 						</td>
 						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
@@ -313,7 +311,7 @@ $connect->close();
 			</div>
 
 			<div class="card-body">
-				<p> Total Revenue</p>
+				<p> <?php echo $language['total-revenue']; ?></p>
 			</div>
 		</div> 
 	</div>

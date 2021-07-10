@@ -1,4 +1,5 @@
 <?php require_once 'php_action/core.php'; ?>
+<?php require_once 'php_action/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Sistema de Venda e Gestão de Stock</title>
+	<title>ComputersOnly - Store Management</title>
 
 	<!-- bootstrap CSS 4.5.3 -->
 	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">

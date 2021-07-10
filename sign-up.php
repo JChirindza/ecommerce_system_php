@@ -1,48 +1,59 @@
 <?php 
-require_once 'php_action/db_connect.php';
+require_once 'php_action/core.php';
+require_once 'php_action/init.php';
 
-$valid['success'] = array('success' => false, 'messages' => array());
+if(isset($_SESSION['userId'])) {
+    if ($_SESSION['userType'] == 1) {
+        header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php'); 
+        exit();
+    }else{
+        header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+        exit();
+    }
+}
+
+$errors = array();
 
 if($_POST) {    
 
-    $name       = $_POST['name'];
-    $surname    = $_POST['surname'];
-    $uemail     = $_POST['uemail'];
-    $upassword  = md5($_POST['upassword']);
+    $name       = Sys_Secure($_POST['name']);
+    $surname    = Sys_Secure($_POST['surname']);
+    $uemail     = Sys_Secure(strtolower($_POST['uemail']), 0);
+    $upassword  = Sys_Secure($_POST['upassword'], 0);
+    $cpassword  = $_POST['cpassword'];
     $url        = '../assests/images/photo_default.png';
     
-    $cpassword =  md5($_POST['cpassword']);
-    
-    $sql1 = "SELECT * FROM users WHERE email = '$uemail' ";
-    $query1 = $connect->query($sql1);
-    $count = $query1->num_rows;
+    // check if email exists
+    $sql1       = "SELECT * FROM users WHERE email = '$uemail' AND active != 2";
+    $query1     = $connect->query($sql1);
+    $count      = $query1->num_rows;
     
     if ($count == 0) {
         if($upassword == $cpassword) {
 
             $sql = "INSERT INTO users (name, surname, email, password, user_image, type, permittion, active, status) 
-            VALUES ('$name', '$surname', '$uemail', '$upassword', '$url', 2, 0, 1, 1)";
+            VALUES ('$name', '$surname', '$uemail', md5('$upassword'), '$url', 2, 0, 1, 1)";
 
             if($connect->query($sql) === TRUE) {
-                $valid['success'] = true;
-                $valid['messages'] = "Successfully Added";  
+                $user_id = $connect->insert_id;
+                // echo "New record created successfully. Last inserted ID is: " . $userId;
+
+                // set session
+                $_SESSION['userId'] = $user_id;
+                $_SESSION['userType'] = 2;
+
+                header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+                exit();
             } else {
-                $valid['success'] = false;
-                $valid['messages'] = "Error while adding the members";
+                $errors[] = "Error while adding the members";
             }
         } else {
-            $valid['success'] = false;
-            $valid['messages'] = "New password does not match with Conform password";
+            $errors[] = "New password does not match with Conform password";
         }
     } else {
-        $valid['success'] = false;
-        $valid['messages'] = "Existing email, please type another one!";
+        $errors[] = "Existing email, please type another one!";
     }
 } // if in_array        
-
-$connect->close();
-
-echo json_encode($valid);
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +64,7 @@ echo json_encode($valid);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistema de Vendas - Online</title>
+    <title>ComputersOnly - Web Store</title>
 
     <!-- bootstrap CSS 4.5.3 -->
     <link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -61,17 +72,17 @@ echo json_encode($valid);
     <script type="text/javascript" src="assests/font-awesome/js/all.min.js"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="custom/css/style.css">
-    <!-- DataTables 1.10.22 -->
-    <link rel="stylesheet" href="assests/plugins/datatables/css/jquery.dataTables.min.css">
-    <!-- file input -->
-    <link rel="stylesheet" href="assests/plugins/fileinput/css/fileinput.min.css">
-    <!-- jquery -->
-    <script src="assests/jquery/jquery.min.js"></script>
-    <!-- jquery ui 1.12.1 -->  
-    <link rel="stylesheet" href="assests/jquery-ui/jquery-ui.min.css">
-    <script src="assests/jquery-ui/jquery-ui.min.js"></script>
 </head>
-<body>
+<body class="bg-light">
+    <div class="border d-flex justify-content-end pr-4">
+        <div><i class="fas fa-globe mr-4 text-secondary"></i></div>
+        <div class="language-link mr-4">
+            <a class="language-link-item" href="./sign-up.php?lang=en" <?php if($lang == 'en'){ ?> style="color: #1b00ff; font-weight: bold;" <?php } ?> >En
+            </a> | 
+            <a class="language-link-item" href="./sign-up.php?lang=pt" <?php if($lang == 'pt'){ ?> style="color: #1b00ff; font-weight: bold;" <?php } ?> >Pt
+            </a>
+        </div>
+    </div>
     <div class="container">
         <div class="row vertical ">
             <div class="col-md-6 col-md-offset-4 m-auto">
@@ -79,61 +90,70 @@ echo json_encode($valid);
                     <a class="col-md navbar-brand logo p-0 text-primary" href="index.php">ComputersOnly</a>
                 </div>
                 <div class="card">
-                    <div class="card-header text-center">
-                        <h4 class="h4 text-gray-900">Criar uma conta!</h4>
+                    <div class="card-header text-center bg-white">
+                        <h4 class="h4 text-gray-900"><?php echo $language['create-account'] ?></h4>
                     </div>
                     <div class="card-body">
-                        <form class="form-horizontal" id="submitUserForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
-                            <div id="add-user-messages"></div>
+                        <form class="form-horizontal" id="submitUserForm" action="<?php echo Sys_Secure($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
+
+                            <!-- <div id="add-user-messages"></div> -->
+
+                            <div class="messages">
+                                <?php if($errors) {
+                                    foreach ($errors as $key => $value) {
+                                        echo '<div class="alert alert-warning" role="alert">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        '.$value.'</div>';                                      
+                                    }
+                                } ?>
+                            </div>
 
                             <div class="p-4">
                                 <form class="user">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control" id="name" placeholder="Nome" name="name" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="name" placeholder="<?php echo $language['name'] ?>" name="name" autocomplete="off" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="surname" placeholder="Apelido" name="surname" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="surname" placeholder="<?php echo $language['surname'] ?>" name="surname" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="uemail" placeholder="Email" name="uemail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
+                                        <input type="text" class="form-control" id="uemail" placeholder="<?php echo $language['email'] ?>" name="uemail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="password" class="form-control form-control-user" id="upassword" placeholder="Senha" required>
+                                            <input type="password" class="form-control form-control-user" name="upassword" id="upassword" placeholder="<?php echo $language['password'] ?>" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="password" class="form-control form-control-user" id="cpassword" placeholder="Repetir a senha" required>
+                                            <input type="password" class="form-control form-control-user" name="cpassword" id="cpassword" placeholder="<?php echo $language['confirm-password'] ?>" required>
                                         </div>
                                     </div>
-                                    <!-- user type >>> 1 - Funcionario -->
-                                    <input type="text" name="" hidden="true" id="type" value="2">
-
-                                    <button type="submit" id="createUserBtn" class="btn btn-success btn-user btn-block" data-loading-text="Loading...">Registar conta</button>
+                                    <button type="submit" id="createUserBtn" class="btn btn-success btn-user btn-block" data-loading-text="Loading..."><?php echo $language['register-account'] ?></button>
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <a href="forgot-password.html">Esqueceu senha?</a>
-                                </div>
-                                <div class="row">
+                                
+                                <div class="row mt-4">
                                     <div class="col-sm-12 text-center">
                                         <a href="sign-in.php" id="back" class="font-weight-light">
-                                            <label class="text-muted">Ja tem uma conta?</label>
+                                            <label class="text-muted"><?php echo $language['already-have-account'] ?>?</label>
                                             <i class="fas fa-sign-in-alt"></i> 
-                                            Fazer Login
+                                            <?php echo $language['sign-in'] ?>
                                         </a>
                                     </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="#"><?php echo $language['forgot-password'] ?>?</a>
                                 </div>
                             </div>
                         </form>
                     </div>
+                </div> 
+                <div class="text-center pt-2">
+                    <label class="text-muted"><i class="fas fa-info-circle"></i> <?php echo $language['create-account-info-msg'] ?>.</label>
                 </div>
             </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- container -->  
-    <script src="custom/js/user.js"></script>
+        </div><!-- /row -->
+    </div><!-- container -->  
 </body>
 </html>

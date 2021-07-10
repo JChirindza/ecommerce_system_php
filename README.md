@@ -11,6 +11,24 @@ Como utilizar o sistema
 
 ### Arquivos
 
+## JQuery
+
+### AJAX Search, Sort, Range, Filter & Paginate
+
+This is project. You can Search, Sort, Filter, Range and Paginate all working together.
+
+1. Ajax Search
+2. Ajax Sort
+3. Ajax Filter
+4. Ajax Range-Slider
+5. Ajax Pagination
+6. Ajax Refine Search
+
+### Multi-lingual
+
+**MultiLanguage** site, Its contain two languages, English and Portuguese. 
+
+
 ### Recursos
 
 
