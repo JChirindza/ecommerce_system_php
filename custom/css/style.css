@@ -6,24 +6,24 @@ html, body{
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 6px;
+	width: 10px;
+	height: 6px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+	background: #f1f1f1; 
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
-  border-radius: 0.5rem;
+	background: #888; 
+	border-radius: 0.5rem;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+	background: #555; 
 }
 
 .language-link a { color: gray;}
@@ -242,6 +242,10 @@ div.kv-avatar div.file-input div.file-preview {
 
 .productDetails .product-entry-details .cart .add-to-cart{
 	text-align: center;
+	border: 1px solid #9a9a9a;
+	border-radius: 2px !important;
+	background: -webkit-linear-gradient(top, #dfdc99);
+	box-shadow: inset 0px 0.01rem 0px rgb(255, 255, 211), 0px 0.1rem 0.1rem rgba(199, 199, 199, 0.2);
 }
 
 .productDetails .product-entry-details .cart  a {
@@ -393,13 +397,22 @@ div.kv-avatar div.file-input div.file-preview {
 	margin-bottom: 1.5rem;
 }
 
-.process {
+.process-wrap .process a label{
+	text-decoration: none;
+	text-decoration-color: black;
+}
+
+.process-wrap .process a:hover{
+
+}
+
+.process-wrap .process {
 	position: relative;
 	float: left;
 	width: 33.333%;
 	z-index: 0; 
 }
-.process:after {
+.process-wrap .process:after {
 	position: absolute;
 	top: 28%;
 	right: -50%;
@@ -410,21 +423,21 @@ div.kv-avatar div.file-input div.file-preview {
 	z-index: -1; 
 }
 
-.process.active:after {
+.process-wrap .process.active:after {
 	position: absolute;
 	top: 28%;
 	right: -50%;
 	content: '';
 	width: 100%;
 	height: 1.5px;
-	background: #0ca678;
+	background: #007185;
 	z-index: -1; 
 }
 
-.process:last-child:after {
+.process-wrap .process:last-child:after {
 	display: none; 
 }
-.process p {
+.process-wrap .process p {
 	position: relative;
 	width: 60px;
 	height: 60px;
@@ -441,20 +454,20 @@ div.kv-avatar div.file-input div.file-preview {
 	border-radius: 50%; 
 }
 
-.process .next{
-	border: 2px solid #0ca678;
+.process-wrap .process .next{
+	border: 2px solid #007185;
 }
-.process p span {
+.process-wrap .process p span {
 	display: table-cell;
 	vertical-align: middle; 
 }
-.process h4 {
+.process-wrap .process h4 {
 	margin-bottom: 0;
 	letter-spacing: 1px; 
 }
-.process.active p {
+.process-wrap .process.active p {
 	border: 2px solid #f0f0f0;
-	background: #0ca678;
+	background: #007185;
 }
 .process.active p span {
 	color: #000000; 
@@ -519,25 +532,25 @@ div.kv-avatar div.file-input div.file-preview {
 
 .pagination .page-a-link {
 	font-family: arial, verdana;
-    font-size: 12px;
-    border: 1px #afafaf solid;
-    background-color: #fbfbfb;
-    padding: 6px 12px 6px 12px;
-    margin: 6px;
-    text-decoration: none;
-    border-radius: 3px;
+	font-size: 12px;
+	border: 1px #afafaf solid;
+	background-color: #fbfbfb;
+	padding: 6px 12px 6px 12px;
+	margin: 6px;
+	text-decoration: none;
+	border-radius: 3px;
 }
 
 .pagination .active {
 	font-family: arial, verdana;
-    font-size: 12px;
-    padding: 8px 14px 6px 14px;
-    margin: 3px;
-    background-color: #404040;
-    text-decoration: none;
-    border-radius: 3px;
-    margin: 6px;
-    color: #FFF;
+	font-size: 12px;
+	padding: 8px 14px 6px 14px;
+	margin: 3px;
+	background-color: #404040;
+	text-decoration: none;
+	border-radius: 3px;
+	margin: 6px;
+	color: #FFF;
 }
 
 .pagination a.previous-page {
@@ -569,23 +582,12 @@ div.kv-avatar div.file-input div.file-preview {
 	border-radius: 3px !important;
 	text-align: center !important;
 	/*background: -webkit-linear-gradient(left top, left bottom, color-stop(0%, #dfdd99), color-stop(100%, #bcbd2b));*/
-    background: -webkit-linear-gradient(top, #dfdc99, #b8bd2b);
-    box-shadow: inset 0px 1px 0px rgb(255, 255, 211), 0px 1px 4px rgba(199, 199, 199, 0.9);
+	background: -webkit-linear-gradient(top, #dfdc99, #b8bd2b);
+	box-shadow: inset 0px 1px 0px rgb(255, 255, 211), 0px 1px 4px rgba(199, 199, 199, 0.9);
 }
 
 .pagination .page-before-after {
 	font-weight: bold;
 	padding-top: 12px;
 	text-decoration: none;
-}
-
-.btn {
-	/*max-width: 80px;*/
-	/*font-size: 12px;*/
-	padding: 6px 12px 6px 12px !important;
-	border: 1px solid #9a9a9a;
-	border-radius: 2px !important;
-	/*background: -webkit-linear-gradient(left top, left bottom, color-stop(0%, #dfdd99), color-stop(100%, #bcbd2b));*/
-    background: -webkit-linear-gradient(top, #dfdc99);
-    box-shadow: inset 0px 0.01rem 0px rgb(255, 255, 211), 0px 0.1rem 0.1rem rgba(199, 199, 199, 0.2);
 }
