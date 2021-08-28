@@ -253,4 +253,17 @@ $language['end-date'] = 'End date';
 $language['total-purchases'] = 'Total purchases';
 $language['most-bought'] = 'Most bought';
 $language['generate-report'] = 'Generate report';
+
+// Finalize
+$language['country'] = 'Country';
+$language['province'] = 'Province';
+$language['address'] = 'Address';
+$language['reference-point'] = 'Reference point';
+$language['postal-code'] = 'Postal code';
+$language['finalize-and-pay'] = 'Finalize and Pay';
+$language['cart'] = 'Cart';
+$language['delivery-location'] = 'Delivery location';
+$language['order-resume'] = 'Order resume';
+$language['mozambique'] = 'Mozambique';
+
 ?>
