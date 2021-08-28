@@ -24,7 +24,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<ol class="breadcrumb bg-transparent m-0">
 				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cart"><?php echo $language['carts'] ?></a></li>
-				<li class="breadcrumb-item"><a href="cart.php?c=cartItems&i=<?php echo $_GET['i']; ?>"><?php echo $language['cart-items'] ?></a></li>
+				<li class="breadcrumb-item"><a href="cart.php?c=cartItems"><?php echo $language['cart-items'] ?></a></li>
 				<li class="breadcrumb-item active"><?php echo $language['checkout'] ?></li>
 			</ol>
 		</div>
@@ -32,8 +32,8 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 		<div class="card border-0 row">
 			<div class="col-md-12 col-md-offset-1">
 				<div class="process-wrap mt-4">
-					<a href="cart.php?c=cartItems&i=<?php echo $_GET['i']; ?>">
-						<div class="process text-center active">
+					<div class="process text-center active">
+						<a href="cart.php?c=cartItems">
 							<p><span><i class="fas fa-check"></i></span></p>
 							<label><?php echo $language['cart-items'] ?></label>
 						</a>
@@ -65,8 +65,10 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							$count = 0;
 							$total = 0;
 
+							$cartId = Sys_Secure($_SESSION['cartId']);
+
 							// retorna somente produtos com quantidade em stock maior que zero.
-							$sql = "SELECT * FROM cart_item AS c WHERE c.cart_id = {$_GET['i']} AND (SELECT p.quantity FROM product AS p WHERE p.quantity > 0 AND p.product_id = c.product_id) ORDER BY `cart_item_id` DESC";
+							$sql = "SELECT * FROM cart_item AS c WHERE c.cart_id = {$cartId} AND (SELECT p.quantity FROM product AS p WHERE p.quantity > 0 AND p.product_id = c.product_id) ORDER BY `cart_item_id` DESC";
 							$resultado = mysqli_query($connect, $sql);
 
 							while ($dados = mysqli_fetch_array($resultado)) { 
@@ -85,6 +87,12 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							}
 							?>
 						</ul>
+						<div class="pr-2 d-flex justify-content-end">
+							<span>
+								<strong class="text-muted"><?php echo $language['total'] ?>: </strong>
+							</span>
+							<span id="subTotal" class="font-weight-bold pl-2"> <?php echo number_format($total, 2,",","."); ?> Mt</span>
+						</div>
 					</div>
 
 					<div class="col-sm-12 col-md-4 col-lg-4">
@@ -101,16 +109,13 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 					</div>
 				</div>
 				<hr>
-				<div class="d-flex justify-content-center">
-					<div class=" col-md-push-1 text-center">
-						<div class="grand-total border p-4">
-							<span>
-								<strong class="text-muted"><?php echo $language['total'] ?>: </strong>
-							</span> 
-							<span id="subTotal" class="font-weight-bold"><?php echo number_format($total, 2,",","."); ?> Mt</span>
-						</div>
-						<div class="">
-							<p><a href="cart.php?c=cartItems&i=<?php echo $_GET['i']; ?>" class="btn btn-primary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-4"></i><?php echo $language['back-to-cart'] ?> </a></p>
+				<div class="row mx-1">
+					<div class="col-6">
+						<a href="cart.php?c=cartItems" class="btn btn-outline-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['back-to-cart'] ?> </a>
+					</div>
+					<div class="col-6 d-flex justify-content-end">
+						<div class="d-inline">
+							<a href="finalize.php" class="btn btn-success rounded-0 font-weight-bold"> <?php echo $language['finalize'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i> </a>
 						</div>
 					</div>
 				</div>

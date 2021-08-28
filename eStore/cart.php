@@ -112,7 +112,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							<div id="success-messages"></div>
 							<div class="update-cart-item-messages"></div>
 							<style type="text/css"> #manageCartItemTable th{ border-bottom: none; } </style>
-							<input type="text" hidden id="cartId" name="cartId" value="<?php echo $_GET['i']; ?>">
+							<input type="text" hidden id="cartId" name="cartId" value="<?php echo Sys_Secure($_SESSION['cartId']); ?>">
 							<div id="update-cart-item-messages"></div>
 							<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 								<table class="table border-bottom" id="manageCartItemTable">
@@ -143,7 +143,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 									<div class="">
 										<div class="row">
 											<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
-											<p><a href="checkout.php?i=<?php echo $_GET['i']; ?>" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
+											<p><a href="checkout.php" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
 										</div>
 									</div>
 								</div>
