@@ -33,6 +33,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'readTotalCart':
 		getTotalItemValue();
 		break;
+		case 'finalizePayment':
+		finalizePayment();
+		break;
 		
 		// default:
 		// 	// code...
@@ -80,19 +83,6 @@ function addToCart(){
 				echo json_encode($valid);
 			}
 		}
-	}else{ 
-		?>
-		<div class="p-4">
-			<div class="alert alert-warning" role="alert">
-				<i class="fas fa-exclamation-triangle"></i>
-				Nao tem permissao para aceder a esta pagina.
-			</div>
-			<div class="d-flex justify-content-center">
-				<a href="../../sign-in.php" class="btn btn-primary"><i class="fas fa-sign-in-alt pr-2"></i> Sign-in</a>
-			</div>
-		</div>
-		<?php
-		die();
 	}
 }
 
@@ -340,4 +330,77 @@ function getTotalItemValue(){
 		echo json_encode($row);
 	}
 }
+
+function finalizePayment(){
+	global $connect;
+
+	if (isset($_SESSION['userId']) && isset($_SESSION['cartId'])) {
+
+		$cartId = Sys_Secure($_SESSION['cartId']);
+		
+		if (!is_cart_paid($cartId)) {
+			if ($_POST) {
+				// Set the cart has paid
+				$userId 	= Sys_Secure($_SESSION['userId']);
+				$clientId 	= getUserClientId($userId);
+				$subTotal 	= Sys_Secure($_POST['subTotal']);
+				$vat 		= 0;
+				$totalAmount= Sys_Secure($_POST['totalAmount']);
+				$discount 	= 0;
+				$grandTotal = Sys_Secure($_POST['grandTotal']);
+				$paymentType= Sys_Secure($_POST['paymentType']);
+				$dtPaid 	= Sys_Secure($_POST['dtPaid']);
+
+				$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', '$dtPaid')";
+
+				if($connect->query($sql) === TRUE) {
+					// Set pedding request
+					$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$payment_type', '$active', '$dt_requested', '$dt_responded')";
+					$connect->query($sql);
+
+					$valid['success'] = true;
+					$valid['messages'] = "Successfully paid";	
+				} else {
+					$valid['success'] = false;
+					$valid['messages'] = "Error while paying";
+				}
+			} else {
+				$valid['success'] = false;
+				$valid['messages'] = "Error while paying";
+			}
+		} else {
+			$valid['success'] = false;
+			$valid['messages'] = "Error while paying";
+		}
+	}
+}
+
+
+// verifica se o carrinho ja foi pago
+function is_cart_paid($cartId){
+	global $connect;
+
+	$sql = "SELECT * FROM cart WHERE cart_id = {$cartId} AND payment_status = 2 AND status = 1";
+	$result = $connect->query($sql);
+
+	if ($result->num_rows > 0) {
+		return true;
+	}else{
+		return false;
+	}
+}
+// Get client id
+function getUserClientId($userId) {
+	global $connect;
+
+	$sql = "SELECT * FROM clients WHERE user_id = {$userId}";
+	$result = $connect->query($sql);
+	$clientResult = $result->fetch_assoc();
+	$clientId = $clientResult['client_id'];
+
+	$connect->close();
+
+	echo json_encode($clientId);
+}
+
 ?>
