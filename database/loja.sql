@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2021 at 02:38 PM
+-- Generation Time: Jul 12, 2021 at 01:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -99,7 +99,37 @@ INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `active`, `status`, 
 (5, 8, '2', '1', '1', '2021-06-13 16:30:25'),
 (6, 19, '2', '1', '1', '2021-06-14 10:57:46'),
 (7, 20, '2', '1', '1', '2021-06-14 17:36:36'),
-(8, 22, '2', '1', '1', '2021-06-16 12:27:33');
+(8, 22, '2', '1', '1', '2021-06-16 12:27:33'),
+(9, 23, '2', '1', '1', '2021-06-22 14:53:08'),
+(10, 1, '2', '1', '1', '2021-07-05 21:54:30'),
+(11, 24, '2', '1', '1', '2021-07-08 14:14:06'),
+(12, 25, '2', '1', '1', '2021-07-08 14:35:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_has_paid`
+--
+
+CREATE TABLE `cart_has_paid` (
+  `cart_has_paid_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `sub_total` float NOT NULL,
+  `vat` float NOT NULL,
+  `total_amount` float NOT NULL,
+  `discount` float NOT NULL,
+  `grand_total` float NOT NULL,
+  `payment_type` enum('1','2','3') NOT NULL,
+  `dt_paid` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart_has_paid`
+--
+
+INSERT INTO `cart_has_paid` (`cart_has_paid_id`, `cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES
+(1, 10, 1, 1234, 0, 0, 0, 123, '1', '2021-07-11 23:30:39');
 
 -- --------------------------------------------------------
 
@@ -132,11 +162,11 @@ INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `a
 (37, 5, 11, 2, '1', '1'),
 (38, 6, 4, 2, '1', '1'),
 (39, 6, 13, 2, '1', '1'),
-(49, 4, 12, 2, '1', '1'),
-(56, 4, 16, 1, '1', '1'),
-(57, 4, 17, 1, '1', '1'),
-(58, 4, 4, 1, '1', '1'),
-(59, 4, 1, 1, '1', '1');
+(60, 9, 12, 1, '1', '1'),
+(61, 9, 13, 1, '1', '1'),
+(70, 4, 9, 4, '1', '1'),
+(72, 4, 7, 2, '1', '1'),
+(73, 4, 4, 1, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -174,8 +204,10 @@ INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active
 CREATE TABLE `clients` (
   `client_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
+  `gender` enum('1','2') NOT NULL,
+  `country` int(11) NOT NULL,
+  `province` int(11) NOT NULL,
+  `district` int(11) NOT NULL,
   `contact` varchar(255) NOT NULL,
   `active` enum('1','2') NOT NULL,
   `status` enum('1','2') NOT NULL
@@ -185,9 +217,25 @@ CREATE TABLE `clients` (
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`client_id`, `user_id`, `name`, `surname`, `contact`, `active`, `status`) VALUES
-(1, 5, 'sdfs', 'ertdfg', '821231130', '1', '1'),
-(2, 6, 'sdfs', 'dfgdfgdfgd', '841441424', '1', '1');
+INSERT INTO `clients` (`client_id`, `user_id`, `gender`, `country`, `province`, `district`, `contact`, `active`, `status`) VALUES
+(1, 5, '', 0, 0, 0, '821231130', '1', '1'),
+(2, 6, '', 0, 0, 0, '841441424', '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `delivery_address`
+--
+
+CREATE TABLE `delivery_address` (
+  `delivery_address_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `country` int(11) NOT NULL,
+  `province` int(11) NOT NULL,
+  `address` text NOT NULL,
+  `reference_point` varchar(255) NOT NULL,
+  `postal_code` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -243,7 +291,7 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (21, '2021-02-04 16:53:18', 'hghghg hgh', '873455466', '90000.00', '15300.00', '105300.00', '0', '105300.00', '105300.00', '0.00', 2, 1, 1, '15300.00', 1, 4),
 (22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1),
 (23, '2021-06-15 20:36:05', 'dsfsdf', '54564', '106500.00', '18105.00', '124605.00', '0', '124605.00', '99684', '24921.00', 2, 1, 1, '0', 1, 22),
-(24, '2021-06-19 14:00:51', 'sdfsd', '54345345', '125000.00', '21250.00', '146250.00', '0', '146250.00', '146250.00', '0.00', 2, 1, 1, '21250.00', 1, 1);
+(24, '2021-06-24 11:06:48', 'sdfsd', '54345345', '125000.00', '21250.00', '146250.00', '0', '146250.00', '146250.00', '0.00', 2, 1, 1, '21250.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -318,8 +366,8 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (409, 18, 5, '2', '45000.00', '90000.00', 1),
 (412, 23, 6, '1', '38000.00', '38000.00', 1),
 (413, 23, 7, '1', '68500.00', '68500.00', 1),
-(415, 24, 1, '1', '125000.00', '125000.00', 1),
-(417, 5, 25, '1', '6500.00', '6500.00', 1);
+(417, 5, 25, '1', '6500.00', '6500.00', 1),
+(418, 24, 1, '1', '125000.00', '125000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -344,7 +392,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`, `categories_id`, `quantity`, `rate`, `active`, `status`) VALUES
-(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 8, '125000.00', '1', '1'),
+(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 10, '125000.00', '1', '1'),
 (4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 13, '22500.00', '1', '1'),
 (5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 2, '45000.00', '1', '1'),
 (6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 21, '38000.00', '1', '1'),
@@ -421,6 +469,29 @@ INSERT INTO `product_details` (`id`, `product_id`, `detail`, `description`, `act
 (33, 26, 'dasdas', '12', '2', '2'),
 (34, 26, 'sdfsd ', '23', '2', '2'),
 (35, 27, 'dasd', 'dasd', '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requests`
+--
+
+CREATE TABLE `requests` (
+  `request_id` int(11) NOT NULL,
+  `cart_has_paid_id` int(11) NOT NULL,
+  `user_employer_id` int(11) NOT NULL,
+  `payment_type` enum('1','2','3') NOT NULL,
+  `active` enum('1','2') NOT NULL,
+  `dt_requested` timestamp NOT NULL DEFAULT current_timestamp(),
+  `dt_responded` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `requests`
+--
+
+INSERT INTO `requests` (`request_id`, `cart_has_paid_id`, `user_employer_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES
+(1, 1, 1, '3', '2', '2021-07-10 13:48:19', '2021-07-10 13:52:01');
 
 -- --------------------------------------------------------
 
@@ -514,7 +585,9 @@ INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_im
 (20, 'lkmlk', 'lknlk', 'sdf@gfdg.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (21, 'hjvhj', 'sdfsdf', 'sdfsdf@dmaasdil.com', '51d3ab6534b38f81ff65ec3a602d5b10', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (22, 'ytuytuy', 'dfsdf', 'dfdfsd@fsdf.cpom', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
-(23, 'Gustavo', 'Tome', 'gtome@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1');
+(23, 'Gustavo', 'Tome', 'gtome@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(24, 'asd', 'asda', 'asdas@asda.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(25, 'sds', 'dsds', 'dsds@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1');
 
 --
 -- Indexes for dumped tables
@@ -532,6 +605,14 @@ ALTER TABLE `brands`
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `cart_has_paid`
+--
+ALTER TABLE `cart_has_paid`
+  ADD PRIMARY KEY (`cart_has_paid_id`),
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `cart_id` (`cart_id`);
 
 --
 -- Indexes for table `cart_item`
@@ -552,7 +633,18 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`client_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `country` (`country`),
+  ADD KEY `province` (`province`);
+
+--
+-- Indexes for table `delivery_address`
+--
+ALTER TABLE `delivery_address`
+  ADD PRIMARY KEY (`delivery_address_id`),
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `province` (`province`),
+  ADD KEY `country` (`country`);
 
 --
 -- Indexes for table `orders`
@@ -585,6 +677,14 @@ ALTER TABLE `product_details`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `requests`
+--
+ALTER TABLE `requests`
+  ADD PRIMARY KEY (`request_id`),
+  ADD KEY `cart_has_paid_id` (`cart_has_paid_id`),
+  ADD KEY `user_store_id` (`user_employer_id`);
+
+--
 -- Indexes for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
@@ -612,13 +712,19 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `cart_has_paid`
+--
+ALTER TABLE `cart_has_paid`
+  MODIFY `cart_has_paid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -633,6 +739,12 @@ ALTER TABLE `clients`
   MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `delivery_address`
+--
+ALTER TABLE `delivery_address`
+  MODIFY `delivery_address_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -642,7 +754,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=418;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=419;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -657,6 +769,12 @@ ALTER TABLE `product_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
+-- AUTO_INCREMENT for table `requests`
+--
+ALTER TABLE `requests`
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
@@ -666,7 +784,7 @@ ALTER TABLE `sub_categories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
@@ -677,6 +795,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `cart_has_paid`
+--
+ALTER TABLE `cart_has_paid`
+  ADD CONSTRAINT `cart_has_paid_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_has_paid_ibfk_2` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cart_item`
@@ -690,6 +815,12 @@ ALTER TABLE `cart_item`
 --
 ALTER TABLE `clients`
   ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `delivery_address`
+--
+ALTER TABLE `delivery_address`
+  ADD CONSTRAINT `delivery_address_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -716,6 +847,13 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_details`
   ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION;
+
+--
+-- Constraints for table `requests`
+--
+ALTER TABLE `requests`
+  ADD CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`cart_has_paid_id`) REFERENCES `cart_has_paid` (`cart_has_paid_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `requests_ibfk_3` FOREIGN KEY (`user_employer_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sub_categories`
