@@ -46,7 +46,7 @@ $result = $query->fetch_assoc();
 						</a>
 					</div>
 					<div class="process text-center active">
-						<a href="cart.php?checkout">
+						<a href="checkout.php">
 							<p><span><i class="fas fa-check"></i></span></p>
 							<label><?php echo $language['checkout'] ?></label>
 						</a>
@@ -109,8 +109,7 @@ $result = $query->fetch_assoc();
 								<label for="address" class="col-sm-6 control-label"><?php echo $language['address'] ?>: </label>
 								
 								<div class="col-sm-10">
-									<!-- <input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off" required> -->
-									<textarea class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off" required></textarea>
+									<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off" required>
 								</div>
 							</div> <!-- /form-group-->
 
@@ -173,36 +172,36 @@ $result = $query->fetch_assoc();
 						</div>
 						<hr>
 						<style type="text/css">
-							.payment-options img {
-								height: 75px;
-							}
-						</style>
-						<div class="payment-options mt-4 d-none d-sm-inline d-md-inline">
-							<h6><?php echo $language['payment-options'] ?></h6>
-							<div class="row">
-								<div class="mpesa col-12 col-lg-4 mb-2" title="M-pesa Max: 25.000,00 MTn"><img src="../assests/images/app/mpesa.png"></div>
-								<div class="visa col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Visa"><img src="../assests/images/app/visa.png"></div>
-								<div class="mastercard col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Mastercard"><img src="../assests/images/app/mastercard.png"></div>
-							</div>
-							<label class="text-muted mt-4"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
-
+						.payment-options img {
+							height: 75px;
+						}
+					</style>
+					<div class="payment-options mt-4 d-none d-sm-inline d-md-inline">
+						<h6><?php echo $language['payment-options'] ?></h6>
+						<div class="row">
+							<div class="mpesa col-12 col-lg-4 mb-2" title="M-pesa Max: 25.000,00 MTn"><img src="../assests/images/app/mpesa.png"></div>
+							<div class="visa col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Visa"><img src="../assests/images/app/visa.png"></div>
+							<div class="mastercard col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Mastercard"><img src="../assests/images/app/mastercard.png"></div>
 						</div>
+						<label class="text-muted mt-4"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
+
 					</div>
 				</div>
-				<hr>
-				<div class="row mx-1">
-					<div class="col-6">
-						<a href="checkout.php" class="btn btn-outline-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['checkout'] ?> </a>
-					</div>
-					<div class="col-6">
-						<div class="d-inline">
-							<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentModal"> <?php echo $language['finalize-and-pay'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
-						</div>
+			</div>
+			<hr>
+			<div class="row mx-1">
+				<div class="col-6">
+					<a href="checkout.php" class="btn btn-outline-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['checkout'] ?> </a>
+				</div>
+				<div class="col-6">
+					<div class="d-inline">
+						<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentModal"> <?php echo $language['finalize-and-pay'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <!-- finalize payments -->
@@ -210,17 +209,23 @@ $result = $query->fetch_assoc();
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-trash"></i> <?php echo $language['payment-options'] ?></h4>
+				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['pay'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<div class="modal-body">
-				<div class="removeUserMessages"></div>
-				<p><?php echo $language['do-y-really-w-to-remove'] ?> ?</p>
-			</div>
-			<div class="modal-footer removeProductFooter">
-				<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-				<button type="button" class="btn btn-outline-danger" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['remove'] ?></button>
-			</div>
+			<form>
+				<div class="modal-body">
+					<div class="finalizeMessages"></div>
+					<p><?php echo $language['insert-the-payment-code'] ?>:</p>
+
+					<div class="col-4 d-flex justify-content-center">
+						<input type="text" class="form-control" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
+					</div>
+				</div>
+				<div class="modal-footer removeProductFooter">
+					<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+					<button type="submit" class="btn btn-outline-success" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
+				</div>
+			</form>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
