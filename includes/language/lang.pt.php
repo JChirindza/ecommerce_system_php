@@ -265,5 +265,7 @@ $language['cart'] = 'Carrinho';
 $language['delivery-location'] = 'Local de entrega';
 $language['order-resume'] = 'Resumo do pedido';
 $language['mozambique'] = 'Moçambique';
-
+$language['pay'] = 'Pagar';
+$language['insert-the-payment-code'] = 'Insira o codigo de pagamento';
+$language['payment-code'] = 'Codigo de pagamento';
 ?>

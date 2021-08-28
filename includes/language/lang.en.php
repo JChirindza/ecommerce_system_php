@@ -265,5 +265,7 @@ $language['cart'] = 'Cart';
 $language['delivery-location'] = 'Delivery location';
 $language['order-resume'] = 'Order resume';
 $language['mozambique'] = 'Mozambique';
-
+$language['pay'] = 'Pay';
+$language['insert-the-payment-code'] = 'Add the payment code';
+$language['payment-code'] = 'Payment code';
 ?>
