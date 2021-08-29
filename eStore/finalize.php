@@ -16,11 +16,18 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 ?>
 <?php 
 $cartId = Sys_Secure($_SESSION['cartId']);
-// $cartId = 1;
 $sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
 $query = $connect->query($sql);
-$result = $query->fetch_assoc();
+$resultCart = $query->fetch_assoc();
 
+$user_id = Sys_Secure($_SESSION['userId']);
+$sql = "SELECT * FROM users WHERE user_id = {$user_id}";
+$query = $connect->query($sql);
+$resultUser = $query->fetch_assoc();
+
+$sql = "SELECT * FROM clients WHERE user_id = {$user_id}";
+$query = $connect->query($sql);
+$resultClient = $query->fetch_assoc();
 ?>
 
 <div class="d-flex" id="wrapper">
@@ -68,18 +75,25 @@ $result = $query->fetch_assoc();
 				<div class="row">
 					<div class="col-sm-12 col-md-6 col-lg-6">
 						<h5 class=""><?php echo $language['delivery-location'] ?> <i class="fas fa-shipping-fast"></i></h5>
-						<!--  -->
 						<form class="form-horizontal" id="submitUserForm" action="php_action/ctrl_request.php?action=<?php //echo $ref; ?>" method="POST" enctype="multipart/form-data">
 
-							<div class="form-group  px-3 mt-4">
+							<div class="form-group px-3 mt-4">
 								<div class="row">
-									<div class="col-sm-5">
-										<input type="text" class="form-control"  id="name" placeholder="<?php echo $language['name'] ?>" name="name" autocomplete="off" disabled>
-									</div>
+									<div class="form-group col-sm-10 col-md-5">
+										<label for="name" class="control-label"><?php echo $language['name'] ?>: </label>
 
-									<div class="col-sm-5">
-										<input type="text" class="form-control" id="surname"  placeholder="<?php echo $language['surname'] ?>" name="surname" autocomplete="off" disabled>
-									</div>
+										<div class="">
+											<input type="text" class="form-control"  id="name" placeholder="<?php echo $language['name'] ?>" name="name" autocomplete="off" value="<?php echo $resultUser['name']; ?>" disabled>
+										</div>
+									</div> <!-- /form-group-->
+
+									<div class="form-group col-sm-10 col-md-5">
+										<label for="surname" class="control-label"><?php echo $language['surname'] ?>: </label>
+
+										<div class="">
+											<input type="text" class="form-control"  id="surname" placeholder="<?php echo $language['surname'] ?>" name="surname" autocomplete="off" value="<?php echo $resultUser['surname']; ?>" disabled>
+										</div>
+									</div> <!-- /form-group-->
 								</div>
 							</div> <!-- /form-group-->
 							<div class="form-group">
@@ -128,7 +142,7 @@ $result = $query->fetch_assoc();
 									<input type="text" class="form-control" id="postalCode" placeholder="<?php echo $language['postal-code'] ?>" name="postalCode" autocomplete="off" required>
 								</div>
 							</div> <!-- /form-group-->
-							<button type="submit" class="btn btn-outline-success ml-3 rounded-0" id="createUserBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+							<button type="submit" class="btn btn-success ml-3 rounded-0" id="createUserBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 						</form>
 					</div>
 
@@ -170,60 +184,83 @@ $result = $query->fetch_assoc();
 							</span>
 							<span id="subTotal" class="font-weight-bold pl-2"> <?php echo number_format($total, 2,",","."); ?> Mt</span>
 						</div>
-						<hr>
-						<style type="text/css">
-						.payment-options img {
-							height: 75px;
-						}
-					</style>
-					<div class="payment-options mt-4 d-none d-sm-inline d-md-inline">
-						<h6><?php echo $language['payment-options'] ?></h6>
-						<div class="row">
-							<div class="mpesa col-12 col-lg-4 mb-2" title="M-pesa Max: 25.000,00 MTn"><img src="../assests/images/app/mpesa.png"></div>
-							<div class="visa col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Visa"><img src="../assests/images/app/visa.png"></div>
-							<div class="mastercard col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Mastercard"><img src="../assests/images/app/mastercard.png"></div>
+						
+						<div class="payment-options mt-4 d-none d-sm-inline d-md-inline">
+							<hr>
+							<h6><?php echo $language['payment-options'] ?></h6>
+							<div class="row">
+								<!-- Limite 25 000 MTn -->
+								<div class="mpesa col-12 col-lg-4 mb-2" title="M-pesa Max: 25.000,00 MTn"><img src="../assests/images/app/mpesa.png" style="opacity: 25%;"></div>
+								<div class="visa col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Visa"><img src="../assests/images/app/visa.png"></div>
+								<div class="mastercard col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Mastercard"><img src="../assests/images/app/mastercard.png"></div>
+							</div>
+							<label class="text-muted mt-4"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
 						</div>
-						<label class="text-muted mt-4"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
-
 					</div>
 				</div>
-			</div>
-			<hr>
-			<div class="row mx-1">
-				<div class="col-6">
-					<a href="checkout.php" class="btn btn-outline-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['checkout'] ?> </a>
+
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<hr>
+					<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
+
+					<form class="form-horizontal" id="submitClientContactForm" method="POST" enctype="multipart/form-data">
+						<div class="form-group mt-4">
+
+							<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
+
+							<div class="">
+								<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>">
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+					</form>
 				</div>
-				<div class="col-6">
-					<div class="d-inline">
-						<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentModal"> <?php echo $language['finalize-and-pay'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+
+				<hr>
+				<div class="row pt-4">
+					<div class="col-6">
+						<a href="checkout.php" class="btn btn-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['checkout'] ?> </a>
+					</div>
+					<div class="col-6">
+						<div class="d-flex justify-content-end">
+							<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentModal"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-</div>
 
 <!-- finalize payments -->
-<div class="modal fade" tabindex="-1" role="dialog" id="finalizePaymentModal">
+<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentModal">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['pay'] ?></h4>
+				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['payment'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<form>
 				<div class="modal-body">
 					<div class="finalizeMessages"></div>
-					<p><?php echo $language['insert-the-payment-code'] ?>:</p>
+					<div class="timer text-muted d-flex justify-content-center"><span><i class="fas fa-clock"></i> 120 sec.</span></div>
+					<p class="text-muted px-sm-4"><i class="fas fa-info-circle"></i> Confirme o pagamento via MPESA no seu numero <span class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span> e insira o codigo aqui.</p>
 
-					<div class="col-4 d-flex justify-content-center">
-						<input type="text" class="form-control" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
+					<div class="form-group">
+						<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>
+						<div class="d-flex justify-content-center">
+							<input type="text" class="form-control col-6" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
+						</div>
+					</div>
+
+					<div class="pt-4 d-flex justify-content-center">
+						<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
 					</div>
 				</div>
-				<div class="modal-footer removeProductFooter">
+				<div class="modal-footer">
 					<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-					<button type="submit" class="btn btn-outline-success" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
+					
 				</div>
 			</form>
 		</div><!-- /.modal-content -->
