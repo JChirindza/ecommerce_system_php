@@ -15,7 +15,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	require_once 'includes/footer.php';
 	die();
 }else{
-	$user_id = $_SESSION['userId'];
+	$user_id = Sys_Secure($_SESSION['userId']);
 	$sql = "SELECT * FROM users WHERE user_id = {$user_id}";
 	$query = $connect->query($sql);
 	$result = $query->fetch_assoc();
