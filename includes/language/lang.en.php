@@ -266,6 +266,8 @@ $language['delivery-location'] = 'Delivery location';
 $language['order-resume'] = 'Order resume';
 $language['mozambique'] = 'Mozambique';
 $language['pay'] = 'Pay';
-$language['insert-the-payment-code'] = 'Add the payment code';
+$language['insert-the-payment-code'] = 'Insert the payment code';
 $language['payment-code'] = 'Payment code';
+$language['payment'] = 'Payment';
+$language['your-number'] = 'Your number';
 ?>
