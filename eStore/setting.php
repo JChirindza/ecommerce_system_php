@@ -56,7 +56,7 @@ $connect->close();
 						</ul>
 					</div>
 					<!-- Tab panes -->
-					<div class="tab-content border border-top-0">
+					<div class="tab-content border border-top-0" style="min-height: 350px;">
 						<div id="menu1" class="tab-pane active" >
 							<form action="php_action/ctrl_user.php?action=editImage" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
 
@@ -170,6 +170,67 @@ $connect->close();
 						</div>
 					</div>
 				</div> <!-- /col-md-12 -->
+			</div>
+		</div>
+
+		<div class="row mt-2 mt-md-3 mt-lg-4">
+			<div class="col-sm-12 bg-white p-3 userSettings " id="delivery_location">
+				<h4><i class="fas fa-info-circle"></i> <?php echo $language['delivery-location'] ?> </h4>
+				<div class="col-md-12 p-0 mt-2">
+
+					<div class="deliveryLocationMessages"></div>
+
+					<form class="form-horizontal col-sm-8" id="submitDeliveryLocationForm" action="php_action/ctrl_request.php?action=<?php //echo $ref; ?>" method="POST" enctype="multipart/form-data">
+
+						<div class="form-group">
+							<label for="country" class="col-sm-6 control-label"><?php echo $language['country'] ?>: </label>
+
+							<div class="col-sm-10">
+								<select class="form-control" id="province" required>
+									<option>~~<?php echo $language['select'] ?>~~</option>
+									<option value="1"><?php echo $language['mozambique'] ?></option>
+								</select>
+							</div>
+						</div> <!-- /form-group-->
+
+						<div class="form-group">
+							<label for="province" class="col-sm-6 control-label"><?php echo $language['province'] ?>: </label>
+
+							<div class="col-sm-10">
+								<select class="form-control" id="province" required>
+									<option>~~<?php echo $language['select'] ?>~~</option>
+									<option value="1">Maputo Cidade</option>
+									<option value="2">Maputo Provincia (Matola)</option>
+								</select>
+							</div>
+						</div> <!-- /form-group-->
+
+						<div class="form-group">
+							<label for="address" class="col-sm-6 control-label"><?php echo $language['address'] ?>: </label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off" required>
+							</div>
+						</div> <!-- /form-group-->
+
+						<div class="form-group">
+							<label for="referencePoint" class="col-sm-6 control-label"><?php echo $language['reference-point'] ?>: </label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="referencePoint" placeholder="<?php echo $language['reference-point'] ?>" name="referencePoint" autocomplete="off" required>
+							</div>
+						</div> <!-- /form-group-->
+
+						<div class="form-group">
+							<label for="postalCode" class="col-sm-6 control-label"><?php echo $language['postal-code'] ?>: </label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="postalCode" placeholder="<?php echo $language['postal-code'] ?>" name="postalCode" autocomplete="off" required>
+							</div>
+						</div> <!-- /form-group-->
+						<button type="submit" class="btn btn-success ml-3 rounded-0" id="createUserBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div> <!-- / container-fluid -->
