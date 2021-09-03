@@ -100,7 +100,7 @@ $resultClient = $query->fetch_assoc();
 								<label for="country" class="col-sm-6 control-label"><?php echo $language['country'] ?>: </label>
 								
 								<div class="col-sm-10">
-									<select class="form-control" id="province" required>
+									<select class="form-control" id="country" required>
 										<option>~~<?php echo $language['select'] ?>~~</option>
 										<option value="1"><?php echo $language['mozambique'] ?></option>
 									</select>
@@ -202,14 +202,14 @@ $resultClient = $query->fetch_assoc();
 				<div class="col-sm-12 col-md-6 col-lg-6">
 					<hr>
 					<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
-
-					<form class="form-horizontal" id="submitClientContactForm" method="POST" enctype="multipart/form-data">
+					<div class="updateContactMessages"></div>
+					<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_finalization.php?action=editContact" method="POST" enctype="multipart/form-data">
 						<div class="form-group mt-4">
 
 							<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
 
 							<div class="">
-								<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>">
+								<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>" required>
 							</div>
 						</div>
 
@@ -245,7 +245,7 @@ $resultClient = $query->fetch_assoc();
 				<div class="modal-body">
 					<div class="finalizeMessages"></div>
 					<div class="timer text-muted d-flex justify-content-center"><span><i class="fas fa-clock"></i> 120 sec.</span></div>
-					<p class="text-muted px-sm-4"><i class="fas fa-info-circle"></i> Confirme o pagamento via MPESA no seu numero <span class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span> e insira o codigo aqui.</p>
+					<p class="text-muted px-sm-4"><i class="fas fa-info-circle"></i> Confirme o pagamento via MPESA no seu numero <span id="payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span> e insira o codigo aqui.</p>
 
 					<div class="form-group">
 						<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>
@@ -268,6 +268,6 @@ $resultClient = $query->fetch_assoc();
 </div><!-- /.modal -->
 <!-- /finalize payment -->
 
-<!-- <script src="custom/js/cart.js"></script> -->
+<script src="custom/js/client.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>
