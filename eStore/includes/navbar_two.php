@@ -64,8 +64,8 @@
                                                   <li><a href="../sign-in.php">Login</a></li>
                                                   <li><a href="../sign-up.php">Register</a></li>
                                              <?php } ?>
-                                             <li><a href="#"><?php echo $language['store-location'] ?></a></li>
-                                             <li><a href="#"><?php echo $language['delivery-locations'] ?></a></li>
+                                             <li><a href="locations.php"><?php echo $language['store-location'] ?></a></li>
+                                             <li><a href="locations.php#delivery_location"><?php echo $language['delivery-locations'] ?></a></li>
                                         </ul>
                                    </div>
                               </li>
