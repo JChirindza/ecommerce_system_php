@@ -174,8 +174,8 @@ $connect->close();
 		</div>
 
 		<div class="row mt-2 mt-md-3 mt-lg-4">
-			<div class="col-sm-12 bg-white p-3 userSettings " id="delivery_location">
-				<h4><i class="fas fa-info-circle"></i> <?php echo $language['delivery-location'] ?> </h4>
+			<div class="col-sm-12 bg-white p-3 userSettings " id="delivery_address">
+				<h4><i class="fas fa-info-circle"></i> <?php echo $language['delivery-address'] ?> </h4>
 				<div class="col-md-12 p-0 mt-2">
 
 					<div class="deliveryLocationMessages"></div>
