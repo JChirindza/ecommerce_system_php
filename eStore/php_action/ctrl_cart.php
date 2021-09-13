@@ -359,10 +359,10 @@ function finalizePayment(){
 					$connect->query($sql);
 
 					$valid['success'] = true;
-					$valid['messages'] = "Successfully paid";	
+					$valid['messages'] = "Successfully paid.";	
 				} else {
 					$valid['success'] = false;
-					$valid['messages'] = "Error while paying";
+					$valid['messages'] = "Error while paying.";
 				}
 			} else {
 				$valid['success'] = false;
@@ -370,7 +370,7 @@ function finalizePayment(){
 			}
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while paying";
+			$valid['messages'] = "Error while paying. This cart was been paid!";
 		}
 	}
 }
