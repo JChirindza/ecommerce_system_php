@@ -51,6 +51,11 @@ $clientwisesql = "SELECT users.name, users.surname, users.email, users.active , 
 $clientwiseQuery = $connect->query($clientwisesql);
 $clientwieseOrder = $clientwiseQuery->num_rows;
 
+// ------------------- Pending Requests -----------------------
+$pendingRequestSql = "SELECT * FROM requests WHERE active = 1";
+$pendingRequestQuery = $connect->query($pendingRequestSql);
+$countPendingRequests = $pendingRequestQuery->num_rows;
+
 $connect->close();
 
 ?>
@@ -154,7 +159,7 @@ $connect->close();
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><?php echo $language['pending-req']; ?></div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countPendingRequests; ?></div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-comments fa-2x text-gray-300"></i>
