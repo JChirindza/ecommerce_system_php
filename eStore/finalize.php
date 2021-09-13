@@ -201,11 +201,11 @@ $resultAddress = $query->fetch_assoc();
 							<h6><?php echo $language['payment-options'] ?></h6>
 							<div class="row">
 								<!-- Limite 25 000 MTn -->
-								<div class="mpesa col-12 col-lg-4 mb-2" title="M-pesa Max: 25.000,00 MTn"><img src="../assests/images/app/mpesa.png" style="opacity: 25%;"></div>
-								<div class="visa col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Visa"><img src="../assests/images/app/visa.png"></div>
-								<div class="mastercard col-12 col-sm-4 col-md-6 col-lg-4 mb-2" title="Mastercard"><img src="../assests/images/app/mastercard.png"></div>
+								<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="h-75" src="../assests/images/app/mpesa.png"></div>
+								<div class="visa col-4" title="Visa"><img class="h-75" src="../assests/images/app/visa.png"></div>
+								<div class="mastercard col-4" title="Mastercard"><img class="h-75" src="../assests/images/app/mastercard.png"></div>
 							</div>
-							<label class="text-muted mt-4"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
+							<label class="text-muted"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
 						</div>
 					</div>
 				</div>
@@ -252,7 +252,7 @@ $resultAddress = $query->fetch_assoc();
 				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['payment'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<form class="form-horizontal" id="payCart" action="php_action/ctrl_finalization.php?action=pay" method="POST">
+			<form class="form-horizontal" id="payCart" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST">
 				<div class="modal-body">
 					<div class="finalizeMessages"></div>
 					<div class="timer text-muted d-flex justify-content-center"><span><i class="fas fa-clock"></i> 120 sec.</span></div>
