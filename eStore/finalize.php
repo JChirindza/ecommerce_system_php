@@ -15,19 +15,25 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 }
 ?>
 <?php 
-$cartId = Sys_Secure($_SESSION['cartId']);
-$sql = "SELECT * FROM cart WHERE cart_id = {$cartId}";
-$query = $connect->query($sql);
+$cartId 	= Sys_Secure($_SESSION['cartId']);
+$user_id 	= Sys_Secure($_SESSION['userId']);
+
+$sql 	= "SELECT * FROM cart WHERE cart_id = {$cartId}";
+$query 	= $connect->query($sql);
 $resultCart = $query->fetch_assoc();
 
-$user_id = Sys_Secure($_SESSION['userId']);
-$sql = "SELECT * FROM users WHERE user_id = {$user_id}";
-$query = $connect->query($sql);
+$sql 	= "SELECT * FROM users WHERE user_id = {$user_id}";
+$query 	= $connect->query($sql);
 $resultUser = $query->fetch_assoc();
 
-$sql = "SELECT * FROM clients WHERE user_id = {$user_id}";
-$query = $connect->query($sql);
+$sql 	= "SELECT * FROM clients WHERE user_id = {$user_id}";
+$query 	= $connect->query($sql);
 $resultClient = $query->fetch_assoc();
+
+$sql 	= "SELECT * FROM delivery_address WHERE client_id = (SELECT client_id FROM clients WHERE user_id = {$user_id} LIMIT 1)";
+$query 	= $connect->query($sql);
+$resultAddress = $query->fetch_assoc();
+
 ?>
 
 <div class="d-flex" id="wrapper">
@@ -74,8 +80,9 @@ $resultClient = $query->fetch_assoc();
 				<hr>
 				<div class="row">
 					<div class="col-sm-12 col-md-6 col-lg-6">
-						<h5 class=""><?php echo $language['delivery-location'] ?> <i class="fas fa-shipping-fast"></i></h5>
-						<form class="form-horizontal" id="submitUserForm" action="php_action/ctrl_request.php?action=<?php //echo $ref; ?>" method="POST" enctype="multipart/form-data">
+						<h5><?php echo $language['delivery-address'] ?> <i class="fas fa-shipping-fast"></i></h5>
+						
+						<form class="form-horizontal" id="submitDeliveryAddressForm" action="php_action/ctrl_delivery_address.php?action=editAddress" method="POST" enctype="multipart/form-data">
 
 							<div class="form-group px-3 mt-4">
 								<div class="row">
@@ -100,8 +107,7 @@ $resultClient = $query->fetch_assoc();
 								<label for="country" class="col-sm-6 control-label"><?php echo $language['country'] ?>: </label>
 								
 								<div class="col-sm-10">
-									<select class="form-control" id="country" required>
-										<option>~~<?php echo $language['select'] ?>~~</option>
+									<select class="form-control" id="country" name="country" disabled>
 										<option value="1"><?php echo $language['mozambique'] ?></option>
 									</select>
 								</div>
@@ -111,8 +117,8 @@ $resultClient = $query->fetch_assoc();
 								<label for="province" class="col-sm-6 control-label"><?php echo $language['province'] ?>: </label>
 								
 								<div class="col-sm-10">
-									<select class="form-control" id="province" required>
-										<option>~~<?php echo $language['select'] ?>~~</option>
+									<select class="form-control" id="province" name="province" required>
+										<option value="">~~<?php echo $language['select'] ?>~~</option>
 										<option value="1">Maputo Cidade</option>
 										<option value="2">Maputo Provincia (Matola)</option>
 									</select>
@@ -123,7 +129,7 @@ $resultClient = $query->fetch_assoc();
 								<label for="address" class="col-sm-6 control-label"><?php echo $language['address'] ?>: </label>
 								
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off" required>
+									<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off">
 								</div>
 							</div> <!-- /form-group-->
 
@@ -142,7 +148,12 @@ $resultClient = $query->fetch_assoc();
 									<input type="text" class="form-control" id="postalCode" placeholder="<?php echo $language['postal-code'] ?>" name="postalCode" autocomplete="off" required>
 								</div>
 							</div> <!-- /form-group-->
-							<button type="submit" class="btn btn-success ml-3 rounded-0" id="createUserBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+
+							<div class="form-group ">
+								<div class="updateDeliveryAddressMessages col-sm-10"></div>
+							</div>
+
+							<button type="submit" class="btn btn-success ml-3 rounded-0" id="updateAddressBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button> 
 						</form>
 					</div>
 
@@ -203,7 +214,7 @@ $resultClient = $query->fetch_assoc();
 					<hr>
 					<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
 					<div class="updateContactMessages"></div>
-					<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_finalization.php?action=editContact" method="POST" enctype="multipart/form-data">
+					<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
 						<div class="form-group mt-4">
 
 							<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
@@ -241,11 +252,11 @@ $resultClient = $query->fetch_assoc();
 				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['payment'] ?></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<form>
+			<form class="form-horizontal" id="payCart" action="php_action/ctrl_finalization.php?action=pay" method="POST">
 				<div class="modal-body">
 					<div class="finalizeMessages"></div>
 					<div class="timer text-muted d-flex justify-content-center"><span><i class="fas fa-clock"></i> 120 sec.</span></div>
-					<p class="text-muted px-sm-4"><i class="fas fa-info-circle"></i> Confirme o pagamento via MPESA no seu numero <span id="payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span> e insira o codigo aqui.</p>
+					<p class="text-muted px-sm-4"><i class="fas fa-info-circle"></i> Confirme o pagamento via MPESA no seu numero <span id="client_payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span> e insira o codigo aqui.</p>
 
 					<div class="form-group">
 						<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>
@@ -268,6 +279,7 @@ $resultClient = $query->fetch_assoc();
 </div><!-- /.modal -->
 <!-- /finalize payment -->
 
+<script src="custom/js/delivery_address.js"></script>
 <script src="custom/js/client.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>
