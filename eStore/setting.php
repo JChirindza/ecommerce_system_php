@@ -178,16 +178,13 @@ $connect->close();
 				<h4><i class="fas fa-info-circle"></i> <?php echo $language['delivery-address'] ?> </h4>
 				<div class="col-md-12 p-0 mt-2">
 
-					<div class="deliveryLocationMessages"></div>
-
-					<form class="form-horizontal col-sm-8" id="submitDeliveryLocationForm" action="php_action/ctrl_request.php?action=<?php //echo $ref; ?>" method="POST" enctype="multipart/form-data">
+					<form class="form-horizontal mt-4" id="submitDeliveryAddressForm" action="php_action/ctrl_delivery_address.php?action=editAddress" method="POST" enctype="multipart/form-data">
 
 						<div class="form-group">
 							<label for="country" class="col-sm-6 control-label"><?php echo $language['country'] ?>: </label>
 
-							<div class="col-sm-10">
-								<select class="form-control" id="province" required>
-									<option>~~<?php echo $language['select'] ?>~~</option>
+							<div class="col-sm-6">
+								<select class="form-control" id="country" name="country" disabled>
 									<option value="1"><?php echo $language['mozambique'] ?></option>
 								</select>
 							</div>
@@ -196,9 +193,9 @@ $connect->close();
 						<div class="form-group">
 							<label for="province" class="col-sm-6 control-label"><?php echo $language['province'] ?>: </label>
 
-							<div class="col-sm-10">
-								<select class="form-control" id="province" required>
-									<option>~~<?php echo $language['select'] ?>~~</option>
+							<div class="col-sm-6">
+								<select class="form-control" id="province" name="province" required>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
 									<option value="1">Maputo Cidade</option>
 									<option value="2">Maputo Provincia (Matola)</option>
 								</select>
@@ -208,15 +205,15 @@ $connect->close();
 						<div class="form-group">
 							<label for="address" class="col-sm-6 control-label"><?php echo $language['address'] ?>: </label>
 
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off" required>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->
 
 						<div class="form-group">
 							<label for="referencePoint" class="col-sm-6 control-label"><?php echo $language['reference-point'] ?>: </label>
 
-							<div class="col-sm-10">
+							<div class="col-sm-6">
 								<input type="text" class="form-control" id="referencePoint" placeholder="<?php echo $language['reference-point'] ?>" name="referencePoint" autocomplete="off" required>
 							</div>
 						</div> <!-- /form-group-->
@@ -224,11 +221,16 @@ $connect->close();
 						<div class="form-group">
 							<label for="postalCode" class="col-sm-6 control-label"><?php echo $language['postal-code'] ?>: </label>
 
-							<div class="col-sm-10">
+							<div class="col-sm-6">
 								<input type="text" class="form-control" id="postalCode" placeholder="<?php echo $language['postal-code'] ?>" name="postalCode" autocomplete="off" required>
 							</div>
 						</div> <!-- /form-group-->
-						<button type="submit" class="btn btn-success ml-3 rounded-0" id="createUserBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+
+						<div class="form-group ">
+							<div class="updateDeliveryAddressMessages col-sm-6"></div>
+						</div>
+
+						<button type="submit" class="btn btn-success ml-3 rounded-0" id="updateAddressBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button> 
 					</form>
 				</div>
 			</div>
@@ -237,4 +239,5 @@ $connect->close();
 </div> <!-- / wrapper -->
 
 <script src="custom/js/setting.js"></script>
+<script src="custom/js/delivery_address.js"></script>
 <?php require_once 'includes/footer.php'; ?>
