@@ -270,4 +270,7 @@ $language['insert-the-payment-code'] = 'Insira o codigo de pagamento';
 $language['payment-code'] = 'Codigo de pagamento';
 $language['payment'] = 'Pagamento';
 $language['your-number'] = 'Seu numero';
+
+// Location
+$language['locations'] = 'Localizações';
 ?>
