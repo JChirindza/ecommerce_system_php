@@ -96,15 +96,13 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 					</div>
 
 					<div class="col-sm-12 col-md-4 col-lg-4">
-						<h5 class=""><?php echo $language['payment-options'] ?> <label class="badge badge-pill badge-secondary pl-4 pr-4"><?php echo $language['finalize'] ?></label></h5>
-						<label class="text-muted pl-3"><i class="fas fa-info-circle mr-2"></i><?php echo $language['choose-one-of-the-following-opt-to-finalize'] ?>:</label>
-						<div class="row pl-4 d-flex justify-content-start">
-							<div class="btn btn-danger p-lg-3 m-lg-2 mpesa border rounded-lg" title="Vodacom Mpesa">
-								<label class="font-weight-bold pl-4 pr-4"><i class="fas fa-mobile-alt fa-2x pr-md-2 pr-lg-2"></i>Mpesa</label>
-							</div>
-							<div class="btn btn-info p-lg-3 m-lg-2 paypal border rounded-lg" title="Paypal" >
-								<label class="font-weight-bold pl-4 pr-4"><i class="fab fa-paypal fa-2x pr-md-2 pr-lg-2"></i>Paypal</label>
-							</div>
+						<h5 class=""><?php echo $language['payment-options'] ?></h5>
+						
+						<div class="row m-0">
+							<!-- Limite 25 000 MTn -->
+							<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="h-50" src="../assests/images/app/mpesa.png"></div>
+							<div class="visa col-4" title="Visa"><img class="h-50" src="../assests/images/app/visa.png"></div>
+							<div class="mastercard col-4" title="Mastercard"><img class="h-50" src="../assests/images/app/mastercard.png"></div>
 						</div>
 					</div>
 				</div>
