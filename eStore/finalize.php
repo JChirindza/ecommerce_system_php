@@ -36,6 +36,38 @@ $resultAddress = $query->fetch_assoc();
 
 ?>
 
+<script> 
+	$(document).ready(function(){
+		$("#flipUp").hide();
+
+		$("#flipDown").click(function(){
+			$("#panel").slideDown("slow");
+			$("#flipDown").hide();
+
+			$("#flipUp").show();
+		});
+
+		$("#flipUp").click(function(){
+			$("#panel").slideUp("slow");
+			$("#flipDown").show();
+
+			$("#flipUp").hide();    
+		});
+	});
+</script>
+
+<style> 
+#panel {
+	display: none;
+}
+
+#flipDown:hover, #flipUp:hover {
+	background: #f8f9fa;
+	cursor: pointer;
+	opacity: 90%;
+}
+</style>
+
 <div class="d-flex" id="wrapper">
 	<div class="container-fluid bg-light ml-md-4 mr-md-4 ml-lg-4 mr-lg-4">
 
@@ -199,13 +231,40 @@ $resultAddress = $query->fetch_assoc();
 						<div class="payment-options mt-4 d-none d-sm-inline d-md-inline">
 							<hr>
 							<h6><?php echo $language['payment-options'] ?></h6>
-							<div class="row">
-								<!-- Limite 25 000 MTn -->
-								<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="h-75" src="../assests/images/app/mpesa.png"></div>
-								<div class="visa col-4" title="Visa"><img class="h-75" src="../assests/images/app/visa.png"></div>
-								<div class="mastercard col-4" title="Mastercard"><img class="h-75" src="../assests/images/app/mastercard.png"></div>
+							<div class="row" id="panel">
+								<div class="row m-0">
+									<!-- Limite 25 000 MTn -->
+									<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="h-75" src="../assests/images/app/mpesa.png"></div>
+									<div class="visa col-4" title="Visa"><img class="h-75" src="../assests/images/app/visa.png"></div>
+									<div class="mastercard col-4" title="Mastercard"><img class="h-75" src="../assests/images/app/mastercard.png"></div>
+								</div>
+
 							</div>
-							<label class="text-muted"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
+
+							<div id="flipDown" class="text-center" title="Click to slide down panel">
+								<i class="fas fa-angle-down"></i>
+							</div>
+
+							<div id="flipUp" class="text-center" title="Click to slide up panel">
+								<i class="fas fa-angle-up"></i>
+							</div>
+
+							<div class="options mt-4">
+								<div class="note">
+									<label>Selecione uma das opcao para finalizar o pagamento.</label>
+									<br>
+									<label class="text-muted"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
+								</div>
+
+								<div class="select-options">
+									<select class="form-control col-6">
+										<option value="">~~SELECT~~</option>
+										<option value="1" <?php if ($total > 25000) { echo "disabled"; } ?>>MPesa</option>
+										<option value="2">Visa</option>
+										<option value="3">Mastercard</option>
+									</select>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
