@@ -100,24 +100,28 @@ function fetchCart(){
 	if($result->num_rows > 0) { 
 
 		$payment_status = ""; 
-		$x = 1;
+		$x = "";
 		while($row = $result->fetch_array()) {
 
 			$cartId = $row[0];
 
-			$countItemSql = "SELECT count(*) FROM cart_item WHERE cart_id = {$cartId}";
+			$countItemSql = "SELECT count(*) as totalItems FROM cart_item WHERE cart_id = {$cartId}";
 			$itemCountResult = $connect->query($countItemSql);
-			$itemCountRow = $itemCountResult->fetch_row();
+			$itemCountRow = $itemCountResult->fetch_array();
+
+			$totalItems = $itemCountRow['totalItems'];
+
+			$x = "<lasbel class='text-muted'><i class='fas fa-cart-arrow-down fa-4x'></i><span class='badge badge-warning m-0'>$totalItems</span></label>";
 
  			// payment_status 
 			if($row[1] == 1) {
-				$payment_status = "<label class='badge badge-success'>Paid</label>";
+				$payment_status = "<lasbel class='badge badge-success mt-3 px-5'>Paid</label>";
 			} else {
-				$payment_status = "<label class='badge badge-danger'>Not Paid</label>";
+				$payment_status = "<label class='badge badge-danger mt-3 px-5'>Not Paid</label>";
 	 		} // /else
 
 	 		$button = '<!-- Single button -->
-	 		<div class="btn-group">
+	 		<div class="btn-group mt-3">
 	 		<a href="cart.php?c=cartItems&i='.$cartId.'" class="btn btn-outline-success btn-sm" id="cartItemBtn"> <i class="fas fa-eye"></i></a>
 	 		<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeCartModal" id="removeCartModalBtn" onclick="removeCart('.$cartId.')"> <i class="fas fa-trash"></i></button>       
 	 		</div>';
@@ -125,12 +129,12 @@ function fetchCart(){
 	 		$output['data'][] = array( 		
 	 			$x,
 	 			$row[2],
-	 			$itemCountRow,
+	 			$totalItems,
 	 			$payment_status,
 	 			// button
 	 			$button 		
 	 		);
-	 		$x++;	
+	 		// $x++;	
 	 	} // /while 
 
 	}// if num_rows

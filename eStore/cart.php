@@ -94,7 +94,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 								<table class="table border-bottom" id="manageCartsTable">
 									<thead>
 										<tr>		
-											<th style="width:5%;">#</th>
+											<th style="width:10%;"></th>
 											<th style="width:20%;"><?php echo $language['created-on'] ?></th>
 											<th style="width:10%"><?php echo $language['total-items'] ?></th>
 											<th style="width:20%;"><?php echo $language['payment-status'] ?></th>
