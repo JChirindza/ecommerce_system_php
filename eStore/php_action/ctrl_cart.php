@@ -105,11 +105,11 @@ function fetchCart(){
 
 			$cartId = $row[0];
 
-			$countItemSql = "SELECT count(*) as totalItems FROM cart_item WHERE cart_id = {$cartId}";
-			$itemCountResult = $connect->query($countItemSql);
-			$itemCountRow = $itemCountResult->fetch_array();
+			$countItemSql = "SELECT count(*) FROM cart_item WHERE cart_id = {$cartId}";
+			$itemCountQuery = $connect->query($countItemSql);
+			$itemCountResult = $itemCountQuery->fetch_array();
 
-			$totalItems = $itemCountRow['totalItems'];
+			$totalItems = $itemCountResult['count(*)'];
 
 			$x = "<lasbel class='text-muted'><i class='fas fa-cart-arrow-down fa-4x'></i><span class='badge badge-warning m-0'>$totalItems</span></label>";
 
