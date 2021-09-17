@@ -1,7 +1,7 @@
 <?php  
 
 function Sys_Secure($string, $censored_words = 1, $br = true, $strip = 0) {
-    
+
     global $connect;
 
     $string = trim($string);
@@ -33,4 +33,28 @@ function Sys_Redirect($url) {
     return header("Location: {$url}");
 }
 
+// Current page URL
+function Sys_current_url() {
+
+    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+        $url = "https://";   
+    else  
+        $url = "http://";   
+    // Append the host(domain name, ip) to the URL.   
+    $url.= $_SERVER['HTTP_HOST'];   
+
+    // Append the requested resource location to the URL   
+    $url.= $_SERVER['REQUEST_URI'];    
+
+    return $url;
+}
+
+// remove GET-variables in url
+function removeqsvar($url, $varname) {
+    list($urlpart, $qspart) = array_pad(explode('?', $url), 2, '');
+    parse_str($qspart, $qsvars);
+    unset($qsvars[$varname]);
+    $newqs = http_build_query($qsvars);
+    return $urlpart . '?' . $newqs;
+}
 ?>
