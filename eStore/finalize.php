@@ -74,7 +74,7 @@ $resultAddress = $query->fetch_assoc();
 		<div class="m-0 p-0">
 			<ol class="breadcrumb bg-transparent m-0">
 				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
-				<li class="breadcrumb-item"><a href="cart.php?c=cart"><?php echo $language['cart'] ?></a></li>
+				<li class="breadcrumb-item"><a href="cart.php?c=carts"><?php echo $language['carts'] ?></a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cartItems"><?php echo $language['cart-items'] ?></a></li>
 				<li class="breadcrumb-item"><a href="checkout.php"><?php echo $language['checkout'] ?></a></li>
 				<li class="breadcrumb-item active"><?php echo $language['finalize'] ?></li>
@@ -258,7 +258,6 @@ $resultAddress = $query->fetch_assoc();
 
 								<div class="select-options">
 									<select class="form-control col-6">
-										<option value="">~~SELECT~~</option>
 										<option value="1" <?php if ($total > 25000) { echo "disabled"; } ?>>MPesa</option>
 										<option value="2">Visa</option>
 										<option value="3">Mastercard</option>
