@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2021 at 06:41 PM
+-- Generation Time: Sep 17, 2021 at 10:02 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -165,12 +165,8 @@ INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `a
 (39, 6, 13, 2, '1', '1'),
 (60, 9, 12, 1, '1', '1'),
 (61, 9, 13, 1, '1', '1'),
-(70, 4, 9, 2, '1', '1'),
-(72, 4, 7, 2, '1', '1'),
-(74, 4, 17, 2, '1', '1'),
-(75, 4, 4, 1, '1', '1'),
-(76, 4, 25, 1, '1', '1'),
-(77, 4, 6, 1, '1', '1');
+(75, 4, 4, 2, '1', '1'),
+(79, 4, 10, 1, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -210,7 +206,7 @@ CREATE TABLE `clients` (
   `user_id` int(11) NOT NULL,
   `gender` enum('1','2') NOT NULL,
   `country` int(11) NOT NULL,
-  `province` int(11) NOT NULL,
+  `province` varchar(255) NOT NULL,
   `district` int(11) NOT NULL,
   `contact` varchar(255) NOT NULL,
   `active` enum('1','2') NOT NULL,
@@ -222,8 +218,8 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`client_id`, `user_id`, `gender`, `country`, `province`, `district`, `contact`, `active`, `status`) VALUES
-(1, 5, '', 1, 1, 0, '840285773', '1', '1'),
-(2, 6, '', 1, 2, 0, '841441424', '1', '1');
+(1, 5, '1', 1, '1', 0, '840285773', '1', '1'),
+(2, 6, '2', 1, '2', 0, '841441424', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -236,10 +232,17 @@ CREATE TABLE `delivery_address` (
   `client_id` int(11) NOT NULL,
   `country` int(11) NOT NULL,
   `province` int(11) NOT NULL,
-  `address` text NOT NULL,
+  `address` varchar(255) NOT NULL,
   `reference_point` varchar(255) NOT NULL,
   `postal_code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `delivery_address`
+--
+
+INSERT INTO `delivery_address` (`delivery_address_id`, `client_id`, `country`, `province`, `address`, `reference_point`, `postal_code`) VALUES
+(1, 1, 1, 2, 'asdfasd', 'dsfsdf', '32423');
 
 -- --------------------------------------------------------
 
@@ -495,7 +498,7 @@ CREATE TABLE `requests` (
 --
 
 INSERT INTO `requests` (`request_id`, `cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES
-(1, 1, '3', '2', '2021-07-10 13:48:19', '2021-07-11 06:52:01');
+(1, 1, '3', '1', '2021-07-10 13:48:19', '2021-07-11 06:52:01');
 
 -- --------------------------------------------------------
 
@@ -567,11 +570,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_image`, `type`, `permittion`, `active`, `status`) VALUES
-(1, 'Admin1', 'user1', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john.jpg', 1, 1, '1', '1'),
-(2, 'John', 'Chirindza', 'johnchirindza@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/john2.png', 1, 2, '1', '1'),
-(3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/9773099666082b87f92f56.jpg', 1, 3, '1', '1'),
+(1, 'Admin1', 'user1', 'admin@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
+(2, 'John', 'Chirindza', 'johnchirindza@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 2, '1', '1'),
+(3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
 (4, 'Armando', 'Cossa', 'armandocossa@live.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
-(5, 'client', 'user', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(5, 'client', 'user1', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (7, 'cscs ', 'cscs', 'cscs@cscs.cscs', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (8, 'asd asd', 'dsa', 'asd@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
@@ -646,9 +649,7 @@ ALTER TABLE `clients`
 --
 ALTER TABLE `delivery_address`
   ADD PRIMARY KEY (`delivery_address_id`),
-  ADD KEY `client_id` (`client_id`),
-  ADD KEY `province` (`province`),
-  ADD KEY `country` (`country`);
+  ADD KEY `client_id` (`client_id`);
 
 --
 -- Indexes for table `orders`
@@ -727,7 +728,7 @@ ALTER TABLE `cart_has_paid`
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -745,7 +746,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `delivery_address`
 --
 ALTER TABLE `delivery_address`
-  MODIFY `delivery_address_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `delivery_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `orders`
