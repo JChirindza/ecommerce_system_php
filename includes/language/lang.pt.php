@@ -275,6 +275,14 @@ $language['click-to-view-all'] = 'Precione para visualizar tudo';
 $language['click-to-view-less'] = 'Precione para visualizar menos';
 $language['click-to-slide-down'] = 'Precione para mostrar a baixo';
 $language['click-to-slide-up'] = 'Precione para ocultar para cima';
+$language['payment-via-crdt-debit-card'] = 'Pagamento via cartão de crédito / débito';
+$language['card-number'] = 'Número do cartão';
+$language['expiration-month'] = 'Mês de validade';
+$language['expiration-year'] = 'Ano de validade';
+$language['name-of-the-card-holder'] = 'Nome do titular do cartão';
+$language['security-code'] = 'Código de segurança';
+$language['Continue'] = 'Continuar';
+$language['digits-on-the-back-of-the-card'] = 'Dígitos no verso do cartão';
 
 // Location
 $language['locations'] = 'Localizações';
