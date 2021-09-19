@@ -176,7 +176,7 @@ $resultAddress = $query->fetch_assoc();
 							<div class="form-group mt-4">
 								<div class="row">
 									<div class="form-group col-sm-10 col-md-5">
-										<label for="name" class="control-label"><?php echo $language['name'] ?>: </label>
+										<label for="name" class="control-label"><?php echo $language['name'] ?></label>
 
 										<div class="">
 											<input type="text" class="form-control"  id="name" placeholder="<?php echo $language['name'] ?>" name="name" autocomplete="off" value="<?php echo $resultUser['name']; ?>" disabled>
@@ -281,7 +281,7 @@ $resultAddress = $query->fetch_assoc();
 									echo '
 									<li>
 									<ul>
-									<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span>
+									<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' MTn</span>
 									</li>
 									</ul>
 									</li>';
@@ -312,7 +312,7 @@ $resultAddress = $query->fetch_assoc();
 										echo '
 										<li>
 										<ul>
-										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span>
+										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' MTn</span>
 										</li>
 										</ul>
 										</li>';
@@ -339,19 +339,17 @@ $resultAddress = $query->fetch_assoc();
 							<span>
 								<strong class="text-muted"><?php echo $language['total'] ?>: </strong>
 							</span>
-							<span id="subTotal" class="font-weight-bold pl-2"> <?php echo number_format($total, 2,",","."); ?> Mt</span>
+							<span id="subTotal" class="font-weight-bold pl-2"> <?php echo number_format($total, 2,",","."); ?> MTn</span>
 						</div>
 						
 						<div class="payment-options mt-4">
 							<hr>
 							<h6><?php echo $language['payment-options'] ?></h6>
-							<div class="row" id="panel">
-								<div class="row m-0">
-									<!-- Limite 25 000 MTn -->
-									<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="col-12 m-0 p-0" src="../assests/images/app/mpesa.png"></div>
-									<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/visa.png"></div>
-									<div class="mastercard col-4" title="Mastercard"><img class="col-12 m-0 p-0" src="../assests/images/app/mastercard.png"></div>
-								</div>
+							<div class="row m-0" id="panel">
+								<!-- Limite 25 000 MTn -->
+								<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="col-12 m-0 p-0" src="../assests/images/app/mpesa.png"></div>
+								<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/visa.png"></div>
+								<div class="mastercard col-4" title="Mastercard"><img class="col-12 m-0 p-0" src="../assests/images/app/mastercard.png"></div>
 							</div>
 
 							<div class="flipUpDown">
@@ -443,7 +441,7 @@ $resultAddress = $query->fetch_assoc();
 					</div>
 					<div class="col-6">
 						<div class="d-flex justify-content-end">
-							<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentModal"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+							<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentCardModal"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
 						</div>
 					</div>
 				</div>
@@ -452,8 +450,8 @@ $resultAddress = $query->fetch_assoc();
 	</div>
 </div>
 
-<!-- finalize payments -->
-<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentModal">
+<!-- finalize payments mpesa -->
+<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentMpesaModal">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -482,6 +480,115 @@ $resultAddress = $query->fetch_assoc();
 					
 				</div>
 			</form>
+		</div><!--  /.modal-content --> 
+	</div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /finalize payment -->
+
+<!-- finalize payments Debit/credit card -->
+<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentCardModal">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['payment-via-crdt-debit-card'] ?> </h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+
+			<div class="modal-body">
+
+				<div class="text-center">
+					<label><?php echo $language['total-amount'] ?>: <span class="totalAmount text-muted h4"><?php echo number_format($total, 2,",","."); ?> MTn</span></label>
+				</div>
+
+				<hr>
+
+				<div class="finalizeMessages"></div>
+
+				<div class="form-group">
+
+					<form class="form-horizontal mx-0 px-0" id="submitDeliveryAddressForm" action="php_action/ctrl_delivery_address.php?action=editAddress" method="POST" enctype="multipart/form-data">
+
+						<div class="form-group mb-0 pb-0">
+							<label for="cardNumber" class="col-sm-6 control-label px-0"><?php echo $language['card-number'] ?>: </label>
+
+							<input type="text" class="form-control rounded" id="cardNumber" name="cardNumber" autocomplete="off">
+						</div> <!-- /form-group-->
+
+						<div class="form-group row mt-0 pt-0 col-6">
+							<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0 shadow-sm" src="../assests/images/app/visa.png"></div>
+							<div class="mastercard col-4" title="Mastercard"><img class="col-12 m-0 p-0 shadow-sm" src="../assests/images/app/mastercard.png"></div>
+						</div>
+
+						<div class="row form-group mt-4">
+							<div class="col-5">
+								<label for="expirationMonth" class="control-label px-0"><?php echo $language['expiration-month'] ?>: </label>
+
+								<div class="px-0">
+									<select class="form-control rounded" id="expirationMonth" name="expirationMonth" required>
+										<option value="">~~<?php echo $language['select'] ?>~~</option>
+										<option value="1">Janeiro</option>
+										<option value="2">Fevereiro</option>
+										<option value="3">Marco</option>
+										<option value="4">Abril</option>
+										<option value="5">Maio</option>
+										<option value="6">Junho</option>
+										<option value="7">Julho</option>
+										<option value="8">Agosto</option>
+										<option value="9">Septembro</option>
+										<option value="10">Octubro</option>
+										<option value="11">Novembro</option>
+										<option value="12">Dezembro</option>
+
+									</select>
+								</div>
+							</div> <!-- /form-group-->
+
+							<div class="col-5">
+								<label for="expirationYear" class="control-label px-0"><?php echo $language['expiration-year'] ?>: </label>
+
+								<div class="px-0">
+									<select class="form-control rounded" id="expirationYear" name="expirationYear" required>
+										<option value="">~~<?php echo $language['select'] ?>~~</option>
+										<option value="2021">2021</option>
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
+										<option value="2024">2024</option>
+									</select>
+								</div>
+							</div> <!-- /form-group -->
+						</div>
+
+						<div class="form-group mt-4">
+							<label for="holderName" class="control-label px-0"><?php echo $language['name-of-the-card-holder'] ?>: </label>
+
+							<div class="col-sm-8 px-0">
+								<input type="text" class="form-control rounded" id="holderName" name="holderName" autocomplete="off">
+							</div>
+						</div> <!-- /form-group-->
+
+						<div class="form-group mb-0 pb-0 mt-4">
+							<label for="securityCode" class="control-label px-0"><?php echo $language['security-code'] ?>: </label>
+
+							<div class="col-4 px-0">
+								<input type="text" class="form-control rounded" id="securityCode" name="securityCode" autocomplete="off" required>
+							</div>
+						</div> <!-- /form-group-->
+
+						<div class="form-group row text-muted mt-0 pt-0">
+							<div class="visa col-1 pr-0" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/cvv_cvc_number.png"></div>
+							<label for="securityCode" class="control-label px-0 mx-0 pt-1" style="font-size: 12px;">3 <?php echo $language['digits-on-the-back-of-the-card'] ?>.</label>
+						</div> <!-- /form-group-->
+
+						<div class="mt-4 d-flex justify-content-center">
+							<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['Continue'] ?></button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
+			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
