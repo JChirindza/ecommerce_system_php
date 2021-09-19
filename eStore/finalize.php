@@ -37,8 +37,9 @@ $resultAddress = $query->fetch_assoc();
 ?>
 
 <script> 
+	// Payment options
 	$(document).ready(function(){
-		$("#flipUp").hide();
+		$("#flipDown").hide();
 
 		$("#flipDown").click(function(){
 			$("#panel").slideDown("slow");
@@ -54,17 +55,73 @@ $resultAddress = $query->fetch_assoc();
 			$("#flipUp").hide();    
 		});
 	});
+
+	// Discount
+	$(document).ready(function(){
+		$("#flipUp2").hide();
+
+		$("#flipDown2").click(function(){
+			$("#panel2").slideDown("slow");
+			$("#flipDown2").hide();
+
+			$("#flipUp2").show();
+		});
+
+		$("#flipUp2").click(function(){
+			$("#panel2").slideUp("slow");
+			$("#flipDown2").show();
+
+			$("#flipUp2").hide();    
+		});
+	});
+
+	// Item 2
+	$(document).ready(function(){
+		$("#flipUpItem2").hide();
+		$("#resultIndex2").hide();
+
+		$("#flipDownItem2").click(function(){
+			$("#item2").slideDown("slow");
+			
+			$("#flipDownItem2").hide();
+			$("#resultIndex1").hide();
+
+			$("#flipUpItem2").show();
+			$("#resultIndex2").show();
+		});
+
+		$("#flipUpItem2").click(function(){
+			$("#item2").slideUp("slow");
+			
+			$("#flipDownItem2").show();
+			$("#resultIndex1").show();
+
+			$("#flipUpItem2").hide(); 
+			$("#resultIndex2").hide();
+		});
+	});
 </script>
 
 <style> 
-#panel {
-	display: none;
-}
-
-#flipDown:hover, #flipUp:hover {
+/*Payment options && discount*/
+#flipDown:hover, #flipUp:hover, 
+#flipDown2:hover, #flipUp2:hover {
 	background: #f8f9fa;
+	color: blue;
 	cursor: pointer;
 	opacity: 90%;
+}
+
+#flipDownItem2:hover, #flipUpItem2:hover {
+	background: #f8f9fa;
+	color: blue;
+	cursor: pointer;
+	opacity: 90%;
+}
+
+/*Discount*/
+#panel2, #item2, #resultIndex2 {
+	display: none;
 }
 </style>
 
@@ -114,9 +171,9 @@ $resultAddress = $query->fetch_assoc();
 					<div class="col-sm-12 col-md-6 col-lg-6">
 						<h5><?php echo $language['delivery-address'] ?> <i class="fas fa-shipping-fast"></i></h5>
 						
-						<form class="form-horizontal" id="submitDeliveryAddressForm" action="php_action/ctrl_delivery_address.php?action=editAddress" method="POST" enctype="multipart/form-data">
+						<form class="form-horizontal mx-0 px-0" id="submitDeliveryAddressForm" action="php_action/ctrl_delivery_address.php?action=editAddress" method="POST" enctype="multipart/form-data">
 
-							<div class="form-group px-3 mt-4">
+							<div class="form-group mt-4">
 								<div class="row">
 									<div class="form-group col-sm-10 col-md-5">
 										<label for="name" class="control-label"><?php echo $language['name'] ?>: </label>
@@ -136,9 +193,9 @@ $resultAddress = $query->fetch_assoc();
 								</div>
 							</div> <!-- /form-group-->
 							<div class="form-group">
-								<label for="country" class="col-sm-6 control-label"><?php echo $language['country'] ?>: </label>
+								<label for="country" class="col-sm-6 control-label px-0"><?php echo $language['country'] ?>: </label>
 								
-								<div class="col-sm-10">
+								<div class="col-sm-10 px-0">
 									<select class="form-control" id="country" name="country" disabled>
 										<option value="1"><?php echo $language['mozambique'] ?></option>
 									</select>
@@ -146,9 +203,9 @@ $resultAddress = $query->fetch_assoc();
 							</div> <!-- /form-group-->
 
 							<div class="form-group">
-								<label for="province" class="col-sm-6 control-label"><?php echo $language['province'] ?>: </label>
+								<label for="province" class="col-sm-6 control-label px-0"><?php echo $language['province'] ?>: </label>
 								
-								<div class="col-sm-10">
+								<div class="col-sm-10 px-0">
 									<select class="form-control" id="province" name="province" required>
 										<option value="">~~<?php echo $language['select'] ?>~~</option>
 										<option value="1">Maputo Cidade</option>
@@ -158,47 +215,59 @@ $resultAddress = $query->fetch_assoc();
 							</div> <!-- /form-group-->
 
 							<div class="form-group">
-								<label for="address" class="col-sm-6 control-label"><?php echo $language['address'] ?>: </label>
+								<label for="address" class="col-sm-6 control-label px-0"><?php echo $language['address'] ?>: </label>
 								
-								<div class="col-sm-10">
+								<div class="col-sm-10 px-0">
 									<input type="text" class="form-control" id="address" placeholder="<?php echo $language['address'] ?>" name="address" autocomplete="off">
 								</div>
 							</div> <!-- /form-group-->
 
 							<div class="form-group">
-								<label for="referencePoint" class="col-sm-6 control-label"><?php echo $language['reference-point'] ?>: </label>
+								<label for="referencePoint" class="col-sm-6 control-label px-0"><?php echo $language['reference-point'] ?>: </label>
 								
-								<div class="col-sm-10">
+								<div class="col-sm-10 px-0">
 									<input type="text" class="form-control" id="referencePoint" placeholder="<?php echo $language['reference-point'] ?>" name="referencePoint" autocomplete="off" required>
 								</div>
 							</div> <!-- /form-group-->
 
 							<div class="form-group">
-								<label for="postalCode" class="col-sm-6 control-label"><?php echo $language['postal-code'] ?>: </label>
+								<label for="postalCode" class="col-sm-6 control-label px-0"><?php echo $language['postal-code'] ?>: </label>
 								
-								<div class="col-sm-10">
+								<div class="col-sm-10 px-0">
 									<input type="text" class="form-control" id="postalCode" placeholder="<?php echo $language['postal-code'] ?>" name="postalCode" autocomplete="off" required>
 								</div>
 							</div> <!-- /form-group-->
 
+							<!-- Success messages -->
 							<div class="form-group ">
-								<div class="updateDeliveryAddressMessages col-sm-10"></div>
+								<div class="updateDeliveryAddressMessages col-sm-10 px-0"></div>
 							</div>
 
-							<button type="submit" class="btn btn-success ml-3 rounded-0" id="updateAddressBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button> 
+							<button type="submit" class="btn btn-success rounded-0" id="updateAddressBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button> 
 						</form>
 					</div>
 
 					<div class="cart-detail col-sm-12 col-md-6 col-lg-6 mb-3 mt-4 mt-md-0 mt-lg-0">
 						<h5 class=""><?php echo $language['order-resume'] ?></h5>
 						<div class="select-itens mt-4">
-							<h6>Cart items</h6>
+							<?php  
+							$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId}";
+							$query = $connect->query($sql);
+							$totalItems = $query->num_rows;
+
+							$limit = 3;
+							if ($totalItems <= 3) {
+								$limit = $totalItems;
+							}
+							?>
+
+							<h6><?php echo $language['cart-items']?> <span class="totalItems"> ( <?php echo $totalItems; ?> )</span></h6>
 							<ul>
 								<?php 
 								$count = 0;
 								$total = 0;
 
-								$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId}";
+								$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId} LIMIT {$limit}";
 								$resultado = mysqli_query($connect, $sql);
 
 								while ($dados = mysqli_fetch_array($resultado)) { 
@@ -219,6 +288,51 @@ $resultAddress = $query->fetch_assoc();
 								}
 								?>
 							</ul>
+							<span class="text-muted" id="resultIndex1" style="font-size: 12px;"><?php echo $language['showing'] ?> 1 - <?php echo $limit  ." ( ". $totalItems ?> total )</span>
+							
+							<?php if ($totalItems > 3){ ?>
+								<ul id="item2">
+									<?php 
+									$count = 0;
+									$total = 0;
+
+
+
+									$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId} LIMIT 3,$totalItems";
+									$resultado = mysqli_query($connect, $sql);
+
+									while ($dados = mysqli_fetch_array($resultado)) { 
+
+										$sql2 = "SELECT * FROM product WHERE product_id = {$dados['product_id']} ";
+										$query = $connect->query($sql2);
+										$resultProduct = $query->fetch_assoc();
+
+										$total += $resultProduct['rate'] * $dados['quantity']; 
+
+										echo '
+										<li>
+										<ul>
+										<li><span class="text-muted" data-toggle="tooltip" title="'.$resultProduct['product_name'].'">'.$dados['quantity'].' x '.$resultProduct['product_name'].'</span> <span data-toggle="tooltip" title="'.$dados['quantity'].' x '.number_format($resultProduct['rate'],2,",",".").'"> '.number_format($resultProduct['rate'] * $dados['quantity'],2,",",".").' Mt</span>
+										</li>
+										</ul>
+										</li>';
+									}
+									?>
+								</ul>
+								<span class="text-muted" id="resultIndex2" style="font-size: 12px;"><?php echo $language['showing'] ?> 1 - <?php echo $totalItems ." ( ".$totalItems ?> total )</span>
+							<?php } ?>
+							
+						</div>
+
+						<div class="flipUpDownItem2">
+
+							<div id="flipDownItem2" class="text-center" title="<?php echo $language['click-to-view-all'] ?>">
+								<i class="fas fa-angle-down"></i>
+							</div>
+
+							<div id="flipUpItem2" class="text-center" title="<?php echo $language['click-to-view-less'] ?>">
+								<i class="fas fa-angle-up"></i>
+							</div>
 						</div>
 
 						<div class="pr-4 d-flex justify-content-end">
@@ -228,62 +342,98 @@ $resultAddress = $query->fetch_assoc();
 							<span id="subTotal" class="font-weight-bold pl-2"> <?php echo number_format($total, 2,",","."); ?> Mt</span>
 						</div>
 						
-						<div class="payment-options mt-4 d-none d-sm-inline d-md-inline">
+						<div class="payment-options mt-4">
 							<hr>
 							<h6><?php echo $language['payment-options'] ?></h6>
 							<div class="row" id="panel">
 								<div class="row m-0">
 									<!-- Limite 25 000 MTn -->
-									<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="h-75" src="../assests/images/app/mpesa.png"></div>
-									<div class="visa col-4" title="Visa"><img class="h-75" src="../assests/images/app/visa.png"></div>
-									<div class="mastercard col-4" title="Mastercard"><img class="h-75" src="../assests/images/app/mastercard.png"></div>
-								</div>
-
-							</div>
-
-							<div id="flipDown" class="text-center" title="Click to slide down panel">
-								<i class="fas fa-angle-down"></i>
-							</div>
-
-							<div id="flipUp" class="text-center" title="Click to slide up panel">
-								<i class="fas fa-angle-up"></i>
-							</div>
-
-							<div class="options mt-4">
-								<div class="note">
-									<label>Selecione uma das opcao para finalizar o pagamento.</label>
-									<br>
-									<label class="text-muted"><i class="fas fa-info-circle"></i> M-pesa max: 25.000,00 MTn</label>
-								</div>
-
-								<div class="select-options">
-									<select class="form-control col-6">
-										<option value="1" <?php if ($total > 25000) { echo "disabled"; } ?>>MPesa</option>
-										<option value="2">Visa</option>
-										<option value="3">Mastercard</option>
-									</select>
+									<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="col-12 m-0 p-0" src="../assests/images/app/mpesa.png"></div>
+									<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/visa.png"></div>
+									<div class="mastercard col-4" title="Mastercard"><img class="col-12 m-0 p-0" src="../assests/images/app/mastercard.png"></div>
 								</div>
 							</div>
+
+							<div class="flipUpDown">
+								<div id="flipDown" class="text-center" title="<?php echo $language['click-to-slide-down'] ?>">
+									<i class="fas fa-angle-down"></i>
+								</div>
+
+								<div id="flipUp" class="text-center" title="<?php echo $language['click-to-slide-up'] ?>">
+									<i class="fas fa-angle-up"></i>
+								</div>
+							</div>
+
+							<fieldset class="form-group row mt-2">
+								<div class="col-sm-10">
+
+									<div class="form-check disabled">
+										<input class="form-check-input" type="radio" name="gridRadios" id="mpesa" value="1" <?php if ($total > 25000) { echo "disabled"; } ?>>
+										<label class="form-check-label" for="mpesa">
+											MPesa (Maximo 25000,00 MTn)
+										</label>
+									</div>
+
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="gridRadios" id="visa" value="2" checked>
+										<label class="form-check-label" for="visa">
+											Cartão de Débito/Crédito
+										</label>
+									</div>
+								</div>
+							</fieldset>
 						</div>
+
+						
 					</div>
 				</div>
 
-				<div class="col-sm-12 col-md-6 col-lg-6">
-					<hr>
-					<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
-					<div class="updateContactMessages"></div>
-					<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
-						<div class="form-group mt-4">
+				<div class="row">
+					<div class="col-sm-12 col-md-6 col-lg-6 mb-5">
+						<hr>
+						<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
+						<div class="updateContactMessages"></div>
+						<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
+							<div class="form-group mt-4">
 
-							<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
+								<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
 
-							<div class="">
-								<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>" required>
+								<div class="">
+									<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>" required>
+								</div>
 							</div>
+
+							<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+						</form>
+					</div>
+
+					<div class="discount-options col-sm-12 col-md-6 col-lg-6">
+						<hr>
+						<h5>Descontos</h5>
+
+						<div class="discount" id="panel2">
+							
+							<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
+								
+								<div class="form-group mt-4">
+									<label class="control-label">Insira o codigo:</label>
+									<div class="select-options">
+										<input type="text" name="discount" id="discountCode" placeholder="Codigo de desconto" class="form-control col-sm-12 col-md-8 col-lg-8">
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+							</form>
 						</div>
 
-						<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
-					</form>
+						<div id="flipDown2" class="text-center" title="<?php echo $language['click-to-slide-down'] ?>">
+							<i class="fas fa-angle-down"></i>
+						</div>
+
+						<div id="flipUp2" class="text-center mt-1" title="<?php echo $language['click-to-slide-up'] ?>">
+							<i class="fas fa-angle-up"></i>
+						</div>
+					</div>
 				</div>
 
 				<hr>
