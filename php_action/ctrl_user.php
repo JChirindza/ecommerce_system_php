@@ -97,7 +97,7 @@ function fetchUser(){
 	
 	global $connect;
 
-	$sql = "SELECT * FROM users WHERE status = 1 AND type = 1";
+	$sql = "SELECT * FROM users WHERE status = 1 AND type = 1 ORDER BY user_id DESC";
 
 	$result = $connect->query($sql);
 

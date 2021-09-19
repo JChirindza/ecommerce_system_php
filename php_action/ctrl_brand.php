@@ -67,7 +67,7 @@ function fetchBrand(){
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1";
+	$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 ORDER BY brand_id DESC";
 	$result = $connect->query($sql);
 
 	$output = array('data' => array());

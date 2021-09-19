@@ -68,7 +68,7 @@ function fetchCategories(){
 
 	global $connect;
 
-	$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1";
+	$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 ORDER BY categories_id DESC";
 	$result = $connect->query($sql);
 
 	$output = array('data' => array());
