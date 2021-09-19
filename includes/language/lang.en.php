@@ -1,5 +1,5 @@
 <?php
-// System in geral
+// System in general
 $language['no-data-found'] = 'No Data Found';
 $language['available'] = 'Available';
 $language['not-available'] = 'Not Available';
@@ -270,8 +270,12 @@ $language['insert-the-payment-code'] = 'Insert the payment code';
 $language['payment-code'] = 'Payment code';
 $language['payment'] = 'Payment';
 $language['your-number'] = 'Your number';
+$language['showing'] = 'Showing';
+$language['click-to-view-all'] = 'Click to view all';
+$language['click-to-view-less'] = 'Click to view less';
+$language['click-to-slide-down'] = 'Click to slide down';
+$language['click-to-slide-up'] = 'Click to slide up';
 
 // Location
 $language['locations'] = 'Locations';
-// $language['location'] = 'Location';
 ?>

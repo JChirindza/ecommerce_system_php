@@ -1,5 +1,5 @@
 <?php
-// System in geral
+// System in general
 $language['no-data-found'] = 'Nenhum dado encontrado';
 $language['available'] = 'Disponivel';
 $language['not-available'] = 'Indisponivel';
@@ -270,6 +270,11 @@ $language['insert-the-payment-code'] = 'Insira o codigo de pagamento';
 $language['payment-code'] = 'Codigo de pagamento';
 $language['payment'] = 'Pagamento';
 $language['your-number'] = 'Seu numero';
+$language['showing'] = 'Mostrando';
+$language['click-to-view-all'] = 'Precione para visualizar tudo';
+$language['click-to-view-less'] = 'Precione para visualizar menos';
+$language['click-to-slide-down'] = 'Precione para mostrar a baixo';
+$language['click-to-slide-up'] = 'Precione para ocultar para cima';
 
 // Location
 $language['locations'] = 'Localizações';
