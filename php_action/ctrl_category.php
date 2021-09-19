@@ -184,11 +184,11 @@ function removeCategory(){
  * 
  * */
 function fetchSelectedCategory(){
-	require_once 'core.php';
+	global $connect;
 
 	$categoriesId = Sys_Secure($_POST['categoriesId']);
 
-	$sql = "SELECT * FROM categories WHERE categories_id = $categoriesId";
+	$sql = "SELECT * FROM categories WHERE categories_id = {$categoriesId}";
 	$result = $connect->query($sql);
 
 	if($result->num_rows > 0) { 

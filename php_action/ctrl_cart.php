@@ -92,7 +92,7 @@ function fetchCarts(){
  * 
  * */
 function fetchCartItems(){
-	require_once 'core.php';
+	global $connect;
 	
 	$cartId = Sys_Secure($_GET['cartId']);
 
