@@ -13,7 +13,7 @@
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
 	<h1 class="pageTitle"><?php echo $language['brands'] ?></h1>
-	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addUserModalBtn" data-target="#addUserModal"> <i class="fas fa-plus"></i> <?php echo $language['add-brand'] ?> </button>
+	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addBrandModalBtn" data-target="#addBrandModel"> <i class="fas fa-plus"></i> <?php echo $language['add-brand'] ?> </button>
 </div>
 
 <div class="row">
