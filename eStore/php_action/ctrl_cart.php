@@ -147,16 +147,21 @@ function fetchCart(){
 function fetchCartItem(){
 	global $connect;
 
-	$cartId = Sys_Secure($_GET['cartId']);
-
-	$sql = "SELECT cart_item_id, product_id, quantity FROM cart_item WHERE cart_id = {$cartId} AND status = 1";
-	$result = $connect->query($sql);
-
 	$output = array('data' => array());
 
-	if($result->num_rows > 0) { 
+	$cartId = Sys_Secure($_GET['cartId']);
+	$userId = Sys_Secure($_SESSION['userId']);
+
+	// Check if selected cart is signed in user cart
+	$sql = "SELECT * FROM cart WHERE user_id = {$userId} AND cart_id = {$cartId} AND status = 1";
+	$resultCarts = $connect->query($sql);
+
+	$sql = "SELECT cart_item_id, product_id, quantity FROM cart_item WHERE cart_id = {$cartId} AND status = 1";
+	$resultItems = $connect->query($sql);
+
+	if($resultItems->num_rows > 0 && $resultCarts->num_rows > 0) { 
 		$x = 1;
-		while($row = $result->fetch_array()) {
+		while($row = $resultItems->fetch_array()) {
 			$cartItemId = $row[0];
 			$productId = $row[1];
 			$quantity = $row[2];

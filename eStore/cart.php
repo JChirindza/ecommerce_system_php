@@ -112,10 +112,11 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							<div id="success-messages"></div>
 							<div class="update-cart-item-messages"></div>
 							<style type="text/css"> #manageCartItemTable th{ border-bottom: none; } </style>
-							<input type="text" hidden id="cartId" name="cartId" value="<?php echo Sys_Secure($_SESSION['cartId']); ?>">
+							<input type="text" hidden id="cartId" name="cartId" value="<?php echo Sys_Secure($_GET['i']); ?>">
 							<div id="update-cart-item-messages"></div>
 							<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2">
 								<table class="table border-bottom" id="manageCartItemTable">
+
 									<thead>
 										<tr>			
 											<th style="width:10%;"><?php echo $language['image'] ?></th> 			
@@ -128,6 +129,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 									</thead>
 								</table>
 								<hr>
+								<label class="text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Este carrinho ja foi paga. Nao pode ser modificado!</label>
 							</div>
 
 							<div class="d-flex justify-content-end">
@@ -140,11 +142,9 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 											<span id="subTotalValue_cartItem" class="font-weight-bold"></span>
 										</p>
 									</div>
-									<div class="">
-										<div class="row">
-											<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
-											<p><a href="checkout.php" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
-										</div>
+									<div class="row">
+										<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
+										<p><a href="checkout.php" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
 									</div>
 								</div>
 							</div>
