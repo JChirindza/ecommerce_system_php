@@ -387,25 +387,16 @@ $resultAddress = $query->fetch_assoc();
 								});
 							</script>
 
+							<div class="col-sm-10 mx-0 px-0 mt-4">
 
-							<!-- <div>
-								<label><input type="radio" name="paymentType" value="payWithMpesa" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
-								<label><input type="radio" name="paymentType" value="payWithcard" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
-							</div> -->
-
-							<!--  -->
-							<fieldset class="form-group row mt-2">
-								<div class="col-sm-10">
-
-									<div class="form-check disabled">
-										<label><input type="radio" name="paymentType" value="payWithMpesa" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
-										</div>
-
-										<div class="form-check">
-											<label><input type="radio" name="paymentType" value="payWithcard" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
-										</div>
+								<div class="form-check mx-0 px-0">
+									<label><input type="radio" name="paymentType" value="payWithMpesa" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
 									</div>
-								</fieldset>
+
+									<div class="form-check mx-0 px-0">
+										<label><input type="radio" name="paymentType" value="payWithcard" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
