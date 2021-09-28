@@ -346,25 +346,33 @@ function finalizePayment(){
 	if (isset($_SESSION['userId']) && isset($_SESSION['cartId'])) {
 
 		$cartId = Sys_Secure($_SESSION['cartId']);
-		
-		if (!is_cart_paid($cartId)) {
-			if ($_POST) {
-				// Set the cart has paid
-				$userId 	= Sys_Secure($_SESSION['userId']);
-				$clientId 	= getUserClientId($userId);
-				$subTotal 	= Sys_Secure($_POST['subTotal']);
-				$vat 		= 0;
-				$totalAmount= Sys_Secure($_POST['totalAmount']);
-				$discount 	= 0;
-				$grandTotal = Sys_Secure($_POST['grandTotal']);
-				$paymentType= Sys_Secure($_POST['paymentType']);
-				$dtPaid 	= Sys_Secure($_POST['dtPaid']);
 
-				$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', '$dtPaid')";
+		if (is_cart_paid($cartId)) {
+			if ($_POST) {
+
+				$userId 	= Sys_Secure($_SESSION['userId']);
+
+				// Client Id
+				$sql 			= "SELECT client_id FROM clients WHERE user_id = {$userId}";
+				$result 		= $connect->query($sql);
+				$clientResult 	= $result->fetch_assoc();
+				$clientId 	= $clientResult['client_id'];
+				$subTotal 	= Sys_Secure($_POST['subTotal']);
+				$vat 		= 0.17;
+				$totalAmount= $subTotal + $subTotal * $vat;
+				$discount 	= 0;
+				$grandTotal = $totalAmount - $discount;
+				$paymentType= Sys_Secure($_POST['paymentType']);
+
+				$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', current_timestamp())";
 
 				if($connect->query($sql) === TRUE) {
+
+					// Last Insert Id - INTO `cart_has_paid`
+					$cart_has_paid_id = $connect->insert_id;
+
 					// Set pedding request
-					$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$payment_type', '$active', '$dt_requested', '$dt_responded')";
+					$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
 					$connect->query($sql);
 
 					$valid['success'] = true;
@@ -373,19 +381,22 @@ function finalizePayment(){
 					$valid['success'] = false;
 					$valid['messages'] = "Error while paying.";
 				}
-			} else {
+			}else{
 				$valid['success'] = false;
 				$valid['messages'] = "Error while paying";
 			}
-		} else {
+		}else{
 			$valid['success'] = false;
 			$valid['messages'] = "Error while paying. This cart was been paid!";
 		}
+
 	}
+
+	$connect->close();
 }
 
 
-// verifica se o carrinho ja foi pago
+// Check if cart paid
 function is_cart_paid($cartId){
 	global $connect;
 
@@ -393,23 +404,21 @@ function is_cart_paid($cartId){
 	$result = $connect->query($sql);
 
 	if ($result->num_rows > 0) {
-		return true;
+		return true; // Paid
 	}else{
-		return false;
+		return false; // <= 0 Not paid
 	}
 }
 // Get client id
 function getUserClientId($userId) {
 	global $connect;
 
-	$sql = "SELECT * FROM clients WHERE user_id = {$userId}";
+	$sql = "SELECT client_id FROM clients WHERE user_id = {$userId}";
 	$result = $connect->query($sql);
 	$clientResult = $result->fetch_assoc();
 	$clientId = $clientResult['client_id'];
 
-	$connect->close();
-
-	echo json_encode($clientId);
+	return $clientId;
 }
 
 ?>
