@@ -319,20 +319,22 @@ $resultAddress = $query->fetch_assoc();
 									}
 									?>
 								</ul>
+								
 								<span class="text-muted" id="resultIndex2" style="font-size: 12px;"><?php echo $language['showing'] ?> 1 - <?php echo $totalItems ." ( ".$totalItems ?> total )</span>
 							<?php } ?>
 							
 						</div>
 
 						<div class="flipUpDownItem2">
+							<?php if ($totalItems > 3) { ?>
+								<div id="flipDownItem2" class="text-center" title="<?php echo $language['click-to-view-all'] ?>">
+									<i class="fas fa-angle-down"></i>
+								</div>
 
-							<div id="flipDownItem2" class="text-center" title="<?php echo $language['click-to-view-all'] ?>">
-								<i class="fas fa-angle-down"></i>
-							</div>
-
-							<div id="flipUpItem2" class="text-center" title="<?php echo $language['click-to-view-less'] ?>">
-								<i class="fas fa-angle-up"></i>
-							</div>
+								<div id="flipUpItem2" class="text-center" title="<?php echo $language['click-to-view-less'] ?>">
+									<i class="fas fa-angle-up"></i>
+								</div>
+							<?php } ?>
 						</div>
 
 						<div class="pr-4 d-flex justify-content-end">
@@ -345,7 +347,7 @@ $resultAddress = $query->fetch_assoc();
 						<div class="payment-options mt-4">
 							<hr>
 							<h6><?php echo $language['payment-options'] ?></h6>
-							<div class="row m-0" id="panel">
+							<div class="row" id="panel">
 								<!-- Limite 25 000 MTn -->
 								<div class="mpesa col-4" title="M-pesa Max: 25.000,00 MTn"><img class="col-12 m-0 p-0" src="../assests/images/app/mpesa.png"></div>
 								<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/visa.png"></div>
@@ -362,61 +364,64 @@ $resultAddress = $query->fetch_assoc();
 								</div>
 							</div>
 
+							<!--  -->
+							<style> .box{ display: none; }</style>
+
+							<script>
+								$(document).ready(function(){
+									$('input[type="radio"]').click(function(){
+										var inputValue = $(this).attr("value");
+										var targetBox = $("." + inputValue);
+										$(".box").not(targetBox).hide();
+										$(targetBox).show();
+									});
+								});
+
+								$(document).ready(function(){
+									if($("input:radio[name='paymentType']").is(":checked")) {
+										var inputValue = $("input[name='paymentType']:checked").val();
+										var targetBox = $("." + inputValue);
+										$(".box").not(targetBox).hide();
+										$(targetBox).show();
+									}
+								});
+							</script>
+
+
+							<!-- <div>
+								<label><input type="radio" name="paymentType" value="payWithMpesa" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
+								<label><input type="radio" name="paymentType" value="payWithcard" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
+							</div> -->
+
+							<!--  -->
 							<fieldset class="form-group row mt-2">
 								<div class="col-sm-10">
 
 									<div class="form-check disabled">
-										<input class="form-check-input" type="radio" name="gridRadios" id="mpesa" value="1" <?php if ($total > 25000) { echo "disabled"; } ?>>
-										<label class="form-check-label" for="mpesa">
-											MPesa (Maximo 25000,00 MTn)
-										</label>
+										<label><input type="radio" name="paymentType" value="payWithMpesa" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
+										</div>
+
+										<div class="form-check">
+											<label><input type="radio" name="paymentType" value="payWithcard" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
+										</div>
 									</div>
-
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="gridRadios" id="visa" value="2" checked>
-										<label class="form-check-label" for="visa">
-											Cartão de Débito/Crédito
-										</label>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-
-						
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-sm-12 col-md-6 col-lg-6 mb-5">
-						<hr>
-						<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
-						<div class="updateContactMessages"></div>
-						<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
-							<div class="form-group mt-4">
-
-								<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
-
-								<div class="">
-									<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>" required>
-								</div>
+								</fieldset>
 							</div>
-
-							<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
-						</form>
+						</div>
 					</div>
 
-					<div class="discount-options col-sm-12 col-md-6 col-lg-6">
-						<hr>
-						<h5>Descontos</h5>
-
-						<div class="discount" id="panel2">
-							
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-6 mb-5">
+							<hr>
+							<h5 class=""><?php echo $language['contact'] ?> <i class="fas fa-shipping-fast"></i></h5>
+							<div class="updateContactMessages"></div>
 							<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
-								
 								<div class="form-group mt-4">
-									<label class="control-label">Insira o codigo:</label>
-									<div class="select-options">
-										<input type="text" name="discount" id="discountCode" placeholder="Codigo de desconto" class="form-control col-sm-12 col-md-8 col-lg-8">
+
+									<label for="contact" class="control-label"><?php echo $language['your-number'] ?>: </label>
+
+									<div class="">
+										<input type="text" class="form-control col-6"  id="contact" placeholder="<?php echo $language['contact'] ?>" name="name" autocomplete="off" value="<?php echo $resultClient['contact']; ?>" required>
 									</div>
 								</div>
 
@@ -424,177 +429,226 @@ $resultAddress = $query->fetch_assoc();
 							</form>
 						</div>
 
-						<div id="flipDown2" class="text-center" title="<?php echo $language['click-to-slide-down'] ?>">
-							<i class="fas fa-angle-down"></i>
-						</div>
+						<div class="discount-options col-sm-12 col-md-6 col-lg-6">
+							<hr>
+							<h5>Descontos</h5>
 
-						<div id="flipUp2" class="text-center mt-1" title="<?php echo $language['click-to-slide-up'] ?>">
-							<i class="fas fa-angle-up"></i>
+							<div class="discount" id="panel2">
+
+								<form class="form-horizontal" id="changeClientContactForm" action="php_action/ctrl_client.php.php?action=editContact" method="POST" enctype="multipart/form-data">
+
+									<div class="form-group mt-4">
+										<label class="control-label">Insira o codigo:</label>
+										<div class="select-options">
+											<input type="text" name="discount" id="discountCode" placeholder="Codigo de desconto" class="form-control col-sm-12 col-md-8 col-lg-8">
+										</div>
+									</div>
+
+									<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+								</form>
+							</div>
+
+							<div id="flipDown2" class="text-center" title="<?php echo $language['click-to-slide-down'] ?>">
+								<i class="fas fa-angle-down"></i>
+							</div>
+
+							<div id="flipUp2" class="text-center mt-1" title="<?php echo $language['click-to-slide-up'] ?>">
+								<i class="fas fa-angle-up"></i>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<hr>
-				<div class="row pt-4">
-					<div class="col-6">
-						<a href="checkout.php" class="btn btn-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['checkout'] ?> </a>
-					</div>
-					<div class="col-6">
-						<div class="d-flex justify-content-end">
-							<button class="btn btn-success rounded-0" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentCardModal"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+					<hr>
+					<div class="row pt-4">
+						<div class="col-6">
+							<a href="checkout.php" class="btn btn-secondary rounded-0 py-2"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['checkout'] ?> </a>
+						</div>
+						<div class="col-6">
+							<div class="d-flex justify-content-end">
+								<button onclick="startPaymentTimer()" class="btn btn-success rounded-0 py-2" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentCardModal"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<!-- finalize payments mpesa -->
-<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentMpesaModal">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['payment'] ?></h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<form class="form-horizontal" id="payCart" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST">
+	<!-- finalize payments Mpesa | Debit/credit card -->
+	<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentCardModal">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"><i class="fas fa-check"></i> Payments </h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+
 				<div class="modal-body">
 					<div class="finalizeMessages"></div>
-					<div class="timer text-muted d-flex justify-content-center"><span><i class="fas fa-clock"></i> 120 sec.</span></div>
-					<p class="text-muted px-sm-4"><i class="fas fa-info-circle"></i> Confirme o pagamento via MPESA no seu numero <span id="client_payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span> e insira o codigo aqui.</p>
-
 					<div class="form-group">
-						<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>
-						<div class="d-flex justify-content-center">
-							<input type="text" class="form-control col-6" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
-						</div>
-					</div>
+						<!-- Mpesa -->
+						<div class="payWithMpesa box">
 
-					<div class="pt-4 d-flex justify-content-center">
-						<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
+							<form class="form-horizontal mx-0 px-0" id="submitCardInformationForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
+
+								<h6 class="mx-2"><?php echo $language['payment-via-mpesa'] ?>. <label><?php echo $language['total-amount'] ?>:</label><span class="totalAmount align-items-end"><?php echo number_format($total, 2,",","."); ?> MTn</span>
+								</h6>
+
+								<hr>
+
+								<div class="small timer d-flex justify-content-center"><span><i class="fas fa-clock"></i> Registration closes in <span id="time" class="font-weight-bolder">02:00</span> minutes!</span></div>
+								<hr>
+								<p class="small text-center"><i class="fas fa-info-circle"></i> Confirme via MPESA no pelo numero <span id="client_payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span></p>
+
+								<div class="form-group">
+									<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>
+									<div class="d-flex justify-content-center">
+										<input type="text" class="form-control col-6" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
+									</div>
+								</div>
+
+								<div class="pt-4 d-flex justify-content-center">
+									<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
+								</div>
+
+								<!-- paymentType -->
+								<input type="text" name="paymentType" id="paymentTypeValue" value="1" hidden>
+								<!-- SubTotal -->
+								<input type="text" name="subTotal" id="subTotal" value="<?php echo $total; ?>" hidden>
+							</form>
+						</div><!-- /. payWithMpesa -->
+
+						<!-- Credit/Debit card -->
+						<div class="payWithcard box">
+							
+							<h6 class="mx-2 my-4"><?php echo $language['payment-via-crdt-debit-card'] ?></h6>
+							
+							<form class="form-horizontal mx-0 px-0" id="submitCardInformationForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
+
+								<div class="form-group mb-0 pb-0">
+									<label for="cardNumber" class="col-sm-6 control-label px-0"><?php echo $language['card-number'] ?>: </label>
+
+									<input type="text" class="form-control rounded" id="cardNumber" name="cardNumber" autocomplete="off">
+								</div> <!-- /form-group-->
+
+								<div class="form-group row mt-0 pt-0 col-6">
+									<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0 shadow-sm" src="../assests/images/app/visa.png"></div>
+									<div class="mastercard col-4" title="Mastercard"><img class="col-12 m-0 p-0 shadow-sm" src="../assests/images/app/mastercard.png"></div>
+								</div>
+
+								<div class="row form-group mt-4">
+									<div class="col-6 col-md-5 col-lg-5">
+										<label for="expirationMonth" class="control-label px-0"><?php echo $language['expiration-month'] ?>: </label>
+
+										<div class="px-0">
+											<select class="form-control rounded" id="expirationMonth" name="expirationMonth">
+												<option value="">~~<?php echo $language['select'] ?>~~</option>
+												<option value="1">Janeiro</option>
+												<option value="2">Fevereiro</option>
+												<option value="3">Marco</option>
+												<option value="4">Abril</option>
+												<option value="5">Maio</option>
+												<option value="6">Junho</option>
+												<option value="7">Julho</option>
+												<option value="8">Agosto</option>
+												<option value="9">Septembro</option>
+												<option value="10">Octubro</option>
+												<option value="11">Novembro</option>
+												<option value="12">Dezembro</option>
+
+											</select>
+										</div>
+									</div> <!-- /form-group-->
+
+									<div class="col-6 col-md-5 col-lg-5">
+										<label for="expirationYear" class="control-label px-0"><?php echo $language['expiration-year'] ?>: </label>
+
+										<div class="px-0">
+											<select class="form-control rounded" id="expirationYear" name="expirationYear">
+												<option value="">~~<?php echo $language['select'] ?>~~</option>
+												<option value="2021">2021</option>
+												<option value="2022">2022</option>
+												<option value="2023">2023</option>
+												<option value="2024">2024</option>
+											</select>
+										</div>
+									</div> <!-- /form-group -->
+								</div>
+
+								<div class="form-group mt-4">
+									<label for="holderName" class="control-label px-0"><?php echo $language['name-of-the-card-holder'] ?>: </label>
+
+									<div class="col-sm-8 px-0">
+										<input type="text" class="form-control rounded" id="holderName" name="holderName" autocomplete="off">
+									</div>
+								</div> <!-- /form-group-->
+
+								<div class="form-group mb-0 pb-0 mt-4">
+									<label for="securityCode" class="control-label px-0"><?php echo $language['security-code'] ?>: </label>
+
+									<div class="col-6 col-md-4 col-lg-4 px-0">
+										<input type="text" class="form-control rounded" id="securityCode" name="securityCode" autocomplete="off">
+									</div>
+								</div> <!-- /form-group-->
+
+								<div class="form-group row text-muted mt-0 pt-0">
+									<div class="visa col-1 pr-0" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/cvv_cvc_number.png"></div>
+									<label for="securityCode" class="control-label px-0 mx-0 pt-1" style="font-size: 12px;">3 <?php echo $language['digits-on-the-back-of-the-card'] ?>.</label>
+								</div> <!-- /form-group-->
+
+								<div class="mt-4 d-flex justify-content-center">
+									<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['pay'] ?></button>
+								</div>
+
+								<!-- paymentType -->
+								<input type="text" name="paymentType" id="paymentTypeValue" value="2" hidden>
+								<!-- SubTotal -->
+								<input type="text" name="subTotal" id="subTotal" value="<?php echo $total; ?>" hidden>
+							</form>
+						</div><!-- /. payWithcard -->
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-					
 				</div>
-			</form>
-		</div><!--  /.modal-content --> 
-	</div> <!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- /finalize payment -->
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!-- /finalize payment -->
 
-<!-- finalize payments Debit/credit card -->
-<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentCardModal">
-	<div class="modal-dialog modal-md">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title"><i class="fas fa-check"></i> <?php echo $language['payment-via-crdt-debit-card'] ?> </h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
+	<script>
+		function startPaymentTimer() {
 
-			<div class="modal-body">
+			function startTimer(duration, display) {
+				var timer = duration, minutes, seconds;
+				setInterval(function () {
+					minutes = parseInt(timer / 60, 10)
+					seconds = parseInt(timer % 60, 10);
 
-				<div class="text-center">
-					<label><?php echo $language['total-amount'] ?>: <span class="totalAmount text-muted h4"><?php echo number_format($total, 2,",","."); ?> MTn</span></label>
-				</div>
+					minutes = minutes < 10 ? "0" + minutes : minutes;
+					seconds = seconds < 10 ? "0" + seconds : seconds;
 
-				<hr>
+					display.text(minutes + ":" + seconds);
 
-				<div class="finalizeMessages"></div>
+					if (--timer < 0) {
+						timer = duration;
+					}
+				}, 1000);
+			}
 
-				<div class="form-group">
+			jQuery(function ($) {
+				var twoMinutes = 60 * 2,
+				display = $('#time');
+				startTimer(twoMinutes, display);
+			});
 
-					<form class="form-horizontal mx-0 px-0" id="submitDeliveryAddressForm" action="php_action/ctrl_delivery_address.php?action=editAddress" method="POST" enctype="multipart/form-data">
+			setTimeout(function(){
+			    $('#finalizePaymentCardModal').modal('hide')
+			}, 120000); // 120000 = Two (2) minutes in milliseconds
+		}
+	</script>
 
-						<div class="form-group mb-0 pb-0">
-							<label for="cardNumber" class="col-sm-6 control-label px-0"><?php echo $language['card-number'] ?>: </label>
+	<script src="custom/js/delivery_address.js"></script>
+	<script src="custom/js/client.js"></script>
 
-							<input type="text" class="form-control rounded" id="cardNumber" name="cardNumber" autocomplete="off">
-						</div> <!-- /form-group-->
-
-						<div class="form-group row mt-0 pt-0 col-6">
-							<div class="visa col-4" title="Visa"><img class="col-12 m-0 p-0 shadow-sm" src="../assests/images/app/visa.png"></div>
-							<div class="mastercard col-4" title="Mastercard"><img class="col-12 m-0 p-0 shadow-sm" src="../assests/images/app/mastercard.png"></div>
-						</div>
-
-						<div class="row form-group mt-4">
-							<div class="col-5">
-								<label for="expirationMonth" class="control-label px-0"><?php echo $language['expiration-month'] ?>: </label>
-
-								<div class="px-0">
-									<select class="form-control rounded" id="expirationMonth" name="expirationMonth" required>
-										<option value="">~~<?php echo $language['select'] ?>~~</option>
-										<option value="1">Janeiro</option>
-										<option value="2">Fevereiro</option>
-										<option value="3">Marco</option>
-										<option value="4">Abril</option>
-										<option value="5">Maio</option>
-										<option value="6">Junho</option>
-										<option value="7">Julho</option>
-										<option value="8">Agosto</option>
-										<option value="9">Septembro</option>
-										<option value="10">Octubro</option>
-										<option value="11">Novembro</option>
-										<option value="12">Dezembro</option>
-
-									</select>
-								</div>
-							</div> <!-- /form-group-->
-
-							<div class="col-5">
-								<label for="expirationYear" class="control-label px-0"><?php echo $language['expiration-year'] ?>: </label>
-
-								<div class="px-0">
-									<select class="form-control rounded" id="expirationYear" name="expirationYear" required>
-										<option value="">~~<?php echo $language['select'] ?>~~</option>
-										<option value="2021">2021</option>
-										<option value="2022">2022</option>
-										<option value="2023">2023</option>
-										<option value="2024">2024</option>
-									</select>
-								</div>
-							</div> <!-- /form-group -->
-						</div>
-
-						<div class="form-group mt-4">
-							<label for="holderName" class="control-label px-0"><?php echo $language['name-of-the-card-holder'] ?>: </label>
-
-							<div class="col-sm-8 px-0">
-								<input type="text" class="form-control rounded" id="holderName" name="holderName" autocomplete="off">
-							</div>
-						</div> <!-- /form-group-->
-
-						<div class="form-group mb-0 pb-0 mt-4">
-							<label for="securityCode" class="control-label px-0"><?php echo $language['security-code'] ?>: </label>
-
-							<div class="col-4 px-0">
-								<input type="text" class="form-control rounded" id="securityCode" name="securityCode" autocomplete="off" required>
-							</div>
-						</div> <!-- /form-group-->
-
-						<div class="form-group row text-muted mt-0 pt-0">
-							<div class="visa col-1 pr-0" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/cvv_cvc_number.png"></div>
-							<label for="securityCode" class="control-label px-0 mx-0 pt-1" style="font-size: 12px;">3 <?php echo $language['digits-on-the-back-of-the-card'] ?>.</label>
-						</div> <!-- /form-group-->
-
-						<div class="mt-4 d-flex justify-content-center">
-							<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['Continue'] ?></button>
-						</div>
-
-					</form>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- /finalize payment -->
-
-<script src="custom/js/delivery_address.js"></script>
-<script src="custom/js/client.js"></script>
-
-<?php require_once 'includes/footer.php'; ?>
+	<?php require_once 'includes/footer.php'; ?>
