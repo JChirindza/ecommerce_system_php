@@ -288,7 +288,7 @@ $resultAddress = $query->fetch_assoc();
 								}
 								?>
 							</ul>
-							<span class="text-muted" id="resultIndex1" style="font-size: 12px;"><?php echo $language['showing'] ?> 1 - <?php echo $limit  ." ( ". $totalItems ?> total )</span>
+							<span class="text-muted" id="resultIndex1" style="font-size: 12px;"><?php echo $language['showing']; if ($totalItems <= 0){echo " 0";}else{echo " 1";} ?> - <?php echo $limit  ." ( ". $totalItems ?> total )</span>
 							
 							<?php if ($totalItems > 3){ ?>
 								<ul id="item2">
