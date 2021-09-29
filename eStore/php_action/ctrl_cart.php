@@ -311,7 +311,7 @@ function getCartItemQuantity(){
 	if (isset($_SESSION['cartId'])) {
 
 		$cartId = Sys_Secure($_SESSION['cartId']);
-		$sql = "SELECT COUNT(*) AS totalQuantiy FROM cart_item WHERE cart_id = {$cartId}";
+		$sql = "SELECT COUNT(*) AS totalQuantity FROM cart_item WHERE cart_id = {$cartId}";
 		$result = $connect->query($sql);
 
 		if($result->num_rows > 0) { 
@@ -370,22 +370,22 @@ function finalizePayment(){
 				$sql = "UPDATE `cart` SET `payment_status`= '1' WHERE cart_id = {$cartId }";
 
 				if($connect->query($sql) === TRUE) {
-
+					// Set cart has paid
 					$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', current_timestamp())";
 					$connect->query($sql);
 
-					if($connect->query($sql) === TRUE) {
-
 					// Last Insert Id - INTO `cart_has_paid`
-						$cart_has_paid_id = $connect->insert_id;
+					$cart_has_paid_id = $connect->insert_id;
 
 					// Set pedding request
-						$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
-						$connect->query($sql);
+					$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
+					$connect->query($sql);
 
-						$valid['success'] = true;
-						$valid['messages'] = "Successfully paid.";	
-					}
+					$valid['success'] = true;
+					$valid['messages'] = "Successfully paid.";
+
+					// Destroy current session cartId
+					unset($_SESSION['cartId']);
 				} 
 			}
 		}else{
