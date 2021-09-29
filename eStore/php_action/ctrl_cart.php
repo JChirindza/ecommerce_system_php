@@ -343,6 +343,9 @@ function getTotalItemValue(){
 function finalizePayment(){
 	global $connect;
 
+	$valid['success'] = false;
+	$valid['messages'] = "Error while paying.";
+
 	if (isset($_SESSION['userId']) && isset($_SESSION['cartId'])) {
 
 		$cartId = Sys_Secure($_SESSION['cartId']);
@@ -364,29 +367,28 @@ function finalizePayment(){
 				$grandTotal = $totalAmount - $discount;
 				$paymentType= Sys_Secure($_POST['paymentType']);
 
-				$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', current_timestamp())";
+				$sql = "UPDATE `cart` SET `payment_status`= '1' WHERE cart_id = {$cartId }";
 
 				if($connect->query($sql) === TRUE) {
 
-					// Last Insert Id - INTO `cart_has_paid`
-					$cart_has_paid_id = $connect->insert_id;
-
-					// Set pedding request
-					$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
+					$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', current_timestamp())";
 					$connect->query($sql);
 
-					$valid['success'] = true;
-					$valid['messages'] = "Successfully paid.";	
-				} else {
-					$valid['success'] = false;
-					$valid['messages'] = "Error while paying.";
-				}
-			}else{
-				$valid['success'] = false;
-				$valid['messages'] = "Error while paying";
+					if($connect->query($sql) === TRUE) {
+
+					// Last Insert Id - INTO `cart_has_paid`
+						$cart_has_paid_id = $connect->insert_id;
+
+					// Set pedding request
+						$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
+						$connect->query($sql);
+
+						$valid['success'] = true;
+						$valid['messages'] = "Successfully paid.";	
+					}
+				} 
 			}
 		}else{
-			$valid['success'] = false;
 			$valid['messages'] = "Error while paying. This cart was been paid!";
 		}
 

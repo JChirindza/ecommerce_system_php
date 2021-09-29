@@ -13,8 +13,22 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 		<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a></a>
 	</div>
 </div>
-	<?php
-	die();
+<?php
+die();
+}
+
+// Check if cart paid
+function is_cart_paid($cartId){
+	global $connect;
+
+	$sql = "SELECT * FROM cart WHERE cart_id = {$cartId} AND payment_status = 2 AND status = 1";
+	$result = $connect->query($sql);
+
+	if ($result->num_rows > 0) {
+		return true; // Paid
+	}else{
+		return false; // <= 0 Not paid
+	}
 }
 ?>
 <div class="d-flex" id="wrapper">
@@ -105,7 +119,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							</div>
 						</div>
 
-					<?php } else if($_GET['c'] == 'cartItems') { // cart ?> 
+					<?php } else if($_GET['c'] == 'cartItems' && isset($_GET['i'])) { // cart ?> 
 
 						<div class="card-body">
 
@@ -129,7 +143,10 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 									</thead>
 								</table>
 								<hr>
-								<label class="text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Este carrinho ja foi paga. Nao pode ser modificado!</label>
+								<?php if (isset($_GET['i']) && !is_cart_paid($_GET['i'])) { ?>
+									<label class="text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Este carrinho ja foi paga. Nao pode ser modificado!</label>
+								<?php } ?>
+								
 							</div>
 
 							<div class="d-flex justify-content-end">
@@ -147,6 +164,15 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 										<p><a href="checkout.php" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
 									</div>
 								</div>
+							</div>
+						</div>
+					<?php }else{ ?>
+						<div class="card-body">
+							<div class="text-center">
+								<label>Something Went wrong.</label>
+							</div>
+							<div class="d-flex justify-content-center">
+								<a href="home.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Reload Page">Reload Page</a>
 							</div>
 						</div>
 					<?php } ?>	
