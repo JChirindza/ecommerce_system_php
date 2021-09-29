@@ -155,7 +155,7 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 			type: 'post',
 			dataType: 'json',
 			success:function(response) {		
-				$('#cart_count_items').text(response.totalQuantiy);
+				$('#cart_count_items').text(response.totalQuantity);
 				} // /success function
 		}); // /ajax to fetch product image
 	}
