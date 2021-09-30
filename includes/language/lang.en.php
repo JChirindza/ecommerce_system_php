@@ -276,6 +276,7 @@ $language['click-to-view-less'] = 'Click to view less';
 $language['click-to-slide-down'] = 'Click to slide down';
 $language['click-to-slide-up'] = 'Click to slide up';
 $language['payment-via-crdt-debit-card'] = 'Payment via credit/debit card';
+$language['payment-via-mpesa'] = 'Payment via mpesa';
 $language['card-number'] = 'Card number';
 $language['expiration-month'] = 'Expiration month';
 $language['expiration-year'] = 'Expiration year';
