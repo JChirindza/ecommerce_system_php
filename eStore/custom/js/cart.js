@@ -333,7 +333,7 @@ function setCartItemQuantity(){
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {		
-			$('#cart_count_items').text(''+response.totalQuantiy); // navbarCartQuantity
+			$('#cart_count_items').text(''+response.totalQuantity); // navbarCartQuantity
 		} // /success function
 	}); // /ajax to fetch product image
 	setCartTotal();
