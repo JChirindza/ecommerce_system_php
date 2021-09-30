@@ -55,7 +55,7 @@ function addToCart(){
 
 				$cartId 	= Sys_Secure($_SESSION['cartId']);
 				$productId 	= Sys_Secure($_POST['productId']);
-				$quantity 	= 1;
+				$quantity 	= Sys_Secure($_POST['quantity']);;
 
 				// Verifica se o producto ja existe, caso exista aumenta a quantidade.
 				$sql = "SELECT * FROM cart_item WHERE cart_id = $cartId AND product_id = {$productId} LIMIT 1";
