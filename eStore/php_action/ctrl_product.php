@@ -122,8 +122,8 @@ function filterProducts(){
 		}
 		// brands
 		if(isset($_POST["brand"])) {
-			$brand_filter = Sys_Secure(implode("','", $_POST["brand"]));
-			$sql .= "AND brand_id IN('".$brand_filter."')";
+			$brand_filter = implode("','", $_POST["brand"])); // array given in
+			$sql .= " AND brand_id IN('".$brand_filter."')";
 		}
 		
 		if (!isset($_POST['category_id']) || empty($_POST['category_id'])) {
