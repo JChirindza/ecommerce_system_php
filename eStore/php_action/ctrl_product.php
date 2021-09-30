@@ -122,7 +122,7 @@ function filterProducts(){
 		}
 		// brands
 		if(isset($_POST["brand"])) {
-			$brand_filter = implode("','", $_POST["brand"])); // array given in
+			$brand_filter = implode("','", $_POST["brand"]); // array given in
 			$sql .= " AND brand_id IN('".$brand_filter."')";
 		}
 		
