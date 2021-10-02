@@ -143,7 +143,7 @@ function is_cart_paid($cartId){
 									</thead>
 								</table>
 								<hr>
-								<?php if (isset($_GET['i']) && !is_cart_paid($_GET['i'])) { ?>
+								<?php if (isset($_GET['i']) && !empty($_GET['i']) && !is_cart_paid($_GET['i'])) { ?>
 									<label class="text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Este carrinho ja foi paga. Nao pode ser modificado!</label>
 								<?php } ?>
 								
