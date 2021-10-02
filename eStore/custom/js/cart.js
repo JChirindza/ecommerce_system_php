@@ -315,6 +315,11 @@ function removeCartItem(cartItemId = null) {
 }
 // /remove cartItem from server
 
+// Pay cart
+function pay() {
+
+}
+
 
 // set cart total Value
 function setCartTotal(){
@@ -322,8 +327,12 @@ function setCartTotal(){
 		url: 'php_action/ctrl_cart.php?action=readTotalCart',
 		type: 'post',
 		dataType: 'json',
-		success:function(response) {		
-			$('#subTotalValue_cartItem').text(response.totalValue+' Mt'); //table cart item total
+		success:function(response) {
+			if (Number(response.totalValue)) {
+				$('#subTotalValue_cartItem').text(response.totalValue+' Mt'); //table cart item total
+			}else{
+				$('#subTotalValue_cartItem').text('0.00 Mt'); //table cart item total
+			}
 		} // /success function
 	}); // /ajax to fetch product image
 }
@@ -334,8 +343,14 @@ function setCartItemQuantity(){
 		url: 'php_action/ctrl_cart.php?action=readItemQuant',
 		type: 'post',
 		dataType: 'json',
-		success:function(response) {		
-			$('#cart_count_items').text(''+response.totalQuantity); // navbarCartQuantity
+		success:function(response) {	
+			if (Number(response.totalQuantity)) {
+				$('#cart_count_items').text(response.totalQuantity); // navbarCartQuantity
+			}else{
+				$('#cart_count_items').text('0'); // navbarCartQuantity
+			}
+
+			// $('#cart_count_items').text(''+response.totalQuantity); // navbarCartQuantity
 		} // /success function
 	}); // /ajax to fetch product image
 	setCartTotal();
