@@ -24,7 +24,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<ol class="breadcrumb bg-transparent m-0">
 				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cart"><?php echo $language['carts'] ?></a></li>
-				<li class="breadcrumb-item"><a href="cart.php?c=cartItems"><?php echo $language['cart-items'] ?></a></li>
+				<li class="breadcrumb-item"><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>"><?php echo $language['cart-items'] ?></a></li>
 				<li class="breadcrumb-item active"><?php echo $language['checkout'] ?></li>
 			</ol>
 		</div>
@@ -33,7 +33,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<div class="col-md-12 col-md-offset-1">
 				<div class="process-wrap mt-4">
 					<div class="process text-center active">
-						<a href="cart.php?c=cartItems">
+						<a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>">
 							<p><span><i class="fas fa-check"></i></span></p>
 							<label><?php echo $language['cart-items'] ?></label>
 						</a>
@@ -71,6 +71,8 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 							$sql = "SELECT * FROM cart_item AS c WHERE c.cart_id = {$cartId} AND (SELECT p.quantity FROM product AS p WHERE p.quantity > 0 AND p.product_id = c.product_id) ORDER BY `cart_item_id` DESC";
 							$resultado = mysqli_query($connect, $sql);
 
+							if ($resultado->num_rows > 0) {
+								
 							while ($dados = mysqli_fetch_array($resultado)) { 
 								$sql2 = "SELECT * FROM product WHERE product_id = {$dados['product_id']} ";
 								$query = $connect->query($sql2);
@@ -85,6 +87,17 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 								</li>
 								<?php
 							}
+							}else{
+								?>
+								<div class="text-center">
+									<label class="text-muted">Nenhum item adicionado.</label>
+								</div>
+								<div class="d-flex justify-content-center">
+									<a href="productFilters.php" class="btn btn-primary btn-sm rounded-0"><i class="fas fa-eye"></i> Visualizar produtos</a>
+								</div>
+								<?php
+							}
+
 							?>
 						</ul>
 						<div class="pr-2 d-flex justify-content-end">
@@ -109,7 +122,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 				<hr>
 				<div class="row mx-1">
 					<div class="col-6">
-						<a href="cart.php?c=cartItems" class="btn btn-outline-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['back-to-cart'] ?> </a>
+						<a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>" class="btn btn-outline-secondary rounded-0"> <i class="fas fa-arrow-alt-circle-left mr-2"></i><?php echo $language['back-to-cart'] ?> </a>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
 						<div class="d-inline">
