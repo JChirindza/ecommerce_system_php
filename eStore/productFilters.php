@@ -82,7 +82,7 @@
 
 						$sql = "SELECT DISTINCT(brand_id) FROM product WHERE active = '1' ";
 
-						if (isset($_GET['category_id'])) {
+						if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
 							$sql .= " AND categories_id = {$_GET['category_id']} ";
 						}
 
@@ -98,7 +98,7 @@
 								$result2 = $query2->fetch_assoc();
 
 								$sql = "SELECT * FROM product WHERE active = '1' AND brand_id = {$brandID}";
-								if (isset($_GET['category_id'])) {
+								if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
 									$sql .= " AND categories_id = {$_GET['category_id']} ";
 								}
 								$query2 = $connect->query($sql);

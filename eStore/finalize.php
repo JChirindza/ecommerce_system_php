@@ -142,7 +142,7 @@ $resultAddress = $query->fetch_assoc();
 			<div class="col-md-12 col-md-offset-1">
 				<div class="process-wrap mt-4">
 					<div class="process text-center active">
-						<a href="cart.php?c=cartItems">
+						<a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>">
 							<p><span><i class="fas fa-check"></i></span></p>
 							<label><?php echo $language['cart-items'] ?></label>
 						</a>
