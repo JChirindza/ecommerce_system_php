@@ -161,7 +161,7 @@ function is_cart_paid($cartId){
 									</div>
 									<div class="row">
 										<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
-										<p><a href="checkout.php" class="btn btn-success rounded-0"> <?php echo $language['checkout'] ?> </a></p>
+										<p><a href="checkout.php" class="btn btn-success rounded-0" id="btn_checkout"> <?php echo $language['checkout'] ?> </a></p>
 									</div>
 								</div>
 							</div>
@@ -230,5 +230,15 @@ function is_cart_paid($cartId){
 <script type="text/javascript">
 	// nav bar 
 	$(".navCart").addClass('border-bottom');
+</script>
+
+<script type="text/javascript">
+	var cartPaid = false;
+
+	cartPaid = <?php if (!is_cart_paid($_GET['i'])) { echo "true"; } ?>;
+
+	if (cartPaid === true) {
+		$("#btn_checkout").addClass('disabled');
+	}
 </script>
 <?php require_once 'includes/footer.php'; ?>
