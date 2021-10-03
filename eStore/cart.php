@@ -21,7 +21,7 @@ die();
 function is_cart_paid($cartId){
 	global $connect;
 
-	$sql = "SELECT * FROM cart WHERE cart_id = {$cartId} AND payment_status = 2 AND status = 1";
+	$sql = "SELECT * FROM cart WHERE cart_id = {$cartId} AND payment_status = 1 AND status = 1";
 	$result = $connect->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -95,6 +95,7 @@ function is_cart_paid($cartId){
 							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-carts'] ?></h6>
 						<?php }elseif($_GET['c'] == 'cartItems'){ ?>
 							<h6 class="m-0 font-weight-bold text-muted"><i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-cart-items'] ?></h6>
+							<label class="text-muted"><?php echo $language['created-on']."" ?>: <span id="date_created"></span></label>
 						<?php } ?>
 						
 					</div>
@@ -143,28 +144,55 @@ function is_cart_paid($cartId){
 									</thead>
 								</table>
 								<hr>
-								<?php if (isset($_GET['i']) && !empty($_GET['i']) && !is_cart_paid($_GET['i'])) { ?>
-									<label class="text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Este carrinho ja foi paga. Nao pode ser modificado!</label>
-								<?php } ?>
+								
 								
 							</div>
 
-							<div class="d-flex justify-content-end">
-								<div class=" col-md-push-1 text-center p-0 ">
-									<div class="grand-total border pt-3">
-										<p>
-											<span>
-												<strong class="text-muted"><?php echo $language['total'] ?>: </strong>
-											</span>
-											<span id="subTotalValue_cartItem" class="font-weight-bold"></span>
-										</p>
-									</div>
-									<div class="row">
-										<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
-										<p><a href="checkout.php" class="btn btn-success rounded-0" id="btn_checkout"> <?php echo $language['checkout'] ?> </a></p>
+							<div class="row">
+								<div class="col-6 row">
+									<?php if (isset($_GET['i']) && !empty($_GET['i']) && is_cart_paid($_GET['i'])) { ?>
+										<div class="col-6">
+											<!-- cart details -->
+											<p class="py-0 my-0"><label class="text-muted">Sub total:</label> <span class="" id="sub_total">0.00</span> MZN</p>
+											<p class="py-0 my-0"><label class="text-muted">Total amount:</label> <span id="total_amount">0.00</span> MZN</p>
+											<p class="py-0 my-0"> <label class="text-muted">Discount:</label> <span id="discount">0.00</span> MZN</p>
+										</div>
+
+										<div class="col-6">
+											<!-- cart details -->
+											<p class="py-0 my-0"><label class="text-muted">Requested on:</label> <span id="date_paid">03/10/2021 17:53</span></p>
+											<p class="py-0 my-0"> <label class="text-muted">Responded on:</label> <span id="discount"> --- </span></p>
+											<p class="py-0 my-0"><label class="text-muted">Payment type:</label> <span id="payment_type" class="badge badge-secondary">Credit card</span></p>
+										</div>
+									<?php } ?>
+								</div>
+
+								<div class="col-6">
+									<div class="d-flex justify-content-end">
+										<div class=" col-md-push-1 text-center p-0 ">
+											<div class="grand-total border pt-3">
+												<p>
+													<span>
+														<strong class="text-muted"><?php echo $language['total'] ?>: </strong>
+													</span>
+													<span id="subTotalValue_cartItem" class="font-weight-bold"></span>
+												</p>
+											</div>
+											<div class="row">
+												<p><a href="home.php" class="btn btn-primary rounded-0"> <?php echo $language['continue-shopping'] ?> </a></p>
+												<p><a href="checkout.php" class="btn btn-success rounded-0" id="btn_checkout"> <?php echo $language['checkout'] ?> </a></p>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
+
+							<?php if (isset($_GET['i']) && !empty($_GET['i']) && is_cart_paid($_GET['i'])) { ?>
+								<hr>
+								<div class="text-center">
+									<label class="text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Este carrinho ja foi paga. Nao pode ser modificado!</label>
+								</div>
+							<?php } ?>
 						</div>
 					<?php }else{ ?>
 						<div class="card-body">
@@ -230,15 +258,13 @@ function is_cart_paid($cartId){
 <script type="text/javascript">
 	// nav bar 
 	$(".navCart").addClass('border-bottom');
+
+	// disable checkout button
+	<?php 
+	if (is_cart_paid($_GET['i'])) { 
+		echo "$('#btn_checkout').addClass('disabled');"; 
+	} 
+	?>
 </script>
 
-<script type="text/javascript">
-	var cartPaid = false;
-
-	cartPaid = <?php if (!is_cart_paid($_GET['i'])) { echo "true"; } ?>;
-
-	if (cartPaid === true) {
-		$("#btn_checkout").addClass('disabled');
-	}
-</script>
 <?php require_once 'includes/footer.php'; ?>
