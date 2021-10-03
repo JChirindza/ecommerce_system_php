@@ -429,6 +429,20 @@ function finalizePayment(){
 					$connect->query($sql);
 				}
 
+				// Set cart item has paid
+				$sql = "SELECT ci.product_id, ci.quantity, (SELECT p.rate FROM product AS p WHERE product_id = ci.product_id) AS price FROM cart_item AS ci WHERE cart_id = {$cartId}";
+				$result = $connect->query($sql);
+
+				while ($row = $result->fetch_assoc()) {
+
+					$productId = $row['product_id'];
+					$price = $row['price'];
+					$quantity = $row['quantity'];
+
+					$sql = "INSERT INTO `cart_item_has_paid`(`cart_id`, `product_id`, `paid_price`, `quantity`) VALUES ('$cartId','$productId','$price','$quantity')";
+					$connect->query($sql);
+				}
+
 				$valid['success'] = true;
 				$valid['messages'] = "Successfully paid.";
 
@@ -438,7 +452,6 @@ function finalizePayment(){
 		}else{
 			$valid['messages'] = "Error while paying. This cart was been paid!";
 		}
-
 	}
 
 	$connect->close();
