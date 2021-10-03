@@ -323,9 +323,13 @@ function pay() {
 
 // set cart total Value
 function setCartTotal(){
+	
+	var cartId = $("#cartId").val();
+
 	$.ajax({
 		url: 'php_action/ctrl_cart.php?action=readTotalCart',
 		type: 'post',
+		data: {cartId : cartId},
 		dataType: 'json',
 		success:function(response) {
 			if (Number(response.totalValue)) {
