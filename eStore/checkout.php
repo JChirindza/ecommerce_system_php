@@ -23,7 +23,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 		<div class="m-0 p-0">
 			<ol class="breadcrumb bg-transparent m-0">
 				<li class="breadcrumb-item"><a href="home.php"><?php echo $language['home'] ?></a></li>
-				<li class="breadcrumb-item"><a href="cart.php?c=cart"><?php echo $language['carts'] ?></a></li>
+				<li class="breadcrumb-item"><a href="cart.php?c=carts"><?php echo $language['carts'] ?></a></li>
 				<li class="breadcrumb-item"><a href="cart.php?c=cartItems&i=<?php echo $cartId; ?>"><?php echo $language['cart-items'] ?></a></li>
 				<li class="breadcrumb-item active"><?php echo $language['checkout'] ?></li>
 			</ol>
