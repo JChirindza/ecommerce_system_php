@@ -326,8 +326,8 @@ function getCartItemQuantity(){
 function getTotalItemValue(){
 	global $connect;
 
-	if (isset($_SESSION['cartId'])) {
-		$cartId = Sys_Secure($_SESSION['cartId']);
+	if (isset($_POST['cartId'])) {
+		$cartId = Sys_Secure($_POST['cartId']);
 		$sql = "SELECT SUM((p.rate)*(ci.quantity)) AS totalValue FROM product AS p INNER JOIN cart_item AS ci ON ci.product_id = p.product_id WHERE ci.cart_id = {$cartId}";
 		$result = $connect->query($sql);
 
@@ -343,50 +343,73 @@ function getTotalItemValue(){
 function finalizePayment(){
 	global $connect;
 
+	$confirm = FALSE;
+
 	$valid['success'] = false;
 	$valid['messages'] = "Error while paying.";
 
-	if (isset($_SESSION['userId']) && isset($_SESSION['cartId'])) {
+	if (isset($_SESSION['userId']) && isset($_SESSION['cartId']) && $_POST) {
 
 		$cartId = Sys_Secure($_SESSION['cartId']);
 
-		if (is_cart_paid($cartId)) {
-			if ($_POST) {
+		if (is_cart_paid($cartId) === FALSE) {
 
-				$userId 	= Sys_Secure($_SESSION['userId']);
+			$userId = Sys_Secure($_SESSION['userId']);
 
-				// Client Id
-				$sql 			= "SELECT client_id FROM clients WHERE user_id = {$userId}";
-				$result 		= $connect->query($sql);
-				$clientResult 	= $result->fetch_assoc();
-				$clientId 	= $clientResult['client_id'];
-				$subTotal 	= Sys_Secure($_POST['subTotal']);
-				$vat 		= 0.17;
-				$totalAmount= $subTotal + $subTotal * $vat;
-				$discount 	= 0;
-				$grandTotal = $totalAmount - $discount;
-				$paymentType= Sys_Secure($_POST['paymentType']);
+			// Client Id
+			$sql 			= "SELECT client_id FROM clients WHERE user_id = {$userId}";
+			$result 		= $connect->query($sql);
+			$clientResult 	= $result->fetch_assoc();
+			$clientId 	= $clientResult['client_id'];
+			$subTotal 	= Sys_Secure($_POST['subTotal']);
+			$vat 		= 0.17;
+			$totalAmount= $subTotal + $subTotal * $vat;
+			$discount 	= 0;
+			$grandTotal = $totalAmount - $discount;
+			$paymentType= Sys_Secure($_POST['paymentType']);
 
-				$sql = "UPDATE `cart` SET `payment_status`= '1' WHERE cart_id = {$cartId }";
+			// Set cart has paid
+			$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', current_timestamp())";
 
-				if($connect->query($sql) === TRUE) {
-					// Set cart has paid
-					$sql = "INSERT INTO `cart_has_paid`  (`cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES ('$cartId', '$clientId', '$subTotal', '$vat', '$totalAmount', '$discount', '$grandTotal', '$paymentType', current_timestamp())";
+			if ($connect->query($sql)) {
+
+				// Last Insert Id - INTO `cart_has_paid`
+				$cart_has_paid_id = $connect->insert_id;
+
+				// Set pedding request
+				$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
+				$connect->query($sql);
+
+				// Set cart payment status to paid - (1)
+				$sql = "UPDATE `cart` SET `payment_status`= '1' WHERE cart_id = {$cartId}";
+				$connect->query($sql);
+
+				// update product quantity
+				$sql = "SELECT product_id, quantity FROM `cart_item` WHERE cart_id = {$cartId}";
+				$result = $connect->query($sql);
+
+				while ($row = $result->fetch_assoc()) {
+
+					$productId = $row['product_id'];
+					$itemQuantity = $row['quantity'];
+
+					$sql = "SELECT quantity FROM product WHERE product_id = {$productId}";
+					$productResult = $connect->query($sql);
+					$productRow = $productResult->fetch_assoc();
+
+					$availableQuantity = $productRow['quantity'];
+
+					$newQuantity = $availableQuantity - $itemQuantity;
+
+					$sql = "UPDATE product SET quantity = $newQuantity WHERE product_id = {$productId}";
 					$connect->query($sql);
+				}
 
-					// Last Insert Id - INTO `cart_has_paid`
-					$cart_has_paid_id = $connect->insert_id;
+				$valid['success'] = true;
+				$valid['messages'] = "Successfully paid.";
 
-					// Set pedding request
-					$sql = "INSERT INTO `requests` (`cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES ('$cart_has_paid_id', '$paymentType', 1, current_timestamp(), current_timestamp())";
-					$connect->query($sql);
-
-					$valid['success'] = true;
-					$valid['messages'] = "Successfully paid.";
-
-					// Destroy current session cartId
-					unset($_SESSION['cartId']);
-				} 
+				// Destroy current session cartId
+				unset($_SESSION['cartId']);
 			}
 		}else{
 			$valid['messages'] = "Error while paying. This cart was been paid!";
@@ -395,14 +418,15 @@ function finalizePayment(){
 	}
 
 	$connect->close();
-}
 
+	echo json_encode($valid);
+}
 
 // Check if cart paid
 function is_cart_paid($cartId){
 	global $connect;
 
-	$sql = "SELECT * FROM cart WHERE cart_id = {$cartId} AND payment_status = 2 AND status = 1";
+	$sql = "SELECT * FROM cart WHERE cart_id = {$cartId} AND payment_status = 1 AND status = 1"; // payment_status = 1  -> Paid = TRUE
 	$result = $connect->query($sql);
 
 	if ($result->num_rows > 0) {
