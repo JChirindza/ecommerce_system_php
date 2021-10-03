@@ -166,8 +166,8 @@ function fetchCartItem(){
 			$productId = $row[1];
 			$quantity = $row[2];
 
-			$sql2 = "SELECT * FROM product WHERE product_id = {$productId} ";
-			$query = $connect->query($sql2);
+			$sql = "SELECT * FROM product WHERE product_id = {$productId} ";
+			$query = $connect->query($sql);
 			$resultProduct = $query->fetch_assoc();
 
 			$imageUrl = $resultProduct['product_image'];
@@ -178,18 +178,42 @@ function fetchCartItem(){
 			</a>
 			";
 			$productName = "<a href='product_details.php?product_id=".$productId."'>".$resultProduct['product_name']."</a>";
-			$price = $resultProduct['rate'];
-			$availableQuantity = $resultProduct['quantity'];
-			$total = $price * $quantity;
 
-			$quantityInput = '
-			<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity'.$x.'"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'"  onchange="updateItemQuantity('.$productId.','.$x.')" value="'.$quantity.'" required>
-			<label class="text-muted" style="font-size: 14px;">Available: '.$availableQuantity.'</label>
-			';
+			if (!is_cart_paid($cartId)) {
+				
+				$price = $resultProduct['rate'];
+				$availableQuantity = $resultProduct['quantity'];
+				$total = number_format($price * $quantity,2,",",".");
+				$price = number_format($price,2,",",".");
 
-			$button = '
-			<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeCartItemModal" id="removeCartItemModalBtn" onclick="removeCartItem('.$cartItemId.')"> <i class="fas fa-trash"></i></button>
-			';
+				$quantityInput = '
+				<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity'.$x.'"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'"  onchange="updateItemQuantity('.$productId.','.$x.')" value="'.$quantity.'" required>
+				<label class="text-muted" style="font-size: 14px;">Available: '.$availableQuantity.'</label>
+				';
+
+				$button = '
+				<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeCartItemModal" id="removeCartItemModalBtn" onclick="removeCartItem('.$cartItemId.')"> <i class="fas fa-trash"></i></button>
+				';
+
+			}else{
+
+				$sql = "SELECT * FROM cart_item_has_paid WHERE product_id = {$productId} AND cart_id = {$cartId}";
+				$query = $connect->query($sql);
+				$resultItem = $query->fetch_assoc();
+				
+				$price = $resultItem['paid_price'];
+				$quantity = $resultItem['quantity'];
+				$total = number_format($price * $quantity,2,",",".");
+				$price = number_format($price,2,",",".");
+
+				$quantityInput = '
+				<input type="number" class="col-sm-12 col-md-10 col-lg-8" class="form-control" value="'.$quantity.'" disabled>
+				';
+
+				$button = '
+				<button class="btn btn-outline-danger btn-sm" disabled> <i class="fas fa-trash"></i></button>
+				';
+			}
 
 			$output['data'][] = array( 		
 				$productImage,
