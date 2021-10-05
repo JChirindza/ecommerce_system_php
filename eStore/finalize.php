@@ -456,7 +456,7 @@ $resultAddress = $query->fetch_assoc();
 						</div>
 						<div class="col-6">
 							<div class="d-flex justify-content-end">
-								<button onclick="startPaymentTimer()" class="btn btn-success rounded-0 py-2" data-toggle="modal" id="finalizePaymentModalBtn" data-target="#finalizePaymentCardModal"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+								<button onclick="startPaymentTimer()" class="btn btn-success rounded-0 py-2" id="finalizePaymentModalBtn"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
 							</div>
 						</div>
 					</div>
@@ -499,7 +499,7 @@ $resultAddress = $query->fetch_assoc();
 								</div>
 
 								<div class="pt-4 d-flex justify-content-center">
-									<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
+									<button type="submit" class="btn btn-success col-6" id="submitPaymentForm" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
 								</div>
 
 								<!-- paymentType -->
@@ -588,7 +588,7 @@ $resultAddress = $query->fetch_assoc();
 								</div> <!-- /form-group-->
 
 								<div class="mt-4 d-flex justify-content-center">
-									<button type="submit" class="btn btn-success col-6" id="removeProductBtn" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['pay'] ?></button>
+									<button type="submit" class="btn btn-success col-6" id="submitPaymentForm" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['pay'] ?></button>
 								</div>
 
 								<!-- paymentType -->
@@ -641,5 +641,6 @@ $resultAddress = $query->fetch_assoc();
 
 	<script src="custom/js/delivery_address.js"></script>
 	<script src="custom/js/client.js"></script>
+	<script src="custom/js/cart.js"></script>
 
 	<?php require_once 'includes/footer.php'; ?>
