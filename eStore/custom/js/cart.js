@@ -89,6 +89,139 @@ $(document).ready(function() {
 			return false;
 			}); // /submit form
 	}); // /add product to cart btn clicked
+
+	// finalize payment btn clicked
+	$("#finalizePaymentModalBtn").unbind('click').bind('click', function() {
+
+		// remove the error text
+		$(".text-danger").remove();
+		// remove the form error
+		$('.form-group').removeClass('has-error').removeClass('has-success');	
+
+		// Validate Delivery address
+		var province = $("#province").val();
+		var address = $("#address").val();
+		var referencePoint = $("#referencePoint").val();
+		var postalCode = $("#postalCode").val();
+
+		// Validate cart Items
+
+		// Validate Cliente Contact
+		var contact = $("#contact").val();
+
+		if(contact == "") {
+			$("#contact").after('<p class="text-danger">Contact field is required</p>');
+			$('#contact').closest('.form-group').addClass('has-error');
+		} else if (!Number(contact)) {
+			$("#contact").after('<p class="text-danger">Contact field must be a number</p>');
+			$('#contact').closest('.form-group').addClass('has-error');
+		}else if (contact == 9) {
+			$("#contact").after('<p class="text-danger">Contact must contain 9 digits</p>');
+			$('#contact').closest('.form-group').addClass('has-error');
+		}else{
+			// remov error text field
+			$("#contact").find('.text-danger').remove();
+			// success out for form 
+			$("#contact").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(province == "") {
+			$("#province").after('<p class="text-danger">Province field is required</p>');
+			$('#province').closest('.form-group').addClass('has-error');
+		} else{
+			// remov error text field
+			$("#province").find('.text-danger').remove();
+			// success out for form 
+			$("#province").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(address == "") {
+			$("#address").after('<p class="text-danger">Address field is required</p>');
+			$('#address').closest('.form-group').addClass('has-error');
+		} else{
+			// remov error text field
+			$("#address").find('.text-danger').remove();
+			// success out for form 
+			$("#address").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(referencePoint == "") {
+			$("#referencePoint").after('<p class="text-danger">Reference Point field is required</p>');
+			$('#referencePoint').closest('.form-group').addClass('has-error');
+		} else{
+			// remov error text field
+			$("#referencePoint").find('.text-danger').remove();
+			// success out for form 
+			$("#referencePoint").closest('.form-group').addClass('has-success');	  	
+		}
+
+		if(postalCode == "") {
+			$("#postalCode").after('<p class="text-danger">Postal Code field is required</p>');
+			$('#postalCode').closest('.form-group').addClass('has-error');
+		} else{
+			// remov error text field
+			$("#postalCode").find('.text-danger').remove();
+			// success out for form 
+			$("#postalCode").closest('.form-group').addClass('has-success');	  	
+		}		
+
+		if(contact && province && address && referencePoint && postalCode) {
+
+			$('#finalizePaymentCardModal').modal('show');
+
+			// submit form function
+			$("#submitPaymentForm").unbind('submit').bind('submit', function() {
+				// remove the error text
+				$(".text-danger").remove();
+				// remove the form error
+				$('.form-group').removeClass('has-error').removeClass('has-success');			
+				
+				var form = $(this);
+				var formData = new FormData(this);
+
+				// button loading
+				$("#submitPaymentForm").button('loading');
+
+				$.ajax({
+					url : form.attr('action'),
+					type: form.attr('method'),
+					data: formData,
+					dataType: 'json',
+					cache: false,
+					contentType: false,
+					processData: false,
+					success:function(response) {
+						// button loading
+						$("#submitPaymentForm").button('reset');
+
+						if(response.success == true) {
+			  	  			// reset the form text
+			  	  			$("#submitCardInformationForm")[0].reset();
+							// remove the error text
+							$(".text-danger").remove();
+							// remove the form error
+							$('.form-group').removeClass('has-error').removeClass('has-success');
+
+							$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+							$('#submitPayment-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
+								'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
+								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+								'</div>');
+
+							$(".alert-success").delay(500).show(10, function() {
+								$(this).delay(3000).hide(10, function() {
+									$(this).remove();
+								});
+							}); // /.alert
+						}  // if
+
+					} // /success
+				}); // /ajax	
+				return false;
+			}); // /submit form
+		} // if
+	}); // /finalize payment btn clicked
 }); // document.ready fucntion
 
 
@@ -316,10 +449,68 @@ function removeCartItem(cartItemId = null) {
 // /remove cartItem from server
 
 // Pay cart
-function pay() {
+function finalizeAndPay() {
+
+	// remove the error text
+	$(".text-danger").remove();
+	// remove the form error
+	$('.form-group').removeClass('has-error').removeClass('has-success');
+
+	// Validate Delivery address
+
+	// Validate cart Items
+
+	// Validate Cliente Contact
+	var contact = $("#contact").val();
+
+	if (contact && address && items) {
+
+		var form = $(this);
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: 'php_action/ctrl_cart.php?action=finalizePayment',
+			type: 'post',
+			data: {productId : productId, quantity : quantity},
+			dataType: 'json',
+			success:function(response) {
+				$("#addToCartBtn").button('reset');
+
+				if(response.success == true) {
+					// success messages
+					$('#finalize-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
+						'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
+						'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+						'</div>');
+					setCartItemQuantity();
+					// remove the mesages
+					$(".alert-success").delay(500).show(10, function() {
+						$(this).delay(3000).hide(10, function() {
+							$(this).remove();
+						});
+					}); // /.alert	          
+				} else {
+					// error messages
+					$('#finalize-messages').html('<div class="alert-sm alert-warning rounded pl-2 pr-2">'+
+						'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
+						'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+						'</div>');
+
+					// remove the mesages
+					$(".alert-warning").delay(500).show(10, function() {
+						$(this).delay(3000).hide(10, function() {
+							$(this).remove();
+						});
+					}); // /.alert	          
+				} // /else
+
+			} // /success
+		});  // /ajax function to remove the cart
+	}
+
+	
 
 }
-
 
 // set cart total Value
 function setCartTotal(){
