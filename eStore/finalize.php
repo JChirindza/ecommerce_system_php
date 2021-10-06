@@ -456,7 +456,7 @@ $resultAddress = $query->fetch_assoc();
 						</div>
 						<div class="col-6">
 							<div class="d-flex justify-content-end">
-								<button onclick="startPaymentTimer()" class="btn btn-success rounded-0 py-2" id="finalizePaymentModalBtn"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+								<button class="btn btn-success rounded-0 py-2" id="finalizePaymentModalBtn"> <?php echo $language['payment'] ?> <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
 							</div>
 						</div>
 					</div>
@@ -482,14 +482,14 @@ $resultAddress = $query->fetch_assoc();
 
 							<form class="form-horizontal mx-0 px-0" id="submitCardInformationForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
 
-								<h6 class="mx-2"><?php echo $language['payment-via-mpesa'] ?>. <label><?php echo $language['total-amount'] ?>:</label><span class="totalAmount align-items-end"><?php echo number_format($total, 2,",","."); ?> MTn</span>
+								<h6 class="mx-2"><?php echo $language['payment-via-mpesa'] ?>. <label><?php echo $language['total-amount'] ?>:</label><span class="totalAmount align-items-end"> <?php echo number_format($total, 2,",","."); ?> MTn</span>
 								</h6>
 
 								<hr>
 
-								<div class="small timer d-flex justify-content-center"><span><i class="fas fa-clock"></i> Registration closes in <span id="time" class="font-weight-bolder">02:00</span> minutes!</span></div>
+								<div class="small timer d-flex justify-content-center"><span><i class="fas fa-clock"></i> Registration closes in<label id="timer"></label> minutes!</span></div>
 								<hr>
-								<p class="small text-center"><i class="fas fa-info-circle"></i> Confirme via MPESA no pelo numero <span id="client_payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span></p>
+								<p class="small text-center"><i class="fas fa-info-circle"></i> Confirme via MPESA no seu numero <span id="client_payment_contact" class="font-weight-bolder"><?php echo $resultClient['contact']; ?></span></p>
 
 								<div class="form-group">
 									<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>

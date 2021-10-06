@@ -112,13 +112,7 @@ $(document).ready(function() {
 		if(contact == "") {
 			$("#contact").after('<p class="text-danger">Contact field is required</p>');
 			$('#contact').closest('.form-group').addClass('has-error');
-		} else if (!Number(contact)) {
-			$("#contact").after('<p class="text-danger">Contact field must be a number</p>');
-			$('#contact').closest('.form-group').addClass('has-error');
-		}else if (contact == 9) {
-			$("#contact").after('<p class="text-danger">Contact must contain 9 digits</p>');
-			$('#contact').closest('.form-group').addClass('has-error');
-		}else{
+		} else {
 			// remov error text field
 			$("#contact").find('.text-danger').remove();
 			// success out for form 
@@ -168,6 +162,12 @@ $(document).ready(function() {
 		if(contact && province && address && referencePoint && postalCode) {
 
 			$('#finalizePaymentCardModal').modal('show');
+
+			var inputCheckedValue = $("input[name='paymentType']:checked").val();
+			if (inputCheckedValue == "payWithMpesa") {
+				$('#timer').html('<span id="time" class="font-weight-bolder"></span>');
+				startPaymentTimer();
+			}
 
 			// submit form function
 			$("#submitPaymentForm").unbind('submit').bind('submit', function() {
