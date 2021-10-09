@@ -14,7 +14,10 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'editContact':
 		changeClientContact();
 		break;
-		
+
+		case 'readClientContact':
+		fetchClientContact();
+		break;
 		// default:
 		// 	// code...
 		// break;
@@ -45,4 +48,26 @@ function changeClientContact(){
 
 		echo json_encode($valid);
 	}
+}
+
+function fetchClientContact() {
+
+	global $connect;
+
+	$userId = Sys_Secure($_SESSION['userId']);
+	$sql = "SELECT * FROM clients WHERE user_id = {$userId}";
+	$query = $connect->query($sql);
+	$result = $query->fetch_assoc();
+
+	$clientId = $result['client_id'];
+
+	$sql = "SELECT contact FROM clients WHERE client_id = {$clientId}";
+	$result = $connect->query($sql);
+
+	if($result->num_rows > 0) { 
+		$row = $result->fetch_array();
+	}
+	$connect->close();
+
+	echo json_encode($row);
 }
