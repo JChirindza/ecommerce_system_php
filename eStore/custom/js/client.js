@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+	setClientContact();
+
 	// change client data
 	$("#changeClientContactForm").unbind('submit').bind('submit', function() {
 		// remove text-error 
@@ -76,3 +78,22 @@ $(document).ready(function() {
 	});
 
 });
+
+// set cart total Value
+function setClientContact(){
+	
+	$.ajax({
+		url: 'php_action/ctrl_client.php?action=readClientContact',
+		dataType: 'json',
+		success:function(response) {
+			if (Number(response.contact)) {
+				$('#contact').val(response.contact); //contact input
+				$('#client_payment_contact').text(response.contact); //contact span
+				
+			}else{
+				$('#contact').val('');
+				$('#client_payment_contact').text('');
+			}
+		} // /success function
+	}); // /ajax to fetch product image
+}
