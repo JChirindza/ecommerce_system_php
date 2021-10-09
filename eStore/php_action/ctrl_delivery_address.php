@@ -61,7 +61,7 @@ function updateDeliveryAddress(){
 		$referencePoint = Sys_Secure($_POST['referencePoint']); 
 		$postalCode 	= Sys_Secure($_POST['postalCode']);
 
-		$sql2 = "SELECT * FROM delivery_address WHERE client_id = 1 LIMIT 1";
+		$sql2 = "SELECT * FROM delivery_address WHERE client_id = {$clientId} LIMIT 1";
 		$data2 = $connect->query($sql2);
 
 		// Check if user address is set
@@ -78,7 +78,7 @@ function updateDeliveryAddress(){
 
 		}else{
 			$sql =  "INSERT INTO delivery_address (client_id, province, address, reference_point, postal_code) 
-			VALUES ('$clientId', 1, '$province', '$address', '$referencePoint', '$postalCode')";
+			VALUES ('$clientId', '$province', '$address', '$referencePoint', '$postalCode')";
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
