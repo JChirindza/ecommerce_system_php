@@ -12,21 +12,10 @@ $(document).ready(function() {
 			// remove the form error
 			$('.form-group').removeClass('has-error').removeClass('has-success');			
 
-			// var country = $("#country").val();
 			var province = $("#province").val();
 			var address = $("#address").val();
 			var referencePoint = $("#referencePoint").val();
 			var postalCode = $("#postalCode").val();
-
-			// if(country == "") {
-			// 	$("#country").after('<p class="text-danger">Country field is required</p>');
-			// 	$('#country').closest('.form-group').addClass('has-error');
-			// } else {
-			// 	// remov error text field
-			// 	$("#country").find('.text-danger').remove();
-			// 	// success out for form 
-			// 	$("#country").closest('.form-group').addClass('has-success');	  	
-			// }
 
 			if(province == "") {
 				$("#province").after('<p class="text-danger">Province field is required</p>');
@@ -74,7 +63,6 @@ $(document).ready(function() {
 				// button loading
 				$("#updateAddressBtn").button('loading');
 
-				console.log("ccccccccc");
 				$.ajax({
 					url : form.attr('action'),
 					type: form.attr('method'),
@@ -133,7 +121,6 @@ function SetDeliveryAddress() {
 		dataType: 'json',
 		success:function(response) {
 			// setting the delivery address data 
-			$('#country').val(response.country);
 			$('#province').val(response.province);
 			$('#address').val(response.address);
 			$('#referencePoint').val(response.reference_point);
