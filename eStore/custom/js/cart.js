@@ -164,7 +164,7 @@ $(document).ready(function() {
 			$('#finalizePaymentCardModal').modal('show');
 
 			var inputCheckedValue = $("input[name='paymentType']:checked").val();
-			if (inputCheckedValue == "payWithMpesa") {
+			if (inputCheckedValue == "1") { // 1- Mpesa
 				$('#timer').html('<span id="time" class="font-weight-bolder"></span>');
 				startPaymentTimer();
 			}
@@ -178,9 +178,8 @@ $(document).ready(function() {
 				
 				var form = $(this);
 				var formData = new FormData(this);
-
 				// button loading
-				$("#submitPaymentForm").button('loading');
+				$("#submitPaymentBtn").button('loading');
 
 				$.ajax({
 					url : form.attr('action'),
@@ -191,12 +190,13 @@ $(document).ready(function() {
 					contentType: false,
 					processData: false,
 					success:function(response) {
-						// button loading
-						$("#submitPaymentForm").button('reset');
+
+						// button reset loading
+						$("#submitPaymentBtn").button('reset');
 
 						if(response.success == true) {
 			  	  			// reset the form text
-			  	  			$("#submitCardInformationForm")[0].reset();
+			  	  			$("#submitPaymentForm")[0].reset();
 							// remove the error text
 							$(".text-danger").remove();
 							// remove the form error
@@ -204,16 +204,11 @@ $(document).ready(function() {
 
 							$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
 
-							$('#submitPayment-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
+							$('#finalizeMessages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
 								'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
 								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 								'</div>');
 
-							$(".alert-success").delay(500).show(10, function() {
-								$(this).delay(3000).hide(10, function() {
-									$(this).remove();
-								});
-							}); // /.alert
 						}  // if
 
 					} // /success
@@ -445,72 +440,7 @@ function removeCartItem(cartItemId = null) {
 	} else {
 		alert('error! refresh the page again');
 	}
-}
-// /remove cartItem from server
-
-// Pay cart
-function finalizeAndPay() {
-
-	// remove the error text
-	$(".text-danger").remove();
-	// remove the form error
-	$('.form-group').removeClass('has-error').removeClass('has-success');
-
-	// Validate Delivery address
-
-	// Validate cart Items
-
-	// Validate Cliente Contact
-	var contact = $("#contact").val();
-
-	if (contact && address && items) {
-
-		var form = $(this);
-		var formData = new FormData(this);
-
-		$.ajax({
-			url: 'php_action/ctrl_cart.php?action=finalizePayment',
-			type: 'post',
-			data: {productId : productId, quantity : quantity},
-			dataType: 'json',
-			success:function(response) {
-				$("#addToCartBtn").button('reset');
-
-				if(response.success == true) {
-					// success messages
-					$('#finalize-messages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
-						'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
-						'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
-						'</div>');
-					setCartItemQuantity();
-					// remove the mesages
-					$(".alert-success").delay(500).show(10, function() {
-						$(this).delay(3000).hide(10, function() {
-							$(this).remove();
-						});
-					}); // /.alert	          
-				} else {
-					// error messages
-					$('#finalize-messages').html('<div class="alert-sm alert-warning rounded pl-2 pr-2">'+
-						'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
-						'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
-						'</div>');
-
-					// remove the mesages
-					$(".alert-warning").delay(500).show(10, function() {
-						$(this).delay(3000).hide(10, function() {
-							$(this).remove();
-						});
-					}); // /.alert	          
-				} // /else
-
-			} // /success
-		});  // /ajax function to remove the cart
-	}
-
-	
-
-}
+}// /remove cartItem from server
 
 // set cart total Value
 function setCartTotal(){
