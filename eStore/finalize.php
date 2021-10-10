@@ -173,7 +173,7 @@ $(document).ready(function(){
 			</div>
 		</div><!-- /card -->
 
-		<div class="finalizeMessages"></div>
+		<div id="finalizeMessages"></div>
 
 		<div class="row mt-2 mt-md-4 mt-lg-4">
 			<div class="checkout col-sm p-4 bg-white">
@@ -278,7 +278,6 @@ $(document).ready(function(){
 							<h6><?php echo $language['cart-items']?> <span class="totalItems"> ( <?php echo $totalItems; ?> )</span></h6>
 							<ul>
 								<?php 
-								$count = 0;
 								$total = 0;
 
 								$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId} LIMIT {$limit}";
@@ -307,10 +306,6 @@ $(document).ready(function(){
 								<?php if ($totalItems > 3){ ?>
 									<ul id="item2">
 										<?php 
-										$count = 0;
-										$total = 0;
-
-
 
 										$sql = "SELECT * FROM cart_item WHERE cart_id = {$cartId} LIMIT 3,$totalItems";
 										$resultado = mysqli_query($connect, $sql);
@@ -470,11 +465,13 @@ $(document).ready(function(){
 			</div>
 
 			<div class="modal-body">
+				
 				<div id="finalizeMessages"></div>
+
 				<div class="form-group">
 
 					<form class="form-horizontal mx-0 px-0" id="submitPaymentForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
-						<!-- Mpesa -->
+						<!-- Mpesa 1 -->
 						<div class="payWith_1 box">
 
 							<h5 class="my-2 text-center">
@@ -492,12 +489,12 @@ $(document).ready(function(){
 							<div class="form-group">
 								<div class="d-flex justify-content-center"><label class=""> <?php echo $language['insert-the-payment-code'] ?>:</label></div>
 								<div class="d-flex justify-content-center">
-									<input type="text" class="form-control col-6" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
+									<input type="text" class="form-control col-6" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>">
 								</div>
 							</div>
 						</div><!-- /. payWithMpesa -->
 
-						<!-- Credit/Debit card -->
+						<!-- Credit/Debit card 2 -->
 						<div class="payWith_2 box">
 
 							<h5 class="my-2 text-center">
@@ -576,11 +573,10 @@ $(document).ready(function(){
 								<div class="visa col-1 pr-0" title="Visa"><img class="col-12 m-0 p-0" src="../assests/images/app/cvv_cvc_number.png"></div>
 								<label for="securityCode" class="control-label px-0 mx-0 pt-1" style="font-size: 12px;">3 <?php echo $language['digits-on-the-back-of-the-card'] ?>.</label>
 							</div> <!-- /form-group-->
-
 						</div><!-- /. payWithcard -->
 
 						<!-- paymentType -->
-						<input type="text" name="paymentType" id="paymentTypeValue" value="2" hidden>
+						<input type="text" name="paymentType" id="paymentTypeValue" hidden>
 						<!-- SubTotal -->
 						<input type="text" name="subTotal" id="subTotal" value="<?php echo $total; ?>" hidden>
 
@@ -608,6 +604,8 @@ $(document).ready(function(){
 			var targetBox = $(".payWith_" + inputValue);
 			$(".box").not(targetBox).hide();
 			$(targetBox).show();
+
+			$('#paymentTypeValue').val(inputValue);
 		});
 	});
 
@@ -617,6 +615,8 @@ $(document).ready(function(){
 			var targetBox = $(".payWith_" + inputValue);
 			$(".box").not(targetBox).hide();
 			$(targetBox).show();
+
+			$('#paymentTypeValue').val(inputValue);
 		}
 	});
 </script>
