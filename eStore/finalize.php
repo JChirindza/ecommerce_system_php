@@ -173,6 +173,8 @@ $(document).ready(function(){
 			</div>
 		</div><!-- /card -->
 
+		<div class="finalizeMessages"></div>
+
 		<div class="row mt-2 mt-md-4 mt-lg-4">
 			<div class="checkout col-sm p-4 bg-white">
 				<div class="d-sm-flex align-items-center justify-content-between">
@@ -381,11 +383,11 @@ $(document).ready(function(){
 								<div class="col-sm-10 mx-0 px-0 mt-4">
 
 									<div class="form-check mx-0 px-0">
-										<label><input type="radio" name="paymentType" value="payWithMpesa" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
+										<label><input type="radio" name="paymentType" id="payWithMpesa" value="1" title="Mpesa" <?php if ($total <= 25000) {echo"checked";}else{echo "disabled"; } ?>> MPesa (Maximo 25000,00 MTn)</label>
 										</div>
 
 										<div class="form-check mx-0 px-0">
-											<label><input type="radio" name="paymentType" value="payWithcard" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
+											<label><input type="radio" name="paymentType" id="payWithcard" value="2" title="Cartão de Débito/Crédito" <?php if ($total > 25000){echo "checked";} ?>> Cartão de Débito/Crédito</label>
 										</div>
 									</div>
 								</div>
@@ -426,7 +428,7 @@ $(document).ready(function(){
 											</div>
 										</div>
 
-										<button type="submit" class="btn btn-success rounded-0" id="updateContactBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+										<button type="submit" class="btn btn-success rounded-0" id="descountBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 									</form>
 								</div>
 
@@ -459,8 +461,8 @@ $(document).ready(function(){
 </div><!-- /wrapper -->
 
 <!-- finalize payments Mpesa | Debit/credit card -->
-<div class="modal fade bg-light" tabindex="-1" role="dialog" id="finalizePaymentCardModal">
-	<div class="modal-dialog modal-md">
+<div class="modal fade" tabindex="-1" role="dialog" id="finalizePaymentCardModal">
+	<div class="modal-dialog modal-md mt-0 pt-0">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title"><i class="fas fa-check"></i> Payments </h4>
@@ -468,15 +470,18 @@ $(document).ready(function(){
 			</div>
 
 			<div class="modal-body">
-				<div class="finalizeMessages"></div>
+				<div id="finalizeMessages"></div>
 				<div class="form-group">
-					<!-- Mpesa -->
-					<div class="payWithMpesa box">
 
-						<form class="form-horizontal mx-0 px-0" id="submitCardInformationForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
+					<form class="form-horizontal mx-0 px-0" id="submitPaymentForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
+						<!-- Mpesa -->
+						<div class="payWith_1 box">
 
-							<h6 class="mx-2"><?php echo $language['payment-via-mpesa'] ?>. <label><?php echo $language['total-amount'] ?>:</label><span class="totalAmount align-items-end"> <?php echo number_format($total, 2,",","."); ?> MTn</span>
-							</h6>
+							<h5 class="my-2 text-center">
+								<?php echo $language['payment-via-mpesa'] ?> 
+								<br>
+								<label class="h6"><?php echo $language['total-amount'] ?>:<span class="totalAmount align-items-end"> <?php echo number_format($total, 2,",","."); ?> MTn</span></label>
+							</h5>
 
 							<hr>
 
@@ -490,24 +495,16 @@ $(document).ready(function(){
 									<input type="text" class="form-control col-6" name="payment-code" id="payment-code" placeholder="<?php echo $language['payment-code']; ?>" required>
 								</div>
 							</div>
+						</div><!-- /. payWithMpesa -->
 
-							<div class="pt-4 d-flex justify-content-center">
-								<button type="submit" class="btn btn-success col-6" id="submitPaymentForm" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['pay'] ?></button>
-							</div>
+						<!-- Credit/Debit card -->
+						<div class="payWith_2 box">
 
-							<!-- paymentType -->
-							<input type="text" name="paymentType" id="paymentTypeValue" value="1" hidden>
-							<!-- SubTotal -->
-							<input type="text" name="subTotal" id="subTotal" value="<?php echo $total; ?>" hidden>
-						</form>
-					</div><!-- /. payWithMpesa -->
-
-					<!-- Credit/Debit card -->
-					<div class="payWithcard box">
-
-						<h6 class="mx-2 my-4"><?php echo $language['payment-via-crdt-debit-card'] ?></h6>
-
-						<form class="form-horizontal mx-0 px-0" id="submitCardInformationForm" action="php_action/ctrl_cart.php?action=finalizePayment" method="POST" enctype="multipart/form-data">
+							<h5 class="my-2 text-center">
+								<?php echo $language['payment-via-crdt-debit-card'] ?>
+								<br>
+								<label class="h6"><?php echo $language['total-amount'] ?>:<span class="totalAmount align-items-end"> <?php echo number_format($total, 2,",","."); ?> MTn</span></label>
+							</h5>
 
 							<div class="form-group mb-0 pb-0">
 								<label for="cardNumber" class="col-sm-6 control-label px-0"><?php echo $language['card-number'] ?>: </label>
@@ -580,18 +577,19 @@ $(document).ready(function(){
 								<label for="securityCode" class="control-label px-0 mx-0 pt-1" style="font-size: 12px;">3 <?php echo $language['digits-on-the-back-of-the-card'] ?>.</label>
 							</div> <!-- /form-group-->
 
-							<div class="mt-4 d-flex justify-content-center">
-								<button type="submit" class="btn btn-success col-6" id="submitPaymentForm" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['pay'] ?></button>
-							</div>
+						</div><!-- /. payWithcard -->
 
-							<!-- paymentType -->
-							<input type="text" name="paymentType" id="paymentTypeValue" value="2" hidden>
-							<!-- SubTotal -->
-							<input type="text" name="subTotal" id="subTotal" value="<?php echo $total; ?>" hidden>
-						</form>
-					</div><!-- /. payWithcard -->
-				</div>
-			</div>
+						<!-- paymentType -->
+						<input type="text" name="paymentType" id="paymentTypeValue" value="2" hidden>
+						<!-- SubTotal -->
+						<input type="text" name="subTotal" id="subTotal" value="<?php echo $total; ?>" hidden>
+
+						<div class="mt-4 d-flex justify-content-center">
+							<button type="submit" class="btn btn-success col-6" id="submitPaymentBtn" data-loading-text="Loading..."> <i class="fas fa-arrow-right"></i> <?php echo $language['pay'] ?></button>
+						</div>
+					</form>
+				</div><!-- /form-group -->
+			</div><!-- /modal-body -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
 			</div>
@@ -607,7 +605,7 @@ $(document).ready(function(){
 	$(document).ready(function(){
 		$('input[type="radio"]').click(function(){
 			var inputValue = $(this).attr("value");
-			var targetBox = $("." + inputValue);
+			var targetBox = $(".payWith_" + inputValue);
 			$(".box").not(targetBox).hide();
 			$(targetBox).show();
 		});
@@ -616,7 +614,7 @@ $(document).ready(function(){
 	$(document).ready(function(){
 		if($("input:radio[name='paymentType']").is(":checked")) {
 			var inputValue = $("input[name='paymentType']:checked").val();
-			var targetBox = $("." + inputValue);
+			var targetBox = $(".payWith_" + inputValue);
 			$(".box").not(targetBox).hide();
 			$(targetBox).show();
 		}

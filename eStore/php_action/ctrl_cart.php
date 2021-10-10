@@ -367,10 +367,7 @@ function getTotalItemValue(){
 function finalizePayment(){
 	global $connect;
 
-	$confirm = FALSE;
-
-	$valid['success'] = false;
-	$valid['messages'] = "Error while paying.";
+	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if (isset($_SESSION['userId']) && isset($_SESSION['cartId']) && $_POST) {
 
@@ -453,7 +450,6 @@ function finalizePayment(){
 			$valid['messages'] = "Error while paying. This cart was been paid!";
 		}
 	}
-
 	$connect->close();
 
 	echo json_encode($valid);
