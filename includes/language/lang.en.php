@@ -247,7 +247,7 @@ $language['edit-payment'] = 'Edit payment';
 // Reports
 $language['total-orders'] = 'Total orders';
 $language['most-requested'] = 'Most requested';
-$language['orders-reports'] = 'Orders report';
+$language['orders-report'] = 'Orders report';
 $language['start-date'] = 'Start date';
 $language['end-date'] = 'End date';
 $language['total-purchases'] = 'Total purchases';
