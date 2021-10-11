@@ -16,6 +16,8 @@ $orderSql = "SELECT * FROM orders WHERE order_status = 1";
 $orderQuery = $connect->query($orderSql);
 $countOrder = $orderQuery->num_rows;
 
+$orderSql = "SELECT * FROM orders WHERE order_status = 1 AND payment_status IN (1,2)"; // 1. Full payment 2. Advanced payment 
+$orderQuery = $connect->query($orderSql);
 $totalRevenue = 0;
 while ($orderResult = $orderQuery->fetch_assoc()) {
 	$totalRevenue += $orderResult['paid'];
@@ -23,7 +25,7 @@ while ($orderResult = $orderQuery->fetch_assoc()) {
 
 // ------------------- Total Earnings - this Year -----------------------
 $thisYearRevenue = 0;
-$sql = "SELECT SUM(paid) as totalThisYear FROM orders WHERE order_status = 1 AND YEAR(order_date) = YEAR(CURRENT_TIMESTAMP)";
+$sql = "SELECT SUM(paid) as totalThisYear FROM orders WHERE order_status = 1 AND payment_status IN (1,2) AND YEAR(order_date) = YEAR(CURRENT_TIMESTAMP)";
 $orderYearQuery = $connect->query($sql);
 $orderYearResult = $orderYearQuery->fetch_assoc();
 $thisYearRevenue = $orderYearResult['totalThisYear'];
@@ -43,7 +45,7 @@ $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
 
-$userwisesql = "SELECT users.name, users.surname, users.email, users.permittion, SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 1 AND users.status = 1 GROUP BY orders.user_id";
+$userwisesql = "SELECT users.name, users.surname, users.email, users.permittion, SUM(orders.paid) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 1 AND users.status = 1 GROUP BY orders.user_id";
 $userwiseQuery = $connect->query($userwisesql);
 $userwieseOrder = $userwiseQuery->num_rows;
 
