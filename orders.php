@@ -210,10 +210,9 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-type'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentType" id="paymentType" required>
-									<option value="">~~<?php echo $language['select'] ?>~~</option>
 									<option value="1" disabled><?php echo $language['cheque'] ?></option>
 									<option value="2"><?php echo $language['cash'] ?></option>
 									<option value="3"><?php echo $language['credit-card'] ?></option>
@@ -238,7 +237,6 @@ $result = $query->fetch_assoc();
 							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
-									<option value="">~~<?php echo $language['select'] ?>~~</option>
 									<option value="1"><?php echo $language['full-payment'] ?></option>
 									<option value="2"><?php echo $language['advance-payment'] ?></option>
 									<option value="3"><?php echo $language['no-payment'] ?></option>

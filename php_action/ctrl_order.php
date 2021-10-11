@@ -87,36 +87,39 @@ function createOrder(){
 		// }
 
 		// echo $_POST['productName'];
-		$orderItemStatus = false;
 
-		for($x = 0; $x < count($_POST['productName']); $x++) {			
-			$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".Sys_Secure($_POST['productName'][$x])."";
-			$updateProductQuantityData = $connect->query($updateProductQuantitySql);
+		if ($orderStatus === true) {
 
-			while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
-				$updateQuantity[$x] = $updateProductQuantityResult[0] - Sys_Secure($_POST['quantity'][$x]);							
-				// update product table
-				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".Sys_Secure($_POST['productName'][$x])."";
-				$connect->query($updateProductTable);
+			$orderItemStatus = false;
+			for($x = 0; $x < count($_POST['productName']); $x++) {			
+				$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
+				$updateProductQuantityData = $connect->query($updateProductQuantitySql);
 
-				// add into order_item
-				$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status) 
-				VALUES ('$order_id', '".Sys_Secure($_POST['productName'][$x])."', '".Sys_Secure($_POST['quantity'][$x])."', '".Sys_Secure($_POST['rateValue'][$x])."', '".Sys_Secure($_POST['totalValue'][$x])."', 1)";
+				while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
+					$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
+					// update product table
+					$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".$_POST['productName'][$x]."";
+					$connect->query($updateProductTable);
 
-				$connect->query($orderItemSql);		
+					// add into order_item
+					$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status) 
+					VALUES ('$order_id', '".$_POST['productName'][$x]."', '".Sys_Secure($_POST['quantity'][$x])."', '".Sys_Secure($_POST['rateValue'][$x])."', '".$_POST['totalValue'][$x]."', 1)";
 
-				if($x == count(Sys_Secure($_POST['productName']))) {
-					$orderItemStatus = true;
-				}		
+					$connect->query($orderItemSql);		
+
+					if($x == count($_POST['productName'])) {
+						$orderItemStatus = true;
+					}		
 			} // while	
 		} // /for quantity
 
 		$valid['success'] = true;
-		$valid['messages'] = "Successfully Added";		
-		
-		$connect->close();
+		$valid['messages'] = "Successfully Added";
+	}
 
-		echo json_encode($valid);
+	$connect->close();
+
+	echo json_encode($valid);
 	} // /if $_POST
 }
 
@@ -231,7 +234,7 @@ function editOrder(){
 	
 	global $connect;
 
-	$valid['success'] = array('success' => false, 'messages' => array());
+	$valid['success'] = array('success' => false, 'messages' => array(), 'order_id' => '');
 
 	if($_POST) {	
 
@@ -256,11 +259,13 @@ function editOrder(){
 
 		if($connect->query($sql) === TRUE) {
 
+			$valid['order_id'] = $orderId;
+
 			$readyToUpdateOrderItem = false;
 			// add the quantity from the order item to product table
-			for($x = 0; $x < count(Sys_Secure($_POST['productName'])); $x++) {		
+			for($x = 0; $x < count($_POST['productName']); $x++) {		
 				//  product table
-				$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".Sys_Secure($_POST['productName'][$x])."";
+				$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
 				$updateProductQuantityData = $connect->query($updateProductQuantitySql);			
 
 				while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
@@ -271,36 +276,36 @@ function editOrder(){
 
 					$editQuantity = $updateProductQuantityResult[0] + $orderItemData[0];							
 
-					$updateQuantitySql = "UPDATE product SET quantity = $editQuantity WHERE product_id = ".Sys_Secure($_POST['productName'][$x])."";
+					$updateQuantitySql = "UPDATE product SET quantity = $editQuantity WHERE product_id = ".$_POST['productName'][$x]."";
 					$connect->query($updateQuantitySql);		
 				} // while	
 				
-				if(count(Sys_Secure($_POST['productName'])) == count(Sys_Secure($_POST['productName'])) ){
+				if(count($_POST['productName']) == count($_POST['productName'])) {
 					$readyToUpdateOrderItem = true;			
 				}
 			} // /for quantity
 
 			// remove the order item data from order item table
-			for($x = 0; $x < count(Sys_Secure($_POST['productName'])); $x++) {			
+			for($x = 0; $x < count($_POST['productName']); $x++) {			
 				$removeOrderSql = "DELETE FROM order_item WHERE order_id = {$orderId}";
 				$connect->query($removeOrderSql);	
 			} // /for quantity
 
 			if($readyToUpdateOrderItem) {
 				// insert the order item data 
-				for($x = 0; $x < count(Sys_Secure($_POST['productName'])); $x++) {			
-					$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".Sys_Secure($_POST['productName'][$x])."";
+				for($x = 0; $x < count($_POST['productName']); $x++) {			
+					$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
 					$updateProductQuantityData = $connect->query($updateProductQuantitySql);
 					
 					while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
-						$updateQuantity[$x] = $updateProductQuantityResult[0] - Sys_Secure($_POST['quantity'][$x]);							
+						$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
 							// update product table
-						$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".Sys_Secure($_POST['productName'][$x])."";
+						$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".$_POST['productName'][$x]."";
 						$connect->query($updateProductTable);
 
 							// add into order_item
 						$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status) 
-						VALUES ({$orderId}, '".Sys_Secure($_POST['productName'][$x])."', '".Sys_Secure($_POST['quantity'][$x])."', '".Sys_Secure($_POST['rateValue'][$x])."', '".Sys_Secure($_POST['totalValue'][$x])."', 1)";
+						VALUES ({$orderId}, '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', 1)";
 
 						$connect->query($orderItemSql);		
 					} // while	
@@ -412,16 +417,16 @@ function printOrder(){
 
 
 	$orderItemSql = "SELECT order_item.product_id, order_item.rate, order_item.quantity, order_item.total,
-	   product.product_name FROM order_item
-	   INNER JOIN product ON order_item.product_id = product.product_id 
-	   WHERE order_item.order_id = $orderId";
+	product.product_name FROM order_item
+	INNER JOIN product ON order_item.product_id = product.product_id 
+	WHERE order_item.order_id = $orderId";
 	$orderItemResult = $connect->query($orderItemSql);
 
 	$table = '
 	<style>
-	   label { border: 0; font: 14px Georgia, Serif; overflow: hidden; resize: none; }
-	   table { border-collapse: collapse; }
-	   table td, table th { border: 1px solid black; padding: 5px; }
+	label { border: 0; font: 14px Georgia, Serif; overflow: hidden; resize: none; }
+	table { border-collapse: collapse; }
+	table td, table th { border: 1px solid black; padding: 5px; }
 
 	   #header { height: 15px; width: 100%; margin: 20px 0; border: 1px solid black; background: #eee; text-align: center; color: black; font: bold 15px Helvetica, Sans-Serif; text-decoration: uppercase; letter-spacing: 20px; padding: 8px 0px; }
 
@@ -441,7 +446,7 @@ function printOrder(){
 	   #meta td.meta-head { text-align: left; background: #eee; }
 	   #meta td label { width: 100%; height: 20px; text-align: right; }
 
-	   .qty{ text-align: center; }
+	.qty{ text-align: center; }
 
 	   #items { clear: both; width: 100%; margin: 30px 0 0 0; border: 1px solid black; }
 	   #items th { background: #eee; }
@@ -463,127 +468,127 @@ function printOrder(){
 
 	<div id="page-wrap">
 
-	      <p id="header">INVOICE</p>
-	      
-	      <div id="identity">
+	<p id="header">INVOICE</p>
 
-	         <label id="address">
-	            Computer Only Corp.;<br>
-	            Av.: Karl Max Nr.: 1234;<br>
-	            Maputo, Mocambique;<br>
-	            Tel: (+258) 82 11 11 111; <br>
-	            Email: computersonly@pconly.co.mz
-	         </label>
-	         <div id="logo">
-	            <img id="image" src="assests/images/logo.png" alt="logo" />
-	         </div>
-	      </div>
-	      
-	      <div style="clear:both"></div>
-	      
-	      <div id="customer">
+	<div id="identity">
 
-	         <table id="client">
-	            <tr>
-	               <td class="meta-head">Nome do Cliente: </td>
-	               <td>'.$clientName.'</td>
-	            </tr>
-	            <tr>
+	<label id="address">
+	Computer Only Corp.;<br>
+	Av.: Karl Max Nr.: 1234;<br>
+	Maputo, Mocambique;<br>
+	Tel: (+258) 82 11 11 111; <br>
+	Email: computersonly@pconly.co.mz
+	</label>
+	<div id="logo">
+	<img id="image" src="assests/images/logo.png" alt="logo" />
+	</div>
+	</div>
 
-	               <td class="meta-head">Contacto: </td>
-	               <td>'.$clientContact.'</td>
-	            </tr>
-	            <tr>
-	               <td class="meta-head">Nuit: </td>
-	               <td>3453453</div></td>
-	            </tr>
-	         </table>
+	<div style="clear:both"></div>
 
-	         <table id="meta">
-	            <tr>
-	               <td class="meta-head">Recibo & Data Nr.</td>
-	               <td>'.$orderDate.'</td>
-	            </tr>
-	            <tr>
+	<div id="customer">
 
-	               <td class="meta-head">Date</td>
-	               <td>'.$orderDate.'</td>
-	            </tr>
-	            <tr>
-	               <td class="meta-head">Amount Due</td>
-	               <td><div class="due">$875.00</div></td>
-	            </tr>
-	         </table>
-	      </div>
-	      
-	      <table id="items">
+	<table id="client">
+	<tr>
+	<td class="meta-head">Nome do Cliente: </td>
+	<td>'.$clientName.'</td>
+	</tr>
+	<tr>
 
-	         <tr>
-	            <th width="5%">#</th>
-	            <th width="55%">Descricao do produto</th>
-	            <th width="15%">Preco</th>
-	            <th width="10%">Quantity</th>
-	            <th width="15%">Preco Acumulado</th>
-	         </tr>
-	         ';
-	         $x = 1;
-	         $cgst = 0;
-	         $igst = 0;
-	         if($payment_place == 2) {
-	            $igst = $subTotal*17/100;
-	         } else {
-	            $cgst = $subTotal*9/100;
-	         }
-	         $total = $subTotal+2*$cgst+$igst;
-	         while($row = $orderItemResult->fetch_array()) {       
-	         $table .= '
-	            <tr class="item-row">
-	               <td class="item-name"><label>'.$x.'</label></td>
-	               <td class="description"><label>'.$row[4].'</label></td>
-	               <td><label class="cost">'.$row[1].'</label></td>
-	               <td><label class="qty">'.$row[2].'</label></td>
-	               <td><span class="price">'.$row[3].'</span></td>
-	            </tr>
-	         ';
-	            $x++;
+	<td class="meta-head">Contacto: </td>
+	<td>'.$clientContact.'</td>
+	</tr>
+	<tr>
+	<td class="meta-head">Nuit: </td>
+	<td>3453453</div></td>
+	</tr>
+	</table>
+
+	<table id="meta">
+	<tr>
+	<td class="meta-head">Recibo & Data Nr.</td>
+	<td>'.$orderDate.'</td>
+	</tr>
+	<tr>
+
+	<td class="meta-head">Date</td>
+	<td>'.$orderDate.'</td>
+	</tr>
+	<tr>
+	<td class="meta-head">Amount Due</td>
+	<td><div class="due">$875.00</div></td>
+	</tr>
+	</table>
+	</div>
+
+	<table id="items">
+
+	<tr>
+	<th width="5%">#</th>
+	<th width="55%">Descricao do produto</th>
+	<th width="15%">Preco</th>
+	<th width="10%">Quantity</th>
+	<th width="15%">Preco Acumulado</th>
+	</tr>
+	';
+	$x = 1;
+	$cgst = 0;
+	$igst = 0;
+	if($payment_place == 2) {
+		$igst = $subTotal*17/100;
+	} else {
+		$cgst = $subTotal*9/100;
+	}
+	$total = $subTotal+2*$cgst+$igst;
+	while($row = $orderItemResult->fetch_array()) {       
+		$table .= '
+		<tr class="item-row">
+		<td class="item-name"><label>'.$x.'</label></td>
+		<td class="description"><label>'.$row[4].'</label></td>
+		<td><label class="cost">'.$row[1].'</label></td>
+		<td><label class="qty">'.$row[2].'</label></td>
+		<td><span class="price">'.$row[3].'</span></td>
+		</tr>
+		';
+		$x++;
 	            } // /while
 	            $table.= '
-	         <tr>
+	            <tr>
 	            <td colspan="2" class="blank"> </td>
 	            <td colspan="2" class="total-line">Total Acumulado</td>
 	            <td class="total-value"><div id="subtotal">'.$subTotal.'</div></td>
-	         </tr>
-	         <tr>
+	            </tr>
+	            <tr>
 	            <td colspan="2" class="blank"> </td>
 	            <td colspan="2" class="total-line balance">Grande Total</td>
 	            <td class="total-value balance"><div class="due">'.$total.'</div></td>
-	         </tr>
-	      </table>
+	            </tr>
+	            </table>
 
-	      <div class="">
-	         <label>Assinatura do Funcionario:</label>
-	         <br>
-	         &nbsp;
-	      </div>
+	            <div class="">
+	            <label>Assinatura do Funcionario:</label>
+	            <br>
+	            &nbsp;
+	            </div>
 
-	      <div id="terms">
-	         <h5>Terms</h5>
-	         <label>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</label>
-	    	  </div>
+	            <div id="terms">
+	            <h5>Terms</h5>
+	            <label>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</label>
+	            </div>
 
-	   	</div>
-	   ';
-   	$connect->close();
+	            </div>
+	            ';
+	            $connect->close();
 
-	echo $table;
-}
+	            echo $table;
+	        }
 
 /**
  * 
  * */
- function getOrderReport(){
- 	
- 	global $connect;
+function getOrderReport(){
+
+	global $connect;
 
 	if($_POST) {
 
@@ -601,31 +606,31 @@ function printOrder(){
 
 		$table = '
 		<table border="1" cellspacing="0" cellpadding="0" style="width:100%;">
-			<tr>
-				<th>Order Date</th>
-				<th>Client Name</th>
-				<th>Contact</th>
-				<th>Grand Total</th>
-			</tr>
+		<tr>
+		<th>Order Date</th>
+		<th>Client Name</th>
+		<th>Contact</th>
+		<th>Grand Total</th>
+		</tr>
 
-			<tr>';
-			$totalAmount = 0;
-			while ($result = $query->fetch_assoc()) {
-				$table .= '<tr>
-					<td><center>'.$result['order_date'].'</center></td>
-					<td><center>'.$result['client_name'].'</center></td>
-					<td><center>'.$result['client_contact'].'</center></td>
-					<td><center>'.$result['grand_total'].'</center></td>
-				</tr>';	
-				$totalAmount += $result['grand_total'];
-			}
-			$table .= '
-			</tr>
+		<tr>';
+		$totalAmount = 0;
+		while ($result = $query->fetch_assoc()) {
+			$table .= '<tr>
+			<td><center>'.$result['order_date'].'</center></td>
+			<td><center>'.$result['client_name'].'</center></td>
+			<td><center>'.$result['client_contact'].'</center></td>
+			<td><center>'.$result['grand_total'].'</center></td>
+			</tr>';	
+			$totalAmount += $result['grand_total'];
+		}
+		$table .= '
+		</tr>
 
-			<tr>
-				<td colspan="3"><center>Total Amount</center></td>
-				<td><center>'.$totalAmount.'</center></td>
-			</tr>
+		<tr>
+		<td colspan="3"><center>Total Amount</center></td>
+		<td><center>'.$totalAmount.'</center></td>
+		</tr>
 		</table>
 		';	
 
@@ -657,17 +662,17 @@ function fetchSelectedProduct(){
 /**
  * 
  * */
- function fetchProductData(){
- 	
- 	global $connect;
+function fetchProductData(){
 
- 	$sql = "SELECT product_id, product_name FROM product WHERE status = 1 AND active = 1";
- 	$result = $connect->query($sql);
+	global $connect;
 
- 	$data = $result->fetch_all();
+	$sql = "SELECT product_id, product_name FROM product WHERE status = 1 AND active = 1";
+	$result = $connect->query($sql);
 
- 	$connect->close();
+	$data = $result->fetch_all();
 
- 	echo json_encode($data);
- }
+	$connect->close();
+
+	echo json_encode($data);
+}
 ?>
