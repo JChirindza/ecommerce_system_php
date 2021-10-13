@@ -33,17 +33,6 @@ if (isset($_SESSION['userId']) && isset($_SESSION['cartId'])) {
 	$sql 	= "SELECT * FROM delivery_address WHERE client_id = (SELECT client_id FROM clients WHERE user_id = {$user_id} LIMIT 1)";
 	$query 	= $connect->query($sql);
 	$resultAddress = $query->fetch_assoc();
-
-
-	// Add user as client | Check if user is a client
-	$sql = "SELECT * FROM clients WHERE user_id = {$user_id} AND status = 1";
-	$result = $connect->query($sql);
-
-	if($result->num_rows <= 0) { 
-		// Create client
-		$sql = "INSERT INTO `clients`(`user_id`) VALUES ('$user_id')";
-		$connect->query($sql);
-	}
 }
 
 ?>

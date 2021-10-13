@@ -47,25 +47,31 @@ function updateDeliveryAddress(){
 
 		$valid['success'] = array('success' => false, 'messages' => array());
 
-		$userId  = Sys_Secure($_SESSION['userId']);
-
-		$sql1 = "SELECT client_id FROM clients WHERE user_id = '$userId' LIMIT 1";
-		$data = $connect->query($sql1);
-		$clientResult = $data->fetch_array();
-
-		$clientId = $clientResult['client_id'];
-
 		// $country 		= Sys_Secure($_POST['country']); 
 		$province 		= Sys_Secure($_POST['province']); 
 		$address 		= Sys_Secure($_POST['address']); 
 		$referencePoint = Sys_Secure($_POST['referencePoint']); 
 		$postalCode 	= Sys_Secure($_POST['postalCode']);
 
-		$sql2 = "SELECT * FROM delivery_address WHERE client_id = {$clientId} LIMIT 1";
-		$data2 = $connect->query($sql2);
+		$userId  = Sys_Secure($_SESSION['userId']);
+		$sql = "SELECT * FROM clients WHERE user_id = {$userId} AND status = 1";
+		$result = $connect->query($sql);
+		$clientResult = $result->fetch_array();
+
+		$clientId = $clientResult['client_id'];
+
+		if($result->num_rows <= 0) { 
+			// Create client
+			$sql = "INSERT INTO `clients`(`user_id`) VALUES ('$userId')";
+			$connect->query($sql);
+			$clientId = $connect->insert_id;
+		}
+
+		$sql = "SELECT * FROM delivery_address WHERE client_id = {$clientId} LIMIT 1";
+		$data = $connect->query($sql);
 
 		// Check if user address is set
-		if($data2->num_rows > 0) { 
+		if($data->num_rows > 0) { 
 			$sql = "UPDATE delivery_address SET province = '$province', address = '$address', reference_point = '$referencePoint', postal_code = '$postalCode' WHERE client_id = {$clientId}";
 
 			if($connect->query($sql) === TRUE) {
@@ -75,7 +81,6 @@ function updateDeliveryAddress(){
 				$valid['success'] = false;
 				$valid['messages'] = "Error while updatting delivery address information.";
 			}
-
 		}else{
 			$sql =  "INSERT INTO delivery_address (client_id, province, address, reference_point, postal_code) 
 			VALUES ('$clientId', '$province', '$address', '$referencePoint', '$postalCode')";
