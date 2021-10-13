@@ -58,7 +58,7 @@ $connect->close();
 					<!-- Tab panes -->
 					<div class="tab-content border border-top-0" style="min-height: 350px;">
 						<div id="menu1" class="tab-pane active" >
-							<form action="php_action/ctrl_user.php?action=editImage" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
+							<form action="../php_action/ctrl_user.php?action=changeUserImage" method="POST" id="updateUserImageForm" class="form-horizontal" enctype="multipart/form-data">
 
 								<div id="edit-userPhoto-messages"></div>
 
