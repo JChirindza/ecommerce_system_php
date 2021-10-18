@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2021 at 10:02 PM
+-- Generation Time: Oct 18, 2021 at 04:10 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -92,19 +92,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`, `payment_status`, `active`, `status`, `cart_date`) VALUES
-(1, 5, '1', '1', '1', '2021-01-03 20:22:40'),
-(2, 6, '2', '1', '1', '2021-01-04 13:26:47'),
-(3, 5, '1', '1', '1', '2021-01-04 13:26:47'),
-(4, 5, '2', '1', '1', '2021-06-13 02:17:42'),
-(5, 8, '2', '1', '1', '2021-06-13 16:30:25'),
-(6, 19, '2', '1', '1', '2021-06-14 10:57:46'),
-(7, 20, '2', '1', '1', '2021-06-14 17:36:36'),
-(8, 22, '2', '1', '1', '2021-06-16 12:27:33'),
-(9, 23, '2', '1', '1', '2021-06-22 14:53:08'),
-(10, 1, '2', '1', '1', '2021-07-05 21:54:30'),
-(11, 24, '2', '1', '1', '2021-07-08 14:14:06'),
-(12, 25, '2', '1', '1', '2021-07-08 14:35:25'),
-(13, 2, '2', '1', '1', '2021-08-25 15:29:52');
+(1, 5, '1', '1', '1', '2021-10-17 21:45:26'),
+(2, 1, '2', '1', '1', '2021-10-17 22:46:32'),
+(3, 5, '2', '1', '1', '2021-10-18 12:07:51');
 
 -- --------------------------------------------------------
 
@@ -130,7 +120,7 @@ CREATE TABLE `cart_has_paid` (
 --
 
 INSERT INTO `cart_has_paid` (`cart_has_paid_id`, `cart_id`, `client_id`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `payment_type`, `dt_paid`) VALUES
-(1, 10, 1, 1234, 0, 0, 0, 123, '1', '2021-07-11 23:30:39');
+(1, 1, 1, 10300, 0.17, 12051, 0, 12051, '1', '2021-10-17 20:46:17');
 
 -- --------------------------------------------------------
 
@@ -152,21 +142,29 @@ CREATE TABLE `cart_item` (
 --
 
 INSERT INTO `cart_item` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES
-(1, 1, 1, 3, '1', '1'),
-(3, 2, 5, 4, '1', '1'),
-(4, 3, 8, 2, '1', '1'),
-(5, 1, 8, 2, '1', '1'),
-(6, 3, 10, 2, '1', '1'),
-(7, 2, 12, 1, '1', '1'),
-(31, 5, 8, 7, '1', '1'),
-(36, 5, 9, 3, '1', '1'),
-(37, 5, 11, 2, '1', '1'),
-(38, 6, 4, 2, '1', '1'),
-(39, 6, 13, 2, '1', '1'),
-(60, 9, 12, 1, '1', '1'),
-(61, 9, 13, 1, '1', '1'),
-(75, 4, 4, 2, '1', '1'),
-(79, 4, 10, 1, '1', '1');
+(1, 1, 17, 2, '1', '1'),
+(2, 3, 13, 1, '1', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_item_has_paid`
+--
+
+CREATE TABLE `cart_item_has_paid` (
+  `cart_item_has_paid_id` int(11) NOT NULL,
+  `cart_has_paid_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `paid_price` float NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart_item_has_paid`
+--
+
+INSERT INTO `cart_item_has_paid` (`cart_item_has_paid_id`, `cart_has_paid_id`, `product_id`, `paid_price`, `quantity`) VALUES
+(1, 1, 17, 5150, 2);
 
 -- --------------------------------------------------------
 
@@ -204,11 +202,11 @@ INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active
 CREATE TABLE `clients` (
   `client_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `gender` enum('1','2') NOT NULL,
-  `country` int(11) NOT NULL,
-  `province` varchar(255) NOT NULL,
-  `district` int(11) NOT NULL,
-  `contact` varchar(255) NOT NULL,
+  `gender` enum('1','2') DEFAULT NULL,
+  `country` int(11) DEFAULT 1,
+  `province` varchar(255) DEFAULT NULL,
+  `district` int(11) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
   `active` enum('1','2') NOT NULL,
   `status` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -218,8 +216,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`client_id`, `user_id`, `gender`, `country`, `province`, `district`, `contact`, `active`, `status`) VALUES
-(1, 5, '1', 1, '1', 0, '840285773', '1', '1'),
-(2, 6, '2', 1, '2', 0, '841441424', '1', '1');
+(1, 5, NULL, 1, NULL, NULL, '845533321', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -230,7 +227,7 @@ INSERT INTO `clients` (`client_id`, `user_id`, `gender`, `country`, `province`, 
 CREATE TABLE `delivery_address` (
   `delivery_address_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `country` int(11) NOT NULL,
+  `country` int(11) NOT NULL DEFAULT 1,
   `province` int(11) NOT NULL,
   `address` varchar(255) NOT NULL,
   `reference_point` varchar(255) NOT NULL,
@@ -242,7 +239,7 @@ CREATE TABLE `delivery_address` (
 --
 
 INSERT INTO `delivery_address` (`delivery_address_id`, `client_id`, `country`, `province`, `address`, `reference_point`, `postal_code`) VALUES
-(1, 1, 1, 2, 'asdfasd', 'dsfsdf', '32423');
+(1, 1, 1, 2, 'Matola Fomento, Rua das dunas, casa 321', 'Farmancia Fdsfsdfsdfsdf', '11114');
 
 -- --------------------------------------------------------
 
@@ -293,12 +290,41 @@ INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`,
 (16, '2021-02-04 17:52:18', 'dsdf sdf', '8234345345', '503512.00', '85597.04', '589109.04', '0', '589109.04', '589109.04', '0.00', 2, 1, 1, '85597.04', 1, 4),
 (17, '2021-02-04 16:25:29', 'ssds sdfdf sdf', '8434345465', '176900.00', '30073.00', '206973.00', '0', '206973.00', '206973.00', '0.00', 3, 1, 1, '30073.00', 1, 1),
 (18, '2021-06-15 20:27:15', 'sdfdfsd sdf', '85345345', '157500.00', '26775.00', '184275.00', '0', '184275.00', '184275.00', '0.00', 2, 1, 1, '0', 1, 22),
-(19, '2021-02-04 16:34:12', 'fsdf', '82343454567', '13000.00', '2210.00', '15210.00', '0', '15210.00', '15210.00', '0.00', 2, 1, 1, '2210.00', 1, 1),
+(19, '2021-10-16 14:52:23', 'fsdf', '82343454567', '13000.00', '2210.00', '15210.00', '0', '15210.00', '15210.00', '0.00', 2, 1, 1, '2210.00', 1, 1),
 (20, '2021-03-01 17:25:50', 'swerwer erwe', '8523424564', '404457.50', '68757.77', '473215.27', '0', '473215.27', '44460.00', '428755.27', 2, 1, 1, '6460.00', 1, 1),
 (21, '2021-02-04 16:53:18', 'hghghg hgh', '873455466', '90000.00', '15300.00', '105300.00', '0', '105300.00', '105300.00', '0.00', 2, 1, 1, '15300.00', 1, 4),
 (22, '2021-03-01 18:18:46', 'Joana De Melo', '848454544', '482850.00', '82084.50', '564934.50', '0', '564934.50', '564934.50', '0.00', 2, 1, 1, '82084.50', 1, 1),
 (23, '2021-06-15 20:36:05', 'dsfsdf', '54564', '106500.00', '18105.00', '124605.00', '0', '124605.00', '99684', '24921.00', 2, 1, 1, '0', 1, 22),
-(24, '2021-06-24 11:06:48', 'sdfsd', '54345345', '125000.00', '21250.00', '146250.00', '0', '146250.00', '146250.00', '0.00', 2, 1, 1, '21250.00', 1, 1);
+(24, '2021-10-10 02:19:40', 'sdfsd', '54345345', '250000.00', '42500.00', '292500.00', '0', '292500.00', '146250.00', '146250.00', 2, 1, 1, '21250.00', 1, 1),
+(25, '2021-10-10 02:20:55', 'Jose Mabunda', '845200223', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1),
+(26, '2021-10-10 21:09:59', 'Jose Mabunda ds', '845200223', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1),
+(27, '2021-10-10 02:21:17', 'Jose Mabunda ds', '845200223', '85200.00', '14484.00', '99684.00', '0', '99684.00', '99684', '0.00', 2, 1, 1, '14484.00', 1, 1),
+(28, '2021-10-10 21:19:20', 'jnkjnkjk', '85200563', '22500.00', '3825.00', '26325.00', '0', '26325.00', '26325', '0.00', 2, 1, 1, '3825.00', 1, 1),
+(29, '2021-10-10 21:20:33', 'lknlkl', 'lnkmlk', '4595.50', '781.24', '5376.74', '0', '5376.74', '5376.74', '0.00', 2, 1, 1, '781.24', 1, 1),
+(30, '2021-10-10 21:21:05', 'lknlkl sdasda', '84554656', '4595.50', '781.24', '5376.74', '0', '5376.74', '5376.74', '0.00', 2, 1, 1, '781.24', 1, 1),
+(31, '2021-10-10 21:24:14', 'sdfsdf dsfd', '844451555', '950.00', '161.50', '1111.50', '0', '1111.50', '1111.5', '0.00', 2, 1, 1, '161.50', 1, 1),
+(32, '2021-10-10 21:25:50', 'asdas', '8546846', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422', '0.00', 2, 1, 1, '2822.00', 1, 1),
+(33, '2021-10-10 21:26:03', 'asdas asdasda asdas', '8546846', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422', '0.00', 2, 1, 1, '2822.00', 1, 1),
+(34, '2021-10-10 21:30:29', 'aaaaaa', '3453453', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422', '0.00', 2, 1, 1, '2822.00', 1, 1),
+(35, '2021-10-10 21:32:14', 'asdas', '4564564', '6050.00', '1028.50', '7078.50', '0', '7078.50', '7078.5', '0.00', 2, 1, 1, '1028.50', 1, 1),
+(36, '2021-10-10 21:32:25', 'asdas', '4564564', '6050.00', '1028.50', '7078.50', '0', '7078.50', '7078.5', '0.00', 2, 1, 1, '1028.50', 1, 1),
+(37, '2021-10-10 21:32:44', 'asdas', '4564564', '6050.00', '1028.50', '7078.50', '0', '7078.50', '7078.5', '0.00', 2, 1, 1, '1028.50', 1, 1),
+(38, '2021-10-10 21:34:23', 'asdas', '1234234', '45000.00', '7650.00', '52650.00', '0', '52650.00', '52650', '0.00', 2, 1, 1, '7650.00', 1, 1),
+(39, '2021-10-10 21:34:32', 'asdas', '1234234', '45000.00', '7650.00', '52650.00', '0', '52650.00', '52650', '0.00', 2, 1, 1, '7650.00', 1, 1),
+(40, '2021-10-11 05:22:50', 'asdas', '1234234', '45000.00', '7650.00', '52650.00', '100', '52550.00', '52650', '-100.00', 2, 1, 1, '7650.00', 1, 1),
+(41, '2021-10-11 05:41:57', 'wwwwww', '878888555', '68500.00', '11645.00', '80145.00', '0', '80145.00', '80145', '0.00', 2, 1, 1, '11645.00', 1, 1),
+(42, '2021-10-15 20:47:28', 'werwerr', '3534534', '12500.00', '2125.00', '14625.00', '0', '14625.00', '14625', '0.00', 2, 1, 1, '2125.00', 1, 3),
+(43, '2021-10-11 06:07:11', 'dfgdfgd', '848481253', '22500.00', '3825.00', '26325.00', '0', '26325.00', '26325.00', '0.00', 2, 1, 1, '3825.00', 1, 1),
+(44, '2021-10-11 06:08:03', 'sdfsdf', '5464564', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422.00', '0.00', 2, 1, 1, '2822.00', 1, 1),
+(45, '2021-10-11 06:08:31', 'sdfsdf sdfsd', '5464564', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422.00', '0.00', 2, 1, 1, '2822.00', 1, 1),
+(46, '2021-10-11 06:09:33', 'asdasd', '56756756', '16600.00', '2822.00', '19422.00', '0', '19422.00', '19422.00', '0.00', 2, 1, 1, '2822.00', 1, 1),
+(47, '2021-10-11 06:12:31', 'ggggggg', '858585520', '1275.00', '216.75', '1491.75', '0', '1491.75', '1491.75', '0.00', 2, 1, 1, '216.75', 1, 1),
+(48, '2021-10-11 06:30:48', 'Fernando Jose Maria Mabunda', '868754454', '176450.00', '29996.50', '206446.50', '0', '206446.50', '206446.50', '0.00', 3, 1, 1, '29996.50', 1, 1),
+(49, '2021-10-11 07:24:17', 'qweqw', '3456456', '26440.00', '4494.80', '30934.80', '0', '30934.80', '30934.80', '0.00', 2, 1, 1, '4494.80', 1, 1),
+(50, '2021-10-11 08:32:46', 'tyrttyty', '561561516', '68500.00', '11645.00', '80145.00', '0', '80145.00', '80145', '0', 2, 1, 1, '11645.00', 1, 1),
+(51, '2021-10-11 08:27:12', 'jjkjkjkj', '85542121', '1275.00', '216.75', '1491.75', '0', '1491.75', '1491.75', '0', 2, 1, 1, '216.75', 2, 1),
+(52, '2021-10-11 08:35:14', 'nnnnbbbb', '585825', '16600.00', '2822.00', '19422.00', '0', '19422.00', '0', '19422.00', 2, 3, 1, '2822.00', 1, 1),
+(53, '2021-10-16 14:19:47', 'ghghghghg', '8585522', '64386.00', '10945.62', '75331.62', '0', '75331.62', '45331.62', '30000.00', 2, 2, 1, '10945.62', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -352,8 +378,6 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (69, 16, 12, '1', '16600.00', '16600.00', 1),
 (72, 17, 19, '2', '85200.00', '170400.00', 1),
 (73, 17, 25, '1', '6500.00', '6500.00', 1),
-(77, 19, 25, '1', '6500.00', '6500.00', 1),
-(78, 19, 25, '1', '6500.00', '6500.00', 1),
 (85, 21, 5, '2', '45000.00', '90000.00', 1),
 (226, 20, 6, '1', '38000.00', '38000.00', 1),
 (227, 20, 19, '4', '85200.00', '340800.00', 1),
@@ -374,7 +398,41 @@ INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`,
 (412, 23, 6, '1', '38000.00', '38000.00', 1),
 (413, 23, 7, '1', '68500.00', '68500.00', 1),
 (417, 5, 25, '1', '6500.00', '6500.00', 1),
-(418, 24, 1, '1', '125000.00', '125000.00', 1);
+(418, 24, 1, '1', '125000.00', '125000.00', 1),
+(419, 25, 19, '1', '85200.00', '85200.00', 1),
+(420, 26, 19, '1', '85200.00', '85200.00', 1),
+(421, 27, 19, '1', '85200.00', '85200.00', 1),
+(422, 28, 4, '1', '22500.00', '22500.00', 1),
+(423, 29, 24, '1', '4595.50', '4595.50', 1),
+(424, 30, 24, '1', '4595.50', '4595.50', 1),
+(425, 31, 8, '1', '950.00', '950.00', 1),
+(426, 32, 12, '1', '16600.00', '16600.00', 1),
+(427, 33, 12, '1', '16600.00', '16600.00', 1),
+(428, 34, 12, '1', '16600.00', '16600.00', 1),
+(429, 35, 14, '1', '6050.00', '6050.00', 1),
+(430, 36, 14, '1', '6050.00', '6050.00', 1),
+(431, 37, 14, '1', '6050.00', '6050.00', 1),
+(432, 38, 5, '1', '45000.00', '45000.00', 1),
+(433, 39, 5, '1', '45000.00', '45000.00', 1),
+(434, 40, 5, '1', '45000.00', '45000.00', 1),
+(438, 41, 7, '1', '68500.00', '68500.00', 1),
+(453, 43, 4, '1', '22500.00', '22500.00', 1),
+(454, 44, 12, '1', '16600.00', '16600.00', 1),
+(455, 45, 12, '1', '16600.00', '16600.00', 1),
+(456, 46, 12, '1', '16600.00', '16600.00', 1),
+(457, 47, 10, '1', '1275.00', '1275.00', 1),
+(468, 48, 19, '2', '85200.00', '170400.00', 1),
+(469, 48, 14, '1', '6050.00', '6050.00', 1),
+(473, 49, 17, '1', '5150.00', '5150.00', 1),
+(474, 49, 12, '1', '16600.00', '16600.00', 1),
+(475, 49, 11, '1', '4690.00', '4690.00', 1),
+(477, 51, 10, '1', '1275.00', '1275.00', 2),
+(478, 50, 7, '1', '68500.00', '68500.00', 1),
+(479, 52, 12, '1', '16600.00', '16600.00', 1),
+(481, 42, 13, '1', '12500.00', '12500.00', 1),
+(482, 53, 9, '1', '64386.00', '64386.00', 1),
+(489, 19, 25, '1', '6500.00', '6500.00', 1),
+(490, 19, 25, '1', '6500.00', '6500.00', 1);
 
 -- --------------------------------------------------------
 
@@ -400,27 +458,28 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `product_image`, `brand_id`, `categories_id`, `quantity`, `rate`, `active`, `status`) VALUES
-(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 10, '125000.00', '1', '1'),
-(4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 13, '22500.00', '1', '1'),
-(5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 2, '45000.00', '1', '1'),
-(6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 21, '38000.00', '1', '1'),
-(7, 'Asus TUF FX505DT Gaming Laptop, 15.6â€ 120Hz Full HD, AMD Ryzen 5 R5-3550H Processor, GeForce GTX 1650 Graphics, 8GB DDR4, 256GB PCIe SSD, Gigabit Wi-Fi 5, Windows 10 Home, FX505DT-AH51, RGB Keyboard', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/20090931475f38257462116.jpg', 7, 1, 20, '68500.00', '1', '1'),
-(8, 'Logitech Keyboard', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 20, '950.00', '1', '1'),
-(9, 'Dell OptiPlex 7450 All in One Desktop Computer with Touch, Intel Core i5-7500, 8GB DDR4, 500GB Hard Drive, Windows 10 Pro (31JHY) (Renewed)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/14723156875fa006a95f007.jpg', 3, 1, 20, '64386.00', '1', '1'),
-(10, 'Logitech M525 Wireless Mouse â€“ Long 3 Year Battery Life, Ergonomic Shape for Right or Left Hand Use, Micro-Precision Scroll Wheel, and USB Unifying Receiver for Computers and Laptops, Black/Gray', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/5229306055fb5961fbe84e.jpg', 19, 3, 12, '1275.00', '1', '1'),
-(11, 'Logitech MK850 Performance Wireless Keyboard and Mouse - combo', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/21043172265fb59704405d9.jpg', 19, 3, 10, '4690.00', '1', '1'),
-(12, 'NZXT Kraken X63 280mm - RL-KRX63-01 - AIO RGB CPU Liquid Cooler - Rotating Infinity Mirror Design - Improved Pump - Powered By CAM V4 - RGB Connector - Aer P 140mm Radiator Fans (2 Included)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/17434396695fb599bce1e04.jpg', 22, 2, 13, '16600.00', '1', '1'),
-(13, 'GIGABYTE Z390 UD, Intel LGA1151/Z390/ATX/M.2/Realtek ALC887/Realtek 8118 Gaming LAN/HDMI/Gaming Motherboard', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/16979005775fb59a1e386f5.jpg', 23, 2, 17, '12500.00', '1', '1'),
-(14, 'ARESGAME Power Supply 500W 80+ Bronze Certified PSU', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/11697838475fb59a9f714df.jpg', 21, 2, 14, '6050.00', '1', '1'),
-(15, 'PNY Quadro P620 Graphic Card - 2 GB GDDR5 - Low-Profile - Single Slot Space Required', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/12580887025fb59b725f1ad.jpg', 20, 2, 8, '1340.00', '1', '1'),
-(16, 'Thermaltake V200 Tempered Glass RGB Edition 12V MB Sync Capable ATX Mid-Tower Chassis with 3 120mm 12V RGB Fan + 1 Black 120mm Rear Fan Pre-Installed CA-1K8-00M1WN-01', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/1776517525fb59d4683e0a.jpg', 24, 2, 22, '8730.50', '1', '1'),
-(17, 'Intel Core I5 3570S - 3.1 Ghz - 4 Cores - 4 Threads - 6 Mb Cache - Lga1155 Socket - Oem \"Product Type: Computer Components/Processors\"', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/15883469225fc048184d737.jpg', 27, 2, 16, '5150.00', '1', '1'),
-(18, 'Seagate Disco ri­gido externo 6 TB - central para backup ', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 19, '14750.50', '1', '1'),
-(19, 'Laptop para jogos Acer Nitro 5, 9ª geração Intel Core i7-9750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 16GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN515-54-728C', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/17672098385ff388ae809bb.jpg', 17, 1, 17, '85200.00', '1', '1'),
-(24, 'Sony ', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/113770375601264a59ebea.jpg', 29, 3, 50, '4595.50', '1', '1'),
-(25, 'Bose', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 24, '6500.00', '1', '1'),
+(1, 'Apple MacBook Pro 15in Core i7 2.5GHz Retina (MGXC2LL/A), 16GB Memory, 512GB Solid State Drive', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/16504270775f3821a011e34.jpg', 1, 1, 3, '105000.00', '1', '1'),
+(4, 'Dell Inspiron 15.6 Inch HD Touchscreen Flagship High Performance Laptop PC | Intel Core i5-7200U | 8GB Ram | 256GB SSD | Bluetooth | WiFi | Windows 10 (Black)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/20805620935f381fbe42241.jpg', 3, 1, 3, '22500.00', '1', '1'),
+(5, 'Acer Aspire 5 Slim Laptop, 15.6 inches Full HD IPS Display, AMD Ryzen 3 3200U, Vega 3 Graphics, 4GB DDR4, 128GB SSD, Backlit Keyboard, Windows 10 in S Mode, A515-43-R19L,Silver', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/6956077385f3822d8513ca.jpg', 17, 1, 12, '45000.00', '1', '1'),
+(6, 'HP Pavilion 15.6 Inch Touchscreen Laptop (Intel 4-Core i7-8565U up to 4.6GHz, 16GB DDR4 RAM, 256GB PCIe SSD, Bluetooth, HDMI, Webcam, Windows 10)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/20580861835f3824eb138ba.jpg', 6, 1, 19, '38000.00', '1', '1'),
+(7, 'Asus TUF FX505DT Gaming Laptop, 15.6â€ 120Hz Full HD, AMD Ryzen 5 R5-3550H Processor, GeForce GTX 1650 Graphics, 8GB DDR4, 256GB PCIe SSD, Gigabit Wi-Fi 5, Windows 10 Home, FX505DT-AH51, RGB Keyboard', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/20090931475f38257462116.jpg', 7, 1, 14, '68500.00', '1', '1'),
+(8, 'Logitech Keyboard', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/12586551835f9311d299381.jpg', 19, 3, 6, '950.00', '1', '1'),
+(9, 'Dell OptiPlex 7450 All in One Desktop Computer with Touch, Intel Core i5-7500, 8GB DDR4, 500GB Hard Drive, Windows 10 Pro (31JHY) (Renewed)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/14723156875fa006a95f007.jpg', 3, 1, 17, '64386.00', '1', '1'),
+(10, 'Logitech M525 Wireless Mouse â€“ Long 3 Year Battery Life, Ergonomic Shape for Right or Left Hand Use, Micro-Precision Scroll Wheel, and USB Unifying Receiver for Computers and Laptops, Black/Gray', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/5229306055fb5961fbe84e.jpg', 19, 3, 4, '1275.00', '1', '1'),
+(11, 'Logitech MK850 Performance Wireless Keyboard and Mouse - combo', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/21043172265fb59704405d9.jpg', 19, 3, 7, '4690.00', '1', '1'),
+(12, 'NZXT Kraken X63 280mm - RL-KRX63-01 - AIO RGB CPU Liquid Cooler - Rotating Infinity Mirror Design - Improved Pump - Powered By CAM V4 - RGB Connector - Aer P 140mm Radiator Fans (2 Included)', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/17434396695fb599bce1e04.jpg', 22, 2, -1, '16600.00', '1', '1'),
+(13, 'GIGABYTE Z390 UD, Intel LGA1151/Z390/ATX/M.2/Realtek ALC887/Realtek 8118 Gaming LAN/HDMI/Gaming Motherboard', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/16979005775fb59a1e386f5.jpg', 23, 2, 13, '12500.00', '1', '1'),
+(14, 'ARESGAME Power Supply 500W 80+ Bronze Certified PSU', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/11697838475fb59a9f714df.jpg', 21, 2, 13, '6050.00', '1', '1'),
+(15, 'PNY Quadro P620 Graphic Card - 2 GB GDDR5 - Low-Profile - Single Slot Space Required', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/12580887025fb59b725f1ad.jpg', 20, 2, 6, '1340.00', '1', '1'),
+(16, 'Thermaltake V200 Tempered Glass RGB Edition 12V MB Sync Capable ATX Mid-Tower Chassis with 3 120mm 12V RGB Fan + 1 Black 120mm Rear Fan Pre-Installed CA-1K8-00M1WN-01', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/1776517525fb59d4683e0a.jpg', 24, 2, 18, '8730.50', '1', '1'),
+(17, 'Intel Core I5 3570S - 3.1 Ghz - 4 Cores - 4 Threads - 6 Mb Cache - Lga1155 Socket - Oem \"Product Type: Computer Components/Processors\"', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/15883469225fc048184d737.jpg', 27, 2, 8, '5150.00', '1', '1'),
+(18, 'Seagate Disco ri­gido externo 6 TB - central para backup ', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/13504770695fc7e9572e4ce.jpg', 25, 3, 18, '14750.50', '1', '1'),
+(19, 'Laptop para jogos Acer Nitro 5, 9ª geração Intel Core i7-9750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 16GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN515-54-728C', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/17672098385ff388ae809bb.jpg', 17, 1, 10, '85200.00', '1', '1'),
+(24, 'Sony ', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/113770375601264a59ebea.jpg', 29, 3, 41, '4595.50', '1', '1'),
+(25, 'Bose', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/2788228826012696a01bdb.jpg', 16, 3, 12, '6500.00', '1', '1'),
 (26, 'Gaming Laptop Acer Nitro 5, 7ª geração Intel Core i5-5750H, NVIDIA GeForce RTX 2060, tela Full HD IPS 144Hz, 8GB DDR4, 256GB NVMe SSD, Wi-Fi 6, Waves MaxxAudio, teclado retroiluminado, AN516-54-348C', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/1860861486072dde24f8f4.jpg', 17, 1, 13, '76000.00', '1', '1'),
-(27, 'Dell Latitude 9510 15\" 2 in 1 Notebook - Intel Core i7-10310U 1.7GHz', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/85166466081924fc0294.jpg', 3, 1, 10, '175000.00', '1', '1');
+(27, 'Dell Latitude 9510 15 2 in 1 Notebook - Intel Core i7-10310U 1.7GHz', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam', '../assests/images/stock/85166466081924fc0294.jpg', 3, 1, 3, '175000.00', '1', '1'),
+(28, 'asdasdas', '', '../assests/images/stock/1431615069616324ab7938e.jpg', 2, 1, 12, '4125.00', '2', '2');
 
 -- --------------------------------------------------------
 
@@ -476,7 +535,12 @@ INSERT INTO `product_details` (`id`, `product_id`, `detail`, `description`, `act
 (32, 15, 'asdas ', '112px asda', '1', '1'),
 (33, 26, 'dasdas', '12', '2', '2'),
 (34, 26, 'sdfsd ', '23', '2', '2'),
-(35, 27, 'dasd', 'dasd', '1', '1');
+(35, 27, 'dasd', 'dasd', '1', '1'),
+(36, 26, 'dfgdfgd', 'sdfsdf', '1', '1'),
+(37, 26, 'sdfs 5456 df', '23r 455d', '1', '1'),
+(38, 26, 'RAM', '8GB', '1', '1'),
+(39, 26, 'SSD', '256GB', '1', '1'),
+(40, 27, 'ddsfsdfs', 'sdfsdfs asda', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -498,7 +562,7 @@ CREATE TABLE `requests` (
 --
 
 INSERT INTO `requests` (`request_id`, `cart_has_paid_id`, `payment_type`, `active`, `dt_requested`, `dt_responded`) VALUES
-(1, 1, '3', '1', '2021-07-10 13:48:19', '2021-07-11 06:52:01');
+(1, 1, '1', '1', '2021-10-17 20:46:17', '2021-10-17 20:46:17');
 
 -- --------------------------------------------------------
 
@@ -544,7 +608,8 @@ INSERT INTO `sub_categories` (`sub_category_id`, `categories_id`, `sub_category_
 (39, 1, 'asdas', '2', '2'),
 (40, 1, 'dfgdgdf  gdfgdf', '2', '2'),
 (41, 1, 'fg dfg dfg dfg', '1', '1'),
-(42, 1, 'dasda', '2', '2');
+(42, 1, 'dasda', '2', '2'),
+(43, 2, 'RAM', '2', '1');
 
 -- --------------------------------------------------------
 
@@ -575,7 +640,7 @@ INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_im
 (3, 'Miguel Mario', 'Cuna', 'miguelmario@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
 (4, 'Armando', 'Cossa', 'armandocossa@live.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
 (5, 'client', 'user1', 'client@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
-(6, 'Damiao sdfsdfs sdfsdf ', 'Dabo sdfsd sdf', 'client2@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(6, 'Damiao ', 'Dabo', 'client2@users.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (7, 'cscs ', 'cscs', 'cscs@cscs.cscs', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (8, 'asd asd', 'dsa', 'asd@asd.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (9, 'admin2', 'user2', 'admin@pconly.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
@@ -589,12 +654,18 @@ INSERT INTO `users` (`user_id`, `name`, `surname`, `email`, `password`, `user_im
 (17, 'fdsa', 'fds', 'fsd@fds.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 3, '1', '1'),
 (18, 'asdas', 'asdas', 'asda@sadsd.cppm', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (19, 'Dddd', 'ssd', 'dddssd@dmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
-(20, 'lkmlk', 'lknlk', 'sdf@gfdg.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(20, 'Fabio Julio', 'Mahumane', 'fabiom@fmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (21, 'hjvhj', 'sdfsdf', 'sdfsdf@dmaasdil.com', '51d3ab6534b38f81ff65ec3a602d5b10', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (22, 'ytuytuy', 'dfsdf', 'dfdfsd@fsdf.cpom', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 1, 1, '1', '1'),
 (23, 'Gustavo', 'Tome', 'gtome@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
 (24, 'asd', 'asda', 'asdas@asda.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
-(25, 'sds', 'dsds', 'dsds@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1');
+(25, 'dercio', 'fumo', 'dercio@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(26, 'Alfredo', 'Macombo', 'alfredo_macombo@hotmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(27, 'Daria', 'Homeneno', 'dhome@fds.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(28, 'Fulano de', 'X', 'fulanodex@clients.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(29, 'asdasd', 'ewrwe', 'sadas@gmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/users/15183663646166a7804028c.jpg', 2, 0, '1', '1'),
+(30, 'Neide', 'Carlos', 'neidecarlos@hotmail.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1'),
+(31, 'asda', 'dfsadfs', 'sdfsd@dfsf.com', '202cb962ac59075b964b07152d234b70', '../assests/images/photo_default.png', 2, 0, '1', '1');
 
 --
 -- Indexes for dumped tables
@@ -618,8 +689,8 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `cart_has_paid`
   ADD PRIMARY KEY (`cart_has_paid_id`),
-  ADD KEY `client_id` (`client_id`),
-  ADD KEY `cart_id` (`cart_id`);
+  ADD UNIQUE KEY `cart_id` (`cart_id`),
+  ADD KEY `client_id` (`client_id`);
 
 --
 -- Indexes for table `cart_item`
@@ -628,6 +699,14 @@ ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`cart_item_id`),
   ADD KEY `cart_id` (`cart_id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `cart_item_has_paid`
+--
+ALTER TABLE `cart_item_has_paid`
+  ADD PRIMARY KEY (`cart_item_has_paid_id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `cart_has_paid_id` (`cart_has_paid_id`);
 
 --
 -- Indexes for table `categories`
@@ -686,7 +765,7 @@ ALTER TABLE `product_details`
 --
 ALTER TABLE `requests`
   ADD PRIMARY KEY (`request_id`),
-  ADD KEY `cart_has_paid_id` (`cart_has_paid_id`);
+  ADD UNIQUE KEY `cart_has_paid_id` (`cart_has_paid_id`);
 
 --
 -- Indexes for table `sub_categories`
@@ -716,7 +795,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cart_has_paid`
@@ -728,7 +807,13 @@ ALTER TABLE `cart_has_paid`
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `cart_item_has_paid`
+--
+ALTER TABLE `cart_item_has_paid`
+  MODIFY `cart_item_has_paid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -740,37 +825,37 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `delivery_address`
 --
 ALTER TABLE `delivery_address`
-  MODIFY `delivery_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `delivery_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=419;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=491;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `requests`
@@ -782,13 +867,13 @@ ALTER TABLE `requests`
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `sub_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `sub_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
@@ -813,6 +898,12 @@ ALTER TABLE `cart_has_paid`
 ALTER TABLE `cart_item`
   ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE NO ACTION,
   ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `cart_item_has_paid`
+--
+ALTER TABLE `cart_item_has_paid`
+  ADD CONSTRAINT `cart_item_has_paid_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `clients`
@@ -851,12 +942,6 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_details`
   ADD CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION;
-
---
--- Constraints for table `requests`
---
-ALTER TABLE `requests`
-  ADD CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`cart_has_paid_id`) REFERENCES `cart_has_paid` (`cart_has_paid_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sub_categories`
