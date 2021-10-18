@@ -287,4 +287,13 @@ $language['digits-on-the-back-of-the-card'] = 'Dígitos no verso do cartão';
 
 // Location
 $language['locations'] = 'Localizações';
+
+// Requests
+$language['requests'] = 'Solicitações';
+$language['manage-requests'] = 'Gerir solicitações';
+$language['respond-request'] = 'Responder solicitação';
+$language['total-requests'] = 'Total de solicitações';
+$language['responded-today'] = 'Respondidas hoje';
+$language['requested-today'] = 'Solicitadas hoje';
+$language['requested-on'] = 'Solicitada aos';
 ?>
