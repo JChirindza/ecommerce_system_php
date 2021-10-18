@@ -436,7 +436,7 @@ function finalizePayment(){
 					$price = $row['price'];
 					$quantity = $row['quantity'];
 
-					$sql = "INSERT INTO `cart_item_has_paid`(`cart_id`, `product_id`, `paid_price`, `quantity`) VALUES ('$cartId','$productId','$price','$quantity')";
+					$sql = "INSERT INTO `cart_item_has_paid`(`cart_has_paid_id`, `product_id`, `paid_price`, `quantity`) VALUES ('$cart_has_paid_id','$productId','$price','$quantity')";
 					$connect->query($sql);
 				}
 
