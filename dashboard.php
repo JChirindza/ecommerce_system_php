@@ -64,13 +64,13 @@ $connect->close();
 
 
 <style type="text/css">
-	.ui-datepicker-calendar {
-		display: none;
-	}
+.ui-datepicker-calendar {
+	display: none;
+}
 
-	a .card:hover {
-		background: #f8f9fa;
-	}
+a .card:hover {
+	background: #f8f9fa;
+}
 </style>
 
 <div class="border border-top-0 bg-white m-0 p-0" style="border-bottom-left-radius: .25rem; border-bottom-right-radius: .25rem;">
@@ -88,177 +88,169 @@ $connect->close();
 	<a href="orders.php?p=manord" class="d-none d-sm-inline-block btn btn-sm btn-primary"><i class="fas fa-cogs fa-sm text-white-50"></i> <?php echo $language['manage-orders']; ?></a>
 </div>
 
-<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
-	<div class="row">
+<div class="row">
 
-		<!-- Earnings (Monthly) Card Example -->
-		<div class="col-xl-3 col-md-6 mb-4">
-			<div class="card border-left-primary h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?php echo $language['earnings']; ?> (<?php echo $language['total']; ?>)</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($totalRevenue) {
-								echo number_format($totalRevenue,2,",",".");
-							} else {
-								echo '0';
-							} ?> <label class="text-muted">Mt</label></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-coins fa-2x text-gray-300"></i>
-						</div>
+	<!-- Earnings (Monthly) Card Example -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-primary h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?php echo $language['earnings']; ?> (<?php echo $language['total']; ?>)</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($totalRevenue) {
+							echo number_format($totalRevenue,2,",",".");
+						} else {
+							echo '0';
+						} ?> <label class="text-muted">Mt</label></div>
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Earnings (YEAR) Card Example -->
-		<div class="col-xl-3 col-md-6 mb-4">
-			<div class="card border-left-success h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-success text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('Y'); ?></label> )</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisYearRevenue) {
-								echo number_format($thisYearRevenue,2,",",".");
-							}else{
-								echo '0';
-							} ?> <label class="text-muted">Mt</label></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Earnings (Month) Card Example -->
-		<div class="col-xl-3 col-md-6 mb-4">
-			<div class="card border-left-info h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-info text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('M-Y'); ?></label> )</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisMonthRevenue) {
-								echo number_format($thisMonthRevenue,2,",",".");
-							}else{
-								echo '0';
-							} ?> <label class="text-muted">Mt</label></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Pending Requests Card Example -->
-		<div class="col-xl-3 col-md-6 mb-4">
-			<div class="card border-left-warning h-100 py-2">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><?php echo $language['pending-req']; ?></div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countPendingRequests; ?></div>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-comments fa-2x text-gray-300"></i>
-						</div>
+					<div class="col-auto">
+						<i class="fas fa-coins fa-2x text-gray-300"></i>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php } ?> 
+
+	<!-- Earnings (YEAR) Card Example -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-success h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-success text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('Y'); ?></label> )</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisYearRevenue) {
+							echo number_format($thisYearRevenue,2,",",".");
+						}else{
+							echo '0';
+						} ?> <label class="text-muted">Mt</label></div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Earnings (Month) Card Example -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-info h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-info text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('M-Y'); ?></label> )</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800"><?php if($thisMonthRevenue) {
+							echo number_format($thisMonthRevenue,2,",",".");
+						}else{
+							echo '0';
+						} ?> <label class="text-muted">Mt</label></div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Pending Requests Card Example -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-warning h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><?php echo $language['pending-req']; ?></div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $countPendingRequests; ?></div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-comments fa-2x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="row">
 
-	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 3) { ?>
-		<div class="col-md-4 pt-2 mb-4">
-			<a href="products.php?p=manprod" class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
-				<div class="card card-success">
-					<div class="card-body">
-						<div class="d-sm-flex align-items-center justify-content-between">
-							<label><?php echo $language['total']; ?> <?php echo $language['products']; ?></label>
-							<span class="badge-secondary badge-pill"><?php echo $countProduct; ?></span>	
-						</div>
-					</div> 
+	<div class="col-md-4 pt-2 mb-4">
+		<a href="products.php?p=manprod" class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
+			<div class="card card-success">
+				<div class="card-body">
+					<div class="d-sm-flex align-items-center justify-content-between">
+						<label><?php echo $language['total']; ?> <?php echo $language['products']; ?></label>
+						<span class="badge-secondary badge-pill"><?php echo $countProduct; ?></span>	
+					</div>
 				</div> 
-			</a>
-		</div> <!--/col-md-4-->
+			</div> 
+		</a>
+	</div> <!--/col-md-4-->
 
-		<div class="col-md-4 pt-2 mb-4">
-			<a href="products.php?p=manprod" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
-				<div class="card card-danger">
-					<div class="card-body">
+	<div class="col-md-4 pt-2 mb-4">
+		<a href="products.php?p=manprod&qty=low" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
+			<div class="card card-danger">
+				<div class="card-body">
 
-						<div class="d-sm-flex align-items-center justify-content-between">
-							<label><?php echo $language['low-stock']; ?></label>
-							<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
-						</div>
+					<div class="d-sm-flex align-items-center justify-content-between">
+						<label><?php echo $language['low-stock']; ?></label>
+						<span class="badge-secondary badge-pill"><?php echo $countLowStock; ?></span>	
+					</div>
 
-					</div> 
 				</div> 
-			</a>
-		</div> <!--/col-md-4-->
-	<?php } ?>  
+			</div> 
+		</a>
+	</div> <!--/col-md-4-->
 
-	<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
-		<div class="col-md-4 pt-2 mb-4">
-			<a href="orders.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
-				<div class="card">
-					<div class="card-body">
-						<div class="d-sm-flex align-items-center justify-content-between">
-							<label><?php echo $language['total']; ?> <?php echo $language['orders']; ?></label>
-							<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
-						</div>
-					</div> 
-				</div>
-			</a>
-		</div> <!--/col-md-4-->
-	<?php } ?>  
+	<div class="col-md-4 pt-2 mb-4">
+		<a href="orders.php?p=manord"  class="text-xs font-weight-bold" style="text-decoration:none;color: black;">
+			<div class="card">
+				<div class="card-body">
+					<div class="d-sm-flex align-items-center justify-content-between">
+						<label><?php echo $language['total']; ?> <?php echo $language['orders']; ?></label>
+						<span class="badge-secondary badge-pill font-weight-bold"><?php echo $countOrder; ?></span>
+					</div>
+				</div> 
+			</div>
+		</a>
+	</div> <!--/col-md-4-->
 </div>
 
-<?php  if(isset($_SESSION['userId']) && $result['permittion'] != 2) { ?>
-	<div class="col-12 pt-2 mb-4 p-0">
-		<div class="card">
-			<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-orders']; ?> <label class="badge badge-secondary"><?php echo $language['employees']; ?></label></div>
-			<div class="card-body">
-				<table class="table table-responsive table-hover" id="userWiseOrderTable">
-					<thead>
-						<tr>			  			
-							<th style="width:25%;"><?php echo $language['name']; ?></th>
-							<th style="width:25%;"><?php echo $language['surname']; ?></th>
-							<th style="width:25%;"><?php echo $language['email']; ?></th>
-							<th style="width:10%;"><?php echo $language['type']; ?></th>
-							<th style="width:15%;">Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
-							<tr>
-								<td><?php echo $orderResult['name']?></td>
-								<td><?php echo $orderResult['surname']?></td>
-								<td><?php echo $orderResult['email']?></td>
-								<td><?php if($orderResult['permittion'] == 1){ ?>
-									<label class="badge badge-success"><?php echo $language['admin']; ?></label>
-								<?php }elseif ($orderResult['permittion'] == 2) { ?>
-									<label class="badge badge-primary"><?php echo $language['manager']; ?></label>
-								<?php }elseif ($orderResult['permittion'] == 3) { ?>
-									<label class="badge badge-info"><?php echo $language['vendor']; ?></label>
-								<?php } ?>
-							</td>
-							<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
-						</tr>
+<div class="col-12 pt-2 mb-4 p-0">
+	<div class="card">
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-orders']; ?> <label class="badge badge-secondary"><?php echo $language['employees']; ?></label></div>
+		<div class="card-body">
+			<table class="table table-responsive table-hover" id="userWiseOrderTable">
+				<thead>
+					<tr>			  			
+						<th style="width:25%;"><?php echo $language['name']; ?></th>
+						<th style="width:25%;"><?php echo $language['surname']; ?></th>
+						<th style="width:25%;"><?php echo $language['email']; ?></th>
+						<th style="width:10%;"><?php echo $language['type']; ?></th>
+						<th style="width:15%;">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
+						<tr>
+							<td><?php echo $orderResult['name']?></td>
+							<td><?php echo $orderResult['surname']?></td>
+							<td><?php echo $orderResult['email']?></td>
+							<td><?php if($orderResult['permittion'] == 1){ ?>
+								<label class="badge badge-success"><?php echo $language['admin']; ?></label>
+							<?php }elseif ($orderResult['permittion'] == 2) { ?>
+								<label class="badge badge-primary"><?php echo $language['manager']; ?></label>
+							<?php }elseif ($orderResult['permittion'] == 3) { ?>
+								<label class="badge badge-info"><?php echo $language['vendor']; ?></label>
+							<?php } ?>
+						</td>
+						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
+					</tr>
 					<?php } ?>
 				</tbody>
 			</table>
 		</div>	
 	</div>
 </div> 
-<?php } ?>
 
 <div class="col-12 pt-2 mb-4 p-0">
 	<div class="card">
@@ -288,11 +280,11 @@ $connect->close();
 						</td>
 						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
 					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
-	</div>	
-</div>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>	
+	</div>
 </div>
 
 <div class="row">
@@ -331,26 +323,26 @@ $connect->close();
 
 <script type="text/javascript">
 	$(function () {
-			// top bar active
-			$('#navDashboard').addClass('active');
+// top bar active
+$('#navDashboard').addClass('active');
 
-      	//Date for the calendar events (dummy data)
-      	var date = new Date();
-      	var d = date.getDate(),
-      	m = date.getMonth(),
-      	y = date.getFullYear();
+//Date for the calendar events (dummy data)
+var date = new Date();
+var d = date.getDate(),
+m = date.getMonth(),
+y = date.getFullYear();
 
-      	$('#calendar').fullCalendar({
-      		header: {
-      			left: '',
-      			center: 'title'
-      		},
-      		buttonText: {
-      			today: 'today',
-      			month: 'month'          
-      		}        
-      	});
-      });
-  </script>
+$('#calendar').fullCalendar({
+	header: {
+		left: '',
+		center: 'title'
+	},
+	buttonText: {
+		today: 'today',
+		month: 'month'          
+	}        
+});
+});
+</script>
 
-  <?php require_once 'includes/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>
