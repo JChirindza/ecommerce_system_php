@@ -2,10 +2,10 @@
 
 <?php 
 
+$countUsers = 0;
 $sql = "SELECT * FROM users WHERE type = 1 AND status = 1";
 $query = $connect->query($sql);
-$countUsers = $query->num_rows;
-
+if ($query) { $countUsers = $query->num_rows; }
 $connect->close();
 
 ?>
