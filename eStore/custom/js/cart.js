@@ -198,6 +198,9 @@ $(document).ready(function() {
 
 							setCartItemQuantity();
 
+							// hide the modal 
+							$('#finalizePaymentCardModal').modal('hide');
+
 			  	  			// reset the form text
 			  	  			$("#submitPaymentForm")[0].reset();
 							// remove the error text
@@ -207,12 +210,17 @@ $(document).ready(function() {
 
 							$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
 
-							$('#finalizeMessages').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
-								'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
+							$('#finalizeMessages').html('<div class="alert-success rounded">'+
+								'<button type="button" class="close btn" data-dismiss="alert">&times;</button>'+
 								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 								'</div>');
 
-						}  // if
+						}else {
+							$('#finalizeMessages').html('<div class="alert-warning rounded pl-2 pr-2">'+
+								'<button type="button" class="close btn" data-dismiss="alert">&times;</button>'+
+								'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+								'</div>');
+						}  // else
 
 					} // /success
 				}); // /ajax	
