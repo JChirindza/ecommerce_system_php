@@ -13,6 +13,17 @@ if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
 			$username = $row[1];
 			$user_image_url = $row[5];
 
+			// Destroi sessao caso nao tenha carrinho na db
+			if (isset($_SESSION['cartId'])) {
+				// Veriifca se o carrinho com a sessao iniciada existe na Base de Dados
+				$sql = "SELECT * FROM cart WHERE cart_id = {$_SESSION['cartId']}";
+				$userCartResult = $connect->query($sql);
+
+				if ($userCartResult->num_rows <= 0) {
+					unset($_SESSION['cartId']);
+				}
+			}
+
 			// verifica se o usuario autenticado tem um carrinho iniciado.
 			if(!isset($_SESSION['cartId'])){
 				// busca por um carrinho do usuario logado que nao tenha sido pago(2) e que esteja activo(1)
