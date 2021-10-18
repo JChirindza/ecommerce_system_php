@@ -296,4 +296,6 @@ $language['total-requests'] = 'Total de solicitações';
 $language['responded-today'] = 'Respondidas hoje';
 $language['requested-today'] = 'Solicitadas hoje';
 $language['requested-on'] = 'Solicitada aos';
+$language['responded-on'] = 'Respondida aos';
+$language['confirm-request'] = 'Confirmar solicitação';
 ?>
