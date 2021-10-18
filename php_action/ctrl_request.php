@@ -10,8 +10,8 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'readItems':
 		fetchRequestedItems();
 		break;
-		case 'readSelectedItem':
-		fetchSelectedItem();
+		case 'confirm':
+		confirm_request();
 		break;
 		
 		// default:
@@ -67,7 +67,7 @@ function fetchRequests(){
 
 	 		// payment_type 
 	 		if($row['payment_type'] == 1) {
-	 			$paymentType = "<label class='badge badge-danger'>Mpesa</label>";
+	 			$paymentType = "<label class='badge badge-danger rounded-0'>Mpesa</label>";
 	 		} else {
 	 			$paymentType = "<label class='badge badge-primary rounded-0'>VISA</label><label class='badge badge-info rounded-0'>MasterCard</label>";
 	 		} // /else
@@ -151,5 +151,55 @@ function fetchRequestedItems(){
 		echo json_encode($output);
 	}
 
+}
+
+function confirm_request() {
+
+	global $connect;
+
+	$valid['success'] = array('success' => false, 'messages' => array(), 'cart_has_paid_id' => '');
+	
+	if (isset($_POST['cartHasPaidId'])) {
+
+		$cartHasPaidId = $_POST['cartHasPaidId'];
+
+		$sql = "SELECT * FROM `cart_has_paid` WHERE cart_has_paid_id = {$cartHasPaidId}";
+		$result = $connect->query($sql);
+
+		if ($result->num_rows > 0) {
+			if (is_request_confirmed($cartHasPaidId) === false) {
+
+				$sql = "UPDATE `requests` SET `active` = 2, `dt_responded` = current_timestamp() WHERE cart_has_paid_id = {$cartHasPaidId}";
+				if ($connect->query($sql) === true) {
+					$valid['success'] = true;
+					$valid['messages'] = "Successfully confirmed.";
+					$valid['cart_has_paid_id'] = $cartHasPaidId;
+				}				
+			}else{
+				$valid['messages'] = "Error while confirm. This request was been confirmed!";
+			}
+		}else{
+			$valid['messages'] = "Error while confirm request!";
+		}
+	}else {
+		$valid['messages'] = "Error while confirm request!";
+	}
+	$connect->close();
+
+	echo json_encode($valid);
+}
+
+// Check if request was confirmed
+function is_request_confirmed($cartHasPaidId){
+	global $connect;
+
+	$sql = "SELECT * FROM requests WHERE cart_has_paid_id = {$cartHasPaidId} AND active = 2 LIMIT 1"; // active = 2  -> Confirmed = TRUE
+	$result = $connect->query($sql);
+
+	if ($result->num_rows > 0) {
+		return true; // confirmed
+	}else{
+		return false; // <= 0 Not confirmed
+	}
 }
 ?>
