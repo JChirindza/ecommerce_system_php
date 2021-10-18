@@ -150,142 +150,161 @@ $countTotalRequests = $query->num_rows;
 			<?php // /else respond request
 		} else if($_GET['r'] == 'respreq') { // get request ?>
 			
+			<?php 
+			$cartHasPaidId;
+			if (isset($_GET['i'])) {
+				$cartHasPaidId = $_GET['i'];
+			}
+
+			$sql = "SELECT cart_has_paid.cart_has_paid_id,
+			cart_has_paid.dt_paid, 
+			users.name, 
+			users.surname, 
+			clients.contact,
+			cart_has_paid.sub_total,
+			cart_has_paid.vat,
+			cart_has_paid.total_amount,
+			cart_has_paid.discount,
+			cart_has_paid.grand_total,
+			cart_has_paid.payment_type,
+			(SELECT active 
+			FROM requests 
+			WHERE cart_has_paid_id = cart_has_paid.cart_has_paid_id) 
+			AS active
+			FROM cart_has_paid
+			INNER JOIN cart ON cart_has_paid.cart_id = cart.cart_id 
+			INNER JOIN clients ON cart.user_id = clients.user_id 
+			INNER JOIN users ON clients.user_id = users.user_id
+			WHERE cart_has_paid_id = {$cartHasPaidId} ORDER BY cart_has_paid_id DESC";
+
+			$result = $connect->query($sql);
+			$data = $result->fetch_array();
+			?>
+
 			<div class="success-messages"></div> <!--/success-messages-->
 
-			<form class="form-horizontal" method="POST" action="php_action/ctrl_order.php?action=update" id="editOrderForm">
-
-				<?php $cartHasPaidId = $_GET['i'];
-
-				$sql = "SELECT cart_has_paid.cart_has_paid_id,
-				cart_has_paid.dt_paid, 
-				users.name, 
-				users.surname, 
-				clients.contact,
-				cart_has_paid.sub_total,
-				cart_has_paid.vat,
-				cart_has_paid.total_amount,
-				cart_has_paid.discount,
-				cart_has_paid.grand_total,
-				cart_has_paid.payment_type
-
-				FROM cart_has_paid
-				INNER JOIN cart ON cart_has_paid.cart_id = cart.cart_id 
-				INNER JOIN clients ON cart.user_id = clients.user_id 
-				INNER JOIN users ON clients.user_id = users.user_id
-				WHERE cart_has_paid_id = {$cartHasPaidId} ORDER BY cart_has_paid_id DESC";
-
-				$result = $connect->query($sql);
-				$data = $result->fetch_array();
-				?>
-
-				<!--  -->
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="clientName" class="col-sm control-label"><?php echo $language['client-name'] ?>:</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="<?php echo $language['client-name'] ?>" autocomplete="off" value="<?php echo $data['name']." ".$data['surname']?>" required/>
-							</div>
-						</div> <!--/form-group-->
-						<div class="form-group">
-							<label for="clientContact" class="col-sm control-label">Client Contact:</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="<?php echo $language['client-number'] ?>" autocomplete="off" value="<?php echo $data['contact']; ?>" required/>
-							</div>
-						</div> <!--/form-group-->	
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="orderDate" class="col-sm control-label"><?php echo $language['requested-on'] ?>:</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="orderDate" name="orderDate" disabled="true" autocomplete="off" value="<?php echo $data['dt_paid'] ?>" />
-							</div>
-						</div> <!--/form-group-->
-					</div>
-				</div>
-				<hr>
-				<div id="success-messages"></div>
-				<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2 mb-4">
-					<table class="table table-hover" id="requestedItemTable">
-						<thead>
-							<tr>
-								<th style="width:15%;"><?php echo $language['product-image'] ?></th>			  			
-								<th style="width:40%;"><?php echo $language['product-name'] ?></th>
-								<th style="width:10%;"><?php echo $language['quantity'] ?></th>
-								<th style="width:10%;"><?php echo $language['price'] ?></th>			  			
-								<th style="width:15%;"><?php echo $language['total'] ?></th>			  			
-							</tr>
-						</thead>
-					</table>
-				</div>
-
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="subTotal" class="col-sm-4 control-label"><?php echo $language['sub-amount'] ?>:</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="subTotal" name="subTotal" disabled value="<?php echo number_format($data['sub_total'],2,",","."); ?>" />
-							</div>
-						</div> <!--/form-group-->			  
-						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst"><?php echo $language['vat']." ".number_format($data['vat'] * 100) ?> %:</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="vat" name="vat" disabled value="<?php echo number_format($data['sub_total'] * $data['vat'],2,",","."); ?>"  />
-							</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="clientName" class="col-sm control-label"><?php echo $language['client-name'] ?>:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="clientName" name="clientName" placeholder="<?php echo $language['client-name'] ?>" autocomplete="off" value="<?php echo $data['name']." ".$data['surname']?>" disabled/>
 						</div>
-						<div class="form-group">
-							<label for="totalAmount" class="col-sm-4 control-label"><?php echo $language['total-amount'] ?>:</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled value="<?php echo number_format($data['total_amount'],2,",","."); ?>" />
-							</div>
-						</div> <!--/form-group-->			  
-
-					</div> <!--/col-md-6-->
-
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="discount" class="col-sm-4 control-label"><?php echo $language['discount'] ?>:</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="discount" name="discount" autocomplete="off" value="<?php echo number_format($data['discount'],2,",","."); ?>" disabled/>
-							</div>
-						</div> <!--/form-group-->	
-						
-						<div class="form-group">
-							<label for="grandTotal" class="col-sm-4 control-label"><?php echo $language['grand-total'] ?>:</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control form-control-lg border-success" id="grandTotal" name="grandTotal" disabled value="<?php echo number_format($data['grand_total'],2,",",".") ?> MZN"  />
-							</div>
-						</div> <!--/form-group-->
-
-						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-type'] ?>:</label>
-							<div class="col-sm-8">
-								<select class="form-control" name="paymentType" id="paymentType" disabled>
-									<option value="">~~<?php echo $language['select'] ?>~~</option>
-									<option value="1" <?php if($data['payment_type'] == 1) {
-										echo "selected";
-									} ?>  >Mpesa</option>
-									<option value="2" <?php if($data['payment_type'] == 2) {
-										echo "selected";
-									} ?> >Credit/Debit Card</option>
-								</select>
-							</div>
-						</div> <!--/form-group-->							  
-					</div> <!--/col-md-6-->
+					</div> <!--/form-group-->
+					<div class="form-group">
+						<label for="clientContact" class="col-sm control-label">Client Contact:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="<?php echo $language['client-number'] ?>" autocomplete="off" value="<?php echo $data['contact']; ?>" disabled/>
+						</div>
+					</div> <!--/form-group-->	
 				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-sm control-label"><?php echo $language['requested-on'] ?>:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" autocomplete="off" value="<?php echo $data['dt_paid'] ?>" />
+						</div>
+					</div> <!--/form-group-->
 
-				<div class="form-group editButtonFooter">
-					<div class="col-sm-offset-2 col-sm-10">
-						<input type="hidden" name="cartHasPaidId" id="cartHasPaidId" value="<?php echo $_GET['i']; ?>" />
+					<div class="form-group">
+						<label class="col-sm control-label"><?php echo $language['responded-on'] ?>:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="respondedOn" id="respondedOn" disabled autocomplete="off" value="<?php echo $data['dt_paid'] ?>" />
+						</div>
+					</div> <!--/form-group-->
+				</div>
+			</div>
+			<hr>
+			<div class="table-responsive table-responsive-sm table-responsive-md table-hover pt-2 mb-4">
+				<table class="table table-hover" id="requestedItemTable">
+					<thead>
+						<tr>
+							<th style="width:15%;"><?php echo $language['product-image'] ?></th>			  			
+							<th style="width:40%;"><?php echo $language['product-name'] ?></th>
+							<th style="width:10%;"><?php echo $language['quantity'] ?></th>
+							<th style="width:10%;"><?php echo $language['price'] ?></th>			  			
+							<th style="width:15%;"><?php echo $language['total'] ?></th>			  			
+						</tr>
+					</thead>
+				</table>
+			</div>
 
-						<button type="submit" id="editOrderBtn" data-loading-text="Loading..." class="btn btn-success"><i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="subTotal" class="col-sm-4 control-label"><?php echo $language['sub-amount'] ?>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="subTotal" name="subTotal" disabled value="<?php echo number_format($data['sub_total'],2,",","."); ?>" />
+						</div>
+					</div> <!--/form-group-->			  
+					<div class="form-group">
+						<label for="vat" class="col-sm-4 control-label gst"><?php echo $language['vat']." ".number_format($data['vat'] * 100) ?> %:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="vat" name="vat" disabled value="<?php echo number_format($data['sub_total'] * $data['vat'],2,",","."); ?>"/>
+						</div>
 					</div>
+					<div class="form-group">
+						<label for="totalAmount" class="col-sm-4 control-label"><?php echo $language['total-amount'] ?>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled value="<?php echo number_format($data['total_amount'],2,",","."); ?>" />
+						</div>
+					</div> <!--/form-group-->			  
+
+				</div> <!--/col-md-6-->
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="discount" class="col-sm-4 control-label"><?php echo $language['discount'] ?>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="discount" name="discount" autocomplete="off" value="<?php echo number_format($data['discount'],2,",","."); ?>" disabled/>
+						</div>
+					</div> <!--/form-group-->	
+
+					<div class="form-group">
+						<label for="grandTotal" class="col-sm-4 control-label"><?php echo $language['grand-total'] ?>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control form-control-lg border-success" id="grandTotal" name="grandTotal" disabled value="<?php echo number_format($data['grand_total'],2,",",".") ?> MZN"  />
+						</div>
+					</div> <!--/form-group-->
+
+					<div class="form-group">
+						<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-type'] ?>:</label>
+						<div class="col-sm-8">
+							<select class="form-control" name="paymentType" id="paymentType" disabled>
+								<option value="">~~<?php echo $language['select'] ?>~~</option>
+								<option value="1" <?php if($data['payment_type'] == 1) {
+									echo "selected";
+								} ?>  >Mpesa</option>
+								<option value="2" <?php if($data['payment_type'] == 2) {
+									echo "selected";
+								} ?> >Credit/Debit Card</option>
+							</select>
+						</div>
+					</div> <!--/form-group-->							  
+				</div> <!--/col-md-6-->
+			</div>
+
+			<div class="form-group editButtonFooter">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="cartHasPaidId" id="cartHasPaidId" value="<?php echo $_GET['i']; ?>" />
+					<input type="hidden" name="responded" id="responded" value="<?php echo $data['active'] ?>">
+
+					<button onclick="confirm_request(<?php echo $_GET['i']; ?>)" id="confirmRequestBtn" data-loading-text="Loading..." class="btn btn-success"><i class="fas fa-save"></i> <?php echo $language['confirm-request'] ?></button>
 				</div>
-			</form>
+			</div>
 		<?php } // /get order else  ?>
 	</div> <!--/card-->	
 </div> <!--/card-->	
 
+<script type="text/javascript">
+	
+	var responded = $('#responded').val();
+
+	if (responded == 2) { // responded == 2 | confirmed
+		$('#respondedOn').val('Waiting for confirmation...');
+		$('#confirmRequestBtn').addAttribute('disabled');
+	}
+</script>
 
 <script src="custom/js/request.js"></script>
 
