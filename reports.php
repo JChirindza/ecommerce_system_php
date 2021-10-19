@@ -66,25 +66,23 @@ $connect->close();
 				<i class="fas fa-chart-area"></i> <?php echo $language['orders-report'] ?>
 			</div>
 			<div class="card-body">
-				<form class="form-horizontal" action="php_action/ctrl_report.php?action=genOrderReport" method="post" id="getOrderReportForm">
-					<div class="form-group">
-						<label for="startDate" class="col-sm-4 control-label"><?php echo $language['start-date'] ?></label>
-						<div class="col-sm">
-							<input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date" required/>
-						</div>
+				<div class="form-group">
+					<label for="startDate" class="col-sm-4 control-label"><?php echo $language['start-date'] ?></label>
+					<div class="col-sm">
+						<input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date" required/>
 					</div>
-					<div class="form-group">
-						<label for="endDate" class="col-sm-4 control-label"><?php echo $language['end-date'] ?></label>
-						<div class="col-sm">
-							<input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date" required/>
-						</div>
+				</div>
+				<div class="form-group">
+					<label for="endDate" class="col-sm-4 control-label"><?php echo $language['end-date'] ?></label>
+					<div class="col-sm">
+						<input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date" required/>
 					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-success" id="generateReportBtn"> <i class="fas fa-print"></i> <?php echo $language['generate-report'] ?></button>
-						</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button onclick="printReport()" class="btn btn-success" id="generateReportBtn"> <i class="fas fa-print"></i> <?php echo $language['generate-report'] ?></button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
