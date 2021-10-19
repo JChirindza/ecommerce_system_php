@@ -1,3 +1,4 @@
+<!-- ctrl_report -->
 <?php  
 require_once 'core.php';
 /**
@@ -23,54 +24,45 @@ function getOrderReport(){
 	
 	global $connect;
 
-	if($_POST) {
+	$start_date = Sys_Secure($_POST['startDate']);
 
-		// $startDate = $_POST['startDate'];
-		// echo 'Data INICIO: '.$startDate;
-		// $date = DateTime::createFromFormat('Y-m-d',$startDate);
-		$start_date = Sys_Secure($_POST['startDate']);
+	$end_date = Sys_Secure($_POST['endDate']);
 
+	$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
+	$query = $connect->query($sql);
 
-		// $endDate = $_POST['endDate'];
-		// echo 'Data FIM: '.$endDate;
-		// $format = DateTime::createFromFormat('Y-m-d',$endDate);
-		$end_date = Sys_Secure($_POST['endDate']);
+	$table = '
+	<table border="1" cellspacing="0" cellpadding="0" style="width:100%; border: 0px;">
+		<tr>
+			<th>Order Date</th>
+			<th>Client Name</th>
+			<th>Contact</th>
+			<th>Grand Total</th>
+		</tr>
 
-		$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
-		$query = $connect->query($sql);
+		<tr>';
+		$totalAmount = 0;
+		while ($result = $query->fetch_assoc()) {
+			$table .= '<tr>
+				<td><center>'.$result['order_date'].'</center></td>
+				<td><center>'.$result['client_name'].'</center></td>
+				<td><center>'.$result['client_contact'].'</center></td>
+				<td><center>'.number_format($result['grand_total'],2,',','.').'</center></td>
+			</tr>';	
+			$totalAmount += $result['grand_total'];
+		}
+		$table .= '
+		</tr>
 
-		$table = '
-		<table border="1" cellspacing="0" cellpadding="0" style="width:100%; border: 0px;">
-			<tr>
-				<th>Order Date</th>
-				<th>Client Name</th>
-				<th>Contact</th>
-				<th>Grand Total</th>
-			</tr>
+		<tr>
+			<td colspan="3"><center>Total Amount</center></td>
+			<td><center>'.number_format($totalAmount,2,',','.').'</center></td>
+		</tr>
+	</table>
+	';	
 
-			<tr>';
-			$totalAmount = 0;
-			while ($result = $query->fetch_assoc()) {
-				$table .= '<tr>
-					<td><center>'.$result['order_date'].'</center></td>
-					<td><center>'.$result['client_name'].'</center></td>
-					<td><center>'.$result['client_contact'].'</center></td>
-					<td><center>'.$result['grand_total'].'</center></td>
-				</tr>';	
-				$totalAmount += $result['grand_total'];
-			}
-			$table .= '
-			</tr>
+	$connect->close();
 
-			<tr>
-				<td colspan="3"><center>Total Amount</center></td>
-				<td><center>'.$totalAmount.'</center></td>
-			</tr>
-		</table>
-		';	
-
-		echo $table;
-
-	}
+	echo $table;
 }
 ?>
