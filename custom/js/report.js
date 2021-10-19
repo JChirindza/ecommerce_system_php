@@ -3,57 +3,56 @@ $(document).ready(function() {
 	$("#startDate").datepicker();
 	// order date picker
 	$("#endDate").datepicker();
+});
 
-	$("#getOrderReportForm").unbind('submit').bind('submit', function() {
-		
-		var startDate = $("#startDate").val();
-		var endDate = $("#endDate").val();
+// print report function
+function printReport() {
 
-		if(startDate == "" || endDate == "") {
-			if(startDate == "") {
-				$("#startDate").closest('.form-group').addClass('has-error');
-				$("#startDate").after('<p class="text-danger">The Start Date is required</p>');
-			} else {
-				$(".form-group").removeClass('has-error');
-				$(".text-danger").remove();
-			}
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();	
 
-			if(endDate == "") {
-				$("#endDate").closest('.form-group').addClass('has-error');
-				$("#endDate").after('<p class="text-danger">The End Date is required</p>');
-			} else {
-				$(".form-group").removeClass('has-error');
-				$(".text-danger").remove();
-			}
+	if(startDate == "" || endDate == "") {
+		if(startDate == "") {
+			$("#startDate").closest('.form-group').addClass('has-error');
+			$("#startDate").after('<p class="text-danger">The Start Date is required</p>');
 		} else {
 			$(".form-group").removeClass('has-error');
 			$(".text-danger").remove();
+		}
 
-			var form = $(this);
+		if(endDate == "") {
+			$("#endDate").closest('.form-group').addClass('has-error');
+			$("#endDate").after('<p class="text-danger">The End Date is required</p>');
+		} else {
+			$(".form-group").removeClass('has-error');
+			$(".text-danger").remove();
+		}
+	} else {
 
-			$.ajax({
-				url: form.attr('action'),
-				type: form.attr('method'),
-				data: form.serialize(),
-				dataType: 'text',
-				success:function(response) {
-					var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
-					mywindow.document.write('<html><head><title>Order Report Slip</title>');        
-					mywindow.document.write('</head><body>');
-					mywindow.document.write(response);
-					mywindow.document.write('</body></html>');
+		$(".form-group").removeClass('has-error');
+		$(".text-danger").remove();
 
-			        mywindow.document.close(); // necessary for IE >= 10
-			        mywindow.focus(); // necessary for IE >= 10
+		$.ajax({
+			url: 'php_action/ctrl_report.php?action=genOrderReport',
+			type: 'post',
+			data: {startDate: startDate, endDate: endDate},
+			dataType: 'text',
+			success:function(response) {
 
-			        mywindow.print();
-			        mywindow.close();
-				} // /success
-			});	// /ajax
+				var mywindow = window.open('', 'ComputersOnly - Sales & Management System', 'height=400,width=600');
+				mywindow.document.write('<html><head><title>Order Report Slip</title>');        
+				mywindow.document.write('</head><body>');
+				mywindow.document.write(response);
+				mywindow.document.write('</body></html>');
 
-		} // /else
-
-		return false;
-	});
-
-});
+		        mywindow.document.close(); // necessary for IE >= 10
+		        mywindow.focus(); // necessary for IE >= 10
+		        mywindow.resizeTo(screen.width, screen.height);
+		        setTimeout(function() {
+		        	mywindow.print();
+		        	mywindow.close();
+		        }, 1250);
+			}// /success function
+		}); // /ajax function to fetch the printable report
+	} // /else
+} // /print function
