@@ -123,7 +123,11 @@ $countTotalRequests = $query->num_rows;
 		<?php if($_GET['r'] == 'manreq') { ?>
 			<i class="fas fa-cart-arrow-down"></i> <?php echo $language['manage-requests'] ?>
 		<?php } else if($_GET['r'] == 'respreq') { ?>
-			<i class="fas fa-edit"></i> <?php echo $language['respond-request'] ?>
+			<div class="d-flex justify-content-between">
+				<label class="m-0"><i class="fas fa-edit"></i> <?php echo $language['respond-request'] ?></label>
+				<label class="badge badge-warning badge-pill d-none" id="pending_req"><?php echo $language['pending-request'] ?></label>
+				<label class="badge badge-success badge-pill d-none" id="req_responded"><?php echo $language['responded'] ?></label>
+			</div>
 		<?php } ?>
 
 	</div>
@@ -202,7 +206,7 @@ $countTotalRequests = $query->num_rows;
 					<div class="form-group">
 						<label class="col-sm control-label"><?php echo $language['requested-on'] ?>:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" autocomplete="off" value="<?php echo $data['dt_paid'] ?>" />
+							<input type="text" class="form-control" autocomplete="off" value="<?php echo $data['dt_paid'] ?>" disabled/>
 						</div>
 					</div> <!--/form-group-->
 
@@ -302,7 +306,10 @@ $countTotalRequests = $query->num_rows;
 
 	if (responded == 2) { // responded == 2 | confirmed
 		$('#respondedOn').val('Waiting for confirmation...');
-		$('#confirmRequestBtn').addAttribute('disabled');
+		$('#confirmRequestBtn').addClass('d-none');
+		$('#req_responded').removeClass('d-none');
+	}else{
+		$('#pending_req').removeClass('d-none');
 	}
 </script>
 
