@@ -298,4 +298,8 @@ $language['requested-today'] = 'Requested today';
 $language['requested-on'] = 'Requested on';
 $language['responded-on'] = 'Responded on';
 $language['confirm-request'] = 'Confirm request';
+$language['responded'] = 'Responded';
+$language['error-while-confirm-this-request-was-been-confirmed'] = 'Error while confirm. This request was been confirmed';
+$language['error-while-confirm-request'] = 'Error while confirm request';
+$language['pending-request'] = 'Pending request';
 ?>

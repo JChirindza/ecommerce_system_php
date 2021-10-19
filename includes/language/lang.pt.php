@@ -225,7 +225,7 @@ $language['print'] = 'Imprimir';
 $language['add-field'] = 'Adicionar campo';
 $language['sub-amount'] = 'Sub quantia';
 $language['vat'] = 'IVA';
-$language['total-amount'] = 'Total Amount';
+$language['total-amount'] = 'Montante total';
 $language['discount'] = 'Disconto';
 $language['grand-total'] = 'Total geral';
 $language['payment-type'] = 'Tipo de pagemento';
@@ -298,4 +298,8 @@ $language['requested-today'] = 'Solicitadas hoje';
 $language['requested-on'] = 'Solicitada aos';
 $language['responded-on'] = 'Respondida aos';
 $language['confirm-request'] = 'Confirmar solicitação';
+$language['responded'] = 'Respondida';
+$language['error-while-confirm-this-request-was-been-confirmed'] = 'Erro ao confirmar. Esta solicitação já foi confirmada';
+$language['error-while-confirm-request'] = 'Erro ao confirmar solicitação';
+$language['pending-request'] = 'solicitação pendente';
 ?>
