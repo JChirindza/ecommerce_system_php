@@ -28,15 +28,8 @@ if (isset($_GET['lang'])) {
 	}
 }
 
-$filename = 'includes/language/lang.'.$lang.'.php';
+$filename = 'SistemaDeVendas_ControleDeStock/../../includes/language/lang.'.$lang.'.php';
 
-// Check if concatenated path exists
-if (file_exists($filename)) {
-	$filename = 'includes/language/lang.'.$lang.'.php';
-}else{
-	// Default lang - english
-	$filename = 'includes/language/lang.en.php';
-}
 require_once "{$filename}";
 // /Multi-lingual
 
