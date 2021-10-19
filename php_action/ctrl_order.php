@@ -516,7 +516,7 @@ function printOrder(){
 	</tr>
 	<tr>
 	<td class="meta-head">Amount Due</td>
-	<td><div class="due">$875.00</div></td>
+	<td><div class="due">'.$due.'</div></td>
 	</tr>
 	</table>
 	</div>
