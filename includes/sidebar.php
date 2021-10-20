@@ -33,7 +33,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 			<a id="navBrand" href="brands.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-business-time fa-lg mr-2"></i><?php echo $language['brands']; ?></a>
 			<a id="navCategories" href="categories.php?c=manctg" class="list-group-item list-group-item-action border-0"><i class="fas fa-clipboard fa-lg mr-2"></i><?php echo $language['categories']; ?></a>
 			<a id="navUser" href="users.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-users fa-lg mr-2"></i><?php echo $language['users'] ?></a>
-			<!-- <a id="navClient" href="cliente.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-people-arrows fa-lg mr-2"></i><?php echo $language['clients']; ?></a> -->
+			<a id="navClient" href="clients.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-people-arrows fa-lg mr-2"></i><?php echo $language['clients']; ?></a>
 			<a id="navReport" href="reports.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-chart-line fa-lg mr-2"></i><?php echo $language['reports']; ?></a>
 			<a id="navSetting" href="profile.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-user-cog fa-lg mr-2"></i><?php echo $language['profile']; ?></a>
 		</div>
