@@ -1,23 +1,14 @@
 <?php require_once 'includes/header.php'; ?>
 
-<?php 
-
-$countUsers = 0;
-$sql = "SELECT * FROM users WHERE type = 1 AND status = 1";
-$query = $connect->query($sql);
-if ($query) { $countUsers = $query->num_rows; }
-$connect->close();
-
-?>
 <div class="border border-top-0 bg-white m-0 p-0 row">
 	<button type="button" id="menu-toggle" class="border-right rounded-0 btn">
 		<i class="fas fa-align-left"></i>
 	</button>
 	<ol class="breadcrumb bg-transparent mb-0">
-	    <li class="breadcrumb-item"><a href="dashboard.php"><?php echo $language['dashboard'] ?></a></li>
-	    <li class="breadcrumb-item active"><?php echo $language['users'] ?></li>
-	    
-  	</ol>
+		<li class="breadcrumb-item"><a href="dashboard.php"><?php echo $language['dashboard'] ?></a></li>
+		<li class="breadcrumb-item active"><?php echo $language['users'] ?></li>
+
+	</ol>
 </div>
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
@@ -32,22 +23,61 @@ $connect->close();
 			<div class="col-md-4 pt-2">
 				<div class="card ">
 					<div class="card-body d-sm-flex align-items-center justify-content-between">
-						<label><?php echo $language['total-users'] ?></label>
-						<span class="badge-secondary badge-pill"><?php echo $countUsers; ?></span>	
+						<label class="pb-0 my-0 font-weight-bold">
+							<span><?php echo $language['total-users'] ?></span> 
+							<br>
+							<label class="text-muted m-0 p-0" style="font-size: 12px; font-weight: initial;">
+								<?php echo $language['active'] ?>:
+								<span id="totalUsersActive">0</span>
+							</label>
+						</label>
+						<label class="badge-secondary badge-pill font-weight-bold" id="totalUsers">0</label>	
+					</div> 
+				</div> 
+			</div> <!--/col-md-4-->
+
+			<div class="col-md-4 pt-2">
+				<div class="card ">
+					<div class="card-body d-sm-flex align-items-center justify-content-between">
+						<label class="pb-0 my-0 font-weight-bold">
+							<span><?php echo $language['total-employees'] ?></span> 
+							<br>
+							<label class="text-muted m-0 p-0" style="font-size: 12px; font-weight: initial;">
+								<?php echo $language['active'] ?>:
+								<span id="totalEmployeesActive">0</span>
+							</label>
+						</label>
+						<label class="badge-warning badge-pill font-weight-bold" id="totalEmployees">0</label>	
+					</div> 
+				</div> 
+			</div> <!--/col-md-4-->
+
+			<div class="col-md-4 pt-2">
+				<div class="card ">
+					<div class="card-body d-sm-flex align-items-center justify-content-between">
+						<label class="pb-0 my-0 font-weight-bold">
+							<span><?php echo $language['total-clients'] ?></span> 
+							<br>
+							<label class="text-muted m-0 p-0" style="font-size: 12px; font-weight: initial;">
+								<?php echo $language['active'] ?>:
+								<span id="totalClientsActive" id="totalClientsActive">0</span>
+							</label>
+						</label>
+						<label class="badge-info badge-pill font-weight-bold" id="totalClients">0</label>	
 					</div> 
 				</div> 
 			</div> <!--/col-md-4-->
 		</div>
 		<hr>
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header bg-white">
 				<h6 class="m-0 font-weight-bold text-muted"><?php echo $language['manage-users'] ?></h6>
 			</div>
 
 			<div class="card-body ">
 				<div class="remove-messages"></div>
 
-				<div class="table-responsive">
+				<div class="table-responsive table-responsive-sm table-hover">
 					<table class="table table-striped" id="manageUserTable">
 						<thead>
 							<tr>
@@ -55,6 +85,7 @@ $connect->close();
 								<th style="width:20%;"><?php echo $language['name'] ?></th>
 								<th style="width:20%;"><?php echo $language['surname'] ?></th>
 								<th style="width:30%;"><?php echo $language['email'] ?></th>
+								<th style="width:30%;"><?php echo $language['type'] ?></th>
 								<th style="width:10%;"><?php echo $language['status'] ?></th>
 								<th style="width:10%;"><?php echo $language['options'] ?></th>
 							</tr>
@@ -63,7 +94,7 @@ $connect->close();
 				</div>
 			</div>
 		</div>
-		
+
 	</div> <!-- /col-md-12 -->
 </div> <!-- /row -->
 
@@ -75,17 +106,20 @@ $connect->close();
 
 			<form class="form-horizontal" id="submitUserForm" action="php_action/ctrl_user.php?action=create" method="POST" enctype="multipart/form-data">
 				<div class="modal-header">
-					<h4 class="modal-title"><i class="fa fa-plus"></i> <?php echo $language['add-user'] ?></h4>
+					<h4 class="modal-title"><i class="fa fa-plus"></i>
+						<span><?php echo $language['add-user'] ?></span>
+						<span class="badge-warning badge-pill" style="font-size: 12px;"><?php echo $language['employee'] ?></span>
+					</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
-				
+
 				<div id="add-user-messages"></div>
-				
+
 				<div class="modal-body" style="max-height:450px; overflow:auto;">
 
 					<div class="form-group">
 						<label for="userName" class="col-sm-6 control-label"><?php echo $language['first-name'] ?>: </label>
-						
+
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="userName" placeholder="<?php echo $language['first-name'] ?>" name="userName" autocomplete="off" required>
 						</div>
@@ -93,7 +127,7 @@ $connect->close();
 
 					<div class="form-group">
 						<label for="userSurname" class="col-sm-6 control-label"><?php echo $language['surname'] ?>: </label>
-						
+
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="userSurname" placeholder="<?php echo $language['surname'] ?>" name="userSurname" autocomplete="off" required>
 						</div>
@@ -101,7 +135,7 @@ $connect->close();
 
 					<div class="form-group">
 						<label for="uemail" class="col-sm-3 control-label"> <?php echo $language['email'] ?>: </label>
-						
+
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="uemail" placeholder="<?php echo $language['email'] ?>" name="uemail" autocomplete="off" pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$" required>
 						</div>
@@ -109,7 +143,7 @@ $connect->close();
 
 					<div class="form-group">
 						<label for="upassword" class="col-sm-3 control-label"><?php echo $language['password'] ?>: </label>
-						
+
 						<div class="col-sm-8">
 							<input type="password" class="form-control" id="upassword" placeholder="<?php echo $language['password'] ?>" name="upassword" autocomplete="off" required>
 						</div>
@@ -117,7 +151,7 @@ $connect->close();
 
 					<div class="form-group">
 						<label for="upassword" class="col-sm-4 control-label"><?php echo $language['user-type'] ?>: </label>
-						
+
 						<div class="col-sm-8">
 							<select class="form-control" id="permittion" name="permittion" required>
 								<option value="">~~<?php echo $language['select'] ?>~~</option>
@@ -130,10 +164,10 @@ $connect->close();
 					<!-- user type >>> 1 - stuff -->
 					<input type="text" name="" hidden="true" id="type" value="1">
 				</div> <!-- /modal-body -->
-				
+
 				<div class="modal-footer">
 					<button type="button" class="btn btn-outline-dark" data-dismiss="modal"> <i class="fas fa-times"></i></button>
-					
+
 					<button type="submit" class="btn btn-success" id="createUserBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 				</div> <!-- /modal-footer -->	      
 			</form> <!-- /.form -->	     
