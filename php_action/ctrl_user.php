@@ -1,5 +1,6 @@
 <?php  
 require_once 'core.php';
+require_once 'init.php';
 /**
  *	
  * */
@@ -40,6 +41,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'changeUserImage':
 		changeUserImage();
 		break;
+		case 'readCounters':
+		userCounter();
+		break;
 		
 		// default:
 		// 	// code...
@@ -53,6 +57,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 function createUser(){
 
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -74,14 +79,14 @@ function createUser(){
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
-				$valid['messages'] = "Successfully Added";	
+				$valid['messages'] = $language['successfully-added'];	
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "Error while adding the members";
+				$valid['messages'] = $language['error-while-adding-the-members'];
 			}
 		}else{
 			$valid['success'] = false;
-			$valid['messages'] = "Existing email, please type another one!";
+			$valid['messages'] = $language['existing-email-please-type-another-one'];
 		}
 	} // if in_array 		
 
@@ -96,8 +101,9 @@ function createUser(){
 function fetchUser(){
 	
 	global $connect;
+	global $language;
 
-	$sql = "SELECT * FROM users WHERE status = 1 AND type = 1 ORDER BY user_id DESC";
+	$sql = "SELECT * FROM users WHERE status = 1 ORDER BY user_id DESC";
 
 	$result = $connect->query($sql);
 
@@ -120,16 +126,26 @@ function fetchUser(){
 			$imageUrl = substr($row[5], 3);
 			$userImage = "<img class='img-round' src='".$imageUrl."' style='height:30px; width:30px;'  />";
 
-			// active 
-			if($row[8] == 1) {
-				$active = "<label class='badge badge-success'>Activo</label>";
+			// type 
+			if($row[6] == 1) {
+				$type = "<label class='badge badge-warning'>".$language['employee']."</label>";
 			} else {
-				$active = "<label class='badge badge-danger'>Inactivo</label>";
+				$type = "<label class='badge badge-info'>".$language['client']."</label>";
 			}
 
-			$button = '
-			<button class="btn btn-outline-primary btn-sm" data-toggle="modal" id="editUserModalBtn" data-target="#editUserModal" onclick="editUser('.$userid.')"> <i class="fas fa-user-edit"></i></button>
-			<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeUserModal" id="removeUserModalBtn" onclick="removeUser('.$userid.')"> <i class="fas fa-trash"></i></button>   
+			// active 
+			if($row[8] == 1) {
+				$active = "<label class='badge badge-success'>".$language['active']."</label>";
+			} else {
+				$active = "<label class='badge badge-danger'>".$language['inactive']."</label>";
+			}
+			
+			if ($row[6] == 1) { 
+				$button = '<button class="btn btn-outline-primary btn-sm" data-toggle="modal" id="editUserModalBtn" data-target="#editUserModal" onclick="editUser('.$userid.')"> <i class="fas fa-user-edit"></i></button>';
+			}else {
+				$button = '<button class="btn btn-outline-primary btn-sm" title="Can\'t update client." disabled> <i class="fas fa-user-edit"></i></button>';
+			}
+			$button .=  '<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#removeUserModal" id="removeUserModalBtn" onclick="removeUser('.$userid.')"> <i class="fas fa-trash"></i></button>   
 			';
 
 			$output['data'][] = array(
@@ -141,6 +157,8 @@ function fetchUser(){
 				$surname,
  				// email
 				$email,
+				// type
+				$type,
  				// active
 				$active,
  				// button
@@ -160,6 +178,7 @@ function fetchUser(){
 function editUser(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -176,10 +195,10 @@ function editUser(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-update'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating user info";
+			$valid['messages'] = $language['error-while-updating'];
 		}
 
 	} // /$_POST
@@ -205,10 +224,10 @@ function removeUser(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the user";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -279,10 +298,10 @@ function editUserImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Updated";	
+						$valid['messages'] = $language['successfully-update'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while updating user image";
+						$valid['messages'] = $language['error-while-updating'];
 					}
 				}	else {
 					return false;
@@ -321,14 +340,14 @@ function changeUserEmail(){
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
-				$valid['messages'] = "Successfully Update";	
+				$valid['messages'] = $language['successfully-update'];
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "Error while updating user info";
+				$valid['messages'] = $language['error-while-updating'];
 			}
 		}else{
 			$valid['success'] = false;
-			$valid['messages'] = "Existing email, please type another one!";
+			$valid['messages'] = $language['existing-email-please-type-another-one'];
 		}
 		$connect->close();
 
@@ -363,18 +382,18 @@ function changeUserPassword(){
 				$updateSql = "UPDATE users SET password = '$newPassword' WHERE user_id = {$userId}";
 				if($connect->query($updateSql) === TRUE) {
 					$valid['success'] = true;
-					$valid['messages'] = "Successfully Updated";		
+					$valid['messages'] = $language['successfully-update'];
 				} else {
 					$valid['success'] = false;
-					$valid['messages'] = "Error while updating the password";	
+					$valid['messages'] = $language['error-while-updating'];	
 				}
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "New password does not match with Conform password";
+				$valid['messages'] = $language['new-password-does-not-match-with-conform-password'];
 			}
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Current password is incorrect";
+			$valid['messages'] = $language['current-password-is-incorrect'];
 		}
 
 		$connect->close();
@@ -407,12 +426,12 @@ function changeUserImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Updated";	
+						$valid['messages'] = $language['successfully-update'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while updating user image";
+						$valid['messages'] = $language['error-while-updating'];
 					}
-				}	else {
+				} else {
 					return false;
 			}	// /else	
 		} // if
@@ -441,14 +460,36 @@ function changeUsername(){
 		$sql = "UPDATE users SET name = '$name', surname = '$surname' WHERE user_id = {$userId}";
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-update'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating user info";
+			$valid['messages'] = $language['error-while-updating'];
 		}
 		$connect->close();
 
 		echo json_encode($valid);
 	}
+}
+
+function userCounter() {
+	global $connect;
+
+	$sql = "SELECT  count(*) AS totalUsers,
+	(SELECT count(*) FROM users WHERE status = 1 AND active = 1) AS totalUsersActive,
+	(SELECT count(*) FROM users WHERE type = 1 AND status = 1) AS totalEmployees,
+	(SELECT count(*) FROM users WHERE type = 1 AND status = 1 AND active = 1) AS totalEmployeesActive,
+	(SELECT count(*) FROM users WHERE type = 2 AND status = 1) AS totalClients,
+	(SELECT count(*) FROM users WHERE type = 2 AND status = 1 AND active = 1) AS totalClientsActive
+	FROM users
+	WHERE status = 1";
+
+	$result = $connect->query($sql);
+
+	if($result->num_rows > 0) { 
+		$row = $result->fetch_array();
+	} // if num_rows
+	$connect->close();
+
+	echo json_encode($row);
 }
 ?>
