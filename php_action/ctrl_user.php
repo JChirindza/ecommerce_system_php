@@ -214,6 +214,7 @@ function editUser(){
 function removeUser(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -280,6 +281,7 @@ function fetchUserImageUrl(){
 function editUserImage(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -323,6 +325,7 @@ function editUserImage(){
 function changeUserEmail(){
 	
 	global $connect;
+	global $language;
 
 	if($_POST) {
 		$valid['success'] = array('success' => false, 'messages' => array());
@@ -361,6 +364,7 @@ function changeUserEmail(){
 function changeUserPassword(){
 	
 	global $connect;
+	global $language;
 
 	if($_POST) {
 
@@ -408,6 +412,7 @@ function changeUserPassword(){
 function changeUserImage(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -448,7 +453,8 @@ function changeUserImage(){
 function changeUsername(){
 	
 	global $connect;
-
+	global $language;
+	
 	if($_POST) {
 
 		$valid['success'] = array('success' => false, 'messages' => array());
