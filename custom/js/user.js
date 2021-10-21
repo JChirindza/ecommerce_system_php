@@ -1,6 +1,9 @@
 var manageUserTable;
 
 $(document).ready(function() {
+
+	setUserCounter();
+
 	// top nav bar 
 	$('#navUser').addClass('active');
 	// manage product data table
@@ -133,6 +136,9 @@ $(document).ready(function() {
 								});
 							}); // /.alert
 
+							// reload userCount
+				          	setUserCounter();
+
 				          	// reload the manage student table
 				          	manageUserTable.ajax.reload(null, true);
 
@@ -247,16 +253,6 @@ function editUser(userid = null) {
 						$("#editEmail").closest('.form-group').addClass('has-success');	  	
 					}	// /else
 
-					// if(userpassword == "") {
-					// 	$("#editPassword").after('<p class="text-danger">Password field is required</p>');
-					// 	$('#editPassword').closest('.form-group').addClass('has-error');
-					// }	else {
-					// 	// remov error text field
-					// 	$("#editPassword").find('.text-danger').remove();
-					// 	// success out for form 
-					// 	$("#editPassword").closest('.form-group').addClass('has-success');	  	
-					// }	// /else
-
 					if(userImage == "") {
 						$("#userImage").closest('.center-block').after('<p class="text-danger">User Image field is required</p>');
 						$('#productImage').closest('.form-group').addClass('has-error');
@@ -294,7 +290,6 @@ function editUser(userid = null) {
 							contentType: false,
 							processData: false,
 							success:function(response) {
-								console.log(response);
 								if(response.success == true) {
 									// submit loading button
 									$("#editUserBtn").button('reset');																		
@@ -313,6 +308,9 @@ function editUser(userid = null) {
 											$(this).remove();
 										});
 									}); // /.alert
+
+									// reload setUserCounter
+									setUserCounter();
 
 							        // reload the manage student table
 							        manageUserTable.ajax.reload(null, true);
@@ -426,7 +424,7 @@ function removeUser(userid = null) {
 			// loading remove button
 			$("#removeUserBtn").button('loading');
 			$.ajax({
-				url: 'php_action/ctrl_user.php?action=remove',
+				url: 'php_action/ctrl_user.php?action=delete',
 				type: 'post',
 				data: {userid: userid},
 				dataType: 'json',
@@ -452,6 +450,9 @@ function removeUser(userid = null) {
 								$(this).remove();
 							});
 						}); // /.alert
+
+						// reload userCount
+						setUserCounter();
 					} else {
 
 						// remove success messages
@@ -475,32 +476,19 @@ function removeUser(userid = null) {
 	} // /if userid
 } // /remove product function
 
-function clearForm(oForm) {
-	// var frm_elements = oForm.elements;									
-	// console.log(frm_elements);
-	// 	for(i=0;i<frm_elements.length;i++) {
-	// 		field_type = frm_elements[i].type.toLowerCase();									
-	// 		switch (field_type) {
-	// 	    case "text":
-	// 	    case "password":
-	// 	    case "textarea":
-	// 	    case "hidden":
-	// 	    case "select-one":	    
-	// 	      frm_elements[i].value = "";
-	// 	      break;
-	// 	    case "radio":
-	// 	    case "checkbox":	    
-	// 	      if (frm_elements[i].checked)
-	// 	      {
-	// 	          frm_elements[i].checked = false;
-	// 	      }
-	// 	      break;
-	// 	    case "file": 
-	// 	    	if(frm_elements[i].options) {
-	// 	    		frm_elements[i].options= false;
-	// 	    	}
-	// 	    default:
-	// 	        break;
-	//     } // /switch
-	// 	} // for
+function setUserCounter() {
+
+	$.ajax({
+		url : 'php_action/ctrl_user.php?action=readCounters', 
+		type: 'post',
+		dataType: 'json',
+		success:function(response) {	
+			$('#totalUsers').text(response.totalUsers);
+			$('#totalUsersActive').text(response.totalUsersActive);
+			$('#totalEmployees').text(response.totalEmployees);
+			$('#totalEmployeesActive').text(response.totalEmployeesActive);
+			$('#totalClients').text(response.totalClients);
+			$('#totalClientsActive').text(response.totalClientsActive);
+		} // /success function
+	});
 }
