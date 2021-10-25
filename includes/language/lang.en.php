@@ -302,4 +302,24 @@ $language['responded'] = 'Responded';
 $language['error-while-confirm-this-request-was-been-confirmed'] = 'Error while confirm. This request was been confirmed';
 $language['error-while-confirm-request'] = 'Error while confirm request';
 $language['pending-request'] = 'Pending request';
+
+// Client
+$language['total-clients'] = 'Total clients';
+$language['manage-clients'] = 'Manage clients';
+$language['district'] = 'District';
+$language['client-details'] = 'Client details';
+$language['client'] = 'Client';
+$language['employee'] = 'Employee';
+$language['total-employees'] = 'Total employees';
+$language['total-clients'] = 'Total clients';
+
+$language['successfully-update'] = 'Successfully Update';
+$language['error-while-updating'] = 'Error while updating';
+$language['successfully-removed'] = 'Successfully Removed';
+$language['error-while-remove'] = 'Error while remove';
+$language['existing-email-please-type-another-one'] = 'Existing email, please type another one!';
+$language['successfully-added'] = 'Successfully Added';
+$language['error-while-adding-the-members'] = 'Error while adding the members';
+$language['new-password-does-not-match-with-conform-password'] = 'New password does not match with Conform password';
+$language['current-password-is-incorrect'] = 'Current password is incorrect';
 ?>
