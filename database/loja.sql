@@ -32,7 +32,7 @@ CREATE TABLE `brands` (
   `brand_name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `brand_active` enum('1','2') NOT NULL,
   `brand_status` enum('1','2') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `brands`
@@ -177,7 +177,7 @@ CREATE TABLE `categories` (
   `categories_name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `categories_active` enum('1','2') CHARACTER SET utf8 NOT NULL DEFAULT '1',
   `categories_status` enum('1','2') CHARACTER SET utf8 NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `categories`
@@ -265,8 +265,7 @@ CREATE TABLE `orders` (
   `gstn` varchar(255) NOT NULL,
   `order_status` int(11) NOT NULL DEFAULT 0,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Dumping data for table `orders`
 --
@@ -340,7 +339,7 @@ CREATE TABLE `order_item` (
   `rate` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
   `order_item_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_item`
@@ -451,7 +450,7 @@ CREATE TABLE `product` (
   `rate` decimal(8,2) NOT NULL,
   `active` enum('1','2') NOT NULL,
   `status` enum('1','2') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product`
@@ -628,7 +627,7 @@ CREATE TABLE `users` (
   `permittion` int(11) NOT NULL,
   `active` enum('1','2') CHARACTER SET utf8 NOT NULL,
   `status` enum('1','2') CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
