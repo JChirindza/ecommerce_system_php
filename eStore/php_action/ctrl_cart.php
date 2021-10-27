@@ -78,12 +78,17 @@ function addToCart(){
 					$valid['messages'] = "Error while adding the members";
 				}
 
-				$connect->close();
-
-				echo json_encode($valid);
+				
 			}
 		}
+	}else {
+		$valid['success'] = false;
+		$valid['messages'] = " You have to sign-in first!!! <a href='../sign-in.php' class='btn btn-warning btn-sm border border-dark pl-4 pr-4 my-2 ml-4'><i class='fas fa-unlock'></i> Sign-in</a>";
 	}
+
+	$connect->close();
+
+	echo json_encode($valid);
 }
 
 function fetchCart(){
