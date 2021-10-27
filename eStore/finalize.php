@@ -1,16 +1,18 @@
 <?php require_once 'includes/header.php'; ?>
 <?php  
 if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
-	<div class="p-4">
+	<div class="p-4" style="height: 800px;">
 		<div class="alert alert-warning" role="alert">
 			<i class="fas fa-exclamation-triangle"></i>
-			Nao tem permissao para aceder a esta pagina.
+			<?php echo $language['access-403'] ?>.
 		</div>
 		<div class="d-flex justify-content-center">
-			<a href="../sign-in.php" class="btn btn-primary"><i class="fas fa-sign-in-alt pr-2"></i> Sign-in</a>
+			<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a>
 		</div>
 	</div>
+
 	<?php
+	require_once 'includes/footer.php';
 	die();
 }
 
