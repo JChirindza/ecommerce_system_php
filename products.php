@@ -6,7 +6,7 @@
 	</button>
 	<ol class="breadcrumb bg-transparent mb-0">
 		<li class="breadcrumb-item"><a href="dashboard.php"><?php echo $language['dashboard'] ?></a></li>
-		<li class="breadcrumb-item active"><?php echo $language['product'] ?></li>
+		<li class="breadcrumb-item active"><?php echo $language['products'] ?></li>
 		<li class="breadcrumb-item active" aria-current="page">
 			<?php if($_GET['p'] == 'manprod') {
 				echo $language['manage']; 
@@ -19,7 +19,7 @@
 
 
 <div class="d-sm-flex align-items-center justify-content-between m-3">
-	<h1 class="pageTitle"><?php echo $language['product'] ?></h1>
+	<h1 class="pageTitle"><?php echo $language['products'] ?></h1>
 	<?php if($_GET['p'] == 'manprod') { // gerir produto ?>
 		<button class="btn btn-primary btn-sm" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="fas fa-plus"></i> <?php echo $language['add-product'] ?> </button>
 	<?php } else if($_GET['p'] == 'detail') { // adicionar detalhes ?>
@@ -43,7 +43,7 @@
 						<table class="table " id="manageProductTable">
 							<thead>
 								<tr>
-									<th style="width:10%;">Photo</th>							
+									<th style="width:10%;"><?php echo $language['photo'] ?></th>							
 									<th><?php echo $language['product-name'] ?></th>
 									<th><?php echo $language['price'] ?></th>							
 									<th><?php echo $language['quantity'] ?></th>
