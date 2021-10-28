@@ -160,26 +160,35 @@ $countTotalRequests = $query->num_rows;
 				$cartHasPaidId = $_GET['i'];
 			}
 
-			$sql = "SELECT cart_has_paid.cart_has_paid_id,
-			cart_has_paid.dt_paid, 
-			users.name, 
-			users.surname, 
-			clients.contact,
-			cart_has_paid.sub_total,
-			cart_has_paid.vat,
-			cart_has_paid.total_amount,
-			cart_has_paid.discount,
-			cart_has_paid.grand_total,
-			cart_has_paid.payment_type,
-			(SELECT active 
-			FROM requests 
-			WHERE cart_has_paid_id = cart_has_paid.cart_has_paid_id) 
-			AS active
-			FROM cart_has_paid
-			INNER JOIN cart ON cart_has_paid.cart_id = cart.cart_id 
-			INNER JOIN clients ON cart.user_id = clients.user_id 
-			INNER JOIN users ON clients.user_id = users.user_id
-			WHERE cart_has_paid_id = {$cartHasPaidId} ORDER BY cart_has_paid_id DESC";
+			$sql = "SELECT 
+					    cart_has_paid.cart_has_paid_id,
+					    cart_has_paid.dt_paid, 
+					    users.name, 
+					    users.surname, 
+					    clients.contact,
+					    cart_has_paid.sub_total,
+					    cart_has_paid.vat,
+					    cart_has_paid.total_amount,
+					    cart_has_paid.discount,
+					    cart_has_paid.grand_total,
+					    cart_has_paid.payment_type,
+					    (SELECT active 
+								FROM requests 
+								WHERE cart_has_paid_id = cart_has_paid.cart_has_paid_id) 
+								AS active,
+						(SELECT dt_requested 
+								FROM requests 
+								WHERE cart_has_paid_id = cart_has_paid.cart_has_paid_id) 
+								AS dt_requested,
+					    (SELECT dt_responded 
+								FROM requests 
+								WHERE cart_has_paid_id = cart_has_paid.cart_has_paid_id) 
+								AS dt_responded
+					FROM cart_has_paid
+						INNER JOIN cart ON cart_has_paid.cart_id = cart.cart_id 
+						INNER JOIN clients ON cart.user_id = clients.user_id 
+						INNER JOIN users ON clients.user_id = users.user_id
+					WHERE cart_has_paid_id = {$cartHasPaidId} ORDER BY cart_has_paid_id DESC";
 
 			$result = $connect->query($sql);
 			$data = $result->fetch_array();
@@ -206,14 +215,14 @@ $countTotalRequests = $query->num_rows;
 					<div class="form-group">
 						<label class="col-sm control-label"><?php echo $language['requested-on'] ?>:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" autocomplete="off" value="<?php echo $data['dt_paid'] ?>" disabled/>
+							<input type="text" class="form-control" autocomplete="off" value="<?php echo $data['dt_requested'] ?>" disabled/>
 						</div>
 					</div> <!--/form-group-->
 
 					<div class="form-group">
 						<label class="col-sm control-label"><?php echo $language['responded-on'] ?>:</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="respondedOn" id="respondedOn" disabled autocomplete="off" value="<?php echo $data['dt_paid'] ?>" />
+							<input type="text" class="form-control" name="respondedOn" id="respondedOn" disabled autocomplete="off" value="<?php echo $data['dt_responded'] ?>" />
 						</div>
 					</div> <!--/form-group-->
 				</div>
@@ -305,10 +314,10 @@ $countTotalRequests = $query->num_rows;
 	var responded = $('#responded').val();
 
 	if (responded == 2) { // responded == 2 | confirmed
-		$('#respondedOn').val('Waiting for confirmation...');
 		$('#confirmRequestBtn').addClass('d-none');
 		$('#req_responded').removeClass('d-none');
 	}else{
+		$('#respondedOn').val('Waiting for confirmation...');
 		$('#pending_req').removeClass('d-none');
 	}
 </script>
