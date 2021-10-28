@@ -1,16 +1,6 @@
 
 <?php 
 $productId = Sys_Secure($_GET['i']);
-
-$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
-product.categories_id, product.quantity, product.rate, product.active, product.status, 
-brands.brand_name, categories.categories_name FROM product 
-INNER JOIN brands ON product.brand_id = brands.brand_id 
-INNER JOIN categories ON product.categories_id = categories.categories_id  
-WHERE product.status = 1 AND product.product_id = {$productId}";
-
-$query = $connect->query($sql);
-$prodResult = $query->fetch_assoc();
 ?>
 <div class="row mb-3">
 	<div class="col-12">
@@ -23,7 +13,7 @@ $prodResult = $query->fetch_assoc();
 				<div class="form-group col-12">
 					<div class="row ">
 						<div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; justify-content: center;"> 
-							<img class="img-fluid" src="src/<?php echo $prodResult['product_image']; ?>" style="max-height: 200px;">
+							<img class="img-fluid" id="product_img" style="max-height: 200px;">
 						</div>
 						<div class="col-sm-12 col-md-6 col-lg-6" style="display: flex; align-items: center;">
 							<style type="text/css">
@@ -35,7 +25,7 @@ $prodResult = $query->fetch_assoc();
 								}
 							</style>
 
-							<label class="prodName" data-toggle="tooltip" title="<?php echo $prodResult['product_name']; ?>"><?php echo $prodResult['product_name']; ?></label>
+							<label class="prodName" id="product_name" data-toggle="tooltip"></label>
 						</div>
 					</div>
 				</div>
@@ -50,14 +40,14 @@ $prodResult = $query->fetch_assoc();
 						<div class="form-group col-md-6 col-lg-6">
 							<label for="quantity" class="col-12 control-label"><?php echo $language['available-quantity'] ?>: </label>
 							<div class="col-12">
-								<input type="text" readonly class="form-control border-0" id="quantity" name="quantity" autocomplete="off" value="<?php echo $prodResult['quantity']; ?>">
+								<input type="text" readonly class="form-control border-0" id="product_quantity" name="quantity" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->	        	 
 
 						<div class="form-group col-md-6 col-lg-6 pt-4 pt-md-0 pt-lg-0">
 							<label for="rate" class="col-12 control-label"><?php echo $language['price'] ?>: </label>
 							<div class="col-12">
-								<input type="text" readonly class="form-control border-0" id="rate" name="rate" autocomplete="off" value="<?php echo $prodResult['rate']; ?>">
+								<input type="text" readonly class="form-control border-0" id="product_rate" name="rate" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->	     	        
 					</div>
@@ -66,37 +56,31 @@ $prodResult = $query->fetch_assoc();
 						<div class="form-group col-md-6 col-lg-6">
 							<label for="brand" class="col-12 control-label"><?php echo $language['brand-name'] ?>: </label>
 							<div class="col-12">
-								<input type="text" readonly class="form-control border-0" id="brand" name="brand" autocomplete="off" value="<?php echo $prodResult['brand_name']; ?>">
+								<input type="text" readonly class="form-control border-0" id="product_brand" name="brand" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->	
 
 						<div class="form-group col-md-6 col-lg-6 pt-4 pt-md-0 pt-lg-0">
 							<label for="category" class="col-12 control-label"><?php echo $language['categ-name'] ?>: </label>
 							<div class="col-12">
-								<input type="text" readonly class="form-control border-0" id="category" name="category" autocomplete="off" value="<?php echo $prodResult['categories_name']; ?>">
+								<input type="text" readonly class="form-control border-0" id="product_category" name="category" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->
 					</div>					        	         	       
 
 					<div class="form-group pt-2 pt-md-0 pt-lg-0">
 						<label for="status" class="col-12 control-label"><?php echo $language['status'] ?>: </label>
-						<div class="form-group col-md-3 col-lg-3">
-							
-							<?php $active = $prodResult['active']; ?>
 
-							<?php if ($active == 1) { ?>
-								<input type="text" readonly class="form-control border-0 text-success font-weight-bold" id="status" name="status" autocomplete="off" value="<?php echo $language['available'] ?>">
-							<?php } elseif ($active == 2) { ?>
-								<input type="text" readonly class="form-control border-0 text-danger font-weight-bold" id="status" name="status" autocomplete="off" value="<?php echo $language['not-available'] ?>">
-							<?php } ?>
-						</div>
+						<!-- product active input -->
+						<div class="form-group col-md-3 col-lg-3 product_activ"></div>
 					</div> <!-- /form-group-->
-					
 
-					<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="Ver menos" style="cursor: pointer;">
+					<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="<?php echo $language['view-less']; ?>" style="cursor: pointer;">
 						<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
 					</div>
 				</div>
+
+				<input type="hidden" name="product_id" id="product_id" value="<?php echo $productId; ?>">
 
 				<script type="text/javascript">
 					var view_more = document.getElementById('view-more');
@@ -117,7 +101,7 @@ $prodResult = $query->fetch_assoc();
 						}
 					}
 				</script>
-				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('<?php echo $prodResult['product_id']; ?>')"> <i class="fas fa-edit"></i><?php echo $language['edit-product'] ?></button>
+				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('<?php echo $productId; ?>')"> <i class="fas fa-edit"></i><?php echo $language['edit-product'] ?></button>
 
 			</div> 
 		</div>
@@ -155,8 +139,6 @@ $prodResult = $query->fetch_assoc();
 		</div>
 	</div> <!-- /col-md-12 -->
 </div> <!-- /row -->
-
-
 
 <!-- add product -->
 <div class="modal fade " id="addProductDetailModal" tabindex="-1" role="dialog">
@@ -202,7 +184,7 @@ $prodResult = $query->fetch_assoc();
 							<button type="submit" class="btn btn-success" id="createProductDetailBtn" data-loading-text="Loading..." autocomplete="off"> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
 						</div>
 					</div>	
-					<input type="hidden" name="productId" id="productId" value="<?php echo $prodResult['product_id']; ?>">
+					<input type="hidden" name="productId" id="productId" value="<?php echo $productId; ?>">
 				</form> <!-- /.form -->	 
 			</div> <!-- /modal-body -->
 
