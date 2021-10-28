@@ -1,8 +1,7 @@
 <?php  
 require_once 'core.php';
-/**
- *	
- * */
+include 'init.php';
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -27,6 +26,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'readImageUrl':
 		fetchProductImageUrl();
 		break;
+		case 'readProductInfo':
+		fetchProductInfo();
+		break;
 		
 		// default:
 		// 	// code...
@@ -39,6 +41,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 function createProduct(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -63,10 +66,10 @@ function createProduct(){
 
 					if($connect->query($sql) === TRUE) {
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Added";	
+						$valid['messages'] = $language['successfully-added'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while adding the members";
+						$valid['messages'] = $language['error-while-adding-the-members'];
 					}
 
 				} else {
@@ -86,6 +89,7 @@ function createProduct(){
 function fetchProduct(){
 
 	global $connect;
+	global $language;
 
 	$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
 	product.categories_id, product.quantity, product.rate, product.active, product.status, 
@@ -108,10 +112,10 @@ function fetchProduct(){
 	 	// active 
 			if($row[7] == 1) {
 	 		// activate member
-				$active = "<label class='badge badge-success'>Available</label>";
+				$active = "<label class='badge badge-success'>".$language['available']."</label>";
 			} else {
 	 		// deactivate member
-				$active = "<label class='badge badge-danger'>Not Available</label>";
+				$active = "<label class='badge badge-danger'>".$language['not-available']."</label>";
 	 	} // /else
 
 	 	$button = '<!-- Single button -->
@@ -159,6 +163,7 @@ function fetchProduct(){
 function editProduct(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -176,10 +181,10 @@ function editProduct(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-update'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating product info";
+			$valid['messages'] = $language['error-while-updating'];
 		}
 	} // /$_POST
 	$connect->close();
@@ -210,10 +215,10 @@ function editProductImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Updated";	
+						$valid['messages'] = $language['successfully-update'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while updating product image";
+						$valid['messages'] = $language['error-while-updating-image'];
 					}
 				} else {
 					return false;
@@ -232,6 +237,7 @@ function editProductImage(){
 function removeProduct(){
 	
 	global $connect;
+	global $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -243,10 +249,10 @@ function removeProduct(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the brand";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -291,5 +297,28 @@ function fetchProductImageUrl(){
 
 	echo "stock/" . $result[0];
 
+}
+
+function fetchProductInfo() {
+
+	global $connect;
+
+	if (isset($_POST['product_id'])) {
+		$productId = Sys_Secure($_POST['product_id']);
+
+		$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
+		product.categories_id, product.quantity, product.rate, product.active,
+		brands.brand_name, categories.categories_name FROM product 
+		INNER JOIN brands ON product.brand_id = brands.brand_id 
+		INNER JOIN categories ON product.categories_id = categories.categories_id  
+		WHERE product.status = 1 AND product.product_id = {$productId}";
+
+		$query = $connect->query($sql);
+		$prodInfo = $query->fetch_assoc();
+
+		$connect->close();
+
+		echo json_encode($prodInfo);
+	}
 }
 ?>
