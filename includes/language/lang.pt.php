@@ -301,25 +301,27 @@ $language['confirm-request'] = 'Confirmar solicitação';
 $language['responded'] = 'Respondida';
 $language['error-while-confirm-this-request-was-been-confirmed'] = 'Erro ao confirmar. Esta solicitação já foi confirmada';
 $language['error-while-confirm-request'] = 'Erro ao confirmar solicitação';
-$language['pending-request'] = 'solicitação pendente';
+$language['pending-request'] = 'Solicitação pendente';
 
 // Client
-$language['total-clients'] = 'Total clients';
-$language['manage-clients'] = 'Manage clients';
-$language['district'] = 'District';
-$language['client-details'] = 'Client details';
-$language['client'] = 'Client';
-$language['employee'] = 'Employee';
-$language['total-employees'] = 'Total employees';
-$language['total-clients'] = 'Total clients';
+$language['total-clients'] = 'Total de clientes';
+$language['manage-clients'] = 'Gerir clientes';
+$language['district'] = 'Distrito';
+$language['client-details'] = 'Detalhes do cliente';
+$language['client'] = 'Cliente';
+$language['employee'] = 'Funcionário';
+$language['total-employees'] = 'Total de funcionários';
+$language['total-clients'] = 'Total de clientes';
 
 $language['successfully-update'] = 'Atualizado com sucesso';
 $language['error-while-updating'] = 'Erro ao atualizar';
 $language['successfully-removed'] = 'Removido com sucesso';
 $language['error-while-remove'] = 'Erro ao remover';
-$language['existing-email-please-type-another-one'] = 'Existing email, please type another one!';
+$language['existing-email-please-type-another-one'] = 'Email existe, por favor digite outro!';
 $language['successfully-added'] = 'Adicionado com sucesso';
-$language['error-while-adding-the-members'] = 'Error while adding the members';
-$language['new-password-does-not-match-with-conform-password'] = 'New password does not match with Conform password';
-$language['current-password-is-incorrect'] = 'Current password is incorrect';
+$language['error-while-adding-the-members'] = 'Erro ao adicionar membro';
+$language['new-password-does-not-match-with-conform-password'] = 'Nova senha nao combina com a senha de confirmacao';
+$language['current-password-is-incorrect'] = 'Senha atual esta incorrecta';
+$language['view-less'] = 'Ver menos';
+$language['error-while-updating-image'] = 'Erro ao atualizar imagem';
 ?>

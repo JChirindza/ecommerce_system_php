@@ -322,4 +322,6 @@ $language['successfully-added'] = 'Successfully Added';
 $language['error-while-adding-the-members'] = 'Error while adding the members';
 $language['new-password-does-not-match-with-conform-password'] = 'New password does not match with Conform password';
 $language['current-password-is-incorrect'] = 'Current password is incorrect';
+$language['view-less'] = 'View less';
+$language['error-while-updating-image'] = 'Error while updating image';
 ?>
