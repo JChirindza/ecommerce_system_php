@@ -156,7 +156,7 @@ $(document).ready(function() {
 								});
 							}); // /.alert
 
-				          	// reload the manage student table
+				          	// reload the manage table
 				          	manageProductTable.ajax.reload(null, true);
 
 							// remove text-error 
@@ -338,22 +338,18 @@ function editProduct(productId = null) {
 									// submit loading button
 									$("#editProductBtn").button('reset');																		
 
-									$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
-
 									// shows a successful message after operation
 									$('#edit-product-messages').html('<div class="alert alert-success">'+
 										'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 										'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
 										'</div>');
 
-									// remove the mesages
-									$(".alert-success").delay(500).show(10, function() {
-										$(this).delay(3000).hide(10, function() {
-											$(this).remove();
-										});
-									}); // /.alert
+									// update product data
+									setProductInfo(productId);
 
-				          			// reload the manage student table
+									$("div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+				          			// reload the manage table
 				          			manageProductTable.ajax.reload(null, true);
 
 									// remove text-error 
@@ -361,7 +357,22 @@ function editProduct(productId = null) {
 									// remove from-group error
 									$(".form-group").removeClass('has-error').removeClass('has-success');
 
-								} // /if response.success
+								} else {
+									$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+									// shows a message after operation
+									$('#edit-product-messages').html('<div class="alert alert-warning">'+
+										'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+										'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+										'</div>');
+								} // /else response.success
+
+								// remove the mesages
+								$(".alert-success").delay(500).show(10, function() {
+									$(this).delay(3000).hide(10, function() {
+										$(this).remove();
+									});
+								}); // /.alert
 								
 							} // /success function
 						}); // /ajax function
@@ -421,7 +432,7 @@ function editProduct(productId = null) {
 									});
 								}); // /.alert
 
-					          	// reload the manage student table
+					          	// reload the manage table
 					          	manageProductTable.ajax.reload(null, true);
 
 					          	$(".fileinput-remove-button").click();
