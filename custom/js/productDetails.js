@@ -6,6 +6,9 @@ $(document).ready(function() {
 
 	var product_id = $("#productId").val();
 
+	// Set product data
+	setProductInfo(product_id);
+
 	// manage product details data table
 	manageProductDetailsTable = $('#manageProductDetailsTable').DataTable({
 		"ajax": {
@@ -245,8 +248,8 @@ function editProductDetail(productDetailId = null) {
 										});
 									}); // /.alert
 
-				          // reload the manage product table
-				          manageProductDetailsTable.ajax.reload(null, true);
+						          	// reload the manage product table
+						          	manageProductDetailsTable.ajax.reload(null, true);
 
 									// remove text-error 
 									$(".text-danger").remove();
@@ -266,9 +269,9 @@ function editProductDetail(productDetailId = null) {
 		}); // /ajax to fetch product image
 
 
-	} else {
-		alert('error please refresh the page');
-	}
+} else {
+	alert('error please refresh the page');
+}
 } // /edit product function
 
 // remove product 
@@ -327,3 +330,32 @@ function removeProductDetail(productDetailId = null) {
 		}); // /remove product btn clicked
 	} // /if productDetailId
 } // /remove product detail function
+
+function setProductInfo(product_id = null) {
+	console.log(321);
+	if(product_id) {
+		$.ajax({
+			url : 'php_action/ctrl_product.php?action=readProductInfo', 
+			type: 'post',
+			data: {product_id: product_id},
+			dataType: 'json',
+			success:function(response) {	
+				$('#product_name').text(response.product_name).attr('title', response.product_name);
+				$('#product_img').attr('src', 'stock/'+response.product_image);
+				$('#product_brand').val(response.brand_name);
+				$('#product_category').val(response.categories_name);
+				$('#product_quantity').val(response.quantity);
+				$('#product_rate').val(response.rate);
+				// $('#product_active').val(response.active);
+
+				if (response.active == 1) {
+					$('.product_activ').html('<input type="text" readonly class="form-control border-0 text-success font-weight-bold" id="status" name="status" autocomplete="off" value="Available">');
+				}else if (response.active == 2) {
+					$('.product_activ').html('<input type="text" readonly class="form-control border-0 text-danger font-weight-bold" id="status" name="status" autocomplete="off" value="Not available">');
+				}
+			} // /success function
+		});
+	}
+
+	
+}
