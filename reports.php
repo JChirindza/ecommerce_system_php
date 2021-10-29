@@ -36,7 +36,7 @@ $connect->close();
 		<div class="row">
 
 			<div class="col-md-6 pt-2 mb-4">
-				<div class="card shadow-sm ">
+				<div class="card">
 					<div class="card-body">
 						<a href="#"  class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
@@ -48,7 +48,7 @@ $connect->close();
 				</div>
 			</div> <!--/col-md-4-->
 			<div class="col-md-6 pt-2 mb-4">
-				<div class="card card-danger shadow-sm ">
+				<div class="card card-danger">
 					<div class="card-body">
 						<a href="#" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
@@ -60,22 +60,23 @@ $connect->close();
 				</div> 
 			</div> <!--/col-md-4-->
 		</div>
-		<div class="card shadow-sm">
+		<hr class="mt-0">
+		<div class="card">
 
-			<div class="card-header">
+			<div class="card-header bg-white">
 				<i class="fas fa-chart-area"></i> <?php echo $language['orders-report'] ?>
 			</div>
 			<div class="card-body">
 				<div class="form-group">
 					<label for="startDate" class="col-sm-4 control-label"><?php echo $language['start-date'] ?></label>
 					<div class="col-sm">
-						<input type="date" class="form-control" id="startDate" name="startDate" placeholder="Start Date" required/>
+						<input type="date" class="form-control" id="startDate" name="startDate" placeholder="<?php echo $language['start-date'] ?>" required/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="endDate" class="col-sm-4 control-label"><?php echo $language['end-date'] ?></label>
 					<div class="col-sm">
-						<input type="date" class="form-control" id="endDate" name="endDate" placeholder="End Date" required/>
+						<input type="date" class="form-control" id="endDate" name="endDate" placeholder="<?php echo $language['end-date'] ?>" required/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -90,9 +91,8 @@ $connect->close();
 
 	<div class="col-md-6 mb-4">
 		<div class="row">
-
 			<div class="col-md-6 pt-2 mb-4">
-				<div class="card shadow-sm ">
+				<div class="card">
 					<div class="card-body">
 						<a href="#"  class="text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
@@ -104,7 +104,7 @@ $connect->close();
 				</div>
 			</div> <!--/col-md-4-->
 			<div class="col-md-6 pt-2 mb-4">
-				<div class="card card-danger shadow-sm ">
+				<div class="card card-danger">
 					<div class="card-body">
 						<a href="#" class="font-weight-bold text-xs font-weight-bold" style="text-decoration:none;color:black;">
 							<div class="d-sm-flex align-items-center justify-content-between">
@@ -116,8 +116,9 @@ $connect->close();
 				</div> 
 			</div> <!--/col-md-4-->
 		</div>
-		<!-- <div class="card shadow-sm">
-			<div class="card-header">
+		<hr class="mt-0">
+		<div class="card">
+			<div class="card-header bg-white">
 				<i class="fas fa-chart-area"></i> Relatorio de Compras
 			</div>
 			<div class="card-body">
@@ -141,7 +142,7 @@ $connect->close();
 					</div>
 				</form>
 			</div>
-		</div> -->
+		</div>
 	</div>
 	<!-- /col-dm-12 -->
 </div>
