@@ -53,19 +53,14 @@
 
 						<div style="height: auto; max-height: 200px; overflow-y: auto; overflow-x: hidden; ">
 							<?php
-							// gets all active categories
-							$sql = "SELECT categories_id, categories_name FROM categories WHERE categories_active = 1";
+							// gets all active categories | Counts the total products by category
+							$sql = "SELECT categories_id, categories_name, (SELECT count(*) FROM product WHERE categories_id = categories.categories_id AND active = 1) AS countProduct FROM categories";
 							$result = $connect->query($sql);
 
 							foreach($result as $row) { 
-								// Counts the total products by category
-								$sql = "SELECT count(*) as countProduct FROM product WHERE categories_id = {$row['categories_id']} AND active = 1";
-								$query = $connect->query($sql);
-								$resultCount = $query->fetch_assoc();
-
-								if ($resultCount['countProduct'] > 0) { ?>
+								if ($row['countProduct'] > 0) { ?>
 									<div class="list-group-item p-0 m-0 border-0">
-										<a href="productFilters.php?category_id=<?php echo $row['categories_id']; ?>" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> <?php echo $row['categories_name']; ?> (<?php echo $resultCount['countProduct']; ?>)</label></a>
+										<a href="productFilters.php?category_id=<?php echo $row['categories_id']; ?>" class="ctg col-12 p-0"><label> <i class="fa fa-angle-right fa-w-10"></i> <?php echo $row['categories_name']; ?> (<?php echo $row['countProduct']; ?>)</label></a>
 									</div>
 									<?php 
 								} 
@@ -80,33 +75,26 @@
 					<div style="height: auto; max-height: 280px; overflow-y: auto; overflow-x: hidden;">
 						<?php
 
-						$sql = "SELECT DISTINCT(brand_id) FROM product WHERE active = '1' ";
+						$sql = "SELECT DISTINCT(product.brand_id), 
+									(SELECT brand_name FROM brands WHERE brand_id = product.brand_id) AS brand_name, 
+									(SELECT COUNT(*) FROM product WHERE product.brand_id = brands.brand_id) AS totalProducts 
+								FROM product INNER JOIN brands ON brands.brand_id = product.brand_id 
+								WHERE active = 1 ";
+
 
 						if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
 							$sql .= " AND categories_id = {$_GET['category_id']} ";
 						}
 
-						$sql .= " ORDER BY product_id DESC";
+						$sql .= " ORDER BY totalProducts DESC";
 						$result = $connect->query($sql);
 
 						if ($result) {
 
 							foreach($result as $row) {
-								$brandID = $row['brand_id'];
-								$sql2 = "SELECT brand_name FROM brands WHERE brand_id = '$brandID' ";
-								$query2 = $connect->query($sql2);
-								$result2 = $query2->fetch_assoc();
-
-								$sql = "SELECT * FROM product WHERE active = '1' AND brand_id = {$brandID}";
-								if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
-									$sql .= " AND categories_id = {$_GET['category_id']} ";
-								}
-								$query2 = $connect->query($sql);
-								$countBrands = $query2->num_rows;
-
 								?>
 								<div class="list-group-item checkbox">
-									<label><input type="checkbox" class="common_selector brand" value="<?php echo $row['brand_id']; ?>"  > <?php echo $result2['brand_name']; ?> (<?php echo $countBrands; ?>)</label>
+									<label><input type="checkbox" class="common_selector brand" value="<?php echo $row['brand_id']; ?>"  > <?php echo $row['brand_name']; ?> (<?php echo $row['totalProducts']; ?>)</label>
 								</div>
 							<?php } 
 						} ?>
@@ -115,7 +103,7 @@
 
 				<?php if (!isset($_SESSION['userId'])){ ?>
 					<div class="d-flex justify-content-center mt-5">
-						<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="Sign-in for a better experience."><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a>
+						<a href="../sign-in.php" class="btn btn-warning btn-sm border border-dark pl-4 pr-4" data-toggle="tooltip" title="<?php echo $language['sign-in-f-a-better-experience']; ?>"><i class="fas fa-unlock"></i> <?php echo $language['sign-in'] ?></a>
 					</div>
 				<?php } ?>
 			</div>
