@@ -46,7 +46,7 @@ $language['contact'] = 'Contact';
 // Home
 $language['shop-by-categ'] = 'Shop by category';
 $language['view-more'] = 'View more';
-$language['Sig-in-f-a-better-experience'] = 'Sig-in for a better experience';
+$language['sign-in-f-a-better-experience'] = 'Sign-in for a better experience';
 $language['computers'] = 'Computers';
 $language['hardware-and-network-parts'] = 'Hardware and network parts';
 $language['computer-components'] = 'Computer components';
@@ -324,4 +324,5 @@ $language['new-password-does-not-match-with-conform-password'] = 'New password d
 $language['current-password-is-incorrect'] = 'Current password is incorrect';
 $language['view-less'] = 'View less';
 $language['error-while-updating-image'] = 'Error while updating image';
+$language['you-have-to-sign-in-first'] = 'You have to sign-in first';
 ?>
