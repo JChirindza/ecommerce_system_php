@@ -4,7 +4,7 @@ if( !(isset($_SESSION['userId']) && isset($_SESSION['userType'])) ) { ?>
 	<div class="border-right" id="sidebar-wrapper">
 		<div class="list-group list-group-flush">
 			<a id="navDashboard" href="dashboard.php" class="list-group-item list-group-item-action border-0"> <i class="fa fa-desktop fa-lg mr-2"></i> Dashboard</a>
-			<a id="navAbout" href="about.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-cogs fa-lg mr-2"></i><?php echo $language['about']; ?></a>
+			<a id="navAbout" href="eStore/about.php" class="list-group-item list-group-item-action border-0"><i class="fas fa-cogs fa-lg mr-2"></i><?php echo $language['about']; ?></a>
 		</div>
 	</div>
 
