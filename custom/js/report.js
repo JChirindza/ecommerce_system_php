@@ -8,29 +8,35 @@ $(document).ready(function() {
 // print report function
 function printReport() {
 
+	// remove the error text
+	$(".text-danger").remove();
+	// remove the form error
+	$('.form-group').removeClass('has-error').removeClass('has-success');
+
 	var startDate = $("#startDate").val();
-	var endDate = $("#endDate").val();	
+	var endDate = $("#endDate").val();
 
-	if(startDate == "" || endDate == "") {
-		if(startDate == "") {
-			$("#startDate").closest('.form-group').addClass('has-error');
-			$("#startDate").after('<p class="text-danger">The Start Date is required</p>');
-		} else {
-			$(".form-group").removeClass('has-error');
-			$(".text-danger").remove();
-		}
-
-		if(endDate == "") {
-			$("#endDate").closest('.form-group').addClass('has-error');
-			$("#endDate").after('<p class="text-danger">The End Date is required</p>');
-		} else {
-			$(".form-group").removeClass('has-error');
-			$(".text-danger").remove();
-		}
+	if(startDate == "") {
+		$("#startDate").after('<p class="text-danger">The start date field is required</p>');
+		$('#startDate').closest('.form-group').addClass('has-error');
 	} else {
+		// remov error text field
+		$("#startDate").find('.text-danger').remove();
+		// success out for form 
+		$("#startDate").closest('.form-group').addClass('has-success');	  	
+	}
 
-		$(".form-group").removeClass('has-error');
-		$(".text-danger").remove();
+	if(endDate == "") {
+		$("#endDate").after('<p class="text-danger">The end date field is required</p>');
+		$('#endDate').closest('.form-group').addClass('has-error');
+	} else {
+		// remov error text field
+		$("#endDate").find('.text-danger').remove();
+		// success out for form 
+		$("#endDate").closest('.form-group').addClass('has-success');	  	
+	}
+
+	if(startDate && endDate) {
 
 		$.ajax({
 			url: 'php_action/ctrl_report.php?action=genOrderReport',
@@ -38,6 +44,11 @@ function printReport() {
 			data: {startDate: startDate, endDate: endDate},
 			dataType: 'text',
 			success:function(response) {
+
+				// remove the error text
+				$(".text-danger").remove();
+				// remove the form error
+				$('.form-group').removeClass('has-error').removeClass('has-success');
 
 				var mywindow = window.open('', 'ComputersOnly - Sales & Management System', 'height=400,width=600');
 				mywindow.document.write('<html><head><title>Order Report Slip</title>');        
@@ -54,5 +65,5 @@ function printReport() {
 		        }, 1250);
 			}// /success function
 		}); // /ajax function to fetch the printable report
-	} // /else
+	} // /if
 } // /print function
