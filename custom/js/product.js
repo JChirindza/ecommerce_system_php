@@ -358,7 +358,7 @@ function editProduct(productId = null) {
 									$(".form-group").removeClass('has-error').removeClass('has-success');
 
 								} else {
-									$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+									$("div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
 
 									// shows a message after operation
 									$('#edit-product-messages').html('<div class="alert alert-warning">'+
