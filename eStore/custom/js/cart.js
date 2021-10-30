@@ -244,6 +244,8 @@ function addProductToCart(productId = null){
 
 				if(response.success == true) {
 
+						$("html, body").animate({scrollTop: '0'}, 100);
+
 						// success messages
 						$('#add-to-cart-messages_'+productId+'').html('<div class="alert-sm alert-success rounded pl-2 pr-2">'+
 							'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
@@ -259,6 +261,9 @@ function addProductToCart(productId = null){
 						}); // /.alert	          
 
 					} else {
+
+						$("html, body").animate({scrollTop: '0'}, 100);
+
 						// error messages
 						$('#add-to-cart-messages_'+productId+'').html('<div class="alert-sm alert-warning rounded pl-2 pr-2">'+
 							'<button type="button" class="close btn btn-sm" data-dismiss="alert">&times;</button>'+
