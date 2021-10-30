@@ -57,28 +57,25 @@ function addToCart(){
 				$productId 	= Sys_Secure($_POST['productId']);
 				$quantity 	= Sys_Secure($_POST['quantity']);;
 
-				// Verifica se o producto ja existe, caso exista aumenta a quantidade.
+				// Verifica se o producto ja existe.
 				$sql = "SELECT * FROM cart_item WHERE cart_id = $cartId AND product_id = {$productId} LIMIT 1";
 				$result = $connect->query($sql);
 
 				if ($result && $result->num_rows > 0) {
-					$cartItemResult = $result->fetch_array();
 
-					$newQuantity = $cartItemResult['quantity'] + $quantity;
-					$sql = "UPDATE cart_item SET quantity = {$newQuantity} WHERE cart_item_id = {$cartItemResult['cart_item_id']} AND product_id = {$productId}";
+					$valid['success'] = false;
+					$valid['messages'] = "This product has already been added!!! <a href='./cart.php?c=cartItems&i=".$cartId." ' class='btn btn-warning btn-sm border border-dark pl-4 pr-4 my-2 ml-4'><i class='fas fa-cart-arrow-down'></i> Cart</a>";
 				}else{
 					$sql = "INSERT INTO `cart_item` (`cart_id`, `product_id`, `quantity`, `active`, `status`) VALUES ('$cartId', '$productId', '$quantity', '1', '1') ";
-				}
 
-				if($connect->query($sql) === TRUE) {
-					$valid['success'] = true;
-					$valid['messages'] = "Successfully Added";	
-				} else {
-					$valid['success'] = false;
-					$valid['messages'] = "Error while adding the members";
+					if($connect->query($sql) === TRUE) {
+						$valid['success'] = true;
+						$valid['messages'] = "Successfully Added";	
+					} else {
+						$valid['success'] = false;
+						$valid['messages'] = "Error while adding the members";
+					}
 				}
-
-				
 			}
 		}
 	}else {
