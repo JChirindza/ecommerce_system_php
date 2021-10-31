@@ -1,5 +1,6 @@
 <?php 	
 require_once 'core.php';
+include 'init.php';
 /**
  *	
  * */
@@ -33,7 +34,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
  **/
 function createBrand(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 	
@@ -46,10 +47,10 @@ function createBrand(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Added";	
+			$valid['messages'] = $language['successfully-added'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while adding the members";
+			$valid['messages'] = $language['error-while-adding-the-members'];
 		}
 	} // /if $_POST
 
@@ -63,7 +64,7 @@ function createBrand(){
  **/
 function fetchBrand(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -111,7 +112,7 @@ function fetchBrand(){
  **/
 function editBrand(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -125,10 +126,10 @@ function editBrand(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Updated";	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while adding the members";
+			$valid['messages'] = $language['error-while-update'];
 		}
 	} // /if $_POST
 
@@ -142,7 +143,7 @@ function editBrand(){
  **/
 function removeBrand(){
 
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -154,10 +155,10 @@ function removeBrand(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the brand";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 	} // /if $_POST
 
