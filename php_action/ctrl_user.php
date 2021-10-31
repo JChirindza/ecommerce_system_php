@@ -1,9 +1,7 @@
 <?php  
 require_once 'core.php';
 require_once 'init.php';
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -51,13 +49,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
-/**
- * 
- * */
 function createUser(){
 
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -95,13 +89,9 @@ function createUser(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- * */
 function fetchUser(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$sql = "SELECT * FROM users WHERE status = 1 ORDER BY user_id DESC";
 
@@ -172,13 +162,9 @@ function fetchUser(){
 	echo json_encode($output);
 }
 
-/**
- * 
- * */
 function editUser(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -208,13 +194,9 @@ function editUser(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- * */
 function removeUser(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -236,9 +218,6 @@ function removeUser(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function fetchSelectedUser(){
 	
 	global $connect;
@@ -256,10 +235,6 @@ function fetchSelectedUser(){
 	echo json_encode($row);
 }
 
-
-/**
- * 
- * */
 function fetchUserImageUrl(){
 	
 	global $connect;
@@ -275,13 +250,9 @@ function fetchUserImageUrl(){
 	echo "users/" . $result[0];
 }
 
-/**
- * 
- * */
 function editUserImage(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -319,13 +290,9 @@ function editUserImage(){
 }
 
 /********************** USER PROFILE - SETTINGS **********************/
-/**
- * 
- * */
 function changeUserEmail(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	if($_POST) {
 		$valid['success'] = array('success' => false, 'messages' => array());
@@ -358,13 +325,9 @@ function changeUserEmail(){
 	}
 }
 
-/**
- * 
- * */
 function changeUserPassword(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -411,8 +374,7 @@ function changeUserPassword(){
  * */
 function changeUserImage(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -438,22 +400,18 @@ function changeUserImage(){
 					}
 				} else {
 					return false;
-			}	// /else	
-		} // if
-	} // if in_array 		
-	$connect->close();
+				}	// /else	
+			} // if
+		} // if in_array 		
+		$connect->close();
 
-	echo json_encode($valid);
+		echo json_encode($valid);
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function changeUsername(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 	
 	if($_POST) {
 
