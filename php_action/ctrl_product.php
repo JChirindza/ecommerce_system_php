@@ -181,10 +181,10 @@ function editProduct(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = $language['successfully-update'];	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = $language['error-while-updating'];
+			$valid['messages'] = $language['error-while-update'];
 		}
 	} // /$_POST
 	$connect->close();
@@ -215,7 +215,7 @@ function editProductImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = $language['successfully-update'];	
+						$valid['messages'] = $language['successfully-updated'];	
 					} else {
 						$valid['success'] = false;
 						$valid['messages'] = $language['error-while-updating-image'];
