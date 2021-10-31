@@ -1,8 +1,7 @@
 <?php  
 require_once 'core.php';
-/**
- *	
- * */
+include 'init.php';
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -28,12 +27,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
-/**
- * 
- * */
 function createProductDetil(){
 
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -48,10 +44,10 @@ function createProductDetil(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Added";	
+			$valid['messages'] = $language['successfully-added'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while adding the members";
+			$valid['messages'] = $language['error-while-adding-the-members'];
 		}
 		$connect->close();
 
@@ -59,12 +55,9 @@ function createProductDetil(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function fetchProductDetils(){
 	
-	global $connect;
+	global $connect, $language;
 	
 	$product_id = Sys_Secure($_GET['product_id']);
 
@@ -84,10 +77,10 @@ function fetchProductDetils(){
  			// active 
 			if($row[3] == 1) {
  				// activate member
-				$active = "<label class='badge badge-success'>Active</label>";
+				$active = "<label class='badge badge-success'>".$language['active']."</label>";
 			} else {
  				// deactivate member
-				$active = "<label class='badge badge-danger'>Not Active</label>";
+				$active = "<label class='badge badge-danger'>".$language['inactive']."</label>";
 	 		} // /else
 
 	 		$button = '<!-- Single button -->
@@ -117,12 +110,9 @@ function fetchProductDetils(){
 	echo json_encode($output);
 }
 
-/**
- * 
- * */
 function editProductDetil(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -137,10 +127,10 @@ function editProductDetil(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating product detail";
+			$valid['messages'] = $language['error-while-update'];
 		}
 	} // /$_POST
 	$connect->close();
@@ -148,12 +138,9 @@ function editProductDetil(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- * */
 function removeProductDetil(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -165,10 +152,10 @@ function removeProductDetil(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the brand";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -176,9 +163,6 @@ function removeProductDetil(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function fetchSelectedProductDetil(){
 	
 	global $connect;
