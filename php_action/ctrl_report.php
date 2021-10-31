@@ -1,9 +1,7 @@
-<!-- ctrl_report -->
 <?php  
 require_once 'core.php';
-/**
- *	
- * */
+include 'init.php';
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -17,12 +15,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
-/**
- * 
- * */
 function getOrderReport(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$start_date = Sys_Secure($_POST['startDate']);
 
@@ -34,10 +29,10 @@ function getOrderReport(){
 	$table = '
 	<table border="1" cellspacing="0" cellpadding="0" style="width:100%; border: 0px;">
 		<tr>
-			<th>Order Date</th>
-			<th>Client Name</th>
-			<th>Contact</th>
-			<th>Grand Total</th>
+			<th>'.$language['order-date'].'</th>
+			<th>'.$language['client-name'].'</th>
+			<th>'.$language['contact'].'</th>
+			<th>'.$language['grand-total'].'</th>
 		</tr>
 
 		<tr>';
@@ -55,7 +50,7 @@ function getOrderReport(){
 		</tr>
 
 		<tr>
-			<td colspan="3"><center>Total Amount</center></td>
+			<td colspan="3"><center>'.$language['total-amount'].'</center></td>
 			<td><center>'.number_format($totalAmount,2,',','.').'</center></td>
 		</tr>
 	</table>
