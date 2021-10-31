@@ -1,8 +1,11 @@
 <?php  
 require_once 'core.php';
 include 'init.php';
-
+/**
+ *	
+ * */
 if (isset($_GET['action']) && !empty($_GET['action'])) {
+	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createCategory();
@@ -26,6 +29,10 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
+
+/**
+ * 
+ * */
 function createCategory(){
 
 	global $connect, $language;	
@@ -34,6 +41,8 @@ function createCategory(){
 
 	if($_POST) {	
 
+		$categoriesName 	= Sys_Secure($_POST['categoriesName']);
+		$categoriesStatus 	= Sys_Secure($_POST['categoriesStatus']); 
 
 		$sql = "INSERT INTO categories (categories_name, categories_active, categories_status) 
 		VALUES ('$categoriesName', '$categoriesStatus', 1)";
@@ -53,9 +62,6 @@ function createCategory(){
 	} // /if $_POST
 }
 
-/**
- * 
- **/
 function fetchCategories(){
 
 	global $connect, $language;
@@ -114,17 +120,21 @@ function fetchCategories(){
 	echo json_encode($output);
 }
 
+
 /**
  * 
  * */
 function editCategory(){
-
+	
 	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
+		$brandName = Sys_Secure($_POST['editCategoriesName']);
+		$brandStatus = Sys_Secure($_POST['editCategoriesStatus']); 
+		$categoriesId = Sys_Secure($_POST['editCategoriesId']);
 
 		$sql = "UPDATE categories SET categories_name = '$brandName', categories_active = '$brandStatus' WHERE categories_id = '$categoriesId'";
 
@@ -145,11 +155,12 @@ function editCategory(){
  * 
  * */
 function removeCategory(){
-
+	
 	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
+	$categoriesId = Sys_Secure($_POST['categoriesId']);
 
 	if($categoriesId) { 
 
@@ -172,9 +183,11 @@ function removeCategory(){
  * 
  * */
 function fetchSelectedCategory(){
+	global $connect;
 
-	$categoriesId = $_POST['categoriesId'];
+	$categoriesId = Sys_Secure($_POST['categoriesId']);
 
+	$sql = "SELECT * FROM categories WHERE categories_id = {$categoriesId}";
 	$result = $connect->query($sql);
 
 	if($result->num_rows > 0) { 
