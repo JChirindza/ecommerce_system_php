@@ -1,8 +1,7 @@
 <?php  
 require_once 'core.php';
-/**
- *	
- * */
+include 'init.php';
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -43,13 +42,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
-
-/**
- * 
- * */
 function createOrder(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array(), 'order_id' => '');
 	// print_r($valid);
@@ -110,25 +105,22 @@ function createOrder(){
 					if($x == count($_POST['productName'])) {
 						$orderItemStatus = true;
 					}		
-			} // while	
-		} // /for quantity
+				} // while	
+			} // /for quantity
 
-		$valid['success'] = true;
-		$valid['messages'] = "Successfully Added";
-	}
+			$valid['success'] = true;
+			$valid['messages'] = $language['successfully-added'];
+		}
 
-	$connect->close();
+		$connect->close();
 
-	echo json_encode($valid);
+		echo json_encode($valid);
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function fetchOrders(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$sql = "SELECT order_id, order_date, client_name, client_contact, payment_place, payment_status FROM orders WHERE order_status = 1 ORDER BY order_id DESC";
 	$result = $connect->query($sql);
@@ -150,18 +142,18 @@ function fetchOrders(){
 
  			// payment place
 			if($row[4] == 1) { 		
-				$paymentPlace = "<label class='badge badge-info'> store</label>";
+				$paymentPlace = "<label class='badge badge-info'>".$language['in-store']."</label>";
 			} else { 		
-				$paymentPlace = "<label class='badge badge-success'>Web store</label>";
+				$paymentPlace = "<label class='badge badge-success'>".$language['online']."</label>";
 	 		} // /else
 
 		 	// payment status 
 	 		if($row[5] == 1) { 		
-	 			$paymentStatus = "<label class='badge badge-success'>Full Payment</label>";
+	 			$paymentStatus = "<label class='badge badge-success'>".$language['full-payment']."</label>";
 	 		} else if($row[5] == 2) { 		
-	 			$paymentStatus = "<label class='badge badge-info'>Advance Payment</label>";
+	 			$paymentStatus = "<label class='badge badge-info'>".$language['partial-payment']."</label>";
 	 		} else { 		
-	 			$paymentStatus = "<label class='badge badge-secondary'>No Payment</label>";
+	 			$paymentStatus = "<label class='badge badge-secondary'>".$language['no-payment']."</label>";
 		 	} // /else
 
 		 	$button = '<!-- Single button -->
@@ -204,9 +196,6 @@ function fetchOrders(){
 	echo json_encode($output);
 }
 
-/**
- * 
- * */
 function fetchSelectedOrder(){
 	
 	global $connect;
@@ -227,12 +216,9 @@ function fetchSelectedOrder(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- * */
 function editOrder(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array(), 'order_id' => '');
 
@@ -313,10 +299,10 @@ function editOrder(){
 			}// /if readyToUpdateOrderItem
 
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Updated";	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating the order";
+			$valid['messages'] = $language['error-while-update'];
 		}
 		$connect->close();
 
@@ -324,9 +310,6 @@ function editOrder(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function editPayment(){
 	
 	global $connect;
@@ -348,10 +331,10 @@ function editPayment(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-updated'];
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating order data";
+			$valid['messages'] = $language['error-while-update'];
 		}
 		$connect->close();
 
@@ -359,12 +342,9 @@ function editPayment(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function removeOrder(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -377,10 +357,10 @@ function removeOrder(){
 
 		if($connect->query($sql) === TRUE && $connect->query($orderItem) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the order";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -388,12 +368,9 @@ function removeOrder(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function printOrder(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$orderId = Sys_Secure($_POST['orderId']);
 
@@ -475,7 +452,7 @@ function printOrder(){
 	<label id="address">
 	Computer Only Corp.;<br>
 	Av.: Karl Max Nr.: 1234;<br>
-	Maputo, Mocambique;<br>
+	Maputo, '.$language['mozambique'] .';<br>
 	Tel: (+258) 82 11 11 111; <br>
 	Email: computersonly@pconly.co.mz
 	</label>
@@ -490,12 +467,12 @@ function printOrder(){
 
 	<table id="client">
 	<tr>
-	<td class="meta-head">Nome do Cliente: </td>
+	<td class="meta-head">'.$language['client-name'].': </td>
 	<td>'.$clientName.'</td>
 	</tr>
 	<tr>
 
-	<td class="meta-head">Contacto: </td>
+	<td class="meta-head">'.$language['contact'] .': </td>
 	<td>'.$clientContact.'</td>
 	</tr>
 	<tr>
@@ -511,11 +488,11 @@ function printOrder(){
 	</tr>
 	<tr>
 
-	<td class="meta-head">Date</td>
+	<td class="meta-head">'.$language['order-date'].'</td>
 	<td>'.$orderDate.'</td>
 	</tr>
 	<tr>
-	<td class="meta-head">Amount Due</td>
+	<td class="meta-head">'.$language['due-amount'].'</td>
 	<td><div class="due">'.$due.'</div></td>
 	</tr>
 	</table>
@@ -525,10 +502,10 @@ function printOrder(){
 
 	<tr>
 	<th width="5%">#</th>
-	<th width="55%">Descricao do produto</th>
-	<th width="15%">Preco</th>
-	<th width="10%">Quantity</th>
-	<th width="15%">Preco Acumulado</th>
+	<th width="55%">'.$language['product-description'].'</th>
+	<th width="15%">'.$language['price'].'</th>
+	<th width="10%">'.$language['quantity'].'</th>
+	<th width="15%">'.$language['sub-amount'].'</th>
 	</tr>
 	';
 	$x = 1;
@@ -551,44 +528,42 @@ function printOrder(){
 		</tr>
 		';
 		$x++;
-	            } // /while
-	            $table.= '
-	            <tr>
-	            <td colspan="2" class="blank"> </td>
-	            <td colspan="2" class="total-line">Total Acumulado</td>
-	            <td class="total-value"><div id="subtotal">'.$subTotal.'</div></td>
-	            </tr>
-	            <tr>
-	            <td colspan="2" class="blank"> </td>
-	            <td colspan="2" class="total-line balance">Grande Total</td>
-	            <td class="total-value balance"><div class="due">'.$total.'</div></td>
-	            </tr>
-	            </table>
+    } // /while
+    $table.= '
+    <tr>
+    <td colspan="2" class="blank"> </td>
+    <td colspan="2" class="total-line">'.$language['total-amount'].'</td>
+    <td class="total-value"><div id="subtotal">'.$subTotal.'</div></td>
+    </tr>
+    <tr>
+    <td colspan="2" class="blank"> </td>
+    <td colspan="2" class="total-line balance">'.$language['grand-total'].'</td>
+    <td class="total-value balance"><div class="due">'.$total.'</div></td>
+    </tr>
+    </table>
 
-	            <div class="">
-	            <label>Assinatura do Funcionario:</label>
-	            <br>
-	            &nbsp;
-	            </div>
+    <div class="">
+    <label>Assinatura do Funcionario:</label>
+    <br>
+    &nbsp;
+    </div>
 
-	            <div id="terms">
-	            <h5>Terms</h5>
-	            <label>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</label>
-	            </div>
+    <div id="terms">
+    <h5>Terms</h5>
+    <label>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</label>
+    </div>
 
-	            </div>
-	            ';
-	            $connect->close();
+    </div>
+    ';
+    $connect->close();
 
-	            echo $table;
-	        }
+    echo $table;
+}
 
-/**
- * 
- * */
+
 function getOrderReport(){
 
-	global $connect;
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -607,10 +582,10 @@ function getOrderReport(){
 		$table = '
 		<table border="1" cellspacing="0" cellpadding="0" style="width:100%;">
 		<tr>
-		<th>Order Date</th>
-		<th>Client Name</th>
-		<th>Contact</th>
-		<th>Grand Total</th>
+		<th>'.$language['order-date'].'</th>
+		<th>'.$language['client-name'].'</th>
+		<th>'.$language['contact'].'</th>
+		<th>'.$language['grand-total'].'</th>
 		</tr>
 
 		<tr>';
@@ -628,7 +603,7 @@ function getOrderReport(){
 		</tr>
 
 		<tr>
-		<td colspan="3"><center>Total Amount</center></td>
+		<td colspan="3"><center>'.$language['total-amount'].'</center></td>
 		<td><center>'.$totalAmount.'</center></td>
 		</tr>
 		</table>
@@ -638,9 +613,6 @@ function getOrderReport(){
 	}
 }
 
-/**
- * 
- * */
 function fetchSelectedProduct(){
 	
 	global $connect;
@@ -659,9 +631,6 @@ function fetchSelectedProduct(){
 	echo json_encode($row);
 }
 
-/**
- * 
- * */
 function fetchProductData(){
 
 	global $connect;
