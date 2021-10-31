@@ -313,8 +313,8 @@ $language['employee'] = 'Funcionário';
 $language['total-employees'] = 'Total de funcionários';
 $language['total-clients'] = 'Total de clientes';
 
-$language['successfully-update'] = 'Atualizado com sucesso';
-$language['error-while-updating'] = 'Erro ao atualizar';
+$language['successfully-updated'] = 'Atualizado com sucesso';
+$language['error-while-update'] = 'Erro ao atualizar';
 $language['successfully-removed'] = 'Removido com sucesso';
 $language['error-while-remove'] = 'Erro ao remover';
 $language['existing-email-please-type-another-one'] = 'Email existe, por favor digite outro!';
