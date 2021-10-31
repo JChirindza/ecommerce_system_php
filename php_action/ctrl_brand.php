@@ -1,3 +1,5 @@
+// ctrl_brand
+
 <?php 	
 require_once 'core.php';
 include 'init.php';
@@ -82,10 +84,10 @@ function fetchBrand(){
  			// active 
 			if($row[2] == 1) {
  				// activate brands
-				$activeBrands = "<label class='badge badge-success'>Available</label>";
+				$activeBrands = "<label class='badge badge-success'>".$language['available']."</label>";
 			} else {
  				// deactivate brands
-				$activeBrands = "<label class='badge badge-danger'>Not Available</label>";
+				$activeBrands = "<label class='badge badge-danger'>".$language['not-available']."</label>";
 			}
 
 			$button = '<!-- Single button -->
