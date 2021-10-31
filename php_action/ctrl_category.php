@@ -1,10 +1,8 @@
 <?php  
 require_once 'core.php';
-/**
- *	
- * */
+include 'init.php';
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
-	$action = Sys_Secure($_GET['action']);
 	switch($action) {
 		case 'create':
 		createCategory();
@@ -28,30 +26,24 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
-
-/**
- * 
- * */
 function createCategory(){
 
-	global $connect;	
+	global $connect, $language;	
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$categoriesName 	= Sys_Secure($_POST['categoriesName']);
-		$categoriesStatus 	= Sys_Secure($_POST['categoriesStatus']); 
 
 		$sql = "INSERT INTO categories (categories_name, categories_active, categories_status) 
 		VALUES ('$categoriesName', '$categoriesStatus', 1)";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Added";	
+			$valid['messages'] = $language['successfully-added'];
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while adding the members";
+			$valid['messages'] = $language['error-while-adding-the-members'];
 		}
 
 		$connect->close();
@@ -66,7 +58,7 @@ function createCategory(){
  **/
 function fetchCategories(){
 
-	global $connect;
+	global $connect, $language;
 
 	$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 ORDER BY categories_id DESC";
 	$result = $connect->query($sql);
@@ -92,10 +84,10 @@ function fetchCategories(){
  			// active 
 			if($row[2] == 1) {
  			// activate member
-				$active = "<label class='badge badge-success'>Available</label>";
+				$active = "<label class='badge badge-success'>".$language['available']."</label>";
 			} else {
  			// deactivate member
-				$active = "<label class='badge badge-danger'>Not Available</label>";
+				$active = "<label class='badge badge-danger'>".$language['not-available']."</label>";
 			}
 
 			$button = '<!-- Single button -->
@@ -126,25 +118,22 @@ function fetchCategories(){
  * 
  * */
 function editCategory(){
-	
-	global $connect;
+
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
 	if($_POST) {	
 
-		$brandName = Sys_Secure($_POST['editCategoriesName']);
-		$brandStatus = Sys_Secure($_POST['editCategoriesStatus']); 
-		$categoriesId = Sys_Secure($_POST['editCategoriesId']);
 
 		$sql = "UPDATE categories SET categories_name = '$brandName', categories_active = '$brandStatus' WHERE categories_id = '$categoriesId'";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Updated";	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating the categories";
+			$valid['messages'] = $language['error-while-update'];
 		}
 		$connect->close();
 
@@ -156,12 +145,11 @@ function editCategory(){
  * 
  * */
 function removeCategory(){
-	
-	global $connect;
+
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
-	$categoriesId = Sys_Secure($_POST['categoriesId']);
 
 	if($categoriesId) { 
 
@@ -169,10 +157,10 @@ function removeCategory(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the brand";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -184,11 +172,9 @@ function removeCategory(){
  * 
  * */
 function fetchSelectedCategory(){
-	global $connect;
 
-	$categoriesId = Sys_Secure($_POST['categoriesId']);
+	$categoriesId = $_POST['categoriesId'];
 
-	$sql = "SELECT * FROM categories WHERE categories_id = {$categoriesId}";
 	$result = $connect->query($sql);
 
 	if($result->num_rows > 0) { 
