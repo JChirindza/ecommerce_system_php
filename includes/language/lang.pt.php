@@ -325,4 +325,5 @@ $language['current-password-is-incorrect'] = 'Senha atual esta incorrecta';
 $language['view-less'] = 'Ver menos';
 $language['error-while-updating-image'] = 'Erro ao atualizar imagem';
 $language['you-have-to-sign-in-first'] = 'Voce tem que se Autenticar primeiro';
+$language['date'] = 'Data';
 ?>
