@@ -26,9 +26,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 
 function fetchRequests(){
 	
-	global $connect;
-
-	global $language;
+	global $connect, $language;
 
 
 	$output = array('data' => array());
@@ -163,8 +161,7 @@ function fetchRequestedItems(){
 
 function confirm_request() {
 
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array(), 'cart_has_paid_id' => '');
 	
@@ -199,8 +196,7 @@ function confirm_request() {
 }
 
 function printRequest() {
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$cartHasPaidId = Sys_Secure($_POST['cartHasPaidId']);
 	
@@ -292,7 +288,7 @@ function printRequest() {
 	<label id="address">
 	Computer Only Corp.;<br>
 	Av.: Karl Max Nr.: 1234;<br>
-	Maputo, Mocambique;<br>
+	Maputo, '.$language['mozambique'].';<br>
 	Tel: (+258) 82 11 11 111; <br>
 	Email: computersonly@pconly.co.mz
 	</label>
@@ -328,7 +324,7 @@ function printRequest() {
 	</tr>
 	<tr>
 
-	<td class="meta-head">Date</td>
+	<td class="meta-head">'.$language['date'].'</td>
 	<td>'.$dateRequested.'</td>
 	</tr>
 	</table>
@@ -376,7 +372,7 @@ function printRequest() {
     </tr>
     <tr>
     <td colspan="2" class="blank"></td>
-    <td colspan="2" class="total-line balance">Grande Total</td>
+    <td colspan="2" class="total-line balance">'.$language['grand-total'].'</td>
     <td class="total-value balance"><div class="due">'.number_format($grandTotal,2,",",".").' MZN</div></td>
     </tr>
     </table>
