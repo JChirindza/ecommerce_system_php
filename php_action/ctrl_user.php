@@ -195,10 +195,10 @@ function editUser(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = $language['successfully-update'];	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = $language['error-while-updating'];
+			$valid['messages'] = $language['error-while-update'];
 		}
 
 	} // /$_POST
@@ -300,10 +300,10 @@ function editUserImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = $language['successfully-update'];	
+						$valid['messages'] = $language['successfully-updated'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = $language['error-while-updating'];
+						$valid['messages'] = $language['error-while-update'];
 					}
 				}	else {
 					return false;
@@ -343,10 +343,10 @@ function changeUserEmail(){
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
-				$valid['messages'] = $language['successfully-update'];
+				$valid['messages'] = $language['successfully-updated'];
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = $language['error-while-updating'];
+				$valid['messages'] = $language['error-while-update'];
 			}
 		}else{
 			$valid['success'] = false;
@@ -386,10 +386,10 @@ function changeUserPassword(){
 				$updateSql = "UPDATE users SET password = '$newPassword' WHERE user_id = {$userId}";
 				if($connect->query($updateSql) === TRUE) {
 					$valid['success'] = true;
-					$valid['messages'] = $language['successfully-update'];
+					$valid['messages'] = $language['successfully-updated'];
 				} else {
 					$valid['success'] = false;
-					$valid['messages'] = $language['error-while-updating'];	
+					$valid['messages'] = $language['error-while-update'];	
 				}
 			} else {
 				$valid['success'] = false;
@@ -431,10 +431,10 @@ function changeUserImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = $language['successfully-update'];	
+						$valid['messages'] = $language['successfully-updated'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = $language['error-while-updating'];
+						$valid['messages'] = $language['error-while-update'];
 					}
 				} else {
 					return false;
@@ -466,10 +466,10 @@ function changeUsername(){
 		$sql = "UPDATE users SET name = '$name', surname = '$surname' WHERE user_id = {$userId}";
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = $language['successfully-update'];	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = $language['error-while-updating'];
+			$valid['messages'] = $language['error-while-update'];
 		}
 		$connect->close();
 
