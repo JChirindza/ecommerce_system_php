@@ -1,11 +1,7 @@
-// ctrl_brand
-
 <?php 	
 require_once 'core.php';
 include 'init.php';
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -31,9 +27,6 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 	}
 }
 
-/**
- * 
- **/
 function createBrand(){
 	
 	global $connect, $language;
@@ -61,9 +54,6 @@ function createBrand(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- **/
 function fetchBrand(){
 	
 	global $connect, $language;
@@ -108,10 +98,6 @@ function fetchBrand(){
 	echo json_encode($output);
 }
 
-
-/**
- * 
- **/
 function editBrand(){
 	
 	global $connect, $language;
@@ -140,9 +126,6 @@ function editBrand(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- **/
 function removeBrand(){
 
 	global $connect, $language;
@@ -169,10 +152,6 @@ function removeBrand(){
 	echo json_encode($valid);
 }
 
-
-/**
- * 
- * */
 function fetchSelectedBrand(){
 	
 	global $connect;
