@@ -1,11 +1,10 @@
 <?php  
 require_once '../../php_action/db_connect.php';
 require_once '../../php_action/ctrl_functions_general.php';
+require_once '../../php_action/init.php';
 
 session_start();
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -26,7 +25,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 function changeClientContact(){
-	global $connect;
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -39,10 +38,10 @@ function changeClientContact(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating product info";
+			$valid['messages'] = $language['error-while-update'];
 		}
 
 		$connect->close();

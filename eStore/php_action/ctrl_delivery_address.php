@@ -1,11 +1,10 @@
 <?php  
 require_once '../../php_action/db_connect.php';
 require_once '../../php_action/ctrl_functions_general.php';
+require_once '../../php_action/init.php';
 
 session_start();
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -42,7 +41,7 @@ function fetchDeliveryAddress() {
 }
 
 function updateDeliveryAddress(){
-	global $connect;
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -77,10 +76,10 @@ function updateDeliveryAddress(){
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
-				$valid['messages'] = "Successfully updated";	
+				$valid['messages'] = $language['successfully-updated'];	
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "Error while updatting delivery address information.";
+				$valid['messages'] = $language['error-while-update'];
 			}
 		}else{
 			$sql =  "INSERT INTO delivery_address (client_id, province, address, reference_point, postal_code) 
@@ -88,10 +87,10 @@ function updateDeliveryAddress(){
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
-				$valid['messages'] = "Successfully added";	
+				$valid['messages'] = $language['successfully-updated'];
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "Error while adding delivery address information.";
+				$valid['messages'] = $language['error-while-adding-delivery-address-information'];
 			}
 		}
 
