@@ -1,6 +1,7 @@
 <?php  
 require_once '../../php_action/db_connect.php';
 require_once '../../php_action/ctrl_functions_general.php';
+require_once '../../php_action/init.php';
 
 session_start();
 /**
@@ -35,6 +36,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 function fetchSelectedUser(){
+
 	global $connect;
 
 	$userid = Sys_Secure($_POST['userid']);
@@ -66,7 +68,8 @@ function fetchUserImageUrl(){
 }
 
 function changeUserEmail(){
-	global $connect;
+
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -85,15 +88,15 @@ function changeUserEmail(){
 
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
-				$valid['messages'] = "Successfully Update";	
+				$valid['messages'] = $language['successfully-updated'];	
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "Error while updating product info";
+				$valid['messages'] = $language['error-while-update'];
 			}
 
 		}else{
 			$valid['success'] = false;
-			$valid['messages'] = "Existing email, please type another one!";
+			$valid['messages'] = $language['existing-email-please-type-another-one'];
 		}
 		$connect->close();
 
@@ -102,7 +105,7 @@ function changeUserEmail(){
 }
 
 function changeUserPassword(){
-	global $connect;
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -124,20 +127,20 @@ function changeUserPassword(){
 				$updateSql = "UPDATE users SET password = '$newPassword' WHERE user_id = {$userId}";
 				if($connect->query($updateSql) === TRUE) {
 					$valid['success'] = true;
-					$valid['messages'] = "Successfully Updated";		
+					$valid['messages'] = $language['successfully-updated'];		
 				} else {
 					$valid['success'] = false;
-					$valid['messages'] = "Error while updating the password";	
+					$valid['messages'] = $language['error-while-update'];	
 				}
 
 			} else {
 				$valid['success'] = false;
-				$valid['messages'] = "New password does not match with Conform password";
+				$valid['messages'] = $language['new-password-does-not-match-with-conform-password'];
 			}
 
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Current password is incorrect";
+			$valid['messages'] = $language['current-password-is-incorrect'];
 		}
 
 		$connect->close();
@@ -148,7 +151,7 @@ function changeUserPassword(){
 }
 
 function changeUserImage(){
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -167,10 +170,10 @@ function changeUserImage(){
 
 					if($connect->query($sql) === TRUE) {									
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Updated";	
+						$valid['messages'] = $language['successfully-updated'];		
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while updating user image";
+						$valid['messages'] = $language['error-while-update'];
 					}
 				}	else {
 					return false;
@@ -184,7 +187,7 @@ function changeUserImage(){
 }
 
 function changeUsername(){
-	global $connect;
+	global $connect, $language;
 
 	if($_POST) {
 
@@ -197,10 +200,10 @@ function changeUsername(){
 		$sql = "UPDATE users SET name = '$name', surname = '$surname' WHERE user_id = {$userId}";
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Update";	
+			$valid['messages'] = $language['successfully-updated'];	
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while updating product info";
+			$valid['messages'] = $language['error-while-update'];
 		}
 		$connect->close();
 
