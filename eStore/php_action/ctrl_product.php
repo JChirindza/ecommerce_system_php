@@ -63,7 +63,7 @@ function fetchRelated(){
 			}
 		} else {
 			$output = '<div class="col-md-12" style="display:flex; justify-content: center; align-items: center;"> 
-			<h5 class="p-5 text-muted">No Data Found</h5></div>';
+			<h5 class="p-5 text-muted">'.$language['no-data-found'].'</h5></div>';
 		}
 		echo $output;
 	}
