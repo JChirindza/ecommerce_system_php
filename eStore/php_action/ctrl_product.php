@@ -1,11 +1,10 @@
 <?php 
 require_once '../../php_action/db_connect.php';
 require_once '../../php_action/ctrl_functions_general.php';
+require_once '../../php_action/init.php';
 
 session_start();
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -24,25 +23,8 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 
 
 function fetchRelated(){
-	global $connect;
 
-	// Multi-lingual
-	$lang = 'en';
-	if (isset($_SESSION['lang'])) {
-		$lang = Sys_Secure($_SESSION['lang']);
-	}
-	if (isset($_COOKIE['lang'])) {
-		$lang = Sys_Secure($_COOKIE['lang']);
-	}
-	if (isset($_GET['lang'])) {
-
-		$lang = Sys_Secure($_GET['lang']);
-
-		$cookie_name = "lang";
-		$cookie_value = $lang;
-	    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-	}
-	require_once '../../includes/language/lang.'.$lang.'.php';
+	global $connect, $language;
 
 	if(isset($_POST["product_id"])) {
 
@@ -88,26 +70,10 @@ function fetchRelated(){
 }
 
 function filterProducts(){
-	global $connect;
+	
+	global $connect, $language;
+
 	require_once 'ctrl_pagination.php';
-
-	// Multi-lingual
-	$lang = 'en';
-	if (isset($_SESSION['lang'])) {
-		$lang = Sys_Secure($_SESSION['lang']);
-	}
-	if (isset($_COOKIE['lang'])) {
-		$lang = Sys_Secure($_COOKIE['lang']);
-	}
-	if (isset($_GET['lang'])) {
-
-		$lang = Sys_Secure($_GET['lang']);
-
-		$cookie_name = "lang";
-		$cookie_value = $lang;
-	    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-	}
-	require_once '../../includes/language/lang.'.$lang.'.php';
 
 	if(isset($_POST["action"])) {
 
