@@ -1,6 +1,7 @@
 <?php  
 require_once '../../php_action/db_connect.php';
 require_once '../../php_action/ctrl_functions_general.php';
+require_once '../../php_action/init.php';
 
 session_start();
 
@@ -42,7 +43,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 function addToCart(){
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -68,10 +69,10 @@ function addToCart(){
 
 					if($connect->query($sql) === TRUE) {
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Added";	
+						$valid['messages'] = $language['successfully-added'];
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while adding the members";
+						$valid['messages'] = $language['error-while-adding-the-members'];
 					}
 				}
 			}
@@ -87,7 +88,7 @@ function addToCart(){
 }
 
 function fetchCart(){
-	global $connect;
+	global $connect, $language;
 
 	$user_id = Sys_Secure($_SESSION['userId']);
 	$sql = "SELECT cart_id, payment_status, cart_date FROM cart
@@ -115,9 +116,9 @@ function fetchCart(){
 
  			// payment_status 
 			if($row[1] == 1) {
-				$payment_status = "<lasbel class='badge badge-success mt-3 px-5'>Paid</label>";
+				$payment_status = "<lasbel class='badge badge-success mt-3 px-5'>".$language['paid']."</label>";
 			} else {
-				$payment_status = "<label class='badge badge-danger mt-3 px-5'>Not Paid</label>";
+				$payment_status = "<label class='badge badge-danger mt-3 px-5'>".$language['not-paid']."</label>";
 	 		} // /else
 
 	 		$button = '<!-- Single button -->
@@ -145,7 +146,7 @@ function fetchCart(){
 }
 
 function fetchCartItem(){
-	global $connect;
+	global $connect, $language;
 
 	$output = array('data' => array());
 
@@ -188,7 +189,7 @@ function fetchCartItem(){
 
 				$quantityInput = '
 				<input type="number" class="col-sm-12 col-md-10 col-lg-8" name="quantity[]" id="quantity'.$x.'"  autocomplete="off" class="form-control" min="1" max="'.$availableQuantity.'"  onchange="updateItemQuantity('.$productId.','.$x.')" value="'.$quantity.'" required>
-				<label class="text-muted" style="font-size: 14px;">Available: '.$availableQuantity.'</label>
+				<label class="text-muted" style="font-size: 14px;">'.$language['available'].': '.$availableQuantity.'</label>
 				';
 
 				$button = '
@@ -233,7 +234,7 @@ function fetchCartItem(){
 }
 
 function removeCart(){
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -247,10 +248,10 @@ function removeCart(){
 
 		if($connect->query($sql) === TRUE && $connect->query($cartItem) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the cart";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -259,7 +260,7 @@ function removeCart(){
 }
 
 function removeCartItem(){
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -271,10 +272,10 @@ function removeCartItem(){
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
-			$valid['messages'] = "Successfully Removed";		
+			$valid['messages'] = $language['successfully-removed'];		
 		} else {
 			$valid['success'] = false;
-			$valid['messages'] = "Error while remove the cart item";
+			$valid['messages'] = $language['error-while-remove'];
 		}
 		$connect->close();
 
@@ -283,7 +284,7 @@ function removeCartItem(){
 }
 
 function editItemQuantity(){
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -315,10 +316,10 @@ function editItemQuantity(){
 					$sql = "UPDATE cart_item SET quantity = {$quantity} WHERE cart_item_id = {$cartItemResult['cart_item_id']} AND product_id = {$productId}";
 					if($connect->query($sql) === TRUE) {
 						$valid['success'] = true;
-						$valid['messages'] = "Successfully Updated";	
+						$valid['messages'] = $language['successfully-updated'];	
 					} else {
 						$valid['success'] = false;
-						$valid['messages'] = "Error while updating the item";
+						$valid['messages'] = $language['error-while-update'];
 					}
 				}
 			}
@@ -365,7 +366,7 @@ function getTotalItemValue(){
 }
 
 function finalizePayment(){
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -441,13 +442,13 @@ function finalizePayment(){
 				}
 
 				$valid['success'] = true;
-				$valid['messages'] = "Successfully paid.";
+				$valid['messages'] = $language['successfully-paid'];
 
 				// Destroy current session cartId
 				unset($_SESSION['cartId']);
 			}
 		}else{
-			$valid['messages'] = "Error while paying. This cart was been paid!";
+			$valid['messages'] = $language['error-when-paying-this-cart-has-been-paid'];
 		}
 	}
 	$connect->close();
