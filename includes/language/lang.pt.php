@@ -78,7 +78,7 @@ $language['product-description'] = 'Descrição do produto';
 $language['related-products'] = 'Produtos relacionados';
 $language['compare-w-similar'] = 'Compare com similares';
 $language['paid'] = 'Pago';
-$language['not-paid'] = 'Não foi pago';
+$language['not-paid'] = 'Não pago';
 $language['nothing-to-compare-no-similar-prod-found'] = 'Nada para comparar... Nenhum produto similar encontrado';
 
 // Settings
@@ -326,4 +326,10 @@ $language['view-less'] = 'Ver menos';
 $language['error-while-updating-image'] = 'Erro ao atualizar imagem';
 $language['you-have-to-sign-in-first'] = 'Voce tem que se Autenticar primeiro';
 $language['date'] = 'Data';
+
+// cart
+$language['successfully-paid'] = 'Pago com sucesso';
+$language['error-when-paying-this-cart-has-been-paid'] = 'Erro ao pagar. Este carrinho foi pago!';
+$language['this-product-has-already-been-added'] = 'Este produto já foi adicionado';
+$language['error-while-adding-delivery-address-information'] = 'Erro ao adicionar informações de endereço de entrega.';
 ?>

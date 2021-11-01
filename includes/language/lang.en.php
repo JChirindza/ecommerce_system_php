@@ -326,4 +326,10 @@ $language['view-less'] = 'View less';
 $language['error-while-updating-image'] = 'Error while updating image';
 $language['you-have-to-sign-in-first'] = 'You have to sign-in first';
 $language['date'] = 'Date';
+
+// cart
+$language['successfully-paid'] = 'Successfully paid!';
+$language['error-when-paying-this-cart-has-been-paid'] = 'Error when paying. This cart has been paid!';
+$language['this-product-has-already-been-added'] = 'This product has already been added!';
+$language['error-while-adding-delivery-address-information'] = 'Error while adding delivery address information.';
 ?>
