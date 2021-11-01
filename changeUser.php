@@ -8,6 +8,6 @@ session_unset();
 // destroy the session 
 session_destroy(); 
 
-header('location: http://localhost/SistemaDeVendas_ControleDeStock/sign-in.php');
+header('location: sign-in.php');
 
 ?>
