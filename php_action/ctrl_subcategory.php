@@ -1,8 +1,6 @@
 <?php  
 require_once 'core.php';
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {

@@ -4,9 +4,9 @@ require_once 'php_action/init.php';
 
 if(isset($_SESSION['userId'])) {
 	if ($_SESSION['userType'] == 1) {
-		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');	
+		header('location: dashboard.php');	
 	}else{
-		header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php');	
+		header('location: index.php');	
 	}
 }
 
@@ -44,7 +44,7 @@ if($_POST) {
 				$_SESSION['userId'] = $user_id;
 				$_SESSION['userType'] = $user_type;
 
-				header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+				header('location: index.php'); 
                 exit();
 			} else{
 				$errors[] = "Incorrect Email/password combination";

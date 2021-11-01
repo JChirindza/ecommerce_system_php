@@ -4,10 +4,10 @@ require_once 'php_action/init.php';
 
 if(isset($_SESSION['userId'])) {
     if ($_SESSION['userType'] == 1) {
-        header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php'); 
+        header('location: dashboard.php'); 
         exit();
     }else{
-        header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+        header('location: index.php'); 
         exit();
     }
 }
@@ -42,7 +42,7 @@ if($_POST) {
                 $_SESSION['userId'] = $user_id;
                 $_SESSION['userType'] = 2;
 
-                header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php'); 
+                header('location: index.php'); 
                 exit();
             } else {
                 $errors[] = "Error while adding the members";

@@ -1,9 +1,6 @@
 <?php  
 require_once 'core.php';
-require_once 'init.php';
-/**
- *	
- * */
+
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);
 	switch($action) {
@@ -27,8 +24,7 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 
 function fetchClients(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$sql = "SELECT clients.client_id, clients.contact,
 	users.user_image,

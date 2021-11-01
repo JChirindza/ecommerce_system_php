@@ -1,6 +1,5 @@
 <?php  
 require_once 'core.php';
-require_once 'init.php';
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
 	$action = Sys_Secure($_GET['action']);

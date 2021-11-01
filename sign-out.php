@@ -8,6 +8,6 @@ session_unset();
 // destroy the session 
 session_destroy(); 
 
-header('location: http://localhost/SistemaDeVendas_ControleDeStock/index.php');
+header('location: index.php');
 
 ?>

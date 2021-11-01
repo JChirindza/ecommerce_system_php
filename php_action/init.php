@@ -28,9 +28,9 @@ if (isset($_GET['lang'])) {
 	}
 }
 
-$filename = 'SistemaDeVendas_ControleDeStock/../../includes/language/lang.'.$lang.'.php';
+$filepath = '/../includes/language/lang.'.$lang.'.php';
 
-require_once "{$filename}";
+require_once __DIR__. "{$filepath}";
 // /Multi-lingual
 
 ?>

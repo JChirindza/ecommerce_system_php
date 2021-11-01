@@ -1,8 +1,5 @@
 <?php  
-if(isset($_SESSION['userId']) && isset($_SESSION['userType'])) {
-	if($_SESSION['userType'] == 1) {
-		header('location: http://localhost/SistemaDeVendas_ControleDeStock/dashboard.php');
-	}
+if(isset($_SESSION['userId'])) {
 
 	// Get username
 	$userID = Sys_Secure($_SESSION['userId']);
