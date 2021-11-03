@@ -123,13 +123,6 @@
 				<h4><i class="fas fa-info-circle"></i> <?php echo $language['technical-details'] ?> </h4>
 				<div class="table-responsive">
 					<table class="table" id="productDetailsTable">
-						<thead class="bg-light border">
-							<tr>							
-								<th width="5%">#</th>
-								<th width="45%" class="text-center"><?php echo $language['details'] ?></th>
-								<th class="text-center"><?php echo $language['description'] ?></th>
-							</tr>
-						</thead>
 						<tbody class="border">
 							<?php
 							$x = 1;
@@ -142,9 +135,9 @@
 								while ($dados = mysqli_fetch_array($resultado)){
 									?>
 									<tr>
-										<td class="bg-light text-muted border"><?php echo $x ?></td>
-										<td class="bg-light"><?php echo $dados['detail'];?></td>
-										<td><?php echo $dados['description'];?></td>
+										<td width="4%" class="bg-light text-muted border"><?php echo $x ?></td>
+										<td width="48%" class="bg-light"><?php echo $dados['detail'];?></td>
+										<td width="48%"><?php echo $dados['description'];?></td>
 									</tr>
 
 									<?php 
@@ -167,86 +160,106 @@
 			<div class="col-md-6 col-lg-6 bg-white p-3 productDesctiption">
 				<h4><i class="fas fa-info-circle"></i> <?php echo $language['product-description'] ?> </h4>
 				<div class="row product_description m-2">
-					<textarea readonly class="form-control border-0" style="max-height: 440px; min-height: 220px;" id="product_description" name="product_description">1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+					<!-- Product description -->
+					<textarea readonly class="form-control border-0" style="max-height: 440px; min-height: 220px; background: transparent;" id="product_description" name="product_description"></textarea>
 
-2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+					<style type="text/css">
+						/* width */
+						textarea::-webkit-scrollbar {
+							width: 8px;
+							height: 4px;
+						}
 
-3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+						/* Track */
+						textarea::-webkit-scrollbar-track {
+							background: #f1f1f1; 
+						}
 
-4. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+						/* Handle */
+						textarea::-webkit-scrollbar-thumb {
+							background: #dee2e6; 
+							border-radius: 0.3rem;
+						}
 
-5. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-					</textarea>
+						/* Handle on hover */
+						textarea::-webkit-scrollbar-thumb:hover {
+							background: #c3c3c4; 
+						}
+						.product_description:hover { background: #f8f9fa; }
+						.product_description textarea:focus {
+							box-shadow: unset;
+						}</style>
+
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row mt-2 mt-md-3 mt-lg-4">
-			<div class="col-12 bg-white p-3 relatedProducts">
-				<h4><i class="fas fa-network-wired"></i> <?php echo $language['related-products'] ?> </h4>
+			<div class="row mt-2 mt-md-3 mt-lg-4">
+				<div class="col-12 bg-white p-3 relatedProducts">
+					<h4><i class="fas fa-network-wired"></i> <?php echo $language['related-products'] ?> </h4>
 
-				<!-- Produtos Relacionados -->
-				<div class="row related_products"></div>
+					<!-- Produtos Relacionados -->
+					<div class="row related_products"></div>
+				</div>
 			</div>
-		</div>
-		<div class="row mt-2 mt-md-3 mt-lg-4">
-			<div class="col-sm-12 bg-white p-3 compareSimilars">
-				<h4><i class="fas fa-network-wired"></i> <?php echo $language['compare-w-similar'] ?> </h4>
+			<div class="row mt-2 mt-md-3 mt-lg-4">
+				<div class="col-sm-12 bg-white p-3 compareSimilars">
+					<h4><i class="fas fa-network-wired"></i> <?php echo $language['compare-w-similar'] ?> </h4>
 
-				<!-- Compare with Similar -->
-				<div class="row compare_similar"></div>
-				<div class="table-responsive table-hover">
-					<table class="table" id="compareSimilarDetailsTable">
-						<thead>
-							<tr>						
-								<?php 
+					<!-- Compare with Similar -->
+					<div class="row compare_similar"></div>
+					<div class="table-responsive table-hover">
+						<table class="table" id="compareSimilarDetailsTable">
+							<thead>
+								<tr>						
+									<?php 
 
-								$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id}";
-								$result = mysqli_query($connect, $sql);
+									$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id}";
+									$result = mysqli_query($connect, $sql);
 
-								if ($result) {
-									$prodResult = mysqli_fetch_array($result);
-									if ($prodResult) {
-										?>
-
-										<th width="20%" class="text-center border-0"></th>
-										<th width="20%" class="text-center border border-primary">
-											<img src="../src/<?php echo $prodResult['product_image']; ?>" class="img-fluid" style="height: 100px; " >
-											<div class="product-stars">
-												<h6>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="far fa-star"></i>
-												</h6>
-											</div>
-											<div class="product-price"><?php echo number_format($prodResult['rate'],2,",",".") ?><label class="text-muted">Mt</label></div>
-										</th>
-
-										<?php 
-
-										$sql = "SELECT * FROM product WHERE categories_id = {$prodResult['categories_id']} AND active  = 1 AND product_id != {$product_id} ORDER BY RAND() limit 3";
-										$result = mysqli_query($connect, $sql);
-
-										while ($related_products = mysqli_fetch_array($result)) { 
+									if ($result) {
+										$prodResult = mysqli_fetch_array($result);
+										if ($prodResult) {
 											?>
-											<th width="20%" class="text-center border similarProduct">
-												<a href="product_details.php?product_id=<?php echo $related_products['product_id']; ?>">
-													<img src="../src/<?php echo $related_products['product_image']; ?>" class="img-fluid" style="height: 100px; " >
-													<div class="product-stars">
-														<h6>
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star"></i>
-															<i class="fas fa-star"></i>
-															<i class="far fa-star"></i>
-														</h6>
-													</div>
-													<div class="product-price"><?php echo number_format($related_products['rate'],2,",",".") ?><label class="text-muted">Mt</label></div>
-												</a>
+
+											<th width="20%" class="text-center border-0"></th>
+											<th width="20%" class="text-center border border-primary">
+												<img src="../src/<?php echo $prodResult['product_image']; ?>" class="img-fluid" style="height: 100px; " >
+												<div class="product-stars">
+													<h6>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="fas fa-star"></i>
+														<i class="far fa-star"></i>
+													</h6>
+												</div>
+												<div class="product-price"><?php echo number_format($prodResult['rate'],2,",",".") ?><label class="text-muted">Mt</label></div>
 											</th>
+
 											<?php 
+
+											$sql = "SELECT * FROM product WHERE categories_id = {$prodResult['categories_id']} AND active  = 1 AND product_id != {$product_id} ORDER BY RAND() limit 3";
+											$result = mysqli_query($connect, $sql);
+
+											while ($related_products = mysqli_fetch_array($result)) { 
+												?>
+												<th width="20%" class="text-center border similarProduct">
+													<a href="product_details.php?product_id=<?php echo $related_products['product_id']; ?>">
+														<img src="../src/<?php echo $related_products['product_image']; ?>" class="img-fluid" style="height: 100px; " >
+														<div class="product-stars">
+															<h6>
+																<i class="fas fa-star"></i>
+																<i class="fas fa-star"></i>
+																<i class="fas fa-star"></i>
+																<i class="fas fa-star"></i>
+																<i class="far fa-star"></i>
+															</h6>
+														</div>
+														<div class="product-price"><?php echo number_format($related_products['rate'],2,",",".") ?><label class="text-muted">Mt</label></div>
+													</a>
+												</th>
+												<?php 
 										} // /while
 									} // /if($prodResul)
 								} // if($result)
