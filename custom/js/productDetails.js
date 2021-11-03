@@ -332,7 +332,6 @@ function removeProductDetail(productDetailId = null) {
 } // /remove product detail function
 
 function setProductInfo(product_id = null) {
-	console.log(321);
 	if(product_id) {
 		$.ajax({
 			url : 'php_action/ctrl_product.php?action=readProductInfo', 
@@ -341,12 +340,12 @@ function setProductInfo(product_id = null) {
 			dataType: 'json',
 			success:function(response) {	
 				$('#product_name').text(response.product_name).attr('title', response.product_name);
+				$('#product_description').val(response.product_description);
 				$('#product_img').attr('src', 'stock/'+response.product_image);
 				$('#product_brand').val(response.brand_name);
 				$('#product_category').val(response.categories_name);
 				$('#product_quantity').val(response.quantity);
 				$('#product_rate').val(response.rate);
-				// $('#product_active').val(response.active);
 
 				if (response.active == 1) {
 					$('.product_activ').html('<input type="text" readonly class="form-control border-0 text-success font-weight-bold" id="status" name="status" autocomplete="off" value="Available">');
