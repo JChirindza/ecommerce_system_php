@@ -28,9 +28,7 @@ if (isset($_GET['lang'])) {
 	}
 }
 
-$filepath = '/../includes/language/lang.'.$lang.'.php';
-
-require_once __DIR__. "{$filepath}";
+require_once __DIR__.'/../includes/language/lang.'.$lang.'.php';
 // /Multi-lingual
 
 ?>
