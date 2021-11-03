@@ -14,6 +14,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'readFilters':
 		filterProducts();
 		break;
+		case 'readProductDescription':
+		fetchProductData();
+		break;
 		
 		// default:
 		// 	// code...
@@ -239,4 +242,26 @@ function filterProducts(){
 	}
 }
 
+function fetchProductData() {
+
+	global $connect;
+
+	if (isset($_POST['product_id'])) {
+		$productId = Sys_Secure($_POST['product_id']);
+
+		$sql = "SELECT product.product_id, product.product_name, product.product_description, product.product_image, product.brand_id,
+		product.categories_id, product.quantity, product.rate, product.active,
+		brands.brand_name, categories.categories_name FROM product 
+		INNER JOIN brands ON product.brand_id = brands.brand_id 
+		INNER JOIN categories ON product.categories_id = categories.categories_id  
+		WHERE product.status = 1 AND product.product_id = {$productId}";
+
+		$query = $connect->query($sql);
+		$prodInfo = $query->fetch_assoc();
+
+		$connect->close();
+
+		echo json_encode($prodInfo);
+	}
+}
 ?>
