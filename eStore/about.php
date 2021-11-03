@@ -11,7 +11,7 @@
 		
 		<div class="row mt-2 mt-md-0 mt-lg-0">
 			<div class="col-sm-12 bg-white p-3 userSettings">
-				<h4><i class="fas fa-map-marker-alt"></i> <?php echo $language['about'] ?></h4>
+				<h4><i class="fas fa-building"></i> <?php echo $language['about'] ?></h4>
 				<div class="col-md-12 p-0 mt-2">
 					
 				</div> <!-- /col-md-12 -->
