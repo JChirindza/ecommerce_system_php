@@ -1,6 +1,6 @@
 <?php  
 
-function Sys_Secure($string, $censored_words = 1, $br = true, $strip = 0) {
+function Sys_Secure($string, $br = true, $strip = 0) {
 
     global $connect;
 
@@ -13,12 +13,8 @@ function Sys_Secure($string, $censored_words = 1, $br = true, $strip = 0) {
         $string = str_replace('\n\r', " <br>", $string);
         $string = str_replace('\r', " <br>", $string);
         $string = str_replace('\n', " <br>", $string);
-    } else {
-        $string = str_replace('\r\n', "", $string);
-        $string = str_replace('\n\r', "", $string);
-        $string = str_replace('\r', "", $string);
-        $string = str_replace('\n', "", $string);
     }
+    
     if ($strip == 1) {
         $string = stripslashes($string);
     }
