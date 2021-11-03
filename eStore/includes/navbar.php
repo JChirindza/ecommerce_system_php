@@ -1,4 +1,5 @@
 <?php  
+$userID = null;
 if(isset($_SESSION['userId'])) {
 
 	// Get username
@@ -139,8 +140,14 @@ if(isset($_SESSION['userId'])) {
 	</div>
 </div>
 
+<?php
+if (isset($_SESSION['userId'])) { ?>
+	<input type="hidden" name="user_id" id="user_id">
+<?php } ?>
+
 <script type="text/javascript">
-	var userid = <?php echo $userID; ?>;
+	var userid = $('#user_id').val();
+
 	if(userid) {
 		$.ajax({
 			url: 'php_action/ctrl_user.php?action=readSelected',

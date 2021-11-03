@@ -93,28 +93,28 @@
 					</div> <!-- /form-group-->	     	           	       
 
 					<div class="form-group">
-						<label for="productName" class="col-sm-4 control-label"><?php echo $language['product-name'] ?>: </label>
+						<label for="productName" class="col-sm-4 control-label"><?php echo $language['product-name'] ?>: * </label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="productName" placeholder="<?php echo $language['product-name'] ?>" name="productName" autocomplete="off">
 						</div>
 					</div> <!-- /form-group-->	    
 
 					<div class="form-group">
-						<label for="quantity" class="col-sm-4 control-label"><?php echo $language['quantity'] ?>: </label>
+						<label for="quantity" class="col-sm-4 control-label"><?php echo $language['quantity'] ?>: *</label>
 						<div class="col-sm-8">
 							<input type="number" class="form-control" id="quantity" placeholder="<?php echo $language['quantity'] ?>" name="quantity" autocomplete="off">
 						</div>
 					</div> <!-- /form-group-->	        	 
 
 					<div class="form-group">
-						<label for="rate" class="col-sm-4 control-label"><?php echo $language['price'] ?>: </label>
+						<label for="rate" class="col-sm-4 control-label"><?php echo $language['price'] ?>: *</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="rate" placeholder="<?php echo $language['price'] ?>" name="rate" autocomplete="off">
 						</div>
 					</div> <!-- /form-group-->	     	        
 
 					<div class="form-group">
-						<label for="brandName" class="col-sm-4 control-label"><?php echo $language['brand-name'] ?>: </label>
+						<label for="brandName" class="col-sm-4 control-label"><?php echo $language['brand-name'] ?>: *</label>
 						<div class="col-sm-8">
 							<select class="form-control js-select2" style="width: 100%;" id="brandName" name="brandName">
 								<option value="">~~<?php echo $language['select'] ?>~~</option>
@@ -132,7 +132,7 @@
 					</div> <!-- /form-group-->	
 
 					<div class="form-group">
-						<label for="categoryName" class="col-sm-4 control-label"><?php echo $language['categ-name'] ?>: </label>
+						<label for="categoryName" class="col-sm-4 control-label"><?php echo $language['categ-name'] ?>: *</label>
 						<div class="col-sm-8">
 							<select type="text" class="form-control js-select2" style="width: 100%;" id="categoryName" placeholder="<?php echo $language['product-name'] ?>" name="categoryName" >
 								<option value="">~~<?php echo $language['select'] ?>~~</option>
@@ -150,7 +150,7 @@
 					</div> <!-- /form-group-->					        	         	       
 
 					<div class="form-group">
-						<label for="productStatus" class="col-sm-4 control-label"><?php echo $language['status'] ?>: </label>
+						<label for="productStatus" class="col-sm-4 control-label"><?php echo $language['status'] ?>: *</label>
 						<div class="col-sm-8">
 							<select class="form-control" id="productStatus" name="productStatus">
 								<option value="">~~<?php echo $language['select'] ?>~~</option>
@@ -203,6 +203,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-toggle="tab" href="#menuEdit2"> <?php echo $language['information'] ?></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#menuEdit3"> <?php echo $language['description'] ?></a>
 							</li>
 						</ul>
 					</div>
@@ -314,6 +317,25 @@
 								</div> 
 							</form>				     
 						</div>
+
+						<div id="menuEdit3" class="tab-pane fade" >
+							<form class="form-horizontal" id="editProductDescriptionForm" action="php_action/ctrl_product.php?action=updateDescription" method="POST">				    
+								
+								<div id="edit-product-description-messages"></div>
+								
+								<div class="form-group">
+									<label for="editProductDescription" class="col-sm-4 control-label"><?php echo $language['product-description'] ?>: </label>
+									<div class="col-sm-8">
+										<textarea class="form-control" rows="7" id="editProductDescription" placeholder="<?php echo $language['product-description'] ?>" name="editProductDescription" autocomplete="off"></textarea>
+									</div>
+								</div> <!-- /form-group-->	 
+
+								<div class="editProductDescriptionFooter m-3">
+									<button type="submit" class="btn btn-success" id="editProductBtn" data-loading-text="Loading..."> <i class="fas fa-save"></i> <?php echo $language['save-changes'] ?></button>
+								</div>   
+							</form>				     
+						</div>
+
 					</div> <!-- /Tab panes -->
 				</div> <!-- /div-result -->
 			</div> <!-- /modal-body -->

@@ -28,19 +28,18 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 		case 'readProductInfo':
 		fetchProductInfo();
 		break;
+		case 'updateDescription';
+		editProductDescription();
 		
 		// default:
 		// 	// code...
 		// break;
 	}
 }
-/**
- * 
- * */
+
 function createProduct(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -82,13 +81,9 @@ function createProduct(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function fetchProduct(){
 
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
 	product.categories_id, product.quantity, product.rate, product.active, product.status, 
@@ -156,13 +151,9 @@ function fetchProduct(){
 	echo json_encode($output);
 }
 
-/**
- * 
- * */
 function editProduct(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -191,12 +182,34 @@ function editProduct(){
 	echo json_encode($valid);
 }
 
-/**
- * 
- * */
+function editProductDescription(){
+	
+	global $connect, $language;
+
+	$valid['success'] = array('success' => false, 'messages' => array());
+
+	if($_POST) {
+		$productId 				= Sys_Secure($_POST['productId']);
+		$productDescription 	= $_POST['editProductDescription']; 
+
+		$sql = "UPDATE product SET product_description = '$productDescription' WHERE product_id = $productId ";
+
+		if($connect->query($sql) === TRUE) {
+			$valid['success'] = true;
+			$valid['messages'] = $language['successfully-updated'];	
+		} else {
+			$valid['success'] = false;
+			$valid['messages'] = $language['error-while-update'];
+		}
+	} // /$_POST
+	$connect->close();
+
+	echo json_encode($valid);
+}
+
 function editProductImage(){
 	
-	global $connect;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -230,13 +243,9 @@ function editProductImage(){
 	} // /if $_POST
 }
 
-/**
- * 
- * */
 function removeProduct(){
 	
-	global $connect;
-	global $language;
+	global $connect, $language;
 
 	$valid['success'] = array('success' => false, 'messages' => array());
 
@@ -259,16 +268,13 @@ function removeProduct(){
 	} // /if $_POST
 } 
 
-/**
- * 
- * */
 function fetchSelectedProduct(){
 	
 	global $connect;
 
 	$productId = Sys_Secure($_POST['productId']);
 
-	$sql = "SELECT product_id, product_name, product_image, brand_id, categories_id, quantity, rate, active, status FROM product WHERE product_id = $productId";
+	$sql = "SELECT product_id, product_name, product_description, product_image, brand_id, categories_id, quantity, rate, active, status FROM product WHERE product_id = $productId";
 	$result = $connect->query($sql);
 
 	if($result->num_rows > 0) { 
@@ -305,7 +311,7 @@ function fetchProductInfo() {
 	if (isset($_POST['product_id'])) {
 		$productId = Sys_Secure($_POST['product_id']);
 
-		$sql = "SELECT product.product_id, product.product_name, product.product_image, product.brand_id,
+		$sql = "SELECT product.product_id, product.product_name, product.product_description, product.product_image, product.brand_id,
 		product.categories_id, product.quantity, product.rate, product.active,
 		brands.brand_name, categories.categories_name FROM product 
 		INNER JOIN brands ON product.brand_id = brands.brand_id 
