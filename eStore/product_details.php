@@ -135,7 +135,7 @@
 							$x = 1;
 							$product_id = $_GET['product_id'];
 
-							$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id}";
+							$sql = "SELECT * FROM product_details INNER JOIN product ON product_details.product_id = product.product_id WHERE product_details.active = 1 AND product.product_id = {$product_id} LIMIT 8";
 
 							$resultado = mysqli_query($connect, $sql);
 							if (mysqli_num_rows($resultado) > 0){
@@ -167,20 +167,16 @@
 			<div class="col-md-6 col-lg-6 bg-white p-3 productDesctiption">
 				<h4><i class="fas fa-info-circle"></i> <?php echo $language['product-description'] ?> </h4>
 				<div class="row product_description m-2">
-					<li>1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
-					<br>
-					<li>2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
-					<br>
-					<li>3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
-					<br>
-					<li>4. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
-					<br>
-					<li>5. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</li>
+					<textarea readonly class="form-control border-0" style="max-height: 440px; min-height: 220px;" id="product_description" name="product_description">1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+
+2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+
+3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+
+4. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+
+5. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+					</textarea>
 				</div>
 			</div>
 		</div>
