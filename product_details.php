@@ -66,14 +66,23 @@ $productId = Sys_Secure($_GET['i']);
 								<input type="text" readonly class="form-control border-0" id="product_category" name="category" autocomplete="off">
 							</div>
 						</div> <!-- /form-group-->
+					</div>	
+
+					<div class="form-group row">
+						<div class="form-group col-md-6 col-lg-6">
+							<label for="quantity" class="col-12 control-label"><?php echo $language['description'] ?>: </label>
+							<div class="col-12">
+								<textarea readonly class="form-control border-0" rows="7" id="product_description" name="product_description"></textarea>
+							</div>
+						</div> <!-- /form-group-->	
+
+						<div class="form-group col-md-6 col-lg-6 pt-4 pt-md-0 pt-lg-0">
+							<label for="status" class="col-12 control-label"><?php echo $language['status'] ?>: </label>
+
+							<!-- product active input -->
+							<div class="form-group col-md-4 col-lg-6 product_activ"></div>
+						</div> <!-- /form-group-->
 					</div>					        	         	       
-
-					<div class="form-group pt-2 pt-md-0 pt-lg-0">
-						<label for="status" class="col-12 control-label"><?php echo $language['status'] ?>: </label>
-
-						<!-- product active input -->
-						<div class="form-group col-md-3 col-lg-3 product_activ"></div>
-					</div> <!-- /form-group-->
 
 					<div class="view-less m-0 p-0" id="view-less" data-toggle="tooltip" title="<?php echo $language['view-less']; ?>" style="cursor: pointer;">
 						<label class="text-muted p-0 m-0" style="cursor: pointer;"><i class="fas fa-angle-up"></i></label>
@@ -82,25 +91,7 @@ $productId = Sys_Secure($_GET['i']);
 
 				<input type="hidden" name="product_id" id="product_id" value="<?php echo $productId; ?>">
 
-				<script type="text/javascript">
-					var view_more = document.getElementById('view-more');
-					var view_less = document.getElementById('view-less');
-					var product_info = document.getElementById('product-info');
-					
-					view_more.onclick = function() {
-						if (product_info.style.display === 'none') {
-							view_more.style.display = 'none';
-							product_info.style.display = 'block';
-						}
-					};
-
-					view_less.onclick = function() {						
-						if (product_info.style.display !== 'none') {
-							product_info.style.display = 'none';
-							view_more.style.display = 'block';
-						}
-					}
-				</script>
+				
 				<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProductModalBtn" data-target="#editProductModal" onclick="editProduct('<?php echo $productId; ?>')"> <i class="fas fa-edit"></i><?php echo $language['edit-product'] ?></button>
 
 			</div> 
@@ -279,3 +270,23 @@ $productId = Sys_Secure($_GET['i']);
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- /produt detail -->
+
+<script type="text/javascript">
+	var view_more = document.getElementById('view-more');
+	var view_less = document.getElementById('view-less');
+	var product_info = document.getElementById('product-info');
+
+	view_more.onclick = function() {
+		if (product_info.style.display === 'none') {
+			view_more.style.display = 'none';
+			product_info.style.display = 'block';
+		}
+	};
+
+	view_less.onclick = function() {						
+		if (product_info.style.display !== 'none') {
+			product_info.style.display = 'none';
+			view_more.style.display = 'block';
+		}
+	}
+</script>
