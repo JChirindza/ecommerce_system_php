@@ -228,7 +228,8 @@ function editProduct(productId = null) {
 				// });  
 
 				// product id 
-				$(".editProductFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
+				$(".editProductFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');
+				$(".editProductDescriptionFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
 				$(".editProductPhotoFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
 				
 				// product name
@@ -243,6 +244,8 @@ function editProduct(productId = null) {
 				$("#editCategoryName").val(response.categories_id);
 				// status
 				$("#editProductStatus").val(response.active);
+				// product description
+				$('#editProductDescription').text(response.product_description);
 
 				// update the product data function
 				$("#editProductForm").unbind('submit').bind('submit', function() {
@@ -377,6 +380,70 @@ function editProduct(productId = null) {
 							} // /success function
 						}); // /ajax function
 					}	 // /if validation is ok 					
+
+					return false;
+				}); // update the product data function
+
+				// update the product description data function
+				$("#editProductDescriptionForm").unbind('submit').bind('submit', function() {
+					// submit loading button
+					$("#editProductDesciptionBtn").button('loading');
+
+					var form = $(this);
+					var formData = new FormData(this);
+
+					$.ajax({
+						url : form.attr('action'),
+						type: form.attr('method'),
+						data: formData,
+						dataType: 'json',
+						cache: false,
+						contentType: false,
+						processData: false,
+						success:function(response) {
+							console.log(response);
+							if(response.success == true) {
+								// submit loading button
+								$("#editProductDesciptionBtn").button('reset');																		
+
+								// shows a successful message after operation
+								$('#edit-product-description-messages').html('<div class="alert alert-success">'+
+									'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+									'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+									'</div>');
+
+								// update product data
+								setProductInfo(productId);
+
+								$("div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+			          			// reload the manage table
+			          			manageProductTable.ajax.reload(null, true);
+
+								// remove text-error 
+								$(".text-danger").remove();
+								// remove from-group error
+								$(".form-group").removeClass('has-error').removeClass('has-success');
+
+							} else {
+								$("div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
+
+								// shows a message after operation
+								$('#edit-product-description-messages').html('<div class="alert alert-warning">'+
+									'<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+									'<strong><i class="fas fa-save"></i></strong> '+ response.messages +
+									'</div>');
+							} // /else response.success
+
+							// remove the mesages
+							$(".alert-success").delay(500).show(10, function() {
+								$(this).delay(3000).hide(10, function() {
+									$(this).remove();
+								});
+							}); // /.alert
+							
+						} // /success function
+					}); // /ajax function
 
 					return false;
 				}); // update the product data function
