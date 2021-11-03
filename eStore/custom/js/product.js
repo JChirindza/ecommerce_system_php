@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var product_id = $('#product_id').val();
+
 	// product filters
 	filter_data();
 	function filter_data(){
@@ -66,7 +68,6 @@ $(document).ready(function(){
 	related_products();
 	function related_products(){
 		$('.loading_area').html('<div id="loading" style="" ></div>');
-		var product_id = $('#product_id').val();
 
 		$.ajax({
 			url:"php_action/ctrl_product.php?action=readRelated",
@@ -78,4 +79,22 @@ $(document).ready(function(){
 			}
 		});
 	}
+
+	setProductDescription(product_id);
+	function setProductDescription(product_id = null) {
+		console.log(1234);
+		if(product_id) {
+			$.ajax({
+				url : 'php_action/ctrl_product.php?action=readProductDescription', 
+				type: 'post',
+				data: {product_id: product_id},
+				dataType: 'json',
+				success:function(response) {	
+					$('#product_description').val(response.product_description);
+					console.log(1231);
+				} // /success function
+			});
+		}
+	}
 });
+
