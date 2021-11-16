@@ -31,9 +31,9 @@ if ($_GET) {
 				<div class="col-6 text-right d-flex justify-content-end">
 					<div class="pr-2"><i class="fas fa-globe text-secondary"></i></div>
 					<div class="language_link">
-						<a class="language_link_item fw-bolder" href="<?php echo $url; ?>EN" ><?php echo $sys['langs']['en']; ?>
+						<a class="language_link_item" <?php if($lang == 'en'){ ?> style="font-weight: bold;" <?php } ?> href="<?php echo $url; ?>en" ><?php echo $sys['langs']['en']; ?>
 						</a> | 
-						<a class="language_link_item" href="<?php echo $url; ?>PT" ><?php echo $sys['langs']['pt']; ?>
+						<a class="language_link_item" <?php if($lang == 'pt'){ ?> style="font-weight: bold;" <?php } ?> href="<?php echo $url; ?>pt" ><?php echo $sys['langs']['pt']; ?>
 						</a>
 					</div>
 				</div>
