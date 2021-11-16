@@ -13,14 +13,14 @@ if (isset($_SESSION['lang'])) {
 }
 
 if (isset($_COOKIE['lang'])) {
-	$lang = Sys_Secure($_COOKIE['lang']);
+	$lang = strtolower(Sys_Secure($_COOKIE['lang']));
 }
 
 // Check if GET lang value is valid.
 if (isset($_GET['lang'])) {
 
 	if (array_key_exists(strtolower($_GET['lang']), $sys['langs'])) {
-		$lang = Sys_Secure($_GET['lang']);
+		$lang = strtolower(Sys_Secure($_GET['lang']));
 
 		$cookie_name = "lang";
 		$cookie_value = strtolower($lang);
