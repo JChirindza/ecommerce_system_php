@@ -2,10 +2,10 @@
         	</div><!-- /#page-content-wrapper -->
       	</div><!-- /#wrapper -->
       	<!-- Footer -->
-      	<footer class="sticky-footer bg-white " style="margin-bottom: auto!important;">
+      	<footer class="sticky-footer bg-white border-top" style="margin-bottom: auto!important;">
       		<div class="container my-auto ">
       			<div class="copyright text-center my-auto">
-      				<span>Copyright <i class="fas fa-copyright"></i> ComputersOnly | 2020 - <?php echo $anoAtual = date('Y'); ?></span>
+      				<span>Copyright <i class="fas fa-copyright"></i> ComputersOnly | <?= (date('Y') !== '2020' ? '2020 - ' : '') . date('Y') ?>. All rights reserved.</span>
       			</div>
       		</div>
       	</footer>
