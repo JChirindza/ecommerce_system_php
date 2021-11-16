@@ -12,13 +12,17 @@ if (isset($_SESSION['userId'])) {
 }
 
 ?>
+<style type="text/css">
+
+</style>
+
 <nav class="navbar navbar-expand-lg border-bottom shadow-sm" >
 	<!-- Brand -->
-	<div class="col-md">
-		<a class="col-md  brand navbar-brand logo p-0 text-primary border" href="dashboard.php">ComputersOnly</a>
+	<div class="col-6 pl-0">
+		<a class="col-auto brand navbar-brand logo p-0 text-primary" href="dashboard.php"><span class="border px-2 py-1">ComputersOnly</span></a>
 	</div>
 	
-	<div class="col-md-10">
+	<div class="col-6 d-flex justify-content-end pr-0">
 		<div class="dropdown navbar-nav float-right">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
@@ -38,6 +42,10 @@ if (isset($_SESSION['userId'])) {
 					</li>
 				</ul>
 			</div>
+		</div>
+
+		<div class="text-right d-lg-none">
+			<a class="btn  btn-outline-primary btn-sm" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i><?php echo $language['sign-out'] ?></a>
 		</div>
 	</div>
 </nav>
