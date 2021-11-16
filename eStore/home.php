@@ -114,7 +114,7 @@
 						<div class="row fetch_computers">
 							<?php  
 
-							$sql2 = "SELECT p.*, b.brand_name FROM product AS p INNER JOIN brands AS b ON b.brand_id = p.brand_id WHERE p.active = '1' AND p.categories_id = {$categoryData['categories_id']} LIMIT 7";
+							$sql2 = "SELECT p.*, b.brand_name FROM product AS p INNER JOIN brands AS b ON b.brand_id = p.brand_id WHERE p.active = '1' AND p.categories_id = {$categoryData['categories_id']} AND quantity >= 1 LIMIT 7";
 							$result2 = $connect->query($sql2);
 							if($result2 && $result2->num_rows > 0) {
 								foreach($result2 as $productData) {
