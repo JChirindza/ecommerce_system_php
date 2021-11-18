@@ -45,11 +45,19 @@ $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
 
-$userwisesql = "SELECT users.name, users.surname, users.email, users.permittion, SUM(orders.paid) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 1 AND users.status = 1 GROUP BY orders.user_id";
-$userwiseQuery = $connect->query($userwisesql);
-$userwieseOrder = $userwiseQuery->num_rows;
+$userOrdersSql = "SELECT order_id, order_date, client_name, client_contact, grand_total, (SELECT COUNT(*) FROM order_item WHERE order_id = orders.order_id) as total_items FROM `orders` WHERE payment_status = 1 ORDER BY order_date DESC LIMIT 5";
+$UserOrderQuery = $connect->query($userOrdersSql);
+$userOrders = $UserOrderQuery->num_rows;
 
-$clientwisesql = "SELECT users.name, users.surname, users.email, users.active , SUM(orders.grand_total) as totalorder FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_status = 1 AND users.type = 2 AND users.status = 1 GROUP BY orders.user_id";
+$clientwisesql = "SELECT chp.cart_has_paid_id, chp.dt_paid, 
+users.name AS name, users.surname AS surname,
+users.email,
+clients.contact,
+(SELECT COUNT(*) FROM cart_item_has_paid WHERE cart_item_has_paid.cart_has_paid_id = chp.cart_has_paid_id) AS total_items,
+chp.grand_total
+FROM `cart_has_paid` AS chp
+INNER JOIN clients ON chp.client_id = clients.client_id 
+INNER JOIN users ON users.user_id = clients.user_id";
 $clientwiseQuery = $connect->query($clientwisesql);
 $clientwieseOrder = $clientwiseQuery->num_rows;
 
@@ -114,7 +122,7 @@ a .card:hover {
 	<!-- Earnings (YEAR) Card Example -->
 	<div class="col-xl-3 col-md-6 mb-4">
 		<div class="card border-left-success h-100 py-2">
-			<div class="card-body">
+			<div class="card-body">  
 				<div class="row no-gutters align-items-center">
 					<div class="col mr-2">
 						<div class="text-xs font-weight-bold text-success text-uppercase mb-1"><?php echo $language['earnings']; ?> ( <label class="text-muted"><?php echo date('Y'); ?></label> )</div>
@@ -214,72 +222,68 @@ a .card:hover {
 		</a>
 	</div> <!--/col-md-4-->
 </div>
-
+<hr>
 <div class="col-12 pt-2 mb-4 p-0">
 	<div class="card">
-		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-orders']; ?> <label class="badge badge-secondary"><?php echo $language['employees']; ?></label></div>
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['orders']; ?> <label class="badge badge-secondary"><?php echo $language['in-store']; ?></label></div>
 		<div class="card-body">
-			<table class="table table-responsive table-hover" id="userWiseOrderTable">
-				<thead>
-					<tr>			  			
-						<th style="width:25%;"><?php echo $language['name']; ?></th>
-						<th style="width:25%;"><?php echo $language['surname']; ?></th>
-						<th style="width:25%;"><?php echo $language['email']; ?></th>
-						<th style="width:10%;"><?php echo $language['type']; ?></th>
-						<th style="width:15%;">Total</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
-						<tr>
-							<td><?php echo $orderResult['name']?></td>
-							<td><?php echo $orderResult['surname']?></td>
-							<td><?php echo $orderResult['email']?></td>
-							<td><?php if($orderResult['permittion'] == 1){ ?>
-								<label class="badge badge-success"><?php echo $language['admin']; ?></label>
-							<?php }elseif ($orderResult['permittion'] == 2) { ?>
-								<label class="badge badge-primary"><?php echo $language['manager']; ?></label>
-							<?php }elseif ($orderResult['permittion'] == 3) { ?>
-								<label class="badge badge-info"><?php echo $language['vendor']; ?></label>
-							<?php } ?>
-						</td>
-						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
-					</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+			<div class="table-responsive table-hover">
+				<table class="table" id="userWiseOrderTable">
+					<thead>
+						<tr>			  			
+							<th style="width:20%;"><?php echo $language['order-date']; ?></th>
+							<th style="width:25%;"><?php echo $language['client-name']; ?></th>
+							<th style="width:15%;"><?php echo $language['contact']; ?></th>
+							<th style="width:15%;"><?php echo $language['total-items']; ?></th>
+							<th style="width:15%;"><?php echo $language['paid-amount']; ?></th>
+							<th style="width: auto;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php while ($orderResult = $UserOrderQuery->fetch_assoc()) { ?>
+							<tr>
+								<td><?php echo $orderResult['order_date']?></td>
+								<td><?php echo $orderResult['client_name']?></td>
+								<td><?php echo $orderResult['client_contact']?></td>
+								<td><?php echo $orderResult['total_items']?></td>
+								<td><?php echo number_format($orderResult['grand_total'],2,",",".")?></td>
+								<td class="d-flex justify-content-end"><a href="orders.php?p=editOrd&i=<?php echo $orderResult['order_id']; ?>" class="btn btn-sm btn-outline-success py-0"><i class="fas fa-eye"></i></a></td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
 		</div>	
 	</div>
 </div> 
-
+<hr>
 <div class="col-12 pt-2 mb-4 p-0">
 	<div class="card">
-		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['users-req']; ?> <label class="badge badge-secondary"><?php echo $language['clients']; ?></label></div>
+		<div class="card-header bg-white text-xs font-weight-bold"> <i class="fas fa-calendar"></i> <?php echo $language['requests']; ?> <label class="badge badge-secondary"><?php echo $language['online']; ?></label></div>
 		<div class="card-body">
 			<table class="table table-responsive table-hover" id="clientWiseOrderTable">
 				<thead>
 					<tr>			  			
-						<th style="width:25%;"><?php echo $language['name']; ?></th>
-						<th style="width:25%;"><?php echo $language['surname']; ?></th>
+						<th style="width:15%;"><?php echo $language['requested-on']; ?></th>
+						<th style="width:25%;"><?php echo $language['client-name']; ?></th>
 						<th style="width:25%;"><?php echo $language['email']; ?></th>
-						<th style="width:25%;"><?php echo $language['status']; ?></th>
-						<th style="width:25%;">Total</th>
+						<th style="width:10%;"><?php echo $language['contact']; ?></th>
+						<th style="width:10%;"><?php echo $language['total-items']; ?></th>
+						<th style="width:15%;"><?php echo $language['paid-amount']; ?></th>
+						<th style="width: auto;"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php while ($orderResult = $clientwiseQuery->fetch_assoc()) { ?>
+					<?php while ($requestResult = $clientwiseQuery->fetch_assoc()) { ?>
 						<tr>
-							<td><?php echo $orderResult['name']?></td>
-							<td><?php echo $orderResult['surname']?></td>
-							<td><?php echo $orderResult['email']?></td>
-							<td><?php if($orderResult['active'] == 1){ ?>
-								<label class="badge badge-success"><?php echo $language['active']; ?></label>
-							<?php }elseif ($orderResult['active'] == 2) { ?>
-								<label class="badge badge-secondary"><?php echo $language['inactive']; ?></label>
-							<?php } ?>
-						</td>
-						<td><?php echo number_format($orderResult['totalorder'],2,",",".")?></td>
-					</tr>
+							<td><?php echo $requestResult['dt_paid']?></td>
+							<td><?php echo $requestResult['name'].' '.$requestResult['surname']?></td>
+							<td><?php echo $requestResult['email']?></td>
+							<td><?php echo $requestResult['contact']?></td>
+							<td><?php echo $requestResult['total_items']?></td>
+							<td><?php echo number_format($requestResult['grand_total'],2,",",".")?></td>
+							<td class="d-flex justify-content-end"><a class="btn btn-sm btn-outline-success py-0" href="request.php?r=respreq&i=<?php echo $requestResult['cart_has_paid_id'] ?>"><i class="fas fa-eye"></i></a></td>
+						</tr>
 					<?php } ?>
 				</tbody>
 			</table>
