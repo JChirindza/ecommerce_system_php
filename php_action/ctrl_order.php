@@ -61,11 +61,9 @@ function createOrder(){
 		$dueValue 			= Sys_Secure($_POST['dueValue']);
 		$paymentType 		= Sys_Secure($_POST['paymentType']);
 		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);
-		$paymentPlace 		= Sys_Secure($_POST['paymentPlace']);
-		$gstn 				= Sys_Secure($_POST['gstn']);
 		$userid 			= Sys_Secure($_SESSION['userId']);
 
-		$sql = "INSERT INTO orders (order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_type, payment_status,payment_place, gstn,order_status,user_id) VALUES ('$orderDate', '$clientName', '$clientContact', '$subTotalValue', '$vatValue', '$totalAmountValue', '$discount', '$grandTotalValue', '$paid', '$dueValue', '$paymentType', '$paymentStatus', '$paymentPlace', '$gstn', 1, '$userid')";
+		$sql = "INSERT INTO orders (order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_type, payment_status,order_status,user_id) VALUES ('$orderDate', '$clientName', '$clientContact', '$subTotalValue', '$vatValue', '$totalAmountValue', '$discount', '$grandTotalValue', '$paid', '$dueValue', '$paymentType', '$paymentStatus', 1, '$userid')";
 
 		$order_id;
 		$orderStatus = false;
@@ -121,14 +119,13 @@ function fetchOrders(){
 	
 	global $connect, $language;
 
-	$sql = "SELECT order_id, order_date, client_name, client_contact, payment_place, payment_status FROM orders WHERE order_status = 1 ORDER BY order_id DESC";
+	$sql = "SELECT order_id, order_date, client_name, client_contact, grand_total, payment_status FROM orders WHERE order_status = 1 ORDER BY order_id DESC";
 	$result = $connect->query($sql);
 
 	$output = array('data' => array());
 
 	if($result->num_rows > 0) { 
 
-		$paymentPlace = ""; 
 		$paymentStatus = ""; 
 		$x = 1;
 
@@ -138,13 +135,6 @@ function fetchOrders(){
 			$countOrderItemSql = "SELECT count(*) FROM order_item WHERE order_id = $orderId";
 			$itemCountResult = $connect->query($countOrderItemSql);
 			$itemCountRow = $itemCountResult->fetch_row();
-
- 			// payment place
-			if($row[4] == 1) { 		
-				$paymentPlace = "<label class='badge badge-info'>".$language['in-store']."</label>";
-			} else { 		
-				$paymentPlace = "<label class='badge badge-success'>".$language['online']."</label>";
-	 		} // /else
 
 		 	// payment status 
 	 		if($row[5] == 1) { 		
@@ -161,7 +151,7 @@ function fetchOrders(){
 		 	Action <span class="caret"></span>
 		 	</button>
 		 	<ul class="dropdown-menu bg-transparent border-0">
-		 	<li><a href="orders.php?p=editOrd&i='.$orderId.'" class="btn btn-success btn-sm col-12" id="editOrderModalBtn"> <i class="fas fa-edit"></i> Edit</a></li>
+		 	<li><a href="orders.php?p=editOrd&i='.$orderId.'" class="btn btn-success btn-sm col-12" id="editOrderModalBtn"> <i class="fas fa-eye"></i> '.$language['view'].'</a></li>
 
 		 	<li><a type="button" class="btn btn-primary btn-sm col-12" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="fas fa-money-bill"></i> Payment</a></li>
 
@@ -181,7 +171,7 @@ function fetchOrders(){
 		 		// client contact
 		 		$row[3], 		 	
 		 		$itemCountRow, 		 	
-		 		$paymentPlace,
+		 		$row[4],
 		 		$paymentStatus,
 		 		// button
 		 		$button 		
@@ -236,10 +226,9 @@ function editOrder(){
 		$dueValue 			= Sys_Secure($_POST['dueValue']);
 		$paymentType 		= Sys_Secure($_POST['paymentType']);
 		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);
-		$paymentPlace 		= Sys_Secure($_POST['paymentPlace']);
 		$userid 			= Sys_Secure($_SESSION['userId']);
 
-		$sql = "UPDATE orders SET order_date = '$orderDate', client_name = '$clientName', client_contact = '$clientContact', sub_total = '$subTotalValue', vat = '$vatValue', total_amount = '$totalAmountValue', discount = '$discount', grand_total = '$grandTotalValue', paid = '$paid', due = '$dueValue', payment_type = '$paymentType', payment_status = '$paymentStatus', order_status = 1 ,user_id = '$userid',payment_place = '$paymentPlace' WHERE order_id = {$orderId}";	
+		$sql = "UPDATE orders SET order_date = '$orderDate', client_name = '$clientName', client_contact = '$clientContact', sub_total = '$subTotalValue', vat = '$vatValue', total_amount = '$totalAmountValue', discount = '$discount', grand_total = '$grandTotalValue', paid = '$paid', due = '$dueValue', payment_type = '$paymentType', payment_status = '$paymentStatus', order_status = 1 ,user_id = '$userid' WHERE order_id = {$orderId}";	
 		$connect->query($sql);
 
 		if($connect->query($sql) === TRUE) {
@@ -373,7 +362,7 @@ function printOrder(){
 
 	$orderId = Sys_Secure($_POST['orderId']);
 
-	$sql = "SELECT order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_place,gstn FROM orders WHERE order_id = $orderId";
+	$sql = "SELECT order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due FROM orders WHERE order_id = $orderId";
 
 	$orderResult = $connect->query($sql);
 	$orderData = $orderResult->fetch_array();
@@ -388,9 +377,6 @@ function printOrder(){
 	$grandTotal = $orderData[7];
 	$paid = $orderData[8];
 	$due = $orderData[9];
-	$payment_place = $orderData[10];
-	$gstn = $orderData[11];
-
 
 	$orderItemSql = "SELECT order_item.product_id, order_item.rate, order_item.quantity, order_item.total,
 	product.product_name FROM order_item
@@ -508,14 +494,7 @@ function printOrder(){
 	</tr>
 	';
 	$x = 1;
-	$cgst = 0;
-	$igst = 0;
-	if($payment_place == 2) {
-		$igst = $subTotal*17/100;
-	} else {
-		$cgst = $subTotal*9/100;
-	}
-	$total = $subTotal+2*$cgst+$igst;
+
 	while($row = $orderItemResult->fetch_array()) {       
 		$table .= '
 		<tr class="item-row">
@@ -531,13 +510,13 @@ function printOrder(){
     $table.= '
     <tr>
     <td colspan="2" class="blank"> </td>
-    <td colspan="2" class="total-line">'.$language['total-amount'].'</td>
+    <td colspan="2" class="total-line">'.$language['total-amount'].':</td>
     <td class="total-value"><div id="subtotal">'.$subTotal.'</div></td>
     </tr>
     <tr>
     <td colspan="2" class="blank"> </td>
-    <td colspan="2" class="total-line balance">'.$language['grand-total'].'</td>
-    <td class="total-value balance"><div class="due">'.$total.'</div></td>
+    <td colspan="2" class="total-line balance">'.$language['grand-total'].':</td>
+    <td class="total-value balance"><div class="due">'.$grandTotal.'</div></td>
     </tr>
     </table>
 

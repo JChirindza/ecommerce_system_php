@@ -237,7 +237,7 @@ $language['client-number'] = 'Numero do cliente';
 $language['cheque'] = 'cheque';
 $language['cash'] = 'Dinheiro';
 $language['credit-card'] = 'Cartão credito';
-$language['full-payment'] = 'Full payment';
+$language['full-payment'] = 'Pagamento integral';
 $language['partial-payment'] = 'Pagamento parcial';
 $language['no-payment'] = 'Sem pagamento';
 $language['in-store'] = 'Na loja';
@@ -332,4 +332,5 @@ $language['successfully-paid'] = 'Pago com sucesso';
 $language['error-when-paying-this-cart-has-been-paid'] = 'Erro ao pagar. Este carrinho foi pago!';
 $language['this-product-has-already-been-added'] = 'Este produto já foi adicionado';
 $language['error-while-adding-delivery-address-information'] = 'Erro ao adicionar informações de endereço de entrega.';
+$language['view'] = 'Visualizar';
 ?>

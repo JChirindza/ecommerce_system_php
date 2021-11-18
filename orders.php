@@ -179,9 +179,9 @@ $result = $query->fetch_assoc();
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst"><?php echo $language['vat'] ?> 17%:</label>
+							<label for="vat" class="col-sm-4 control-label"><?php echo $language['vat'] ?> 17%:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="vat" name="gstn" readonly="true" />
+								<input type="text" class="form-control" id="vat" name="vat" readonly="true" />
 								<input type="hidden" class="form-control" id="vatValue" name="vatValue" />
 							</div>
 						</div>				  
@@ -238,20 +238,11 @@ $result = $query->fetch_assoc();
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
 									<option value="1"><?php echo $language['full-payment'] ?></option>
-									<option value="2"><?php echo $language['advance-payment'] ?></option>
+									<option value="2"><?php echo $language['partial-payment'] ?></option>
 									<option value="3"><?php echo $language['no-payment'] ?></option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
-						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-place'] ?>:</label>
-							<div class="col-sm-8">
-								<select class="form-control" name="paymentPlace" id="paymentPlace">
-									<option value="1" selected="true"><?php echo $language['in-store'] ?></option>
-									<option value="2" disabled><?php echo $language['online'] ?></option>
-								</select>
-							</div>
-						</div> <!--/form-group-->							  
 					</div> <!--/col-md-6-->
 				</div>
 
@@ -273,8 +264,8 @@ $result = $query->fetch_assoc();
 							<th><?php echo $language['order-date'] ?></th>
 							<th><?php echo $language['client-name'] ?></th>
 							<th><?php echo $language['contact'] ?></th>
-							<th><?php echo $language['total-order-items'] ?></th>
-							<th><?php echo $language['payment-place'] ?></th>
+							<th><?php echo $language['total-items'] ?></th>
+							<th><?php echo $language['paid'] ?></th>
 							<th><?php echo $language['payment-status'] ?></th>
 							<th><?php echo $language['options'] ?></th>
 						</tr>
@@ -290,27 +281,25 @@ $result = $query->fetch_assoc();
 
 				<?php $orderId = $_GET['i'];
 
-				$sql = "SELECT orders.order_id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status,orders.payment_place,orders.gstn FROM orders 	
+				$sql = "SELECT orders.order_id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders 	
 				WHERE orders.order_id = {$orderId}";
 
 				$result = $connect->query($sql);
-				$data = $result->fetch_row();
+				$data = $result->fetch_assoc();
 				?>
 
-
-				<!--  -->
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="clientName" class="col-sm control-label"><?php echo $language['client-name'] ?>:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="<?php echo $language['client-name'] ?>" autocomplete="off" value="<?php echo $data[2] ?>" required/>
+								<input type="text" class="form-control" id="clientName" name="clientName" placeholder="<?php echo $language['client-name'] ?>" autocomplete="off" value="<?php echo $data['client_name'] ?>" required/>
 							</div>
 						</div> <!--/form-group-->
 						<div class="form-group">
 							<label for="clientContact" class="col-sm control-label">Client Contact:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="<?php echo $language['client-number'] ?>" autocomplete="off" value="<?php echo $data[3] ?>" required/>
+								<input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="<?php echo $language['client-number'] ?>" autocomplete="off" value="<?php echo $data['client_contact'] ?>" required/>
 							</div>
 						</div> <!--/form-group-->	
 					</div>
@@ -318,7 +307,7 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="orderDate" class="col-sm control-label"><?php echo $language['order-date'] ?>:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="orderDate" name="orderDate" disabled="true" autocomplete="off" value="<?php echo $data[1] ?>" />
+								<input type="text" class="form-control" id="orderDate" name="orderDate" disabled="true" autocomplete="off" value="<?php echo $data['order_date'] ?>" />
 							</div>
 						</div> <!--/form-group-->
 					</div>
@@ -425,59 +414,51 @@ $result = $query->fetch_assoc();
 						<div class="form-group">
 							<label for="subTotal" class="col-sm-4 control-label"><?php echo $language['sub-amount'] ?>:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="subTotal" name="subTotal" disabled="true" value="<?php echo $data[4] ?>" />
-								<input type="hidden" class="form-control" id="subTotalValue" name="subTotalValue" value="<?php echo $data[4] ?>" />
+								<input type="text" class="form-control" id="subTotal" name="subTotal" disabled="true" value="<?php echo $data['sub_total'] ?>" />
+								<input type="hidden" class="form-control" id="subTotalValue" name="subTotalValue" value="<?php echo $data['sub_total'] ?>" />
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
-							<label for="vat" class="col-sm-4 control-label gst"><?php if($data[13] == 2) {echo " *IVA 17%";} else echo "IVA 17%"; ?>:</label>
+							<label for="vat" class="col-sm-4 control-label">IVA 17%:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="vat" name="vat" disabled="true" value="<?php echo $data[5] ?>"  />
-								<input type="hidden" class="form-control" id="vatValue" name="vatValue" value="<?php echo $data[5] ?>"  />
+								<input type="text" class="form-control" id="vat" name="vat" disabled="true" value="<?php echo $data['vat'] ?>"  />
+								<input type="hidden" class="form-control" id="vatValue" name="vatValue" value="<?php echo $data['vat'] ?>"  />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="totalAmount" class="col-sm-4 control-label"><?php echo $language['total-amount'] ?>:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled="true" value="<?php echo $data[6] ?>" />
-								<input type="hidden" class="form-control" id="totalAmountValue" name="totalAmountValue" value="<?php echo $data[6] ?>"  />
+								<input type="text" class="form-control" id="totalAmount" name="totalAmount" disabled="true" value="<?php echo $data['total_amount'] ?>" />
+								<input type="hidden" class="form-control" id="totalAmountValue" name="totalAmountValue" value="<?php echo $data['total_amount'] ?>"  />
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
 							<label for="discount" class="col-sm-4 control-label"><?php echo $language['discount'] ?>:</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" value="<?php echo $data[7] ?>" required/>
+								<input type="number" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" value="<?php echo $data['discount'] ?>" required/>
 							</div>
 						</div> <!--/form-group-->	
 						<div class="form-group">
 							<label for="grandTotal" class="col-sm-4 control-label"><?php echo $language['grand-total'] ?>:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control form-control-lg border-success" id="grandTotal" name="grandTotal" disabled="true" value="<?php echo $data[8] ?>"  />
-								<input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" value="<?php echo $data[8] ?>"  />
+								<input type="text" class="form-control form-control-lg border-success" id="grandTotal" name="grandTotal" disabled="true" value="<?php echo $data['grand_total'] ?>"  />
+								<input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" value="<?php echo $data['grand_total'] ?>"  />
 							</div>
 						</div> <!--/form-group-->	
-						 
-						<!-- <div class="form-group">
-							<label for="gstn" class="col-sm-4 control-label gst">G.S.T.IN:</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="gstn" name="gstn" value="<?php echo $data[14] ?>"  />
-							</div>
-						</div> -->
-						<!--/form-group-->		  		  
 					</div> <!--/col-md-6-->
 
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="paid" class="col-sm-4 control-label"><?php echo $language['paid-amount'] ?>:</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" value="<?php echo $data[9] ?>"  required/>
+								<input type="number" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" value="<?php echo $data['paid'] ?>"  required/>
 							</div>
 						</div> <!--/form-group-->			  
 						<div class="form-group">
 							<label for="due" class="col-sm-4 control-label"><?php echo $language['due-amount'] ?>:</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="due" name="due" disabled="true" value="<?php echo $data[10] ?>"  />
-								<input type="hidden" class="form-control" id="dueValue" name="dueValue" value="<?php echo $data[10] ?>"  required/>
+								<input type="text" class="form-control" id="due" name="due" disabled="true" value="<?php echo $data['due'] ?>"  />
+								<input type="hidden" class="form-control" id="dueValue" name="dueValue" value="<?php echo $data['due'] ?>"  required/>
 							</div>
 						</div> <!--/form-group-->		
 						<div class="form-group">
@@ -485,13 +466,13 @@ $result = $query->fetch_assoc();
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentType" id="paymentType" required>
 									<option value="">~~<?php echo $language['select'] ?>~~</option>
-									<option value="1" disabled <?php if($data[11] == 1) {
+									<option value="1" disabled <?php if($data['payment_type'] == 1) {
 										echo "selected";
 									} ?> >Cheque</option>
-									<option value="2" <?php if($data[11] == 2) {
+									<option value="2" <?php if($data['payment_type'] == 2) {
 										echo "selected";
 									} ?>  >Cash</option>
-									<option value="3" <?php if($data[11] == 3) {
+									<option value="3" <?php if($data['payment_type'] == 3) {
 										echo "selected";
 									} ?> >Credit Card</option>
 								</select>
@@ -502,32 +483,18 @@ $result = $query->fetch_assoc();
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
 									<option value="">~~<?php echo $language['select'] ?>~~</option>
-									<option value="1" <?php if($data[12] == 1) {
+									<option value="1" <?php if($data['payment_status'] == 1) {
 										echo "selected";
 									} ?>  ><?php echo $language['full-payment'] ?></option>
-									<option value="2" <?php if($data[12] == 2) {
+									<option value="2" <?php if($data['payment_status'] == 2) {
 										echo "selected";
-									} ?> ><?php echo $language['advance-payment'] ?></option>
-									<option value="3" <?php if($data[10] == 3) {
+									} ?> ><?php echo $language['partial-payment'] ?></option>
+									<option value="3" <?php if($data['payment_status'] == 3) {
 										echo "selected";
 									} ?> ><?php echo $language['no-payment'] ?></option>
 								</select>
 							</div>
 						</div> <!--/form-group-->
-						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-place'] ?>:</label>
-							<div class="col-sm-5">
-								<select class="form-control" name="paymentPlace" id="paymentPlace">
-									<option value="">~~<?php echo $language['select'] ?>~~</option>
-									<option value="1" <?php if($data[13] == 1) {
-										echo "selected";
-									}else { echo "disabled"; } ?>  ><?php echo $language['in-store'] ?></option>
-									<option value="2" <?php if($data[13] == 2) {
-										echo "selected";
-									}else { echo "disabled"; } ?> ><?php echo $language['online'] ?></option>
-								</select>
-							</div>
-						</div>							  
 					</div> <!--/col-md-6-->
 				</div>
 
@@ -587,7 +554,7 @@ $result = $query->fetch_assoc();
 						<select class="form-control" name="paymentStatus" id="paymentStatus" required>
 							<option value="">~~<?php echo $language['select'] ?>~~</option>
 							<option value="1"><?php echo $language['full-payment'] ?></option>
-							<option value="2"><?php echo $language['advance-payment'] ?></option>
+							<option value="2"><?php echo $language['partial-payment'] ?></option>
 							<option value="3"><?php echo $language['no-payment'] ?></option>
 						</select>
 					</div>

@@ -2,17 +2,6 @@ var manageOrderTable;
 
 $(document).ready(function() {
 
-	$("#paymentPlace").change(function(){
-		if($("#paymentPlace").val() == 2)
-		{
-			$(".gst").text("*IVA 17%");
-		}
-		else
-		{
-			$(".gst").text("IVA 17%");	
-		}
-	});
-
 	var divRequest = $(".div-request").text();
 
 	// nav bar 
@@ -380,6 +369,7 @@ function printOrder(orderId = null) {
 
 function addRow() {
 	$("#addRowBtn").button("loading");
+	$('.removeProductRowBtn').removeClass('disabled');
 
 	var tableLength = $("#productTable tbody tr").length;
 
@@ -454,11 +444,18 @@ function addRow() {
 } // /add row
 
 function removeProductRow(row = null) {
+
+	var tableProductLength = $("#productTable tbody tr").length;
+
 	if(row) {
-		$("#row"+row).remove();
 
+		if (tableProductLength > 1) {
+			$("#row"+row).remove();
 
-		subAmount();
+			subAmount();
+		}else{
+			$('.removeProductRowBtn').addClass('disabled');
+		}
 	} else {
 		alert('error! Refresh the page again');
 	}
