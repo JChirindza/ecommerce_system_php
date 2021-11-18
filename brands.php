@@ -19,7 +19,7 @@
 <div class="row">
 	<div class="col-md-12 mb-4">
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header bg-white">
 				<h6 class="m-0 font-weight-bold text-muted"><?php echo $language['manage-brands'] ?></h6>
 			</div>
 
@@ -27,8 +27,8 @@
 
 				<div class="remove-messages"></div>
 
-				<div class="table-responsive">
-					<table class="table table-striped" id="manageBrandTable">
+				<div class="table-responsive table-responsive-sm table-hover">
+					<table class="table" id="manageBrandTable">
 						<thead>
 							<tr>							
 								<th><?php echo $language['brand-name'] ?></th>
