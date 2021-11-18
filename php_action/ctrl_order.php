@@ -153,11 +153,11 @@ function fetchOrders(){
 		 	<ul class="dropdown-menu bg-transparent border-0">
 		 	<li><a href="orders.php?p=editOrd&i='.$orderId.'" class="btn btn-success btn-sm col-12" id="editOrderModalBtn"> <i class="fas fa-eye"></i> '.$language['view'].'</a></li>
 
-		 	<li><a type="button" class="btn btn-primary btn-sm col-12" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="fas fa-money-bill"></i> Payment</a></li>
+		 	<li><a type="button" class="btn btn-primary btn-sm col-12" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="fas fa-money-bill"></i> '.$language['payment'].'</a></li>
 
-		 	<li><a type="button" class="btn btn-warning btn-sm col-12" onclick="printOrder('.$orderId.')"> <i class="fas fa-print"></i> Print </a></li>
+		 	<li><a type="button" class="btn btn-warning btn-sm col-12" onclick="printOrder('.$orderId.')"> <i class="fas fa-print"></i> '.$language['print'].' </a></li>
 
-		 	<li><a type="button" class="btn btn-danger btn-sm col-12" data-toggle="modal" data-target="#removeOrderModal" id="removeOrderModalBtn" onclick="removeOrder('.$orderId.')"> <i class="fas fa-trash"></i> Remove</a></li>       
+		 	<li><a type="button" class="btn btn-danger btn-sm col-12" data-toggle="modal" data-target="#removeOrderModal" id="removeOrderModalBtn" onclick="removeOrder('.$orderId.')"> <i class="fas fa-trash"></i> '.$language['remove'].'</a></li>       
 		 	</ul>
 		 	</div>';		
 

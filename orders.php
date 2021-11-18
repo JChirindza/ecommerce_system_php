@@ -210,6 +210,17 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
+									<option value="1"><?php echo $language['full-payment'] ?></option>
+									<option value="2"><?php echo $language['partial-payment'] ?></option>
+									<option value="3"><?php echo $language['no-payment'] ?></option>
+								</select>
+							</div>
+						</div> <!--/form-group-->
+						
+						<div class="form-group">
 							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-type'] ?>:</label>
 							<div class="col-sm-8">
 								<select class="form-control" name="paymentType" id="paymentType" required>
@@ -233,16 +244,7 @@ $result = $query->fetch_assoc();
 							</div>
 						</div> <!--/form-group-->		
 
-						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
-							<div class="col-sm-8">
-								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
-									<option value="1"><?php echo $language['full-payment'] ?></option>
-									<option value="2"><?php echo $language['partial-payment'] ?></option>
-									<option value="3"><?php echo $language['no-payment'] ?></option>
-								</select>
-							</div>
-						</div> <!--/form-group-->
+						
 					</div> <!--/col-md-6-->
 				</div>
 
@@ -345,7 +347,7 @@ $result = $query->fetch_assoc();
 			  						<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" required>
 			  							<option value="">~~<?php echo $language['select'] ?>~~</option>
 			  							<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+			  							$productSql = "SELECT * FROM product";
 			  							$productData = $connect->query($productSql);
 
 			  							while($row = $productData->fetch_array()) {									 		
@@ -370,7 +372,7 @@ $result = $query->fetch_assoc();
 									<td style="padding-left:20px;">
 										<div class="form-group text-center">
 											<?php
-											$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+											$productSql = "SELECT * FROM product";
 											$productData = $connect->query($productSql);
 
 											while($row = $productData->fetch_array()) {									 		
@@ -449,6 +451,23 @@ $result = $query->fetch_assoc();
 
 					<div class="col-md-6">
 						<div class="form-group">
+							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
+									<option value="">~~<?php echo $language['select'] ?>~~</option>
+									<option value="1" <?php if($data['payment_status'] == 1) {
+										echo "selected";
+									} ?>  ><?php echo $language['full-payment'] ?></option>
+									<option value="2" <?php if($data['payment_status'] == 2) {
+										echo "selected";
+									} ?> ><?php echo $language['partial-payment'] ?></option>
+									<option value="3" <?php if($data['payment_status'] == 3) {
+										echo "selected";
+									} ?> ><?php echo $language['no-payment'] ?></option>
+								</select>
+							</div>
+						</div> <!--/form-group-->
+						<div class="form-group">
 							<label for="paid" class="col-sm-4 control-label"><?php echo $language['paid-amount'] ?>:</label>
 							<div class="col-sm-8">
 								<input type="number" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" value="<?php echo $data['paid'] ?>"  required/>
@@ -478,23 +497,7 @@ $result = $query->fetch_assoc();
 								</select>
 							</div>
 						</div> <!--/form-group-->							  
-						<div class="form-group">
-							<label for="clientContact" class="col-sm-4 control-label"><?php echo $language['payment-status'] ?>:</label>
-							<div class="col-sm-8">
-								<select class="form-control" name="paymentStatus" id="paymentStatus" required>
-									<option value="">~~<?php echo $language['select'] ?>~~</option>
-									<option value="1" <?php if($data['payment_status'] == 1) {
-										echo "selected";
-									} ?>  ><?php echo $language['full-payment'] ?></option>
-									<option value="2" <?php if($data['payment_status'] == 2) {
-										echo "selected";
-									} ?> ><?php echo $language['partial-payment'] ?></option>
-									<option value="3" <?php if($data['payment_status'] == 3) {
-										echo "selected";
-									} ?> ><?php echo $language['no-payment'] ?></option>
-								</select>
-							</div>
-						</div> <!--/form-group-->
+						
 					</div> <!--/col-md-6-->
 				</div>
 
