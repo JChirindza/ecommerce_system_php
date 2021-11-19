@@ -49,7 +49,6 @@ function createOrder(){
 	// print_r($valid);
 	if($_POST) {	
 
-		$orderDate 			= date('Y-m-d H:i:s');	
 		$clientName 		= Sys_Secure($_POST['clientName']);
 		$clientContact 		= Sys_Secure($_POST['clientContact']);
 		$subTotalValue 		= Sys_Secure($_POST['subTotalValue']);
@@ -63,7 +62,7 @@ function createOrder(){
 		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);
 		$userid 			= Sys_Secure($_SESSION['userId']);
 
-		$sql = "INSERT INTO orders (order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_type, payment_status,order_status,user_id) VALUES ('$orderDate', '$clientName', '$clientContact', '$subTotalValue', '$vatValue', '$totalAmountValue', '$discount', '$grandTotalValue', '$paid', '$dueValue', '$paymentType', '$paymentStatus', 1, '$userid')";
+		$sql = "INSERT INTO orders (client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due, payment_type, payment_status,order_status,user_id) VALUES ('$clientName', '$clientContact', '$subTotalValue', '$vatValue', '$totalAmountValue', '$discount', '$grandTotalValue', '$paid', '$dueValue', '$paymentType', '$paymentStatus', 1, '$userid')";
 
 		$order_id;
 		$orderStatus = false;
@@ -214,7 +213,6 @@ function editOrder(){
 	if($_POST) {	
 
 		$orderId 			= Sys_Secure($_POST['orderId']);
-		$orderDate 			= date('Y-m-d H:i:s');
 		$clientName 		= Sys_Secure($_POST['clientName']);
 		$clientContact 		= Sys_Secure($_POST['clientContact']);
 		$subTotalValue 		= Sys_Secure($_POST['subTotalValue']);
@@ -228,7 +226,7 @@ function editOrder(){
 		$paymentStatus 		= Sys_Secure($_POST['paymentStatus']);
 		$userid 			= Sys_Secure($_SESSION['userId']);
 
-		$sql = "UPDATE orders SET order_date = '$orderDate', client_name = '$clientName', client_contact = '$clientContact', sub_total = '$subTotalValue', vat = '$vatValue', total_amount = '$totalAmountValue', discount = '$discount', grand_total = '$grandTotalValue', paid = '$paid', due = '$dueValue', payment_type = '$paymentType', payment_status = '$paymentStatus', order_status = 1 ,user_id = '$userid' WHERE order_id = {$orderId}";	
+		$sql = "UPDATE orders SET client_name = '$clientName', client_contact = '$clientContact', sub_total = '$subTotalValue', vat = '$vatValue', total_amount = '$totalAmountValue', discount = '$discount', grand_total = '$grandTotalValue', paid = '$paid', due = '$dueValue', payment_type = '$paymentType', payment_status = '$paymentStatus', order_status = 1 ,user_id = '$userid' WHERE order_id = {$orderId}";	
 		$connect->query($sql);
 
 		if($connect->query($sql) === TRUE) {
