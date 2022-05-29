@@ -2,15 +2,7 @@
 
 ### DASHBOARD
 
-![ecommerce-home](../images/app/ecom_home_page.png)
-
-### DASHBOARD
-
-![ecommerce-dashboard](../images/app/ecom_dashboard_page.png)
-
-### ORDERS
-
-![ecommerce-dashboard](../images/app/ecom_orders_page.png)
+![ecommerce-home](assests/images/app/ecom_home_page.png)
 
 ### Tecnologias Usadas:
 Front-End:
@@ -82,6 +74,16 @@ Administradores:
 	(i) Adicionar Novo Produto
 	(ii) Atualizar, elimanar producto
 	(iii) Confirmar pedido
+	
+__________________________
+
+### DASHBOARD
+
+![ecommerce-dashboard](assests/images/app/ecom_dashboard_page.png)
+
+### ORDERS
+
+![ecommerce-dashboard](assests/images/app/ecom_orders_page.png)
 
 ### Desenvolvedor
 
