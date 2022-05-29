@@ -1,5 +1,17 @@
 # SistemaDeVendas_ControleDeStock
 
+### DASHBOARD
+
+![ecommerce-home](../images/app/ecom_home_page.png)
+
+### DASHBOARD
+
+![ecommerce-dashboard](../images/app/ecom_dashboard_page.png)
+
+### ORDERS
+
+![ecommerce-dashboard](../images/app/ecom_orders_page.png)
+
 ### Tecnologias Usadas:
 Front-End:
 
@@ -73,4 +85,4 @@ Administradores:
 
 ### Desenvolvedor
 
-Joao Chirindza - johnchirindza@gmail.com
+Joao Chirindza -> MailTo: johnchirindza@gmail.com | Web portfolio: (https://jchirindza.vercel.app/) 
