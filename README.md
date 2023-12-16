@@ -1,36 +1,33 @@
-# SistemaDeVendas_ControleDeStock
+# SalesSystem_StockControl
 
-### DASHBOARD
+## DASHBOARD
 
-![ecommerce-home](assests/images/app/ecom_home_page.png)
+![ecommerce-home](assets/images/app/ecom_home_page.png)
 
-### Tecnologias Usadas:
-Front-End:
+## Used Technologies:
+### Front-End:
+- HTML5
+- CSS3
+- JavaScript
 
-	(i) HTML5
-	(ii) CSS3
-	(iii) JavaScript
+### Back-End:
+- PHP
+- MySQL
 
-Back-End:
+## Prerequisites
+### How to use the system
 
-	(i) PHP
-	(ii) MySQL
+1. Configure your database connection credentials in the file located in the 'dataBase' folder with the name 'store.sql';
+2. Simply execute the SQL code from the store.sql file located in the dataBase folder;
+3. Host the project on a localhost.
 
+## Files
 
-### Pre-requisitos
-Como utilizar o sistema
+### JQuery
 
-1. Configure suas credenciais de conexao com a Base de Dados no ficheiro presente na pasta 'dataBase' com nome 'loja.sql' ; <br />
-2. Basta executar o codigo sql do arquivo loja.sql presente na pasta dataBase <br />
-3. Coloque o projeto em um localhost.
+#### AJAX Search, Sort, Range, Filter & Paginate
 
-### Arquivos
-
-## JQuery
-
-### AJAX Search, Sort, Range, Filter & Paginate
-
-In this project you can Search, Sort, Filter, Range and Paginate all working together.
+In this project, you can perform Search, Sort, Filter, Range, and Pagination, all working together.
 
 1. Ajax Search
 2. Ajax Sort
@@ -39,52 +36,47 @@ In this project you can Search, Sort, Filter, Range and Paginate all working tog
 5. Ajax Pagination
 6. Ajax Refine Search
 
-### Multi Idiomas
+#### Multi Languages
 
-**MultiLanguage** site, Its contain two languages, English and Portuguese. 
+**MultiLanguage** site; It contains two languages, English and Portuguese.
 
+## Resources
 
-### Recursos
+## Features:
+### General Public Users:
+- Search for a product
+- View a product
+- Create a user account
 
-### Funcionalidades:
-Usuarios - publico no geral:
+### Authenticated Users (Employees):
+- Search Product
+- View Product
+- Create Order
+- Change Email & Password
+- View Previous Orders with UPDATE and DELETE
 
-	(i) Procurar produto
-	(ii) Ver produto
-	(iii) Criar uma conta de usuario
+### Authenticated Users (Customers):
+- Can create a shopping cart
+- Add products to the shopping cart
+- 
+- Change Email & Password
+- Can view the cart, change quantity, or remove added products
 
-Usuarios autenticado (Funcionario):
+### Administrators:
+- Add New Product
+- Update, Delete Product
+- Confirm Order
 
-	(i) Search Product
-	(ii) View Product
-	(iii) Create Order
-	(iv) Change Email & Password
-	(v) Can View Previous Order with UPDATE and DELETE
+---
 
-Usuarios autenticado (Clientes):
+## DASHBOARD
 
-	(i) Podem criar carrinho
-	(ii) Adicionar productos ao carrinho
-	(iii) 
-	(iv) Change Email & Password
-	(v) Pode ver o carrinho, alterar a quantidade ou excluir o produto adicionado
+![ecommerce-dashboard](assets/images/app/ecom_dashboard_page.png)
 
-Administradores:
+## ORDERS
 
-	(i) Adicionar Novo Produto
-	(ii) Atualizar, elimanar producto
-	(iii) Confirmar pedido
-	
-__________________________
+![ecommerce-dashboard](assets/images/app/ecom_orders_page.png)
 
-### DASHBOARD
+## Developer
 
-![ecommerce-dashboard](assests/images/app/ecom_dashboard_page.png)
-
-### ORDERS
-
-![ecommerce-dashboard](assests/images/app/ecom_orders_page.png)
-
-### Desenvolvedor
-
-Joao Chirindza -> MailTo: johnchirindza@gmail.com | Web portfolio: (https://jchirindza.vercel.app/) 
+Joao Chirindza -> MailTo: johnchirindza@gmail.com | Web portfolio: [https://jchirindza.vercel.app/](https://jchirindza.vercel.app/)
