@@ -1,8 +1,7 @@
 # SalesSystem_StockControl
 
 ## DASHBOARD
-
-![ecommerce-home](assets/images/app/ecom_home_page.png)
+![ecommerce-home](assests/images/app/ecom_home_page.png)
 
 ## Used Technologies:
 ### Front-End:
