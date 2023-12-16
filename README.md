@@ -70,11 +70,11 @@ In this project, you can perform Search, Sort, Filter, Range, and Pagination, al
 
 ## DASHBOARD
 
-![ecommerce-dashboard](assets/images/app/ecom_dashboard_page.png)
+![ecommerce-dashboard](assests/images/app/ecom_dashboard_page.png)
 
 ## ORDERS
 
-![ecommerce-dashboard](assets/images/app/ecom_orders_page.png)
+![ecommerce-dashboard](assests/images/app/ecom_orders_page.png)
 
 ## Developer
 
