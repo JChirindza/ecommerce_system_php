@@ -16,8 +16,8 @@
 ## Prerequisites
 ### How to use the system
 
-1. Configure your database connection credentials in the file located in the 'dataBase' folder with the name 'store.sql';
-2. Simply execute the SQL code from the store.sql file located in the dataBase folder;
+1. Configure your database connection credentials in the file located in the 'dataBase' folder with the name 'loja.sql';
+2. Simply execute the SQL code from the loja.sql file located in the dataBase folder;
 3. Host the project on a localhost.
 
 ## Files
